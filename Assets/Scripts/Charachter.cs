@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Charachter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Rigidbody2D charchterRigidBody;
+    [SerializeField] private float moveSpeed;
+    private Vector2Int moveRange;
+    private float HP = 0.0f;
 
-    // Update is called once per frame
-    void Update()
+    public void MoveCharchterToPosition(Vector2 targerPosition)
     {
-        
+        Vector2 Distance = targerPosition - (Vector2)transform.position;
+        charchterRigidBody.velocity = Distance * moveSpeed;
     }
 }

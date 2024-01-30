@@ -1,22 +1,25 @@
+
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+public class LevelCreator : MonoBehaviour
 {
-    public GameObject tileObject { get; private set; }
-    public Vector2Int gridSize { get; private set; }
+    [SerializeField] private Tile tileObject;
+    [SerializeField] private Vector2Int gridSize;
 
     private void Start()
     {
         CreateGrid();
     }
+
     public void CreateGrid()
     {
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Instantiate(tileObject, new Vector3(x, 0, y), Quaternion.identity);
+                Instantiate(tileObject.TilePrefab, new Vector2(x, y), Quaternion.identity);
             }
         }
     }
+
 }
