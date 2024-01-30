@@ -36,11 +36,10 @@ public class Controller : MonoBehaviour
     {
         Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
 
-        RaycastHit2D raycast = Physics2D.Raycast(Vector2.zero, pressPosition);
+        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
 
         if (raycast && raycast.collider.CompareTag("Tile"))
         {
-            Debug.Log("Raycast Hit Detected");
             charachter.MoveCharchterToPosition(raycast.point);
         }
     }

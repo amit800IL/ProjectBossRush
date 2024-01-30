@@ -9,7 +9,7 @@ public class Charachter : MonoBehaviour
 
     public void MoveCharchterToPosition(Vector2 targerPosition)
     {
-        Vector2 Distance = targerPosition - (Vector2)transform.position;
-        charchterRigidBody.velocity = Distance * moveSpeed;
+        float maxDistanceDelta = 10f;
+        charchterRigidBody.position = Vector2.MoveTowards(charchterRigidBody.position, targerPosition, maxDistanceDelta);
     }
 }
