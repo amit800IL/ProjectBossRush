@@ -3,13 +3,24 @@ using UnityEngine;
 public class Charachter : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D charchterRigidBody;
-    [SerializeField] private float moveSpeed;
-    private Vector2Int moveRange;
+    [SerializeField] private Vector2 moveRange;
     private float HP = 0.0f;
 
-    public void MoveCharchterToPosition(Vector2 targerPosition)
+    public void MoveCharchterToPosition(Vector2 targetPositionInGrid)
     {
-        float maxDistanceDelta = 10f;
-        charchterRigidBody.position = Vector2.MoveTowards(charchterRigidBody.position, targerPosition, maxDistanceDelta);
+        Vector2 targetPosition = new Vector2(targetPositionInGrid.x, targetPositionInGrid.y);
+
+        if (IsCharachterInMoveRange(targetPosition))
+        {
+            charchterRigidBody.position = targetPosition;
+        }
+    }
+    private bool IsCharachterInMoveRange(Vector2 newPosition)
+    {
+        return Mathf.Abs(newPosition.x - transform.position.x) <= moveRange.x && Mathf.Abs(newPosition.y - transform.position.y) <= moveRange.y;
     }
 }
+
+
+
+

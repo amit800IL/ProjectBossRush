@@ -3,14 +3,22 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    public Vector2 tilePosition { get; private set; }
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
     [SerializeField] private TileType tileType;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    private Vector2Int tilePosition;
+
+
 
     private void Start()
     {
-        Color[] colors = new Color[5] {Color.white, Color.red, Color.green, Color.cyan, Color.magenta};
+        tilePosition = transform.position;
+        SetTileRandomColors();
+    }
+
+    private void SetTileRandomColors()
+    {
+        Color[] colors = new Color[5] { Color.white, Color.red, Color.green, Color.cyan, Color.magenta };
 
         int randomColor = Random.Range(0, colors.Length);
 

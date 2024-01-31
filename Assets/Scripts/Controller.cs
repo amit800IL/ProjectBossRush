@@ -3,9 +3,10 @@ using UnityEngine.InputSystem;
 
 public class Controller : MonoBehaviour
 {
-    [SerializeField] private Charachter charachter;
     private BossRush inputActions;
     private Vector2 inputPosition;
+    private bool charachterMarked = false;
+    private Charachter markedCharachter;
 
     private void Start()
     {
@@ -28,19 +29,43 @@ public class Controller : MonoBehaviour
 
         if (inputAction.performed)
         {
-            MoveCharachter();
+            if (charachterMarked)
+                MoveCharachter();
+            else
+                MarkCharachter();
         }
     }
 
     private void MoveCharachter()
     {
+        if (charachterMarked && markedCharachter != null)
+        {
+            Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
+
+            RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
+
+            if (raycast && raycast.collider.CompareTag("Tile"))
+            {
+                Tile tile = raycast.collider.GetComponent<Tile>();
+                raycast.point = tile.tilePosition;
+                markedCharachter.MoveCharchterToPosition(raycast.point);
+
+                charachterMarked = false;
+                markedCharachter = null;
+            }
+        }
+    }
+
+    private void MarkCharachter()
+    {
         Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
 
         RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
 
-        if (raycast && raycast.collider.CompareTag("Tile"))
+        if (raycast && raycast.collider.CompareTag("Charachter") && !charachterMarked)
         {
-            charachter.MoveCharchterToPosition(raycast.point);
+            charachterMarked = true;
+            markedCharachter = raycast.collider.GetComponent<Charachter>();
         }
     }
 }
