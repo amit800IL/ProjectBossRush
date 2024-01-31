@@ -8,8 +8,6 @@ public class Tile : MonoBehaviour
     [SerializeField] private TileType tileType;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-
-
     private void Start()
     {
         tilePosition = transform.position;
