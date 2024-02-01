@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Controller : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private BossRush inputActions;
     private Vector2 inputPosition;
