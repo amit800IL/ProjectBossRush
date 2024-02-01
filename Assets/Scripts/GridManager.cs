@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelCreator : MonoBehaviour
+public class GridManager : MonoBehaviour
 {
     [SerializeField] private Tile tileObject;
     [SerializeField] private Vector2Int gridSize;

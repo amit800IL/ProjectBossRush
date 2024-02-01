@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 1389232239}
   - component: {fileID: 1389232238}
   m_Layer: 0
-  m_Name: LevelCreator
+  m_Name: GridManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
