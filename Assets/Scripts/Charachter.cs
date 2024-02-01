@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Charachter : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D charchterRigidBody;
     [SerializeField] private Vector2 moveRange;
     private float HP = 0.0f;
 
@@ -12,7 +11,7 @@ public class Charachter : MonoBehaviour
 
         if (IsCharachterInMoveRange(targetPosition))
         {
-            charchterRigidBody.position = targetPosition;
+            transform.position = targetPosition;
         }
     }
     private bool IsCharachterInMoveRange(Vector2 newPosition)
