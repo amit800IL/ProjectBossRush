@@ -5,8 +5,9 @@ public class PlayerController : MonoBehaviour
 {
     private BossRush inputActions;
     private Vector2 inputPosition;
-    private bool charachterMarked = false;
-    private Charachter markedCharachter;
+    [SerializeField] private Charachter markedCharachter;
+    [SerializeField] PlayerResourceManager playerResourceManager;
+    private ActionCard markedCard;
 
     private void Start()
     {
@@ -26,10 +27,13 @@ public class PlayerController : MonoBehaviour
     private void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction)
     {
         inputPosition = inputAction.ReadValue<Vector2>();
+        
 
         if (inputAction.performed)
         {
-            if (charachterMarked)
+            SelectCard();
+
+            if (markedCharachter != null)
                 MoveCharachter();
             else
                 MarkCharachter();
@@ -38,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharachter()
     {
-        if (charachterMarked && markedCharachter != null)
+        if (markedCharachter != null)
         {
             Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
 
@@ -46,12 +50,17 @@ public class PlayerController : MonoBehaviour
 
             if (raycast && raycast.collider.CompareTag("Tile"))
             {
+                Debug.Log("Started Movemenet");
+
                 Tile tile = raycast.collider.GetComponent<Tile>();
                 raycast.point = tile.tilePosition;
+                playerResourceManager.UseActionCard(markedCard);
                 markedCharachter.MoveCharchterToPosition(raycast.point);
 
-                charachterMarked = false;
                 markedCharachter = null;
+                markedCard = null;
+
+                Debug.Log("Ended Movemenet");
             }
         }
     }
@@ -62,10 +71,29 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
 
-        if (raycast && raycast.collider.CompareTag("Charachter") && !charachterMarked)
+        if (raycast && raycast.collider.CompareTag("Charachter") && markedCharachter == null)
         {
-            charachterMarked = true;
-            markedCharachter = raycast.collider.GetComponent<Charachter>();
+            if (markedCard != null)
+            {
+                Debug.Log("Started Mark");
+
+                markedCharachter = raycast.collider.GetComponent<Charachter>();
+
+                Debug.Log("Ended Mark");
+                Debug.Log(markedCharachter.name.ToString());
+            }
+        }
+    }
+
+    private void SelectCard()
+    {
+        Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
+
+        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
+
+        if (raycast && raycast.collider.CompareTag("Card"))
+        {
+            markedCard = raycast.collider.GetComponent<ActionCard>();
         }
     }
 }

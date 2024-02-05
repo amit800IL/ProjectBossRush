@@ -23,6 +23,8 @@ public class PlayerResourceManager : MonoBehaviour
     public void ChangeMovementAmount(int x)
     {
         movement += x;
+
+        Debug.Log(movement);
     }
 
     public void ChangeAttackAmount(int x)

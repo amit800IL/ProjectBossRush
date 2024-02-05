@@ -7,14 +7,14 @@ using UnityEngine.UI;
 public class ActionCard : MonoBehaviour
 {
     [SerializeField] private CardDataSO cardData;
-    [SerializeField] Image image;
+    [SerializeField] SpriteRenderer image;
     [SerializeField] TextMeshProUGUI numText;
 
 
     private void Start()
     {
         image.sprite = cardData.graphic;
-        numText.text = cardData.cardPower.ToString();
+        //numText.text = cardData.cardPower.ToString();
     }
 
     public void Use()
