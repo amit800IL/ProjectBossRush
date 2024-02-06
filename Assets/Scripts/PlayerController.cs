@@ -5,7 +5,8 @@ public class PlayerController : MonoBehaviour
 {
     private BossRush inputActions;
     private Vector2 inputPosition;
-    [SerializeField] private Charachter markedCharachter;
+    private bool charachterMarked = false;
+    private Charachter markedCharachter;
     [SerializeField] PlayerResourceManager playerResourceManager;
     private ActionCard markedCard;
 
@@ -27,13 +28,13 @@ public class PlayerController : MonoBehaviour
     private void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction)
     {
         inputPosition = inputAction.ReadValue<Vector2>();
-        
+
 
         if (inputAction.performed)
         {
-            SelectCard();
+            //SelectCard();
 
-            if (markedCharachter != null)
+            if (charachterMarked)
                 MoveCharachter();
             else
                 MarkCharachter();
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharachter()
     {
-        if (markedCharachter != null)
+        if (charachterMarked && markedCharachter != null)
         {
             Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
 
@@ -50,17 +51,13 @@ public class PlayerController : MonoBehaviour
 
             if (raycast && raycast.collider.CompareTag("Tile"))
             {
-                Debug.Log("Started Movemenet");
-
                 Tile tile = raycast.collider.GetComponent<Tile>();
                 raycast.point = tile.tilePosition;
-                playerResourceManager.UseActionCard(markedCard);
+                //playerResourceManager.UseActionCard(markedCard);
                 markedCharachter.MoveCharchterToPosition(raycast.point);
 
+                charachterMarked = false;
                 markedCharachter = null;
-                markedCard = null;
-
-                Debug.Log("Ended Movemenet");
             }
         }
     }
@@ -73,15 +70,8 @@ public class PlayerController : MonoBehaviour
 
         if (raycast && raycast.collider.CompareTag("Charachter") && markedCharachter == null)
         {
-            if (markedCard != null)
-            {
-                Debug.Log("Started Mark");
-
-                markedCharachter = raycast.collider.GetComponent<Charachter>();
-
-                Debug.Log("Ended Mark");
-                Debug.Log(markedCharachter.name.ToString());
-            }
+            charachterMarked = true;
+            markedCharachter = raycast.collider.GetComponent<Charachter>();
         }
     }
 
