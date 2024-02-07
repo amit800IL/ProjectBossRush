@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private ActionCard markedCard;
     [SerializeField] PlayerResourceManager playerResourceManager;
 
+    private LayerMask charchterMask;
+
     private void Start()
     {
         inputActions = new BossRush();
@@ -18,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
         inputActions.Player.PlayerPress.performed += OnPlayerPressOnBoard;
         inputActions.Player.PlayerPress.canceled += OnPlayerPressOnBoard;
+
+        charchterMask = LayerMask.GetMask("Charachter");
     }
 
     private void OnDisable()
@@ -71,25 +75,18 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
 
-            RaycastHit2D[] charchtersToMark = Physics2D.RaycastAll(pressPosition, Vector2.zero);
+            RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
 
-            if (charchtersToMark != null)
+            if (raycast && raycast.collider.CompareTag("Charachter"))
             {
-                foreach (RaycastHit2D raycast in charchtersToMark)
-                {
-                    if (raycast && raycast.collider.CompareTag("Charachter"))
-                    {
-                        charachterMarked = true;
-                        markedCharachter = raycast.collider.GetComponent<Charachter>();
+                charachterMarked = true;
+                markedCharachter = raycast.collider.GetComponent<Charachter>();
 
-                        Debug.Log("Charchter selected: " + markedCharachter.gameObject.name);
-                        break;
-                    }
-                }
+                Debug.Log("Charchter selected: " + markedCharachter.gameObject.name);
             }
+
         }
     }
-
     private void SelectCard()
     {
         Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);

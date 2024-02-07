@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3440523707182115380}
   - component: {fileID: 9222636796857158961}
   - component: {fileID: 7456042905767417329}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Charachter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,8 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50e75f44c4b8fc42b8385232dbadc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charchterRigidBody: {fileID: 7456042905767417329}
-  moveSpeed: 4
 --- !u!58 &9222636796857158961
 CircleCollider2D:
   m_ObjectHideFlags: 0
