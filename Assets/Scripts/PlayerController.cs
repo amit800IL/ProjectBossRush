@@ -57,14 +57,10 @@ public class PlayerController : MonoBehaviour
                 markedCharachter.MoveCharchterToPosition(raycast.point);
                 playerResourceManager.UseActionCard(markedCard);
 
-                Debug.Log(markedCharachter.transform.position);
+                charachterMarked = false;
+                cardMarked = false;
+                markedCharachter = null;
 
-                if ((Vector2)markedCharachter.transform.position == raycast.point)
-                {
-                    charachterMarked = false;
-                    cardMarked = false;
-                    markedCharachter = null;
-                }
             }
         }
     }
@@ -77,15 +73,18 @@ public class PlayerController : MonoBehaviour
 
             RaycastHit2D[] charchtersToMark = Physics2D.RaycastAll(pressPosition, Vector2.zero);
 
-            foreach (RaycastHit2D raycast in charchtersToMark)
+            if (charchtersToMark != null)
             {
-                if (raycast && raycast.collider.CompareTag("Charachter"))
+                foreach (RaycastHit2D raycast in charchtersToMark)
                 {
-                    charachterMarked = true;
-                    markedCharachter = raycast.collider.GetComponent<Charachter>();
+                    if (raycast && raycast.collider.CompareTag("Charachter"))
+                    {
+                        charachterMarked = true;
+                        markedCharachter = raycast.collider.GetComponent<Charachter>();
 
-                    Debug.Log("Charchter selected: " + markedCharachter.gameObject.name);
-                    break;
+                        Debug.Log("Charchter selected: " + markedCharachter.gameObject.name);
+                        break;
+                    }
                 }
             }
         }
