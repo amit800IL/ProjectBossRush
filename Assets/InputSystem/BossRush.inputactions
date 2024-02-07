@@ -22,7 +22,7 @@
                     "path": "<Touchscreen>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Touch",
+                    "groups": "",
                     "action": "PlayerPress",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -33,7 +33,7 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "",
                     "action": "PlayerPress",
                     "isComposite": false,
                     "isPartOfComposite": false

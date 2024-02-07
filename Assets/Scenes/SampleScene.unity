@@ -657,11 +657,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: moveRange.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: moveRange.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Color.b
@@ -1002,8 +1002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26070a9e82515fd479e9fbe50a1c27e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markedCharachter: {fileID: 0}
-  playerResourceManager: {fileID: 956611567}
 --- !u!1001 &1941405278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1018,11 +1016,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: moveRange.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: moveRange.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Color.b
