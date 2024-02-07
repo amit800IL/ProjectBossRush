@@ -5,10 +5,7 @@ public class Charachter : MonoBehaviour
     private float HP = 0.0f;
     public void MoveCharchterToPosition(Vector2 targetPositionInGrid)
     {
-        Vector2 targetPosition = new Vector2(targetPositionInGrid.x, targetPositionInGrid.y);
-
-        transform.position = targetPosition;
-
+        transform.position = targetPositionInGrid;
     }
     //private bool IsCharachterInMoveRange(Vector2 newPosition)
     //{

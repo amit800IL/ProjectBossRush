@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     private bool charachterMarked = false;
     private bool cardMarked = false;
     private Charachter markedCharachter;
-    //[SerializeField] PlayerResourceManager playerResourceManager;
+    private ActionCard markedCard;
+    [SerializeField] PlayerResourceManager playerResourceManager;
 
     private void Start()
     {
@@ -31,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
         if (inputAction.performed)
         {
+            if (!cardMarked)
+                SelectCard();
+
             if (charachterMarked)
                 MoveCharachter();
             else
@@ -46,46 +50,57 @@ public class PlayerController : MonoBehaviour
 
             RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
 
-            if (raycast && raycast.collider.gameObject.CompareTag("Tile"))
+            if (raycast && raycast.collider.CompareTag("Tile"))
             {
-                Tile tile = raycast.collider.gameObject.GetComponent<Tile>();
+                Tile tile = raycast.collider.GetComponent<Tile>();
                 raycast.point = tile.tilePosition;
                 markedCharachter.MoveCharchterToPosition(raycast.point);
+                playerResourceManager.UseActionCard(markedCard);
 
-                charachterMarked = false;
-                markedCharachter = null;
+                Debug.Log(markedCharachter.transform.position);
+
+                if ((Vector2)markedCharachter.transform.position == raycast.point)
+                {
+                    charachterMarked = false;
+                    cardMarked = false;
+                    markedCharachter = null;
+                }
             }
-
         }
     }
 
     private void MarkCharachter()
     {
-        Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
-
-        RaycastHit2D[] charchtersToMark = Physics2D.RaycastAll(pressPosition, Vector2.zero);
-
-        foreach (RaycastHit2D raycast in charchtersToMark)
+        if (cardMarked)
         {
-            if (raycast && raycast.collider.gameObject.CompareTag("Charachter"))
+            Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
+
+            RaycastHit2D[] charchtersToMark = Physics2D.RaycastAll(pressPosition, Vector2.zero);
+
+            foreach (RaycastHit2D raycast in charchtersToMark)
             {
-                charachterMarked = true;
-                markedCharachter = raycast.collider.gameObject.GetComponent<Charachter>();
-                break;
+                if (raycast && raycast.collider.CompareTag("Charachter"))
+                {
+                    charachterMarked = true;
+                    markedCharachter = raycast.collider.GetComponent<Charachter>();
+
+                    Debug.Log("Charchter selected: " + markedCharachter.gameObject.name);
+                    break;
+                }
             }
         }
-
     }
 
-    //private void SelectCard()
-    //{
-    //    Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
+    private void SelectCard()
+    {
+        Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
 
-    //    RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
+        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
 
-    //    if (raycast && raycast.collider.CompareTag("Card"))
-    //    {
-    //        markedCard = raycast.collider.GetComponent<ActionCard>();
-    //    }
-    //}
+        if (raycast && raycast.collider.CompareTag("Card"))
+        {
+            cardMarked = true;
+            markedCard = raycast.collider.GetComponent<ActionCard>();
+        }
+    }
 }
