@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private ActionCard markedCard;
     [SerializeField] PlayerResourceManager playerResourceManager;
 
+    [SerializeField] private Camera mainCamera;
+
     private LayerMask charchterMask;
 
     private void Start()
@@ -22,6 +24,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.PlayerPress.canceled += OnPlayerPressOnBoard;
 
         charchterMask = LayerMask.GetMask("Charachter");
+
+        mainCamera = Camera.main;
     }
 
     private void OnDisable()
@@ -50,7 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         if (markedCharachter != null)
         {
-            Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
+            Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
             RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
 
@@ -73,7 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (cardMarked)
         {
-            Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
+            Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
             RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
 
@@ -89,7 +93,7 @@ public class PlayerController : MonoBehaviour
     }
     private void SelectCard()
     {
-        Vector2 pressPosition = Camera.main.ScreenToWorldPoint(inputPosition);
+        Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
         RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
 

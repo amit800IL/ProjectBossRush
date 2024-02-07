@@ -1003,6 +1003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerResourceManager: {fileID: 956611567}
+  mainCamera: {fileID: 519420031}
 --- !u!1001 &1941405278
 PrefabInstance:
   m_ObjectHideFlags: 0
