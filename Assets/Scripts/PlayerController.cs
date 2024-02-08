@@ -3,17 +3,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private BossRush inputActions;
-    private Vector2 inputPosition;
-    private bool charachterMarked = false;
-    private bool cardMarked = false;
-    private Charachter markedCharachter;
-    private ActionCard markedCard;
-    [SerializeField] PlayerResourceManager playerResourceManager;
+    [Header("General Variables")]
 
+    [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
 
+    [Header("Input system")]
+
+    private BossRush inputActions;
+    private Vector2 inputPosition;
+
+    [Header("Raycast mark flags")]
+
+    private bool charachterMarked = false;
+    private bool cardMarked = false;
+
+    [Header("Game Objects")]
+
+    private Charachter markedCharachter;
+    private ActionCard markedCard;
+
+    [Header("LayerMask")]
+
     private LayerMask charchterMask;
+    private LayerMask tileMask;
+    private LayerMask cardMask;
 
     private void Start()
     {
@@ -24,6 +38,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.PlayerPress.canceled += OnPlayerPressOnBoard;
 
         charchterMask = LayerMask.GetMask("Charachter");
+        tileMask = LayerMask.GetMask("Tile");
+        cardMask = LayerMask.GetMask("Card");
 
         mainCamera = Camera.main;
     }
@@ -36,11 +52,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction)
     {
-        inputPosition = inputAction.ReadValue<Vector2>();
+        inputPosition = Mouse.current.position.ReadValue();
 
         if (inputAction.performed)
         {
-            if (!cardMarked)
+            if (!cardMarked) 
                 SelectCard();
 
             if (charachterMarked)
@@ -56,9 +72,11 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
-            RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero);
+            RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, tileMask);
 
-            if (raycast && raycast.collider.CompareTag("Tile"))
+            int movementAmount = playerResourceManager.GetMovementAmount();
+
+            if (raycast && raycast.collider.IsTouchingLayers(tileMask) && movementAmount > 0)
             {
                 Tile tile = raycast.collider.GetComponent<Tile>();
                 raycast.point = tile.tilePosition;
@@ -68,7 +86,10 @@ public class PlayerController : MonoBehaviour
                 charachterMarked = false;
                 cardMarked = false;
                 markedCharachter = null;
-
+            }
+            else
+            {
+                Debug.Log("You can't move anymore");
             }
         }
     }
@@ -81,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
             RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
 
-            if (raycast && raycast.collider.CompareTag("Charachter"))
+            if (raycast && raycast.collider.IsTouchingLayers(charchterMask))
             {
                 charachterMarked = true;
                 markedCharachter = raycast.collider.GetComponent<Charachter>();

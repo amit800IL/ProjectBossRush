@@ -4,31 +4,41 @@ using UnityEngine;
 
 public class PlayerResourceManager : MonoBehaviour
 {
-    [SerializeField] int movement;
-    [SerializeField] int attack;
-
+    [SerializeField] private int movement;
+    [SerializeField] private int attack;
 
     public void UseActionCard(ActionCard card)
     {
-        if (card.GetCardType() == CardType.Movement)
+        if (card.GetCardType() == CardType.Movement && movement > 0)
         {
-            ChangeMovementAmount(card.GetCardPower());
+            int movementAmountToDecrease = -1;
+            ChangeMovementAmount(movementAmountToDecrease);
+            
         }
-        else if (card.GetCardType() == CardType.Attack)
+        else if (card.GetCardType() == CardType.Attack && attack > 0)
         {
-            ChangeAttackAmount(card.GetCardPower());
+            int attackAmountToDecrease = -1;
+            ChangeAttackAmount(attackAmountToDecrease);
         }
     }
 
     public void ChangeMovementAmount(int x)
     {
         movement += x;
-
-        Debug.Log(movement);
     }
 
     public void ChangeAttackAmount(int x)
     {
         attack += x;
+    }
+
+    public int GetMovementAmount()
+    {
+        return movement;
+    }
+
+    public int GetAttackAmount()
+    {
+        return attack;
     }
 }

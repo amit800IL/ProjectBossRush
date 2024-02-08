@@ -524,22 +524,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveRange.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveRange.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8396108960678294777, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -582,14 +566,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Name
-      value: Charachter
-      objectReference: {fileID: 0}
-    - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_TagString
       value: Charachter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -651,34 +627,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveRange.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveRange.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_Color.g
-      value: 0.07629925
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8396108960678294777, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -723,10 +671,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charachter 2
       objectReference: {fileID: 0}
-    - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_TagString
-      value: Charachter
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -740,22 +684,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveRange.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveRange.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8396108960678294777, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -799,14 +727,6 @@ PrefabInstance:
     - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Name
       value: Charachter (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_TagString
-      value: Charachter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1012,34 +932,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveRange.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: moveRange.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_Color.g
-      value: 0.07629925
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8396108960678294777, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -1083,10 +975,6 @@ PrefabInstance:
     - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Name
       value: Charachter 2 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-      propertyPath: m_TagString
-      value: Charachter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
