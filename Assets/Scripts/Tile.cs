@@ -16,7 +16,7 @@ public class Tile : MonoBehaviour
 
     private void SetTileRandomColors()
     {
-        Color[] colors = new Color[5] { Color.white, Color.yellow, Color.green, Color.cyan, Color.magenta };
+        Color[] colors = new Color[5] { Color.white, Color.yellow, Color.black, Color.cyan, Color.magenta };
 
         int randomColor = Random.Range(0, colors.Length);
 

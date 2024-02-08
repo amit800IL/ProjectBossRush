@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerResourceManager : MonoBehaviour
@@ -13,21 +11,22 @@ public class PlayerResourceManager : MonoBehaviour
         {
             int movementAmountToDecrease = -1;
             ChangeMovementAmount(movementAmountToDecrease);
-            
+            card.ChangeCardText(movement);
         }
         else if (card.GetCardType() == CardType.Attack && attack > 0)
         {
             int attackAmountToDecrease = -1;
             ChangeAttackAmount(attackAmountToDecrease);
+            card.ChangeCardText(attack);
         }
     }
 
-    public void ChangeMovementAmount(int x)
+    private void ChangeMovementAmount(int x)
     {
         movement += x;
     }
 
-    public void ChangeAttackAmount(int x)
+    private void ChangeAttackAmount(int x)
     {
         attack += x;
     }

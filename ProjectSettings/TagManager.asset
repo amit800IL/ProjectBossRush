@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Tile
   - Charachter
-  - Card
   layers:
   - Default
   - TransparentFX
@@ -15,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Tile
-  - 
+  - Card
   - 
   - 
   - 

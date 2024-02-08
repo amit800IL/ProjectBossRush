@@ -16,7 +16,9 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Instantiate(tileObject.TilePrefab, new Vector2(x, y), Quaternion.identity);
+                Vector2 gridPosition = new Vector2(x, y) - new Vector2(1, 0);
+                Instantiate(tileObject.TilePrefab, gridPosition, Quaternion.identity);
+
             }
         }
     }
