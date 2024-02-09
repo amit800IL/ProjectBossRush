@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("General Variables")]
 
@@ -10,15 +10,13 @@ public class PlayerController : MonoBehaviour
     private int movementAmount;
 
     [Header("Input system")]
-
-    private BossRush inputActions;
+    private InputManager inputManager;
     private Vector2 inputPosition;
 
     [Header("Raycast mark flags")]
 
     private bool charachterMarked = false;
     private bool cardMarked = false;
-    private bool hasCharachterMoved = false;
 
     [Header("Game Objects")]
 
@@ -33,23 +31,22 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        inputActions = new BossRush();
-        inputActions.Enable();
+        inputManager = InputManager.Instance;
+        mainCamera = Camera.main;
 
-        inputActions.Player.PlayerPress.performed += OnPlayerPressOnBoard;
-        inputActions.Player.PlayerPress.canceled += OnPlayerPressOnBoard;
+        inputManager.InputActions.Player.PlayerPress.performed += OnPlayerPressOnBoard;
+        inputManager.InputActions.Player.PlayerPress.canceled += OnPlayerPressOnBoard;
 
         charchterMask = LayerMask.GetMask("Charachter");
         tileMask = LayerMask.GetMask("Tile");
         cardLayer = LayerMask.GetMask("Card");
 
-        mainCamera = Camera.main;
     }
 
     private void OnDisable()
     {
-        inputActions.Player.PlayerPress.performed -= OnPlayerPressOnBoard;
-        inputActions.Player.PlayerPress.canceled -= OnPlayerPressOnBoard;
+        inputManager.InputActions.Player.PlayerPress.performed -= OnPlayerPressOnBoard;
+        inputManager.InputActions.Player.PlayerPress.canceled -= OnPlayerPressOnBoard;
     }
 
     private void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction)
