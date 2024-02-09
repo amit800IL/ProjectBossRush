@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
             RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
 
-            if (IsCharachterOnTile() && (charchterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
+            if (raycast && (charchterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
             {
                 charachterMarked = true;
                 markedCharachter = raycast.collider.GetComponent<Charachter>();
