@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardPile : MonoBehaviour
+public class CardPile : MonoBehaviour //can be a generic pile of abstract cards
 {
-    List<ActionCard> cards;
+    protected List<ActionCard> cards;
 
     private void Start()
     {
@@ -21,6 +21,13 @@ public class CardPile : MonoBehaviour
             return cardToReturn;
         }
         else return null;
+    }
+
+    public ActionCard GetCard(ActionCard card)
+    {
+        ActionCard cardToReturn = card;
+        cards.Remove(card); 
+        return cardToReturn;
     }
 
     public void AddCard(ActionCard card)
