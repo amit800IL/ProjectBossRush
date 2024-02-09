@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private bool charachterMarked = false;
     private bool cardMarked = false;
+    private bool hasCharachterMoved = false;
 
     [Header("Game Objects")]
 
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     private LayerMask charchterMask;
     private LayerMask tileMask;
+    private LayerMask cardLayer;
 
     private void Start()
     {
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
         charchterMask = LayerMask.GetMask("Charachter");
         tileMask = LayerMask.GetMask("Tile");
+        cardLayer = LayerMask.GetMask("Card");
 
         mainCamera = Camera.main;
     }
@@ -96,12 +100,16 @@ public class PlayerController : MonoBehaviour
     }
     public void SelectCard()
     {
-        if (!cardMarked)
+        Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
+
+        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, cardLayer);
+
+        if (raycast && (cardLayer.value & (1 << raycast.collider.gameObject.layer)) != 0 && !cardMarked)
         {
-            cardMarked = true;
-            actionCard = FindObjectOfType<ActionCard>();
+            actionCard = raycast.collider.GetComponent<ActionCard>();
             playerResourceManager.UseActionCard(actionCard);
             actionCard.gameObject.SetActive(false);
+            cardMarked = true;
         }
     }
 

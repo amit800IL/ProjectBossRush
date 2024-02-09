@@ -5,7 +5,6 @@ public class PlayerResourceManager : MonoBehaviour
 {
     [SerializeField] private int movement;
     [SerializeField] private int attack;
-
     [SerializeField] private TextMeshProUGUI movementResourceText;
 
     public void UseActionCard(ActionCard card)
