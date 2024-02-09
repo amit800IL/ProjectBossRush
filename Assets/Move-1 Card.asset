@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7232d3119816bd244aab7be4ceca2e8e, type: 3}
-  m_Name: CardData
+  m_Name: Move-1 Card
   m_EditorClassIdentifier: 
   graphic: {fileID: 21300000, guid: 9aeb26916dd695144869bbc4b26dd654, type: 3}
   type: 0
-  cardPower: 3
+  cardPower: 1

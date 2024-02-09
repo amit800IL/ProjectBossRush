@@ -8,7 +8,6 @@ public class ActionCard : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI numText;
 
-
     private void Start()
     {
         image.sprite = cardData.graphic;
@@ -18,11 +17,6 @@ public class ActionCard : MonoBehaviour
     public int GetCardPower()
     {
         return cardData.cardPower;
-    }
-
-    public string ChangeCardText(int cardNum)
-    {
-        return numText.text = cardNum.ToString();
     }
 
     public CardType GetCardType()

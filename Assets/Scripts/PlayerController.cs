@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
+    private int movementAmount;
 
     [Header("Input system")]
 
@@ -54,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
         if (inputAction.performed)
         {
+            movementAmount = playerResourceManager.GetMovementAmount();
+
             if (charachterMarked)
                 MoveCharachter();
             else
@@ -63,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void MoveCharachter()
     {
-        if (markedCharachter != null)
+        if (markedCharachter != null && movementAmount > 0)
         {
             Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
@@ -75,13 +78,13 @@ public class PlayerController : MonoBehaviour
 
     private void MarkCharachter()
     {
-        if (cardMarked)
+        if (movementAmount > 0)
         {
             Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
             RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
 
-            if (raycast && raycast.collider.IsTouchingLayers(charchterMask))
+            if (raycast && (charchterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
             {
                 charachterMarked = true;
                 markedCharachter = raycast.collider.GetComponent<Charachter>();
@@ -97,23 +100,19 @@ public class PlayerController : MonoBehaviour
         {
             cardMarked = true;
             actionCard = FindObjectOfType<ActionCard>();
+            playerResourceManager.UseActionCard(actionCard);
+            actionCard.gameObject.SetActive(false);
         }
     }
 
     private void CharchterRaycastTileMovement(RaycastHit2D raycast)
     {
-        int movementAmount = playerResourceManager.GetMovementAmount();
-
-        if (raycast && raycast.collider.IsTouchingLayers(tileMask) && movementAmount > 0)
+        if (raycast && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0 && movementAmount > 0)
         {
             Tile tile = raycast.collider.GetComponent<Tile>();
             raycast.point = tile.tilePosition;
             markedCharachter.MoveCharchterToPosition(raycast.point);
             ResetMarkProccess(raycast);
-        }
-        else
-        {
-            Debug.Log("You can't move anymore");
         }
     }
 
@@ -121,11 +120,10 @@ public class PlayerController : MonoBehaviour
     {
         if ((Vector2)markedCharachter.transform.position == raycast.point)
         {
-            playerResourceManager.UseActionCard(actionCard);
+            playerResourceManager.UseMovementResource();
             charachterMarked = false;
-            cardMarked = false;
             markedCharachter = null;
-            actionCard = null;
+            cardMarked = false;
         }
     }
 }

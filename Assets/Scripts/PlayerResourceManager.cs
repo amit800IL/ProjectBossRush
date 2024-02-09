@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerResourceManager : MonoBehaviour
@@ -5,20 +6,31 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] private int movement;
     [SerializeField] private int attack;
 
+    [SerializeField] private TextMeshProUGUI movementResourceText;
+
     public void UseActionCard(ActionCard card)
     {
-        if (card.GetCardType() == CardType.Movement && movement > 0)
+        if (card.GetCardType() == CardType.Movement)
         {
-            int movementAmountToDecrease = -1;
-            ChangeMovementAmount(movementAmountToDecrease);
-            card.ChangeCardText(movement);
+            ChangeMovementAmount(card.GetCardPower());
+            movementResourceText.text = movement.ToString();
         }
-        else if (card.GetCardType() == CardType.Attack && attack > 0)
+        else if (card.GetCardType() == CardType.Attack)
         {
-            int attackAmountToDecrease = -1;
-            ChangeAttackAmount(attackAmountToDecrease);
-            card.ChangeCardText(attack);
+            ChangeAttackAmount(card.GetCardPower());
         }
+    }
+    public void UseMovementResource()
+    {
+        int movementAmountToDecrease = -1;
+        ChangeMovementAmount(movementAmountToDecrease);
+        movementResourceText.text = movement.ToString();
+    }
+
+    public void UseAttackResource()
+    {
+        int attackAmountToDecrease = -1;
+        ChangeAttackAmount(attackAmountToDecrease);
     }
 
     private void ChangeMovementAmount(int x)
