@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -88,12 +87,10 @@ public class PlayerController : MonoBehaviour
 
             RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
 
-            if (raycast && (charchterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
+            if (IsCharachterOnTile() && (charchterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
             {
                 charachterMarked = true;
                 markedCharachter = raycast.collider.GetComponent<Charachter>();
-
-                Debug.Log("Charchter selected: " + markedCharachter.gameObject.name);
             }
 
         }
@@ -115,7 +112,9 @@ public class PlayerController : MonoBehaviour
 
     private void CharchterRaycastTileMovement(RaycastHit2D raycast)
     {
-        if (raycast && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0 && movementAmount > 0)
+        bool isCharachterOnTile = IsCharachterOnTile();
+
+        if (raycast && !isCharachterOnTile && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0 && movementAmount > 0)
         {
             Tile tile = raycast.collider.GetComponent<Tile>();
             raycast.point = tile.tilePosition;
@@ -133,5 +132,14 @@ public class PlayerController : MonoBehaviour
             markedCharachter = null;
             cardMarked = false;
         }
+    }
+
+    private bool IsCharachterOnTile()
+    {
+        Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
+
+        RaycastHit2D charachterRaycastCheck = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
+
+        return charachterRaycastCheck;
     }
 }
