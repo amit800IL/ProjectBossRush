@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Tile : MonoBehaviour
 {
@@ -8,10 +9,24 @@ public class Tile : MonoBehaviour
     [SerializeField] private TileType tileType;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    [SerializeField] bool danger;
+    SpriteRenderer material;
+    LocalKeyword keyword;
+
     private void Start()
     {
         tilePosition = transform.position;
         SetTileRandomColors();
+
+        material = GetComponent<SpriteRenderer>();
+        var shader = spriteRenderer.material.shader;
+        keyword = new(shader, "_WARNING2");
+    }
+
+    [ContextMenu("materialUpdate")]
+    public void MaterialUpdate()
+    {
+        spriteRenderer.material.SetKeyword(keyword, danger);
     }
 
     private void SetTileRandomColors()

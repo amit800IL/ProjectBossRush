@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: a2f288b8348aab54ead349088d0239e2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   <TilePrefab>k__BackingField: {fileID: 8648337662786245942}
   tileType: 0
   spriteRenderer: {fileID: 5831030080467336696}
+  danger: 0
 --- !u!61 &759917202534242444
 BoxCollider2D:
   m_ObjectHideFlags: 0
