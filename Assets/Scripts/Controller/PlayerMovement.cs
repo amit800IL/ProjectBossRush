@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask charchterMask;
     private LayerMask tileMask;
-    private LayerMask cardLayer;
 
     private void Start()
     {
@@ -39,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
 
         charchterMask = LayerMask.GetMask("Charachter");
         tileMask = LayerMask.GetMask("Tile");
-        cardLayer = LayerMask.GetMask("Card");
 
     }
 
@@ -66,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveCharachter()
     {
-        if (markedCharachter != null && movementAmount > 0)
+        if (markedCharachter != null)
         {
             Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
@@ -78,32 +76,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void MarkCharachter()
     {
-        if (movementAmount > 0)
-        {
-            Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
-
-            RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
-
-            if (raycast && (charchterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
-            {
-                charachterMarked = true;
-                markedCharachter = raycast.collider.GetComponent<Charachter>();
-            }
-
-        }
-    }
-    public void SelectCard()
-    {
         Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
-        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, cardLayer);
+        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, charchterMask);
 
-        if (raycast && (cardLayer.value & (1 << raycast.collider.gameObject.layer)) != 0 && !cardMarked)
+        if (raycast && (charchterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
         {
-            actionCard = raycast.collider.GetComponent<ActionCard>();
-            playerResourceManager.UseActionCard(actionCard);
-            actionCard.gameObject.SetActive(false);
-            cardMarked = true;
+            charachterMarked = true;
+            markedCharachter = raycast.collider.GetComponent<Charachter>();
         }
     }
 
@@ -111,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         bool isCharachterOnTile = IsCharachterOnTile();
 
-        if (raycast && !isCharachterOnTile && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0 && movementAmount > 0)
+        if (raycast && !isCharachterOnTile && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
         {
             Tile tile = raycast.collider.GetComponent<Tile>();
             raycast.point = tile.tilePosition;
