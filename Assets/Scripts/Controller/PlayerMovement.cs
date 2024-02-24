@@ -20,13 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Game Objects")]
 
-    private Charachter markedCharachter;
-    private ActionCard actionCard;
+    private Hero markedCharachter;
 
     [Header("LayerMask")]
 
-    private LayerMask charchterMask;
-    private LayerMask tileMask;
+    [SerializeField] private LayerMask charchterMask;
+    [SerializeField] private LayerMask tileMask;
 
     private void Start()
     {
@@ -35,10 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
         inputManager.InputActions.Player.PlayerPress.performed += OnPlayerPressOnBoard;
         inputManager.InputActions.Player.PlayerPress.canceled += OnPlayerPressOnBoard;
-
-        charchterMask = LayerMask.GetMask("Charachter");
-        tileMask = LayerMask.GetMask("Tile");
-
     }
 
     private void OnDisable()
@@ -83,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         if (raycast && (charchterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
         {
             charachterMarked = true;
-            markedCharachter = raycast.collider.GetComponent<Charachter>();
+            markedCharachter = raycast.collider.GetComponent<Hero>();
         }
     }
 
@@ -95,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Tile tile = raycast.collider.GetComponent<Tile>();
             raycast.point = tile.tilePosition;
-            markedCharachter.MoveCharchterToPosition(raycast.point);
+            markedCharachter.MoveHeroToPosition(raycast.point);
             ResetMarkProccess(raycast);
         }
     }
