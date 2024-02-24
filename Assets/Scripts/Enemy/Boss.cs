@@ -22,7 +22,7 @@ public class Boss : MonoBehaviour
         enemyActions = Enum.GetValues(typeof(EnemyActions)).Cast<EnemyActions>().ToList();
     }
 
-    public void TileToAttack()
+    public void TilesToAttack()
     {
         int totalRows = tiles.GetLength(0);
         int totalColums = tiles.GetLength(1);
@@ -30,6 +30,11 @@ public class Boss : MonoBehaviour
         int randomRowCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalRows));
         int randomColumnCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalColums));
 
+        ChooseTiles(totalRows, totalColums, randomRowCount, randomColumnCount);
+    }
+
+    private void ChooseTiles(int totalRows, int totalColums, int randomRowCount, int randomColumnCount)
+    {
         for (int i = 0; i < randomRowCount; i++)
         {
             int randomRow = UnityEngine.Random.Range(0, totalRows);
@@ -72,7 +77,7 @@ public class Boss : MonoBehaviour
                 overLappedPoint.GetComponent<Hero>().HealthDown();
                 break;
             case EnemyActions.MovePlayer:
-                overLappedPoint.GetComponent<Hero>().MoveHeroToPosition(tilePosition - new Vector2(0, 1));
+                overLappedPoint.GetComponent<Hero>().MoveHeroToPosition(tilePosition - new Vector2(1, 0));
                 break;
             case EnemyActions.DoNothing:
                 Debug.Log("I have no strength in me");
