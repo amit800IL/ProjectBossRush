@@ -14,23 +14,23 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject debugMarkerPrefab;
     private Tile[,] tiles;
     private List<EnemyActions> enemyActions;
+    private int totalRows, totalColumns;
 
 
     private void Start()
     {
         tiles = gridManager.tilesGrid;
+        totalRows = tiles.GetLength(0);
+        totalColumns = tiles.GetLength(1);
         enemyActions = Enum.GetValues(typeof(EnemyActions)).Cast<EnemyActions>().ToList();
     }
 
     public void TileToAttack()
     {
-        int totalRows = tiles.GetLength(0);
-        int totalColums = tiles.GetLength(1);
-
         int randomRowCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalRows));
-        int randomColumnCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalColums));
+        int randomColumnCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalColumns));
 
-        ChooseTiles(totalRows, totalColums, randomRowCount, randomColumnCount);
+        ChooseTiles(totalRows, totalColumns, randomRowCount, randomColumnCount);
     }
 
     private void ChooseTiles(int totalRows, int totalColums, int randomRowCount, int randomColumnCount)
