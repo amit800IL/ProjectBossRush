@@ -561,7 +561,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 994719412}
         m_TargetAssemblyTypeName: Boss, Assembly-CSharp
-        m_MethodName: TileToAttack
+        m_MethodName: TilesToAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -617,6 +617,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8557911
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8396108960678294777, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -816,6 +828,9 @@ MonoBehaviour:
   defense: 20
   maxChosenTiles: 4
   minChosenTiles: 2
+  charachterMask:
+    serializedVersion: 2
+    m_Bits: 8
   debugMarkerPrefab: {fileID: 4774809326186486300, guid: 5f06d9468f5ca194aa888a17b963cf3d, type: 3}
 --- !u!1001 &1206554521
 PrefabInstance:

@@ -22,7 +22,7 @@ public class Boss : MonoBehaviour
         enemyActions = Enum.GetValues(typeof(EnemyActions)).Cast<EnemyActions>().ToList();
     }
 
-    public void TilesToAttack()
+    public void TileToAttack()
     {
         int totalRows = tiles.GetLength(0);
         int totalColums = tiles.GetLength(1);

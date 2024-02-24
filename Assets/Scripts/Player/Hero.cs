@@ -29,7 +29,7 @@ public abstract class Hero : MonoBehaviour
     public void HealthDown()
     {
         HP -= 10f;
-        Debug.Log(HP);
+        Debug.Log(gameObject.name + "Health : " + HP);
 
         if (HP == 0)
         {
