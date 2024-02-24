@@ -4,6 +4,8 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
     public BossRush InputActions { get; private set; }
+    [field: SerializeField] public LayerMask charachterMask { get; private set; }
+    [field: SerializeField] public LayerMask tileMask { get; private set; }
 
     private void Awake()
     {
@@ -19,4 +21,6 @@ public class InputManager : MonoBehaviour
         InputActions = new BossRush();
         InputActions.Enable();
     }
+
+
 }
