@@ -2,25 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hand : CardPile
+public class Hand : CardPile<ActionCard>
 {
     //List<ActionCard> cardsInHand  = new List<ActionCard>();
-    [SerializeField] CardPile deck;
-    [SerializeField] CardPile trash;
-    [SerializeField] ActionCard selectedCard;
+    [SerializeField] private CardPile<ActionCard> deck;
+    [SerializeField] private CardPile<ActionCard> trash;
+    [SerializeField] private ActionCard selectedCard;
 
     public void DrawCard()
     {
-        cards.Add(deck.GetRandomCard());
+        cards.Add(deck.GetRandom());
     }
 
     public void DrawCard(ActionCard card)
     {
-        cards.Add(card);
+        cards.Add(card.ID);
     }
 
     public void Discard()
     {
-        trash.AddCard(selectedCard);
+        trash.AddCard(selectedCard.ID);
     }
 }
