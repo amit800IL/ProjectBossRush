@@ -967,7 +967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1656751510}
-  - component: {fileID: 1656751512}
+  - component: {fileID: 1656751511}
   m_Layer: 0
   m_Name: ActionCardPile
   m_TagString: Untagged
@@ -990,7 +990,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1656751512
+--- !u!114 &1656751511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -999,13 +999,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1656751508}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 796e5769d8d450b428f94b6a9cff0916, type: 3}
+  m_Script: {fileID: 11500000, guid: 60ec8b81332518d4d9b825d24ce3f4e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cards: 
-  amountToDraw: 0
-  deck: {fileID: 11400000, guid: bbf7ee45f4b781f4cbdac305c85d13f0, type: 2}
-  ACPrefab: {fileID: 2898275190368065288, guid: de0c7a018367a214aa6cd2a340f5e470, type: 3}
+  amountToDraw: 2
+  deck: {fileID: 11400000, guid: 436dae94647393240b0871a36c7aa31f, type: 2}
+  ACPrefab: {fileID: 2082802740}
 --- !u!1 &1925247754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1221,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2082802740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2898275190368065288, guid: de0c7a018367a214aa6cd2a340f5e470, type: 3}
+  m_PrefabInstance: {fileID: 3389891809942232755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082802735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64fcc7c46925ad4a9ca4c4118b5c373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2105860899
 PrefabInstance:
   m_ObjectHideFlags: 0

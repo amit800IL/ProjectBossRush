@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +6,8 @@ public class ActionCard : Card
 {
     [SerializeField] public int ID;
     [SerializeField] private CardDataSO cardData;
-    [SerializeField] Image image;
-    [SerializeField] TextMeshProUGUI numText;
+    [SerializeField] private Image image;
+    [SerializeField] private TextMeshProUGUI numText;
 
     private void Start()
     {

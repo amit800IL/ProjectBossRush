@@ -5,14 +5,12 @@ public class PlayerResourceManager : MonoBehaviour
 {
     [SerializeField] private int movement;
     [SerializeField] private int attack;
-    [SerializeField] private TextMeshProUGUI movementResourceText;
 
     public void UseActionCard(ActionCard card)
     {
         if (card.GetCardType() == CardType.Movement)
         {
             ChangeMovementAmount(card.GetCardPower());
-            movementResourceText.text = movement.ToString();
         }
         else if (card.GetCardType() == CardType.Attack)
         {
@@ -23,7 +21,6 @@ public class PlayerResourceManager : MonoBehaviour
     {
         int movementAmountToDecrease = -1;
         ChangeMovementAmount(movementAmountToDecrease);
-        movementResourceText.text = movement.ToString();
     }
 
     public void UseAttackResource()
