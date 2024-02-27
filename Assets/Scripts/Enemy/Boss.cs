@@ -46,9 +46,9 @@ public class Boss : MonoBehaviour
                 Tile randomTile = tiles[randomRow, randomColumn];
 
                 //For debug Purposes
-                GameObject marker = Instantiate(debugMarkerPrefab, randomTile.transform.position, Quaternion.identity);
+                GameObject marker = Instantiate(debugMarkerPrefab, randomTile.tilePosition, Quaternion.identity);
 
-                CheckTileForHero(marker.transform.position);
+                CheckTileForHero(randomTile.tilePosition);
 
                 Destroy(marker, 2f);
             }
