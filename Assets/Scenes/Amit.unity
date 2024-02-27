@@ -671,7 +671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Name
-      value: Charachter
+      value: Fighter
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5791172365900400623, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 994719410}
   - component: {fileID: 994719412}
   - component: {fileID: 994719413}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -940,7 +940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Name
-      value: Charachter 3
+      value: Fighter 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1001,7 +1001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Name
-      value: Charachter 2
+      value: Fighter 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3440523707182115380, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
@@ -1279,12 +1279,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c344ca261c36a4aa15671cd569878b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <charachterMask>k__BackingField:
+  <HeroMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
-  <tileMask>k__BackingField:
+  <TileMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
+  <BossMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1572764112
 GameObject:
   m_ObjectHideFlags: 0

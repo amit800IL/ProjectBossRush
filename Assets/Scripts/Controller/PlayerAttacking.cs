@@ -6,7 +6,7 @@ public class PlayerAttacking : MonoBehaviour
     [Header("General Variables")]
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
-    private int movementAmount;
+    private int attackingAmount;
 
     [Header("Input system")]
     private InputManager inputManager;
@@ -53,14 +53,12 @@ public class PlayerAttacking : MonoBehaviour
     {
         Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
-        RaycastHit2D hit = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity);
+        RaycastHit2D raycastHit = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, inputManager.BossMask);
 
-        Debug.Log("shoot");
-
-        if (hit.collider != null)
+        if (raycastHit)
         {
-            Debug.Log("hit");
-            ActionCard card = hit.collider.GetComponent<ActionCard>();
+            Debug.Log("shoot & hit");
+            ActionCard card = raycastHit.collider.GetComponent<ActionCard>();
             playerResourceManager.UseActionCard(card);
         }
     }
@@ -69,9 +67,9 @@ public class PlayerAttacking : MonoBehaviour
     {
         Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
-        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, inputManager.charachterMask);
+        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, inputManager.HeroMask);
 
-        if (raycast && (inputManager.charachterMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
+        if (raycast && (inputManager.HeroMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
         {
             charachterMarked = true;
             markedCharachter = raycast.collider.GetComponent<Hero>();
