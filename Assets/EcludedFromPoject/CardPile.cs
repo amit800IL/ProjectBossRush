@@ -1,29 +1,47 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class CardPile : MonoBehaviour
+public class CardPile<T> : MonoBehaviour where T : Card
 {
-    List<ActionCard> cards;
+    public static event Action OnPileSizeChanged;
 
-    private void Start()
+    [SerializeField] protected List<int> cards;
+
+    [SerializeField] private int amountToDraw;
+
+    public int GetRandom()
     {
-        cards = new List<ActionCard>();
+        int rnd = Random.Range(0, cards.Count);
+        int itemToReturn = cards[rnd];
+        cards.RemoveAt(rnd);
+        return itemToReturn;
     }
 
-    public ActionCard GetRandomCard()
+    public int GetItem()
     {
-        if (cards.Count > 0)
+        int cardToReturn = cards[0];
+        cards.RemoveAt(0);
+        return cardToReturn;
+    }
+
+    public void Shuffle()
+    {
+        int currentPileSize = cards.Count;
+        List<int> tempList = new(currentPileSize);
+        int rnd;
+        for (int i = 0; i < currentPileSize; i++)
         {
-            int rnd = Random.Range(0, cards.Count);
-            ActionCard cardToReturn = cards[rnd];
+            rnd = Random.Range(0, cards.Count);
+            tempList.Add(cards[rnd]);
             cards.RemoveAt(rnd);
-            return cardToReturn;
         }
-        else return null;
+        cards = tempList;
     }
 
-    public void AddCard(ActionCard card)
+    public void AddCard(int card)
     {
         cards.Add(card);
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardData", menuName = "CardData/CardDataScriptable")]
+[CreateAssetMenu(fileName = "CardData", menuName = "ScriptableObject/CardDataScriptable")]
 public class CardDataSO : ScriptableObject
 {
     public Sprite graphic;
