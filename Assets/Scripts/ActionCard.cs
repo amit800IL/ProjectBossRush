@@ -1,18 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ActionCard : MonoBehaviour
+public class ActionCard : Card
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public int ID;
+    [SerializeField] private CardDataSO cardData;
+    [SerializeField] Image image;
+    [SerializeField] TextMeshProUGUI numText;
+
+    private void Start()
     {
-        
+        SetVisuals();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetData(CardDataSO data)
     {
-        
+        cardData = data;
+        SetVisuals();
+    }
+
+    public void SetVisuals()
+    {
+        image.sprite = cardData.graphic;
+        numText.text = cardData.cardPower.ToString();
+    }
+
+    public void Use()
+    {
+
+    }
+
+    public int GetCardPower()
+    {
+        return cardData.cardPower;
+    }
+
+    public CardType GetCardType()
+    {
+        return cardData.type;
     }
 }
