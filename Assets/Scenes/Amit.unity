@@ -1279,6 +1279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c344ca261c36a4aa15671cd569878b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <PlayerResourceManager>k__BackingField: {fileID: 956611567}
   <HeroMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 8
@@ -1364,7 +1365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26070a9e82515fd479e9fbe50a1c27e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
 --- !u!114 &1572764116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1377,8 +1377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3587cc629f76f5949aa5f957da2f1d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerResourceManager: {fileID: 956611567}
-  mainCamera: {fileID: 519420031}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

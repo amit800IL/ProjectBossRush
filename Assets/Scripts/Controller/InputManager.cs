@@ -4,6 +4,8 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
     public BossRush InputActions { get; private set; }
+    public Camera MainCamera { get; private set; }
+    [field: SerializeField] public PlayerResourceManager PlayerResourceManager { get; private set; }
     [field: SerializeField] public LayerMask HeroMask { get; private set; }
     [field: SerializeField] public LayerMask TileMask { get; private set; }
     [field: SerializeField] public LayerMask BossMask { get; private set; }
@@ -19,6 +21,7 @@ public class InputManager : MonoBehaviour
             Destroy(Instance);
         }
 
+        MainCamera = Camera.main;
         InputActions = new BossRush();
         InputActions.Enable();
     }
