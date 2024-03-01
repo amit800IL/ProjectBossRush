@@ -23,13 +23,11 @@ public abstract class PlayerAction : MonoBehaviour
         inputManager = InputManager.Instance;
 
         inputManager.InputActions.Player.PlayerPress.performed += OnPlayerPressOnBoard;
-        inputManager.InputActions.Player.PlayerPress.canceled += OnPlayerPressOnBoard;
     }
 
     protected void OnDisable()
     {
         inputManager.InputActions.Player.PlayerPress.performed -= OnPlayerPressOnBoard;
-        inputManager.InputActions.Player.PlayerPress.canceled -= OnPlayerPressOnBoard;
     }
 
     protected abstract void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction);
