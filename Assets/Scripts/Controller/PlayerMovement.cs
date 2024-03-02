@@ -3,13 +3,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : PlayerAction
 {
-    protected override void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction)
+    protected override void Start()
+    {
+        base.Start();
+        inputManager.InputActions.Player.PlayerPress.performed += OnPlayerMove;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.InputActions.Player.PlayerPress.performed -= OnPlayerMove;
+    }
+
+    private void OnPlayerMove(InputAction.CallbackContext inputAction)
     {
         inputPosition = Mouse.current.position.ReadValue();
 
         if (inputAction.performed)
         {
-            if (charachterMarked)
+            if (heroMarked)
                 MoveCharachter();
             else
                 MarkCharachter();
@@ -23,7 +34,7 @@ public class PlayerMovement : PlayerAction
         {
             Tile tile = raycast.collider.GetComponent<Tile>();
             raycast.point = tile.tilePosition;
-            markedCharachter.MoveHeroToPosition(raycast.point);
+            markedHero.MoveHeroToPosition(raycast.point);
             ResetMarkProccess(raycast);
         }
 
@@ -31,13 +42,24 @@ public class PlayerMovement : PlayerAction
 
     private void MoveCharachter()
     {
-        if (markedCharachter != null && charachterMarked)
+        if (markedHero != null && heroMarked)
         {
             Vector2 pressPosition = inputManager.MainCamera.ScreenToWorldPoint(inputPosition);
 
             RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, inputManager.TileMask);
 
             CharchterRaycastTileMovement(raycast);
+        }
+    }
+
+    protected override void ResetMarkProccess(RaycastHit2D raycast)
+    {
+        if ((Vector2)markedHero.transform.position == raycast.point)
+        {
+            heroMarked = false;
+            markedHero = null;
+            cardMarked = false;
+            HasPlayerDoneAction = true;
         }
     }
 

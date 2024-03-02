@@ -28,15 +28,6 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
             ""id"": ""0509f66c-1225-43ce-b0cf-b4bd48956031"",
             ""actions"": [
                 {
-                    ""name"": ""PlayerTouch"",
-                    ""type"": ""Value"",
-                    ""id"": ""547e1521-ec6c-4545-b8a0-914959b236ec"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""PlayerPress"",
                     ""type"": ""Button"",
                     ""id"": ""94100c50-b49d-4c18-9f61-9a3aa5a4577f"",
@@ -47,17 +38,6 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""e1f6d7ed-c7d3-4264-8d19-a7925ca3ca11"",
-                    ""path"": ""<Touchscreen>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PlayerTouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""db2909d0-0d91-43f3-a6a3-10b87ab9a24b"",
@@ -653,7 +633,6 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_PlayerTouch = m_Player.FindAction("PlayerTouch", throwIfNotFound: true);
         m_Player_PlayerPress = m_Player.FindAction("PlayerPress", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -728,13 +707,11 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_PlayerTouch;
     private readonly InputAction m_Player_PlayerPress;
     public struct PlayerActions
     {
         private @BossRush m_Wrapper;
         public PlayerActions(@BossRush wrapper) { m_Wrapper = wrapper; }
-        public InputAction @PlayerTouch => m_Wrapper.m_Player_PlayerTouch;
         public InputAction @PlayerPress => m_Wrapper.m_Player_PlayerPress;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -745,9 +722,6 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @PlayerTouch.started += instance.OnPlayerTouch;
-            @PlayerTouch.performed += instance.OnPlayerTouch;
-            @PlayerTouch.canceled += instance.OnPlayerTouch;
             @PlayerPress.started += instance.OnPlayerPress;
             @PlayerPress.performed += instance.OnPlayerPress;
             @PlayerPress.canceled += instance.OnPlayerPress;
@@ -755,9 +729,6 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @PlayerTouch.started -= instance.OnPlayerTouch;
-            @PlayerTouch.performed -= instance.OnPlayerTouch;
-            @PlayerTouch.canceled -= instance.OnPlayerTouch;
             @PlayerPress.started -= instance.OnPlayerPress;
             @PlayerPress.performed -= instance.OnPlayerPress;
             @PlayerPress.canceled -= instance.OnPlayerPress;
@@ -943,7 +914,6 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnPlayerTouch(InputAction.CallbackContext context);
         void OnPlayerPress(InputAction.CallbackContext context);
     }
     public interface IUIActions

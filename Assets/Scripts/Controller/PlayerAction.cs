@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public abstract class PlayerAction : MonoBehaviour
 {
@@ -11,26 +10,18 @@ public abstract class PlayerAction : MonoBehaviour
 
     [Header("Raycast mark flags")]
 
-    protected bool charachterMarked = false;
+    protected bool heroMarked = false;
     protected bool cardMarked = false;
 
     [Header("Game Objects")]
 
-    protected Hero markedCharachter;
+    protected Hero markedHero;
 
-    protected void Start()
+    protected virtual void Start()
     {
         inputManager = InputManager.Instance;
-
-        inputManager.InputActions.Player.PlayerPress.performed += OnPlayerPressOnBoard;
     }
 
-    protected void OnDisable()
-    {
-        inputManager.InputActions.Player.PlayerPress.performed -= OnPlayerPressOnBoard;
-    }
-
-    protected abstract void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction);
     protected void MarkCharachter()
     {
         Vector2 pressPosition = inputManager.MainCamera.ScreenToWorldPoint(inputPosition);
@@ -39,8 +30,8 @@ public abstract class PlayerAction : MonoBehaviour
 
         if (raycast && (inputManager.HeroMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
         {
-            charachterMarked = true;
-            markedCharachter = raycast.collider.GetComponent<Hero>();
+            heroMarked = true;
+            markedHero = raycast.collider.GetComponent<Hero>();
         }
     }
 
@@ -53,16 +44,7 @@ public abstract class PlayerAction : MonoBehaviour
         return charachterRaycastCheck;
     }
 
-    protected virtual void ResetMarkProccess(RaycastHit2D raycast)
-    {
-        if ((Vector2)markedCharachter.transform.position == raycast.point && charachterMarked)
-        {
-            charachterMarked = false;
-            markedCharachter = null;
-            cardMarked = false;
-            HasPlayerDoneAction = true;
-        }
-    }
+    protected abstract void ResetMarkProccess(RaycastHit2D raycast);
 
     public void PlayerRestart()
     {

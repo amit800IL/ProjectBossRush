@@ -4,13 +4,25 @@ using UnityEngine.InputSystem;
 public class PlayerAttacking : PlayerAction
 {
     [SerializeField] private Boss boss;
-    protected override void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction)
+
+    protected override void Start()
+    {
+        base.Start();
+        inputManager.InputActions.Player.PlayerPress.performed += OnPlayerAttack;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.InputActions.Player.PlayerPress.performed -= OnPlayerAttack;
+    }
+
+    private void OnPlayerAttack(InputAction.CallbackContext inputAction)
     {
         inputPosition = Mouse.current.position.ReadValue();
 
         if (inputAction.performed)
         {
-            if (charachterMarked)
+            if (heroMarked)
                 PlayerAttack();
             else
                 MarkCharachter();
@@ -23,13 +35,22 @@ public class PlayerAttacking : PlayerAction
 
         RaycastHit2D raycastHit = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, inputManager.BossMask);
 
-        if (raycastHit)
+        if (markedHero != null && heroMarked && raycastHit)
         {
-            Debug.Log("shoot & hit");
             //ActionCard card = raycastHit.collider.GetComponent<ActionCard>();
             //inputManager.PlayerResourceManager.UseActionCard(card);
 
-            boss.TakeDamage(50);
+            boss.TakeDamage(10);
+
+            ResetMarkProccess(raycastHit);
         }
+    }
+
+    protected override void ResetMarkProccess(RaycastHit2D raycast)
+    {
+        heroMarked = false;
+        markedHero = null;
+        cardMarked = false;
+        HasPlayerDoneAction = true;
     }
 }

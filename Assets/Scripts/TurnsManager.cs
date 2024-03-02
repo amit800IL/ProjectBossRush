@@ -1,9 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnsManager : MonoBehaviour
 {
-    [SerializeField] private PlayerAction playerAction;
+    [SerializeField] private List<PlayerAction> playerAction;
     [SerializeField] private Boss boss;
 
     private Coroutine combatTurnsCoroutine;
@@ -27,17 +28,29 @@ public class TurnsManager : MonoBehaviour
         while (boss.IsBossAlive)
         {
             boss.BossRestart();
-            playerAction.PlayerRestart();
+
+            yield return new WaitUntil(() => !boss.HasBossAttacked);
 
             if (!boss.HasBossAttacked)
             {
+                Debug.Log("Searach tiles");
                 boss.SearchTiles();
+            }
 
+            foreach (PlayerAction playerAction in playerAction)
+            {
+                playerAction.PlayerRestart();
+                Debug.Log("Wait for player");
                 yield return new WaitUntil(() => playerAction.HasPlayerDoneAction);
+                Debug.Log("Player done");
+            }
 
+            if (!boss.HasBossAttacked)
+            {
                 boss.AttackTile(boss.RandomTile.tilePosition);
-
+                Debug.Log("Attack tile");
                 yield return new WaitUntil(() => boss.HasBossAttacked);
+                Debug.Log("tile marked as attacked");
             }
         }
 
