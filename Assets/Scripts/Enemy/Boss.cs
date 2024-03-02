@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public bool IsBossAlive { get; private set; } = true;
+    public Tile RandomTile { get; private set; }
+    public bool HasBossAttacked { get; private set; } = false;
 
     [SerializeField] private GridManager gridManager;
     [SerializeField] private float HP = 0.0f;
@@ -13,12 +16,10 @@ public class Boss : MonoBehaviour
     [SerializeField] private int maxChosenTiles, minChosenTiles;
     [SerializeField] private LayerMask charachterMask;
     [SerializeField] private GameObject debugMarkerPrefab;
+
     private Tile[,] tiles;
     private List<EnemyActions> enemyActions;
     private int totalRows, totalColumns;
-    public bool IsBossAlive { get; private set; } = true;
-    public Tile RandomTile { get; private set; }
-    public bool HasBossAttacked { get; private set; } = false;
 
     private void Start()
     {
