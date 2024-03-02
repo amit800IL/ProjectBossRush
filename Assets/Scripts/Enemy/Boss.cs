@@ -18,7 +18,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject debugMarkerPrefab;
 
     private Tile[,] tiles;
-    private List<EnemyActions> enemyActions;
+    [SerializeField] private List<EnemyActions> enemyActions;
     private int totalRows, totalColumns;
 
     private void Start()
@@ -128,5 +128,10 @@ public enum EnemyActions
     DoNothing,
     MovePlayer,
     Attack,
+}
+
+public class BossAction
+{
+
 }
 

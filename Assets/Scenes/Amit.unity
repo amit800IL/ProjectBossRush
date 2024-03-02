@@ -159,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -384, y: 0}
+  m_AnchoredPosition: {x: 634, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &97834657
@@ -483,6 +483,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: <Damage>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Color.b
       value: 0.8557911
@@ -798,6 +802,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: <Damage>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -867,6 +875,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: <Damage>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5831030080467336696, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_Color.g
       value: 0.28729835

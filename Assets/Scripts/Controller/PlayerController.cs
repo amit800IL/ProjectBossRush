@@ -78,6 +78,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void ResetMarkProccess()
+    {
+        heroMarked = false;
+        markedHero = null;
+        cardMarked = false;
+        HasPlayerDoneAction = true;
+    }
     private void ResetMarkProccess(RaycastHit2D raycast)
     {
         if ((Vector2)markedHero.transform.position == raycast.point)
@@ -118,13 +125,15 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAttack()
     {
-        if (markedHero != null && heroMarked)
+        if (boss.IsBossAlive && markedHero != null && heroMarked)
         {
             Debug.Log("shoot & hit");
 
-            boss.TakeDamage(10);
+            boss.TakeDamage(markedHero.Damage);
 
-            HasPlayerDoneAction = true;    
+            HasPlayerDoneAction = true;
+
+            ResetMarkProccess();
         }
     }
 
