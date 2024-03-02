@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttacking : PlayerAction
 {
+    [SerializeField] private Boss boss;
     protected override void OnPlayerPressOnBoard(InputAction.CallbackContext inputAction)
     {
         inputPosition = Mouse.current.position.ReadValue();
@@ -25,9 +26,10 @@ public class PlayerAttacking : PlayerAction
         if (raycastHit)
         {
             Debug.Log("shoot & hit");
-            ActionCard card = raycastHit.collider.GetComponent<ActionCard>();
-            inputManager.PlayerResourceManager.UseActionCard(card);
+            //ActionCard card = raycastHit.collider.GetComponent<ActionCard>();
+            //inputManager.PlayerResourceManager.UseActionCard(card);
+
+            boss.TakeDamage(50);
         }
     }
-
 }

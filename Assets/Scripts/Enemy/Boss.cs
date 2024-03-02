@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+
     [SerializeField] private GridManager gridManager;
     [SerializeField] private float HP = 0.0f;
     [SerializeField] private float damage = 0.0f;
@@ -15,7 +16,9 @@ public class Boss : MonoBehaviour
     private Tile[,] tiles;
     private List<EnemyActions> enemyActions;
     private int totalRows, totalColumns;
-
+    public bool IsBossAlive { get; private set; } = true;
+    public Tile RandomTile { get; private set; }
+    public bool HasBossAttacked { get; private set; } = false;
 
     private void Start()
     {
@@ -25,7 +28,23 @@ public class Boss : MonoBehaviour
         enemyActions = Enum.GetValues(typeof(EnemyActions)).Cast<EnemyActions>().ToList();
     }
 
-    public void TileToAttack()
+    public void BossRestart()
+    {
+        HasBossAttacked = false;
+    }
+
+    public void TakeDamage(float takenDamage)
+    {
+        HP -= takenDamage;
+
+        if (HP <= 0)
+        {
+            IsBossAlive = false;
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void SearchTiles()
     {
         int randomRowCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalRows));
         int randomColumnCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalColumns));
@@ -43,20 +62,16 @@ public class Boss : MonoBehaviour
             {
                 int randomColumn = UnityEngine.Random.Range(0, totalColums);
 
-                Tile randomTile = tiles[randomRow, randomColumn];
-
-                Vector2 tilePosition = randomTile.tilePosition;
+                RandomTile = tiles[randomRow, randomColumn];
                 //For debug Purposes
-                GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, Quaternion.identity);
-
-                CheckTileForHero(tilePosition);
+                GameObject marker = Instantiate(debugMarkerPrefab, RandomTile.tilePosition, Quaternion.identity);
 
                 Destroy(marker, 2f);
             }
         }
     }
 
-    private void CheckTileForHero(Vector2 tilePosition)
+    public void AttackTile(Vector2 tilePosition)
     {
         Collider2D overLappedPoint = Physics2D.OverlapPoint(tilePosition, charachterMask);
 
@@ -64,6 +79,8 @@ public class Boss : MonoBehaviour
         {
             DoActionOnTile(tilePosition, overLappedPoint);
         }
+
+        HasBossAttacked = true;
     }
 
     private void DoActionOnTile(Vector2 tilePosition, Collider2D overLappedPoint)

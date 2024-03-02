@@ -15,19 +15,6 @@ public class PlayerMovement : PlayerAction
                 MarkCharachter();
         }
     }
-
-    private void MoveCharachter()
-    {
-        if (markedCharachter != null)
-        {
-            Vector2 pressPosition = inputManager.MainCamera.ScreenToWorldPoint(inputPosition);
-
-            RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, inputManager.TileMask);
-
-            CharchterRaycastTileMovement(raycast);
-        }
-    }
-
     private void CharchterRaycastTileMovement(RaycastHit2D raycast)
     {
         bool isCharachterOnTile = IsCharachterOnTile();
@@ -39,5 +26,19 @@ public class PlayerMovement : PlayerAction
             markedCharachter.MoveHeroToPosition(raycast.point);
             ResetMarkProccess(raycast);
         }
+
     }
+
+    private void MoveCharachter()
+    {
+        if (markedCharachter != null && charachterMarked)
+        {
+            Vector2 pressPosition = inputManager.MainCamera.ScreenToWorldPoint(inputPosition);
+
+            RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, inputManager.TileMask);
+
+            CharchterRaycastTileMovement(raycast);
+        }
+    }
+
 }

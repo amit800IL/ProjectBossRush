@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public abstract class PlayerAction : MonoBehaviour
 {
+    public bool HasPlayerDoneAction { get; protected set; } = false;
+
     [Header("Input system")]
     protected InputManager inputManager;
     protected Vector2 inputPosition;
@@ -55,11 +55,17 @@ public abstract class PlayerAction : MonoBehaviour
 
     protected virtual void ResetMarkProccess(RaycastHit2D raycast)
     {
-        if ((Vector2)markedCharachter.transform.position == raycast.point)
+        if ((Vector2)markedCharachter.transform.position == raycast.point && charachterMarked)
         {
             charachterMarked = false;
             markedCharachter = null;
             cardMarked = false;
+            HasPlayerDoneAction = true;
         }
+    }
+
+    public void PlayerRestart()
+    {
+        HasPlayerDoneAction = false;
     }
 }
