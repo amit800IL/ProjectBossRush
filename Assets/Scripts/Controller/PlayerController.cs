@@ -118,11 +118,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAttack()
     {
-        Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
-
-        RaycastHit2D raycastHit = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, bossMask);
-
-        if (markedHero != null && heroMarked && raycastHit)
+        if (markedHero != null && heroMarked)
         {
             Debug.Log("shoot & hit");
 
