@@ -32,7 +32,7 @@ public class TurnsManager : MonoBehaviour
 
             if (!boss.HasBossAttacked)
             {
-                boss.SearchTiles();
+                boss.VisualizeBossActions();
             }
 
             controller.PlayerRestart();
@@ -40,11 +40,10 @@ public class TurnsManager : MonoBehaviour
 
             if (!boss.HasBossAttacked)
             {
-                boss.AttackTile(boss.RandomTile.tilePosition);
+                boss.AttackTile();
                 yield return new WaitUntil(() => boss.HasBossAttacked);
             }
         }
 
     }
-
 }

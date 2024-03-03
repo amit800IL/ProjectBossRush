@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
     public bool IsBossAlive { get; private set; } = true;
-    public Tile RandomTile { get; private set; }
     public bool HasBossAttacked { get; private set; } = false;
 
     [SerializeField] private GridManager gridManager;
@@ -17,17 +14,9 @@ public class Boss : MonoBehaviour
     [SerializeField] private LayerMask charachterMask;
     [SerializeField] private GameObject debugMarkerPrefab;
 
-    private Tile[,] tiles;
-    [SerializeField] private List<EnemyActions> enemyActions;
-    private int totalRows, totalColumns;
+    [SerializeField] private List<BossAction> enemyActions;
 
-    private void Start()
-    {
-        tiles = gridManager.tilesGrid;
-        totalRows = tiles.GetLength(0);
-        totalColumns = tiles.GetLength(1);
-        enemyActions = Enum.GetValues(typeof(EnemyActions)).Cast<EnemyActions>().ToList();
-    }
+    private int attackIndex = 0;
 
     public void BossRestart()
     {
@@ -45,52 +34,68 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public void SearchTiles()
+    public void VisualizeBossActions()
     {
-        int randomRowCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalRows));
-        int randomColumnCount = UnityEngine.Random.Range(minChosenTiles, Mathf.Min(maxChosenTiles, totalColumns));
-
-        ChooseTiles(totalRows, totalColumns, randomRowCount, randomColumnCount);
-    }
-
-    private void ChooseTiles(int totalRows, int totalColums, int randomRowCount, int randomColumnCount)
-    {
-        for (int i = 0; i < randomRowCount; i++)
+        foreach (BossAction action in enemyActions)
         {
-            int randomRow = UnityEngine.Random.Range(0, totalRows);
-
-            for (int j = 0; j < randomColumnCount; j++)
+            if (action == enemyActions[attackIndex])
             {
-                int randomColumn = UnityEngine.Random.Range(0, totalColums);
-
-                RandomTile = tiles[randomRow, randomColumn];
-                //For debug Purposes
-                GameObject marker = Instantiate(debugMarkerPrefab, RandomTile.tilePosition, Quaternion.identity);
-
-                Destroy(marker, 2f);
+                foreach (Tile markerPosition in action.Tiles)
+                {
+                    GameObject marker = Instantiate(debugMarkerPrefab, markerPosition.tilePosition, Quaternion.identity);
+                    Destroy(marker, 2f);
+                }
             }
         }
     }
 
-    public void AttackTile(Vector2 tilePosition)
+    public void AttackTile()
     {
-        Collider2D overLappedPoint = Physics2D.OverlapPoint(tilePosition, charachterMask);
-
-        if (overLappedPoint != null)
+        foreach (BossAction action in enemyActions)
         {
-            DoActionOnTile(tilePosition, overLappedPoint);
+            if (action == enemyActions[attackIndex])
+            {
+                foreach (Tile tile in action.Tiles)
+                {
+                    if (action.Tiles.Contains(tile))
+                    {
+                        Collider2D overLappedPoint = Physics2D.OverlapPoint(tile.tilePosition, charachterMask);
+
+                        if (overLappedPoint != null)
+                        {
+                            DoActionOnTile(tile.tilePosition, overLappedPoint);
+                        }
+                    }
+                }
+            }
+        }
+
+        attackIndex++;
+    }
+
+    private void DoActionOnTile(Vector2 tilePosition, Collider2D overLappedPoint)
+    {
+        foreach (BossAction action in enemyActions)
+        {
+            if (action == enemyActions[attackIndex])
+            {
+                foreach (Tile tile in action.Tiles)
+                {
+                    if (action.Tiles.Contains(tile))
+                    {
+                        PerformAction(tilePosition, action, overLappedPoint);
+                        break;
+                    }
+                }
+            }
         }
 
         HasBossAttacked = true;
     }
 
-    private void DoActionOnTile(Vector2 tilePosition, Collider2D overLappedPoint)
+    private void PerformAction(Vector2 tilePosition, BossAction action, Collider2D overLappedPoint)
     {
-        enemyActions = Shuffle(enemyActions);
-
-        EnemyActions chooseRandomAction = enemyActions[0];
-
-        switch (chooseRandomAction)
+        switch (action.EnemyAction)
         {
             case EnemyActions.Attack:
                 overLappedPoint.GetComponent<Hero>().HealthDown();
@@ -103,24 +108,6 @@ public class Boss : MonoBehaviour
                 break;
         }
     }
-
-    private List<T> Shuffle<T>(List<T> list)
-    {
-        int n = list.Count;
-
-        while (n > 1)
-        {
-            n--;
-            int k = UnityEngine.Random.Range(0, n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
-        }
-
-        Debug.Log("Shuffled List: " + string.Join(", ", list.Select(x => x.ToString()).ToArray()));
-
-        return list;
-    }
 }
 
 public enum EnemyActions
@@ -130,8 +117,13 @@ public enum EnemyActions
     Attack,
 }
 
+[System.Serializable]
 public class BossAction
 {
+    [field: SerializeField] private EnemyActions enemyAction;
+    [field: SerializeField] private List<Tile> tiles;
 
+    public EnemyActions EnemyAction { get => enemyAction; private set => enemyAction = value; }
+    public List<Tile> Tiles { get => tiles; private set => tiles = value; }
 }
 

@@ -10,7 +10,6 @@ public class GridManager : MonoBehaviour
     {
         CreateGrid();
     }
-
     public void CreateGrid()
     {
         tilesGrid = new Tile[gridSize.x, gridSize.y];
