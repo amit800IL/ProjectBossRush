@@ -593,7 +593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cded3e068be9d874bb309dba02ce4d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1572764115}
   boss: {fileID: 994719414}
 --- !u!1 &956611566
 GameObject:
@@ -1244,6 +1243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26070a9e82515fd479e9fbe50a1c27e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroesManager: {fileID: 0}
   PlayerResourceManager: {fileID: 956611567}
   mainCamera: {fileID: 519420031}
   boss: {fileID: 994719414}
@@ -1475,7 +1475,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 864463197}
         m_TargetAssemblyTypeName: TurnsManager, Assembly-CSharp
-        m_MethodName: EndTurn
+        m_MethodName: EndPlayerTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
