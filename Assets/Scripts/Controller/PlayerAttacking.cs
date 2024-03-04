@@ -59,7 +59,7 @@ public class PlayerAttacking : MonoBehaviour
         {
             Debug.Log("shoot & hit");
             ActionCard card = raycastHit.collider.GetComponent<ActionCard>();
-            playerResourceManager.UseActionCard(card);
+            //playerResourceManager.UseActionCard(card);
         }
     }
 

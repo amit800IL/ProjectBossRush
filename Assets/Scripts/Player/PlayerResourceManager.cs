@@ -1,51 +1,86 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class PlayerResourceManager : MonoBehaviour
 {
-    [SerializeField] private int movement;
-    [SerializeField] private int attack;
+    public static event Action<int> OnAPChanged;
 
-    public void UseActionCard(ActionCard card)
+    [SerializeField] SymbolTable symbolCharge = new();
+    [SerializeField] private int maxAP;
+    [SerializeField] private int AP;
+
+    SymbolTable testTable = new SymbolTable(1);
+
+    private void Start()
     {
-        if (card.GetCardType() == CardType.Movement)
+        InitAP();
+    }
+
+    #region symbols
+    public void AddSymbols(SymbolTable toAdd)
+    {
+        symbolCharge.Add(toAdd);
+    }
+
+    [ContextMenu("add test table")]
+    public void AddTestTable()
+    {
+        AddSymbols(testTable);
+    }
+
+    [ContextMenu("print table")]
+    public void PrintSymbols()
+    {
+        symbolCharge.PrintTable();
+    }
+
+    [ContextMenu("check contains")]
+    public void CheckContains()
+    {
+        print(symbolCharge.Contains(testTable));
+    }
+
+    //public bool UseSymbols(int type, int amount)
+    //{
+    //    if(symbolCharge[type]>=amount)
+    //    {
+    //        symbolCharge[type]-=amount;
+    //        return true;
+    //    }
+    //    return false;
+    //}
+    #endregion
+
+    #region AP
+    private void InitAP()
+    {
+        //get maxAP as AP sum from party
+        //temp
+        maxAP = 4;
+    }
+
+    public void ResetAP()
+    {
+        AP = maxAP;
+        OnAPChanged.Invoke(AP);
+    }
+
+    public bool UseAP(int amount)
+    {
+        if (AP > amount)
         {
-            ChangeMovementAmount(card.GetCardPower());
+            AP -= amount;
+            OnAPChanged.Invoke(AP);
+            return true;
         }
-        else if (card.GetCardType() == CardType.Attack)
-        {
-            ChangeAttackAmount(card.GetCardPower());
-        }
-    }
-    public void UseMovementResource()
-    {
-        int movementAmountToDecrease = -1;
-        ChangeMovementAmount(movementAmountToDecrease);
+        return false;
     }
 
-    public void UseAttackResource()
+    public void ModifyAP(int amount)
     {
-        int attackAmountToDecrease = -1;
-        ChangeAttackAmount(attackAmountToDecrease);
+        maxAP = amount;
     }
 
-    private void ChangeMovementAmount(int x)
-    {
-        movement += x;
-    }
-
-    private void ChangeAttackAmount(int x)
-    {
-        attack += x;
-    }
-
-    public int GetMovementAmount()
-    {
-        return movement;
-    }
-
-    public int GetAttackAmount()
-    {
-        return attack;
-    }
+    #endregion
 }
