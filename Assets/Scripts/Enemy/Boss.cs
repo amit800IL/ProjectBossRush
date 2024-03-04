@@ -10,11 +10,10 @@ public class Boss : MonoBehaviour
     [SerializeField] private float HP = 0.0f;
     [SerializeField] private float damage = 0.0f;
     [SerializeField] private float defense = 0.0f;
-    [SerializeField] private int maxChosenTiles, minChosenTiles;
     [SerializeField] private LayerMask charachterMask;
     [SerializeField] private GameObject debugMarkerPrefab;
-
     [SerializeField] private List<BossAction> enemyActions;
+
 
     private int attackIndex = 0;
 

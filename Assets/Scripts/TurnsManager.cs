@@ -7,9 +7,22 @@ public class TurnsManager : MonoBehaviour
     [SerializeField] private Boss boss;
 
     private Coroutine combatTurnsCoroutine;
+
+    private bool isPlayerTurnActive = false;
+
     private void Start()
     {
         combatTurnsCoroutine = StartCoroutine(CombatTurns());
+    }
+    public void EndTurn()
+    {
+        isPlayerTurnActive = false;
+        Debug.Log(isPlayerTurnActive);
+    }
+    private void StartTurn()
+    {
+        isPlayerTurnActive = true;
+        Debug.Log(isPlayerTurnActive);
     }
 
     private void OnDisable()
@@ -35,8 +48,9 @@ public class TurnsManager : MonoBehaviour
                 boss.VisualizeBossActions();
             }
 
-            controller.PlayerRestart();
-            yield return new WaitUntil(() => controller.HasPlayerDoneAction);
+            StartTurn();
+
+            yield return new WaitUntil(() => !isPlayerTurnActive);
 
             if (!boss.HasBossAttacked)
             {

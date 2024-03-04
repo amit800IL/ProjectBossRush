@@ -125,11 +125,11 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAttack()
     {
-        if (boss.IsBossAlive && markedHero != null && heroMarked)
+        if (boss.IsBossAlive)
         {
             Debug.Log("shoot & hit");
 
-            boss.TakeDamage(markedHero.Damage);
+            boss.TakeDamage(10);
 
             HasPlayerDoneAction = true;
 

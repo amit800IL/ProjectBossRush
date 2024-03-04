@@ -1038,8 +1038,6 @@ MonoBehaviour:
   HP: 100
   damage: 10
   defense: 15
-  maxChosenTiles: 2
-  minChosenTiles: 4
   charachterMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1712,7 +1710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerResourceManager: {fileID: 956611567}
   mainCamera: {fileID: 519420031}
-  boss: {fileID: 0}
+  boss: {fileID: 994719414}
   heroMask:
     serializedVersion: 2
     m_Bits: 8
