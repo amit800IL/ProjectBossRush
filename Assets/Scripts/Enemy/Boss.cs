@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Boss : MonoBehaviour
 {
@@ -12,8 +13,9 @@ public class Boss : MonoBehaviour
     [SerializeField] private float defense = 0.0f;
     [SerializeField] private LayerMask charachterMask;
     [SerializeField] private GameObject debugMarkerPrefab;
-    [SerializeField] private List<BossAction> enemyActions;
+    [SerializeField] private List<BossActionSetter> enemyActions;
 
+    private Dictionary<EnemyAction, EnemyActions> enemyActiosList;
 
     private int attackIndex = 0;
 
@@ -37,7 +39,7 @@ public class Boss : MonoBehaviour
 
     public void VisualizeBossActions()
     {
-        foreach (BossAction action in enemyActions)
+        foreach (BossActionSetter action in enemyActions)
         {
             if (action == enemyActions[attackIndex])
             {
@@ -52,7 +54,7 @@ public class Boss : MonoBehaviour
 
     public void AttackTile()
     {
-        foreach (BossAction action in enemyActions)
+        foreach (BossActionSetter action in enemyActions)
         {
             if (action == enemyActions[attackIndex])
             {
@@ -64,7 +66,7 @@ public class Boss : MonoBehaviour
 
                         if (overLappedPoint != null)
                         {
-                            DoActionOnTile(tile, overLappedPoint);
+                            DoActionOnTile(overLappedPoint);
                         }
                     }
                 }
@@ -74,9 +76,9 @@ public class Boss : MonoBehaviour
         attackIndex++;
     }
 
-    private void DoActionOnTile(Vector2 tilePosition, Collider2D overLappedPoint)
+    private void DoActionOnTile(Collider2D overLappedPoint)
     {
-        foreach (BossAction action in enemyActions)
+        foreach (BossActionSetter action in enemyActions)
         {
             if (action == enemyActions[attackIndex])
             {
@@ -84,7 +86,7 @@ public class Boss : MonoBehaviour
                 {
                     if (action.Tiles.Contains(tile))
                     {
-                        PerformAction(tilePosition, action, overLappedPoint);
+                        PerformAction(action, overLappedPoint);
                         break;
                     }
                 }
@@ -94,17 +96,16 @@ public class Boss : MonoBehaviour
         HasBossAttacked = true;
     }
 
-    private void PerformAction(Vector2 tilePosition, BossAction action, Collider2D overLappedPoint)
+    private void PerformAction(BossActionSetter action, Collider2D overLappedPoint)
     {
         switch (action.EnemyAction)
         {
-            case EnemyActions.Attack:
-                overLappedPoint.GetComponent<Hero>().HealthDown();
+            case MovePlayer:
+                MovePlayer moveAction = action.EnemyAction.GetComponent<MovePlayer>();
+                Hero hero = overLappedPoint.GetComponent<Hero>();
+                moveAction.MovePlayeInDirections(hero);
                 break;
-            case EnemyActions.MovePlayer:
-                overLappedPoint.GetComponent<Hero>().MoveHeroToPosition(tilePosition - new Vector2(1, 0));
-                break;
-            case EnemyActions.DoNothing:
+            case EnemyAction:
                 Debug.Log("I have no strength in me");
                 break;
         }
@@ -119,12 +120,13 @@ public enum EnemyActions
 }
 
 [System.Serializable]
-public class BossAction
+public class BossActionSetter
 {
-    [field: SerializeField] private EnemyActions enemyAction;
+    [field: SerializeField] private EnemyAction enemyAction;
     [field: SerializeField] private List<Vector2> tiles;
 
-    public EnemyActions EnemyAction { get => enemyAction; private set => enemyAction = value; }
+    public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
     public List<Vector2> Tiles { get => tiles; private set => tiles = value; }
+
 }
 
