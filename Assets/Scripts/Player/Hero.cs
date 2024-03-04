@@ -2,8 +2,10 @@ using UnityEngine;
 
 public abstract class Hero : MonoBehaviour
 {
+    [field: SerializeField] public float Damage { get; protected set; } = 0.0f;
+
     [SerializeField] protected float HP = 0.0f;
-    [SerializeField] protected float Damage = 0.0f;
+
     [SerializeField] protected float Defense = 0.0f;
     public void MoveHeroToPosition(Vector2 targetPositionInGrid)
     {

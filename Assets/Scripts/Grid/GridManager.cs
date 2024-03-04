@@ -10,7 +10,6 @@ public class GridManager : MonoBehaviour
     {
         CreateGrid();
     }
-
     public void CreateGrid()
     {
         tilesGrid = new Tile[gridSize.x, gridSize.y];
@@ -19,7 +18,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector2 gridPosition = new Vector2(x, y) - new Vector2(1, 0);
+                Vector2 gridPosition = new Vector2(x, y);
                 tilesGrid[x, y] = Instantiate(tileObject, gridPosition, Quaternion.identity);
             }
         }
