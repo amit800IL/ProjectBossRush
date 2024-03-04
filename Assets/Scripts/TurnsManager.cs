@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class TurnsManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController controller;
     [SerializeField] private Boss boss;
 
     private Coroutine combatTurnsCoroutine;

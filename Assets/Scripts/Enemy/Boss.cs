@@ -39,9 +39,9 @@ public class Boss : MonoBehaviour
         {
             if (action == enemyActions[attackIndex])
             {
-                foreach (Tile markerPosition in action.Tiles)
+                foreach (Vector2 markerPosition in action.Tiles)
                 {
-                    GameObject marker = Instantiate(debugMarkerPrefab, markerPosition.tilePosition, Quaternion.identity);
+                    GameObject marker = Instantiate(debugMarkerPrefab, markerPosition, Quaternion.identity);
                     Destroy(marker, 2f);
                 }
             }
@@ -54,15 +54,15 @@ public class Boss : MonoBehaviour
         {
             if (action == enemyActions[attackIndex])
             {
-                foreach (Tile tile in action.Tiles)
+                foreach (Vector2 tile in action.Tiles)
                 {
                     if (action.Tiles.Contains(tile))
                     {
-                        Collider2D overLappedPoint = Physics2D.OverlapPoint(tile.tilePosition, charachterMask);
+                        Collider2D overLappedPoint = Physics2D.OverlapPoint(tile, charachterMask);
 
                         if (overLappedPoint != null)
                         {
-                            DoActionOnTile(tile.tilePosition, overLappedPoint);
+                            DoActionOnTile(tile, overLappedPoint);
                         }
                     }
                 }
@@ -78,7 +78,7 @@ public class Boss : MonoBehaviour
         {
             if (action == enemyActions[attackIndex])
             {
-                foreach (Tile tile in action.Tiles)
+                foreach (Vector2 tile in action.Tiles)
                 {
                     if (action.Tiles.Contains(tile))
                     {
@@ -120,9 +120,9 @@ public enum EnemyActions
 public class BossAction
 {
     [field: SerializeField] private EnemyActions enemyAction;
-    [field: SerializeField] private List<Tile> tiles;
+    [field: SerializeField] private List<Vector2> tiles;
 
     public EnemyActions EnemyAction { get => enemyAction; private set => enemyAction = value; }
-    public List<Tile> Tiles { get => tiles; private set => tiles = value; }
+    public List<Vector2> Tiles { get => tiles; private set => tiles = value; }
 }
 
