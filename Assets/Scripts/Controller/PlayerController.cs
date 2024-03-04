@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public bool HasPlayerDoneAction { get; protected set; } = false;
 
     [Header("General variables")]
+    [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private PlayerResourceManager PlayerResourceManager;
     [SerializeField] private Camera mainCamera;
 
@@ -129,7 +130,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("shoot & hit");
 
-            boss.TakeDamage(10);
+            heroesManager.AttackBoss();
 
             HasPlayerDoneAction = true;
 

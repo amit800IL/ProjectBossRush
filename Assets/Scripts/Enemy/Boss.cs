@@ -26,6 +26,8 @@ public class Boss : MonoBehaviour
     {
         HP -= takenDamage;
 
+        Debug.Log("Enemy Attacked, hp now is: " + HP);
+
         if (HP <= 0)
         {
             IsBossAlive = false;

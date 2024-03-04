@@ -1,62 +1,39 @@
-using System.Collections;
 using UnityEngine;
 
 public class TurnsManager : MonoBehaviour
 {
     [SerializeField] private Boss boss;
 
-    private Coroutine combatTurnsCoroutine;
-
     private bool isPlayerTurnActive = false;
 
     private void Start()
     {
-        combatTurnsCoroutine = StartCoroutine(CombatTurns());
+        StartPlayerTurn();
     }
-    public void EndTurn()
+    private void StartPlayerTurn()
     {
-        isPlayerTurnActive = false;
-        Debug.Log(isPlayerTurnActive);
-    }
-    private void StartTurn()
-    {
-        isPlayerTurnActive = true;
-        Debug.Log(isPlayerTurnActive);
-    }
-
-    private void OnDisable()
-    {
-        if (combatTurnsCoroutine != null)
+        if (boss.IsBossAlive)
         {
-            StopCoroutine(combatTurnsCoroutine);
-
-            combatTurnsCoroutine = null;
-        }
-    }
-
-    private IEnumerator CombatTurns()
-    {
-        while (boss.IsBossAlive)
-        {
-            boss.BossRestart();
-
-            yield return new WaitUntil(() => !boss.HasBossAttacked);
+            if (boss.HasBossAttacked)
+                boss.BossRestart();
 
             if (!boss.HasBossAttacked)
-            {
                 boss.VisualizeBossActions();
-            }
 
-            StartTurn();
-
-            yield return new WaitUntil(() => !isPlayerTurnActive);
+            isPlayerTurnActive = true;
+        }
+    }
+    public void EndPlayerTurn()
+    {
+        if (boss.IsBossAlive)
+        {
+            isPlayerTurnActive = false;
 
             if (!boss.HasBossAttacked)
-            {
                 boss.AttackTile();
-                yield return new WaitUntil(() => boss.HasBossAttacked);
-            }
-        }
 
+            if (boss.HasBossAttacked)
+                StartPlayerTurn();
+        }
     }
 }
