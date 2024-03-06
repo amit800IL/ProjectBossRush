@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Hero : MonoBehaviour
 {
+    public SymbolTable SymbolTable { get; protected set; }
     [field: SerializeField] public float Damage { get; protected set; } = 0.0f;
 
     [SerializeField] protected float HP = 0.0f;

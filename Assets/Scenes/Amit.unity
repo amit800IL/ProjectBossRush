@@ -634,8 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb59b61c81557444db3e7add8162dffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: 5
-  attack: 5
+  maxAP: 5
+  AP: 5
 --- !u!4 &956611568
 Transform:
   m_ObjectHideFlags: 0
@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroesManager: {fileID: 1894713220}
-  PlayerResourceManager: {fileID: 956611567}
+  playerResourceManager: {fileID: 956611567}
   mainCamera: {fileID: 519420031}
   boss: {fileID: 994719414}
   heroMask:

@@ -15,8 +15,6 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
 
-    private Dictionary<EnemyAction, EnemyActions> enemyActiosList;
-
     private int attackIndex = 0;
 
     public void BossRestart()

@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("General variables")]
     [SerializeField] private HeroesManager heroesManager;
-    [SerializeField] private PlayerResourceManager PlayerResourceManager;
+    [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
 
     [Header("Input system")]
@@ -59,10 +59,13 @@ public class PlayerController : MonoBehaviour
 
         if (raycast && !isCharachterOnTile && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
         {
-            Tile tile = raycast.collider.GetComponent<Tile>();
-            raycast.point = tile.tilePosition;
-            markedHero.MoveHeroToPosition(raycast.point);
-            ResetMarkProccess(raycast);
+            if (playerResourceManager.UseAP(1))
+            {
+                Tile tile = raycast.collider.GetComponent<Tile>();
+                raycast.point = tile.tilePosition;
+                markedHero.MoveHeroToPosition(raycast.point);
+                ResetMarkProccess(raycast);
+            }
         }
 
     }
@@ -126,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAttack()
     {
-        if (boss.IsBossAlive)
+        if (boss.IsBossAlive && playerResourceManager.UseAP(1))
         {
             Debug.Log("shoot & hit");
 

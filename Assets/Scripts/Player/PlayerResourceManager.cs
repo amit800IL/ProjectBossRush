@@ -14,7 +14,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void Start()
     {
-        InitAP();
+        //InitAP();
     }
 
     #region symbols
@@ -68,10 +68,11 @@ public class PlayerResourceManager : MonoBehaviour
 
     public bool UseAP(int amount)
     {
-        if (AP > amount)
+        if (AP >= amount)
         {
             AP -= amount;
-            OnAPChanged.Invoke(AP);
+            OnAPChanged?.Invoke(AP);
+            Debug.Log(AP);
             return true;
         }
         return false;
