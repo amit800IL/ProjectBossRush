@@ -9,7 +9,18 @@ public class HeroesManager : MonoBehaviour
     {
         foreach (Hero hero in heroList)
         {
-            boss.TakeDamage(hero.Damage);
+            switch (hero)
+            {
+                case Figher:
+                    if (hero.CanHeroAttack())
+                    {
+                        Debug.Log(hero.gameObject.name + "Has fought boss");
+                        boss.TakeDamage(hero.Damage);
+                    }
+                    else
+                        Debug.Log("Hero not in position");
+                    break;
+            }
         }
     }
 }

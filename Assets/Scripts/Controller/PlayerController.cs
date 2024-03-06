@@ -131,8 +131,6 @@ public class PlayerController : MonoBehaviour
     {
         if (boss.IsBossAlive && playerResourceManager.UseAP(1))
         {
-            Debug.Log("shoot & hit");
-
             heroesManager.AttackBoss();
 
             HasPlayerDoneAction = true;

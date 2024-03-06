@@ -28,7 +28,7 @@ public class GridManager : MonoBehaviour
 
     private TileType[] CalculateTileType(Vector2 position)
     {
-        Debug.Log("this method is only accurate for grids where y = 6");
+        //Debug.Log("this method is only accurate for grids where y = 6");
         TileType[] types = new TileType[1];
         if (position.x == 0 || position.x == gridSize.x - 1)
         {

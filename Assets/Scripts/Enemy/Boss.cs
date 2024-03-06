@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 public class Boss : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class Boss : MonoBehaviour
     {
         HP -= takenDamage;
 
-        Debug.Log("Enemy Attacked, hp now is: " + HP);
+        Debug.Log("Boss HP is " + HP);
 
         if (HP <= 0)
         {
@@ -96,14 +95,19 @@ public class Boss : MonoBehaviour
 
     private void PerformAction(BossActionSetter action, Collider2D overLappedPoint)
     {
+        Hero hero = overLappedPoint.GetComponent<Hero>();
+
         switch (action.EnemyAction)
         {
+            case AttackPlayer:
+                AttackPlayer attackAction = action.EnemyAction.GetComponent<AttackPlayer>();
+                attackAction.AttackHero(hero);
+                break;
             case MovePlayer:
                 MovePlayer moveAction = action.EnemyAction.GetComponent<MovePlayer>();
-                Hero hero = overLappedPoint.GetComponent<Hero>();
                 moveAction.MovePlayeInDirections(hero);
                 break;
-            case EnemyAction:
+            case DoNothing:
                 Debug.Log("I have no strength in me");
                 break;
         }

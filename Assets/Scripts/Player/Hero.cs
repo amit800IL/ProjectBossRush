@@ -8,6 +8,10 @@ public abstract class Hero : MonoBehaviour
     [SerializeField] protected float HP = 0.0f;
 
     [SerializeField] protected float Defense = 0.0f;
+
+    [SerializeField] protected LayerMask tileMask;
+
+    protected Tile tile;
     public void MoveHeroToPosition(Vector2 targetPositionInGrid)
     {
         if (IsHeroInMoveRange(targetPositionInGrid))
@@ -41,6 +45,8 @@ public abstract class Hero : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public abstract bool CanHeroAttack();
 }
 
 
