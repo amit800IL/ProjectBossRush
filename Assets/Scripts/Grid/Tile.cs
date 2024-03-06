@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour
 {
     public Vector2 tilePosition { get; private set; }
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
-    [SerializeField] private TileType tileType;
+    [SerializeField] private TileType[] tileType;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [SerializeField] bool danger;
@@ -38,10 +38,26 @@ public class Tile : MonoBehaviour
 
         spriteRenderer.color = colors[randomColor];
     }
+
+    public void SetTileType(TileType[] type)
+    {
+        tileType = type;
+    }
+
+    public bool IsTileOfType(TileType type)
+    {
+        foreach (TileType item in tileType)
+        {
+            if (item == type) return true;
+        }
+        return false;
+    }
 }
 
 public enum TileType
 {
-    regular,
-    fire,
+    CloseRange,
+    MediumRange,
+    LongRange,
+    Flank,
 }
