@@ -518,6 +518,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: tileMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1572764115}
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: <Damage>k__BackingField
       value: 10
       objectReference: {fileID: 0}
@@ -842,7 +850,7 @@ MonoBehaviour:
     - {x: 0, y: 0}
     - {x: 0, y: 1}
     - {x: 0, y: 2}
-  - enemyAction: {fileID: 0}
+  - enemyAction: {fileID: 1516871091}
     tiles:
     - {x: 1, y: 1}
     - {x: 2, y: 2}
@@ -855,6 +863,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: tileMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1572764115}
     - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: <Damage>k__BackingField
       value: 10
@@ -940,6 +956,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: tileMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1572764115}
+    - target: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: <Damage>k__BackingField
       value: 10
       objectReference: {fileID: 0}
@@ -949,11 +973,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8396108960678294777, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8396108960678294777, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8396108960678294777, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
       propertyPath: m_LocalPosition.z
