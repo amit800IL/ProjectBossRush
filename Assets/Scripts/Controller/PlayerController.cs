@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool HasPlayerDoneAction { get; protected set; } = false;
-
     [Header("General variables")]
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private PlayerResourceManager playerResourceManager;
@@ -17,7 +15,6 @@ public class PlayerController : MonoBehaviour
     [Header("Raycast mark flags")]
 
     private bool heroMarked = false;
-    private bool cardMarked = false;
 
     [Header("Game Objects")]
 
@@ -91,8 +88,6 @@ public class PlayerController : MonoBehaviour
         heroMarked = false;
         markedHero.ResetHeroMovement();
         markedHero = null;
-        cardMarked = false;
-        HasPlayerDoneAction = true;
     }
 
     private void MarkCharachter()
@@ -117,18 +112,14 @@ public class PlayerController : MonoBehaviour
         return charachterRaycastCheck;
     }
 
-    public void PlayerRestart()
-    {
-        HasPlayerDoneAction = false;
-    }
-
     public void PlayerAttack()
     {
-        if (boss.IsBossAlive && playerResourceManager.UseAP(1))
+        if (boss.IsBossAlive)
         {
-            heroesManager.AttackBoss();
-
-            HasPlayerDoneAction = true;
+            if (playerResourceManager.UseAP(1))
+            {
+                heroesManager.AttackBoss();
+            }
         }
     }
 

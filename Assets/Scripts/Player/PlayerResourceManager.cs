@@ -14,6 +14,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void Start()
     {
+        OnAPChanged?.Invoke(AP);
         //InitAP();
     }
 
