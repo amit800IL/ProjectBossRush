@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Hero : MonoBehaviour
 {
+    [SerializeField] protected PlayerResourceManager manager;
     public SymbolTable SymbolTable { get; protected set; }
     [field: SerializeField] public float Damage { get; protected set; } = 0.0f;
 
@@ -11,11 +12,39 @@ public abstract class Hero : MonoBehaviour
 
     [SerializeField] protected LayerMask tileMask;
 
-    protected Tile tile;
+    protected Collider2D overLappedPoint;
+    public Tile CurrentTile { get; protected set; }
+
+    public bool HasHeroMoved { get; protected set; } = false;
+
+    protected virtual void Start()
+    {
+        SetTilePosition();
+    }
     public void MoveHeroToPosition(Vector2 targetPositionInGrid)
     {
         if (IsHeroInMoveRange(targetPositionInGrid))
+        {
             transform.position = targetPositionInGrid;
+
+            if ((Vector2)transform.position == targetPositionInGrid)
+            {
+                HasHeroMoved = true;
+                SetTilePosition();
+            }
+        }
+    }
+
+    public void ResetHeroMovement()
+    {
+        HasHeroMoved = false;
+    }
+
+    protected void SetTilePosition()
+    {
+        overLappedPoint = Physics2D.OverlapPoint(transform.position, tileMask);
+
+        CurrentTile = overLappedPoint.GetComponent<Tile>();
     }
 
     private bool IsHeroInMoveRange(Vector2 newPosition)

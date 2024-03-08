@@ -59,12 +59,16 @@ public class PlayerController : MonoBehaviour
 
         if (raycast && !isCharachterOnTile && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
         {
-            if (playerResourceManager.UseAP(1))
+            Tile tile = raycast.collider.GetComponent<Tile>();
+            raycast.point = tile.tilePosition;
+            markedHero.MoveHeroToPosition(raycast.point);
+
+            if (markedHero.HasHeroMoved)
             {
-                Tile tile = raycast.collider.GetComponent<Tile>();
-                raycast.point = tile.tilePosition;
-                markedHero.MoveHeroToPosition(raycast.point);
-                ResetMarkProccess(raycast);
+                if (playerResourceManager.UseAP(1))
+                {
+                    ResetMarkProccess();
+                }
             }
         }
 
@@ -85,19 +89,10 @@ public class PlayerController : MonoBehaviour
     private void ResetMarkProccess()
     {
         heroMarked = false;
+        markedHero.ResetHeroMovement();
         markedHero = null;
         cardMarked = false;
         HasPlayerDoneAction = true;
-    }
-    private void ResetMarkProccess(RaycastHit2D raycast)
-    {
-        if ((Vector2)markedHero.transform.position == raycast.point)
-        {
-            heroMarked = false;
-            markedHero = null;
-            cardMarked = false;
-            HasPlayerDoneAction = true;
-        }
     }
 
     private void MarkCharachter()
@@ -134,8 +129,6 @@ public class PlayerController : MonoBehaviour
             heroesManager.AttackBoss();
 
             HasPlayerDoneAction = true;
-
-            ResetMarkProccess();
         }
     }
 

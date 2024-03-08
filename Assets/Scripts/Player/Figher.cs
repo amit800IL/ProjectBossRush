@@ -2,17 +2,14 @@ using UnityEngine;
 
 public class Figher : Hero
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
     }
     public override bool CanHeroAttack()
     {
-        Collider2D overLappedPoint = Physics2D.OverlapPoint(transform.position, tileMask);
-
-        tile = overLappedPoint.GetComponent<Tile>();
-
-        if (overLappedPoint && tile.IsTileOfType(TileType.CloseRange))
+        if (overLappedPoint && CurrentTile.IsTileOfType(TileType.CloseRange))
         {
             return true;
         }

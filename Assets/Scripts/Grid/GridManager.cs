@@ -15,12 +15,15 @@ public class GridManager : MonoBehaviour
     {
         Tiles = new Tile[gridSize.x, gridSize.y];
 
+        float xOffset = gridSize.x / 3f;
+        float yOffset = gridSize.y / 2f;
+
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector2 gridPosition = new Vector2(x, y);
-                Tiles[x, y] = Instantiate(tileObject, gridPosition, Quaternion.identity, transform);
+                Vector2 gridPosition = new Vector2(x - xOffset, y - yOffset);
+                Tiles[x, y] = Instantiate(tileObject, gridPosition, Quaternion.identity);
                 Tiles[x, y].SetTileType(CalculateTileType(gridPosition));
             }
         }
@@ -36,11 +39,11 @@ public class GridManager : MonoBehaviour
             types[1] = TileType.Flank;
         }
 
-        if (position.y > 3)
+        if (position.y >= 2)
         {
             types[0] = TileType.CloseRange;
         }
-        else if (position.y < 2)
+        else if (position.y < 1)
         {
             types[0] = TileType.LongRange;
         }
