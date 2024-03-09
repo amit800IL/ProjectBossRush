@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public static Action<int> OnEnemyHealthChanged;
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
@@ -26,6 +28,7 @@ public class Boss : MonoBehaviour
         HP -= takenDamage;
 
         Debug.Log("Boss HP is " + HP);
+        OnEnemyHealthChanged.Invoke((int)HP);
 
         if (HP <= 0)
         {
