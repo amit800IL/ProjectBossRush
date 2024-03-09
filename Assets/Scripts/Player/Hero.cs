@@ -14,8 +14,8 @@ public abstract class Hero : MonoBehaviour
 
     protected Collider2D overLappedPoint;
     public Tile CurrentTile { get; protected set; }
-
     public bool HasHeroMoved { get; protected set; } = false;
+
 
     protected virtual void Start()
     {
