@@ -10,11 +10,10 @@ public class MovePlayer : EnemyAction
     public void MovePlayeInDirections(Hero hero)
     {
         Collider2D tile = Physics2D.OverlapPoint(hero.CurrentTile.tilePosition, tileMask);
-        Collider2D heroOnTile = Physics2D.OverlapPoint(hero.CurrentTile.tilePosition, heroMask);
 
         float randomMovePlayer = Random.Range(0, movePlayerDirections.Count);
 
-        if (tile != null && heroOnTile == null)
+        if (tile)
         {
             switch (randomMovePlayer)
             {

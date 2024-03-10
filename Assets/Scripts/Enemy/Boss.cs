@@ -74,6 +74,7 @@ public class Boss : MonoBehaviour
         }
 
         attackIndex++;
+        HasBossAttacked = true;
     }
 
     private void DoActionOnTile(Collider2D overLappedPoint)
@@ -92,8 +93,6 @@ public class Boss : MonoBehaviour
                 }
             }
         }
-
-        HasBossAttacked = true;
     }
 
     private void PerformAction(BossActionSetter action, Collider2D overLappedPoint)
