@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public bool IsCharachterOnTile()
+    private bool IsCharachterOnTile()
     {
         Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
@@ -110,12 +110,9 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAttack()
     {
-        if (boss.IsBossAlive)
+        if (boss.IsBossAlive && playerResourceManager.UseAP(1))
         {
-            if (playerResourceManager.UseAP(1))
-            {
-                heroesManager.AttackBoss();
-            }
+            heroesManager.AttackBoss();
         }
     }
 
