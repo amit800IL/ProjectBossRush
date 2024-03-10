@@ -23,7 +23,7 @@ public abstract class Hero : MonoBehaviour
     }
     public void MoveHeroToPosition(Vector2 targetPositionInGrid)
     {
-        if (IsHeroInMoveRange(targetPositionInGrid))
+        if (IsHeroInMoveRange(targetPositionInGrid) && overLappedPoint != null)
         {
             transform.position = targetPositionInGrid;
 

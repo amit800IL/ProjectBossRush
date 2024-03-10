@@ -56,16 +56,12 @@ public class PlayerController : MonoBehaviour
 
         if (raycast && !isCharachterOnTile && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
         {
-            Tile tile = raycast.collider.GetComponent<Tile>();
-            raycast.point = tile.tilePosition;
-            markedHero.MoveHeroToPosition(raycast.point);
-
-            if (markedHero.HasHeroMoved)
+            if (!markedHero.HasHeroMoved && !isCharachterOnTile && playerResourceManager.UseAP(1))
             {
-                if (playerResourceManager.UseAP(1))
-                {
-                    ResetMarkProccess();
-                }
+                Tile tile = raycast.collider.GetComponent<Tile>();
+                raycast.point = tile.tilePosition;
+                markedHero.MoveHeroToPosition(raycast.point);
+                ResetMarkProccess();
             }
         }
 
@@ -103,7 +99,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool IsCharachterOnTile()
+    public bool IsCharachterOnTile()
     {
         Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
