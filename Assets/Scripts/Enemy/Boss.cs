@@ -8,6 +8,8 @@ public class Boss : MonoBehaviour
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
+    private Collider2D overLappedPoint;
+
     [SerializeField] private GridManager gridManager;
     [SerializeField] private float HP = 0.0f;
     [SerializeField] private float damage = 0.0f;
@@ -62,8 +64,8 @@ public class Boss : MonoBehaviour
                 {
                     if (action.Tiles.Contains(tile))
                     {
-                        Collider2D overLappedPoint = Physics2D.OverlapPoint(tile, charachterMask);
-
+                        TileMediator<Boss>.Instance.SetObjectOnTile(this, charachterMask, out overLappedPoint);
+                        
                         if (overLappedPoint != null)
                         {
                             DoActionOnTile(overLappedPoint);
