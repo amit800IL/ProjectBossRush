@@ -5,6 +5,8 @@ using UnityEngine.Rendering;
 
 public class Tile : MonoBehaviour
 {
+
+    [SerializeField] private LayerMask tileMask;
     public Vector2 tilePosition { get; private set; }
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
     [SerializeField] private TileType[] tileType;
@@ -51,6 +53,31 @@ public class Tile : MonoBehaviour
             if (item == type) return true;
         }
         return false;
+    }
+
+    public bool CheckForTile(out RaycastHit2D raycastHit, out Tile currentTile)
+    {
+        raycastHit = Physics2D.Raycast(transform.position, Vector2.zero, Mathf.Infinity, tileMask);
+
+        currentTile = raycastHit.collider.GetComponent<Tile>();
+
+        return raycastHit;
+    }
+    
+    public bool CheckObjectOnTile(GameObject overlappingObject, LayerMask layerMask, out RaycastHit2D raycastHit, out Tile currentTile)
+    {
+        raycastHit = Physics2D.Raycast(overlappingObject.transform.position, Vector2.zero, Mathf.Infinity, layerMask);
+
+        currentTile = raycastHit.collider.GetComponent<Tile>();
+
+        return raycastHit;
+    }
+
+    public void SetObjectOnTile(GameObject overlappingObject, out RaycastHit2D raycastHit, out Tile currentTile)
+    {
+        raycastHit = Physics2D.Raycast(overlappingObject.transform.position, Vector2.zero, Mathf.Infinity, tileMask);
+
+        currentTile = raycastHit.collider.GetComponent<Tile>();
     }
 }
 

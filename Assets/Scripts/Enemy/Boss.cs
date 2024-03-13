@@ -63,9 +63,7 @@ public class Boss : MonoBehaviour
                 foreach (Vector2 tile in action.Tiles)
                 {
                     if (action.Tiles.Contains(tile))
-                    {
-                        TileMediator<Boss>.Instance.SetObjectOnTile(this, charachterMask, out overLappedPoint);
-                        
+                    {       
                         if (overLappedPoint != null)
                         {
                             DoActionOnTile(overLappedPoint);

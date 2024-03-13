@@ -98,8 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f2846c0205243418f9f1ff5425e740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileMask:
+    serializedVersion: 2
+    m_Bits: 64
   <TilePrefab>k__BackingField: {fileID: 8648337662786245942}
-  tileType: 0
+  tileType: 
   spriteRenderer: {fileID: 5831030080467336696}
   danger: 0
 --- !u!61 &759917202534242444

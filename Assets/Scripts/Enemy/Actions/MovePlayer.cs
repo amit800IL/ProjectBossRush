@@ -7,14 +7,16 @@ public class MovePlayer : EnemyAction
     [SerializeField] private LayerMask heroMask;
     [SerializeField] private List<Vector2> movePlayerDirections;
 
+    private Tile tile;
+    private RaycastHit2D raycastHit;
     public void MovePlayeInDirections(Hero hero)
     {
-        Collider2D tile = Physics2D.OverlapPoint(hero.transform.position, tileMask);
-        Collider2D heroOnTile = Physics2D.OverlapPoint(hero.transform.position, heroMask);
+        bool IsTile = tile.CheckForTile(out raycastHit, out tile);
+        bool IsHeroOnTile = tile.CheckObjectOnTile(hero.gameObject, heroMask, out raycastHit, out tile);
 
         float randomMovePlayer = Random.Range(0, movePlayerDirections.Count);
 
-        if (tile != null && heroOnTile == null)
+        if (IsTile && !IsHeroOnTile)
         {
             switch (randomMovePlayer)
             {

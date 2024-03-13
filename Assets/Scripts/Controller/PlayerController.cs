@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
             if (!markedHero.HasHeroMoved && !isCharachterOnTile && playerResourceManager.UseAP(1))
             {
                 Tile tile = raycast.collider.GetComponent<Tile>();
-                TileMediator<Tile>.Instance.UseRayCastOnTile(tile, out raycast, out tile);
+                tile.SetObjectOnTile(tile.gameObject, out raycast, out tile);
                 raycast.point = tile.tilePosition;
                 markedHero.MoveHeroToPosition(raycast.point);
                 ResetMarkProccess();

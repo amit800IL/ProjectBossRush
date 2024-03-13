@@ -10,26 +10,21 @@ public abstract class Hero : MonoBehaviour
 
     [SerializeField] protected float Defense = 0.0f;
 
-    protected Collider2D overLappedPoint;
+    protected RaycastHit2D raycastHit;
 
     protected Tile CurrentTile;
     public bool HasHeroMoved { get; protected set; } = false;
 
-
-    protected virtual void Start()
-    {
-        TileMediator<Hero>.Instance.SetObjectOnTile(this, out overLappedPoint, out CurrentTile);
-    }
     public void MoveHeroToPosition(Vector2 targetPositionInGrid)
     {
-        if (IsHeroInMoveRange(targetPositionInGrid) && overLappedPoint != null)
+        if (IsHeroInMoveRange(targetPositionInGrid))
         {
             transform.position = targetPositionInGrid;
 
-            if ((Vector2)transform.position == targetPositionInGrid)
+            if ((Vector2)transform.position == targetPositionInGrid && CurrentTile != null)
             {
                 HasHeroMoved = true;
-                TileMediator<Hero>.Instance.SetObjectOnTile(this, out overLappedPoint, out CurrentTile);
+                CurrentTile.CheckForTile(out raycastHit, out CurrentTile);
             }
         }
     }
