@@ -9,6 +9,12 @@ public class MovePlayer : EnemyAction
 
     private Tile tile;
     private RaycastHit2D raycastHit;
+
+    public override void DoActionOnHero(Hero hero)
+    {
+        MovePlayeInDirections(hero);
+    }
+
     public void MovePlayeInDirections(Hero hero)
     {
         bool IsTile = tile.CheckForTile(out raycastHit, out tile);

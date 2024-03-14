@@ -100,20 +100,7 @@ public class Boss : MonoBehaviour
     {
         Hero hero = overLappedPoint.GetComponent<Hero>();
 
-        switch (action.EnemyAction)
-        {
-            case AttackPlayer:
-                AttackPlayer attackAction = action.EnemyAction.GetComponent<AttackPlayer>();
-                attackAction.AttackHero(hero);
-                break;
-            case MovePlayer:
-                MovePlayer moveAction = action.EnemyAction.GetComponent<MovePlayer>();
-                moveAction.MovePlayeInDirections(hero);
-                break;
-            case DoNothing:
-                Debug.Log("I have no strength in me");
-                break;
-        }
+        action.EnemyAction.DoActionOnHero(hero);
     }
 }
 
