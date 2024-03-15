@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Hero : MonoBehaviour, ITileOcuppier
+public abstract class Hero : MonoBehaviour
 {
     public SymbolTable SymbolTable { get; protected set; }
 

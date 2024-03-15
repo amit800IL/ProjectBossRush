@@ -16,6 +16,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private List<Tile> tiles = new List<Tile>();
+    private RaycastHit2D raycastHit;
 
     private int attackIndex = 0;
     public void BossRestart()
@@ -60,7 +61,6 @@ public class Boss : MonoBehaviour
             {
                 foreach (Vector2 tile in action.Tiles)
                 {
-                    RaycastHit2D raycastHit;
                     tiles = TileGetter.GetListTiles(tiles, tile, out raycastHit);
 
                     Debug.Log(raycastHit.point);
