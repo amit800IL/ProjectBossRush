@@ -1,23 +1,23 @@
 using UnityEngine;
 
-public abstract class Hero : MonoBehaviour
+public abstract class Hero : MonoBehaviour, ITileOcuppier
 {
-    protected float damage = 0.0f;
-
-    [SerializeField] protected PlayerResourceManager manager;
     public SymbolTable SymbolTable { get; protected set; }
+
+    [SerializeField] protected float damage = 0.0f;
 
     [SerializeField] protected float HP = 0.0f;
 
     [SerializeField] protected float Defense = 0.0f;
 
-    protected Tile CurrentTile;
+    public Tile CurrentTile { get; protected set; }
     protected RaycastHit2D raycastHit;
     public bool HasHeroMoved { get; protected set; } = false;
 
     protected virtual void Start()
     {
         CurrentTile = TileGetter.GetTile(transform.position, out raycastHit);
+        CurrentTile.OccupyTile(this.gameObject);
     }
 
     public void MoveHeroToPosition(Vector2 targetPositionInGrid)

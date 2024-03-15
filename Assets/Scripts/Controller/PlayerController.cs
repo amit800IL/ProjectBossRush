@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("LayerMasks")]
     [SerializeField] private LayerMask heroMask;
-    [SerializeField] private LayerMask tileMask;
-    [SerializeField] private LayerMask bossMask;
 
     private void Start()
     {
@@ -54,11 +52,32 @@ public class PlayerController : MonoBehaviour
     }
     private void CharchterRaycastTileMovement()
     {
-        if (markedTile != null && !markedHero.HasHeroMoved && playerResourceManager.UseAP(1) && !markedTile.IsTileOccupied(markedHero.gameObject))
+        if (CanStepOnTile())
         {
+            if (markedHero.CurrentTile != null)
+            {
+                markedHero.CurrentTile.ClearTile();
+            }
+
+            markedTile.OccupyTile(markedHero.gameObject);
             markedHero.MoveHeroToPosition(markedTile.tilePosition);
             ResetMarkProccess();
         }
+    }
+
+    private bool CanStepOnTile()
+    {
+        return TileChecks() && PlayerChecks();
+    }
+
+    private bool TileChecks()
+    {
+        return markedTile != null && !markedTile.IsTileOccupied;
+    }
+
+    private bool PlayerChecks()
+    {
+        return !markedHero.HasHeroMoved && playerResourceManager.UseAP(1);
     }
 
     private void MoveCharachter()
