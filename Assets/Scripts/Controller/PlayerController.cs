@@ -12,13 +12,12 @@ public class PlayerController : MonoBehaviour
     private BossRush inputActions;
     private Vector2 inputPosition;
 
+    
     [Header("Raycast mark flags")]
-
     private RaycastHit2D raycastHit;
     private bool heroMarked = false;
 
     [Header("Game Objects")]
-
     private Hero markedHero;
     private Tile markedTile;
     [SerializeField] private Boss boss;
