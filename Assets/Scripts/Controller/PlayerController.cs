@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Raycast mark flags")]
 
+    private RaycastHit2D raycastHit;
     private bool heroMarked = false;
 
     [Header("Game Objects")]
@@ -51,20 +52,13 @@ public class PlayerController : MonoBehaviour
                 MarkCharachter();
         }
     }
-    private void CharchterRaycastTileMovement(RaycastHit2D raycast)
+    private void CharchterRaycastTileMovement()
     {
-        if (raycast && (tileMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
+        if (markedTile != null && !markedHero.HasHeroMoved && playerResourceManager.UseAP(1) && !markedTile.IsTileOccupied(markedHero.gameObject))
         {
-            markedTile = raycast.collider.GetComponent<Tile>();
-
-            if (!markedHero.HasHeroMoved && playerResourceManager.UseAP(1) && !markedTile.IsTileOccupied(markedHero.gameObject))
-            {
-                raycast.point = markedTile.tilePosition;
-                markedHero.MoveHeroToPosition(markedTile.tilePosition);
-                ResetMarkProccess();
-            }
+            markedHero.MoveHeroToPosition(markedTile.tilePosition);
+            ResetMarkProccess();
         }
-
     }
 
     private void MoveCharachter()
@@ -73,9 +67,9 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
-            RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, tileMask);
+            markedTile = TileGetter.GetTile(pressPosition, out raycastHit);
 
-            CharchterRaycastTileMovement(raycast);
+            CharchterRaycastTileMovement();
         }
     }
 
@@ -91,12 +85,12 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
-        RaycastHit2D raycast = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, heroMask);
+        raycastHit = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, heroMask);
 
-        if (raycast && (heroMask.value & (1 << raycast.collider.gameObject.layer)) != 0)
+        if (raycastHit && (heroMask.value & (1 << raycastHit.collider.gameObject.layer)) != 0)
         {
             heroMarked = true;
-            markedHero = raycast.collider.GetComponent<Hero>();
+            markedHero = raycastHit.collider.GetComponent<Hero>();
         }
     }
 

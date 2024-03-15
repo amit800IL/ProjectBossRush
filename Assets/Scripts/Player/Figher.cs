@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class Figher : Hero
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
     }
     public override void HeroAttackBoss(Boss boss)
     {
         if (CanHeroAttack())
-            boss.TakeDamage(Damage);
+            boss.TakeDamage(damage);
         else
             Debug.Log("Hero can't attack");
     }

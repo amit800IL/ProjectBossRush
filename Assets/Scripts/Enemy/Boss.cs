@@ -8,6 +8,8 @@ public class Boss : MonoBehaviour
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
+    private RaycastHit2D raycastHit;
+
     [SerializeField] private GridManager gridManager;
     [SerializeField] private float HP = 0.0f;
     [SerializeField] private float damage = 0.0f;
@@ -17,10 +19,6 @@ public class Boss : MonoBehaviour
     [SerializeField] private List<BossActionSetter> enemyActions;
 
     private int attackIndex = 0;
-
-    private Tile currentTile;
-    private RaycastHit2D raycastHit;
-
     public void BossRestart()
     {
         HasBossAttacked = false;
@@ -48,8 +46,13 @@ public class Boss : MonoBehaviour
             {
                 foreach (Vector2 markerPosition in action.Tiles)
                 {
-                    GameObject marker = Instantiate(debugMarkerPrefab, markerPosition, Quaternion.identity);
-                    Destroy(marker, 2f);
+                    Tile tile = TileGetter.GetTile(markerPosition, out raycastHit);
+
+                    if (tile != null)
+                    {
+                        GameObject marker = Instantiate(debugMarkerPrefab, markerPosition, Quaternion.identity);
+                        Destroy(marker, 2f);
+                    }
                 }
             }
         }
@@ -65,10 +68,7 @@ public class Boss : MonoBehaviour
                 {
                     if (action.Tiles.Contains(tile))
                     {
-                        if (raycastHit)
-                        {
-                            DoActionOnTile();
-                        }
+                        DoActionOnTile();
                     }
                 }
             }
@@ -101,7 +101,8 @@ public class Boss : MonoBehaviour
     {
         Hero hero = raycastHit.collider.GetComponent<Hero>();
 
-        action.EnemyAction.DoActionOnHero(hero);
+        if (hero != null)
+            action.EnemyAction.DoActionOnHero(hero);
     }
 }
 

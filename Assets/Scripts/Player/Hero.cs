@@ -2,18 +2,23 @@ using UnityEngine;
 
 public abstract class Hero : MonoBehaviour
 {
+    protected float damage = 0.0f;
+
     [SerializeField] protected PlayerResourceManager manager;
     public SymbolTable SymbolTable { get; protected set; }
-    [field: SerializeField] public float Damage { get; protected set; } = 0.0f;
 
     [SerializeField] protected float HP = 0.0f;
 
     [SerializeField] protected float Defense = 0.0f;
 
-    protected RaycastHit2D raycastHit;
-
     protected Tile CurrentTile;
+    protected RaycastHit2D raycastHit;
     public bool HasHeroMoved { get; protected set; } = false;
+
+    protected virtual void Start()
+    {
+        CurrentTile = TileGetter.GetTile(transform.position, out raycastHit);
+    }
 
     public void MoveHeroToPosition(Vector2 targetPositionInGrid)
     {
@@ -24,6 +29,7 @@ public abstract class Hero : MonoBehaviour
             if ((Vector2)transform.position == targetPositionInGrid && CurrentTile != null)
             {
                 HasHeroMoved = true;
+                CurrentTile = TileGetter.GetTile(targetPositionInGrid, out raycastHit);
             }
         }
     }

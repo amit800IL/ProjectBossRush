@@ -53,16 +53,6 @@ public class Tile : MonoBehaviour
         return false;
     }
 
-    public Tile CheckForTile()
-    {
-        RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, Vector2.zero, Mathf.Infinity, tileMask);
-
-        if (raycastHit)
-            return this;
-        else
-            return null;
-    }
-
     public bool IsTileOccupied(GameObject occupier)
     {
         if (occupier.gameObject.transform.position == gameObject.transform.position)
