@@ -8,6 +8,8 @@ public class Boss : MonoBehaviour
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
+    private RaycastHit2D raycastHit;
+
     [SerializeField] private GridManager gridManager;
     [SerializeField] private float HP = 0.0f;
     [SerializeField] private float damage = 0.0f;
@@ -15,8 +17,6 @@ public class Boss : MonoBehaviour
     [SerializeField] private LayerMask charachterMask;
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
-    private List<Tile> tiles = new List<Tile>();
-    private RaycastHit2D raycastHit;
 
     private int attackIndex = 0;
     public void BossRestart()
@@ -46,8 +46,13 @@ public class Boss : MonoBehaviour
             {
                 foreach (Vector2 markerPosition in action.Tiles)
                 {
-                    GameObject marker = Instantiate(debugMarkerPrefab, markerPosition, Quaternion.identity);
-                    Destroy(marker, 2f);
+                    Tile tile = TileGetter.GetTile(markerPosition, out raycastHit);
+
+                    if (tile != null)
+                    {
+                        GameObject marker = Instantiate(debugMarkerPrefab, markerPosition, Quaternion.identity);
+                        Destroy(marker, 2f);
+                    }
                 }
             }
         }
@@ -61,13 +66,9 @@ public class Boss : MonoBehaviour
             {
                 foreach (Vector2 tile in action.Tiles)
                 {
-                    tiles = TileGetter.GetListTiles(tiles, tile, out raycastHit);
-
-                    Debug.Log(raycastHit.point);
-
                     if (action.Tiles.Contains(tile))
                     {
-                        DoActionOnTile(raycastHit);
+                        DoActionOnTile();
                     }
                 }
             }
@@ -76,7 +77,7 @@ public class Boss : MonoBehaviour
         attackIndex++;
     }
 
-    private void DoActionOnTile(RaycastHit2D raycastHit)
+    private void DoActionOnTile()
     {
         foreach (BossActionSetter action in enemyActions)
         {
@@ -86,7 +87,7 @@ public class Boss : MonoBehaviour
                 {
                     if (action.Tiles.Contains(tile))
                     {
-                        PerformAction(action, raycastHit);
+                        PerformAction(action);
                         break;
                     }
                 }
@@ -96,22 +97,12 @@ public class Boss : MonoBehaviour
         HasBossAttacked = true;
     }
 
-    private void PerformAction(BossActionSetter action, RaycastHit2D raycastHit)
+    private void PerformAction(BossActionSetter action)
     {
-        if (raycastHit)
-        {
-            Hero hero = raycastHit.collider.GetComponent<Hero>();
+        Hero hero = raycastHit.collider.GetComponent<Hero>();
 
-            if (hero != null)
-            {
-                Debug.Log("Found hero: " + hero.name);
-                action.EnemyAction.DoActionOnHero(hero);
-            }
-            else
-            {
-                Debug.LogWarning("No hero found on the object hit by raycast.");
-            }
-        }
+        if (hero != null)
+            action.EnemyAction.DoActionOnHero(hero);
     }
 }
 
