@@ -14,6 +14,8 @@ public class Tile : MonoBehaviour
     SpriteRenderer material;
     LocalKeyword keyword;
 
+    [SerializeField] private GameObject occupant;
+    public bool IsTileOccupied => occupant != null;
     private void Start()
     {
         tilePosition = transform.position;
@@ -53,16 +55,15 @@ public class Tile : MonoBehaviour
         return false;
     }
 
-    public bool IsTileOccupied(GameObject occupier)
+    public void OccupyTile(GameObject ocuupantObject)
     {
-        if (occupier.gameObject.transform.position == gameObject.transform.position)
-        {
-            return true;
-        }
-
-        return false;
+        occupant = ocuupantObject;
     }
 
+    public void ClearTile()
+    {
+        occupant = null;
+    }
 }
 
 public enum TileType
