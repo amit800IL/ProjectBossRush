@@ -6,13 +6,20 @@ public class Figher : Hero
     {
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
     }
+    public override void HeroAttackBoss(Boss boss)
+    {
+        if (CanHeroAttack())
+            boss.TakeDamage(Damage);
+        else
+            Debug.Log("Hero can't attack");
+    }
     public override bool CanHeroAttack()
     {
-        if (raycastHit && CurrentTile.IsTileOfType(TileType.CloseRange))
+        if (CurrentTile != null && CurrentTile.IsTileOfType(TileType.CloseRange))
         {
             return true;
         }
-
         return false;
     }
+
 }

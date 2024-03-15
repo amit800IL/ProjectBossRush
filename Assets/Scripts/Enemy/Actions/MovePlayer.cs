@@ -17,12 +17,11 @@ public class MovePlayer : EnemyAction
 
     public void MovePlayeInDirections(Hero hero)
     {
-        bool IsTile = tile.CheckForTile(out raycastHit, out tile);
-        bool IsHeroOnTile = tile.CheckObjectOnTile(hero.gameObject, heroMask, out raycastHit, out tile);
+        bool IsTile = tile.CheckForTile();
 
         float randomMovePlayer = Random.Range(0, movePlayerDirections.Count);
 
-        if (IsTile && !IsHeroOnTile)
+        if (IsTile)
         {
             switch (randomMovePlayer)
             {

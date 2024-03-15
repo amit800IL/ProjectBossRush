@@ -1887,6 +1887,9 @@ MonoBehaviour:
   tileMask:
     serializedVersion: 2
     m_Bits: 64
+  heroMask:
+    serializedVersion: 2
+    m_Bits: 0
   movePlayerDirections:
   - {x: 1, y: 0}
   - {x: -1, y: 0}

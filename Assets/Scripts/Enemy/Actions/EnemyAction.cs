@@ -4,7 +4,5 @@ using UnityEngine;
 
 public abstract class EnemyAction : MonoBehaviour
 {
-    public abstract void DoActionOnHero(Hero hero);
-
-    
+    public abstract void DoActionOnHero(Hero hero);   
 }

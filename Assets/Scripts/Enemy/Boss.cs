@@ -8,8 +8,6 @@ public class Boss : MonoBehaviour
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
-    private Collider2D overLappedPoint;
-
     [SerializeField] private GridManager gridManager;
     [SerializeField] private float HP = 0.0f;
     [SerializeField] private float damage = 0.0f;
@@ -19,6 +17,9 @@ public class Boss : MonoBehaviour
     [SerializeField] private List<BossActionSetter> enemyActions;
 
     private int attackIndex = 0;
+
+    private Tile currentTile;
+    private RaycastHit2D raycastHit;
 
     public void BossRestart()
     {
@@ -63,10 +64,10 @@ public class Boss : MonoBehaviour
                 foreach (Vector2 tile in action.Tiles)
                 {
                     if (action.Tiles.Contains(tile))
-                    {       
-                        if (overLappedPoint != null)
+                    {
+                        if (raycastHit)
                         {
-                            DoActionOnTile(overLappedPoint);
+                            DoActionOnTile();
                         }
                     }
                 }
@@ -76,7 +77,7 @@ public class Boss : MonoBehaviour
         attackIndex++;
     }
 
-    private void DoActionOnTile(Collider2D overLappedPoint)
+    private void DoActionOnTile()
     {
         foreach (BossActionSetter action in enemyActions)
         {
@@ -86,7 +87,7 @@ public class Boss : MonoBehaviour
                 {
                     if (action.Tiles.Contains(tile))
                     {
-                        PerformAction(action, overLappedPoint);
+                        PerformAction(action);
                         break;
                     }
                 }
@@ -96,9 +97,9 @@ public class Boss : MonoBehaviour
         HasBossAttacked = true;
     }
 
-    private void PerformAction(BossActionSetter action, Collider2D overLappedPoint)
+    private void PerformAction(BossActionSetter action)
     {
-        Hero hero = overLappedPoint.GetComponent<Hero>();
+        Hero hero = raycastHit.collider.GetComponent<Hero>();
 
         action.EnemyAction.DoActionOnHero(hero);
     }

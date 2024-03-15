@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -55,30 +53,26 @@ public class Tile : MonoBehaviour
         return false;
     }
 
-    public bool CheckForTile(out RaycastHit2D raycastHit, out Tile currentTile)
+    public Tile CheckForTile()
     {
-        raycastHit = Physics2D.Raycast(transform.position, Vector2.zero, Mathf.Infinity, tileMask);
+        RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, Vector2.zero, Mathf.Infinity, tileMask);
 
-        currentTile = raycastHit.collider.GetComponent<Tile>();
-
-        return raycastHit;
-    }
-    
-    public bool CheckObjectOnTile(GameObject overlappingObject, LayerMask layerMask, out RaycastHit2D raycastHit, out Tile currentTile)
-    {
-        raycastHit = Physics2D.Raycast(overlappingObject.transform.position, Vector2.zero, Mathf.Infinity, layerMask);
-
-        currentTile = raycastHit.collider.GetComponent<Tile>();
-
-        return raycastHit;
+        if (raycastHit)
+            return this;
+        else
+            return null;
     }
 
-    public void SetObjectOnTile(GameObject overlappingObject, out RaycastHit2D raycastHit, out Tile currentTile)
+    public bool IsTileOccupied(GameObject occupier)
     {
-        raycastHit = Physics2D.Raycast(overlappingObject.transform.position, Vector2.zero, Mathf.Infinity, tileMask);
+        if (occupier.gameObject.transform.position == gameObject.transform.position)
+        {
+            return true;
+        }
 
-        currentTile = raycastHit.collider.GetComponent<Tile>();
+        return false;
     }
+
 }
 
 public enum TileType

@@ -24,7 +24,6 @@ public abstract class Hero : MonoBehaviour
             if ((Vector2)transform.position == targetPositionInGrid && CurrentTile != null)
             {
                 HasHeroMoved = true;
-                CurrentTile.CheckForTile(out raycastHit, out CurrentTile);
             }
         }
     }
@@ -62,6 +61,7 @@ public abstract class Hero : MonoBehaviour
         }
     }
 
+    public abstract void HeroAttackBoss(Boss boss);
     public abstract bool CanHeroAttack();
 }
 
