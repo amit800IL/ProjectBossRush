@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Hero : MonoBehaviour
@@ -30,6 +31,7 @@ public abstract class Hero : MonoBehaviour
             {
                 HasHeroMoved = true;
                 CurrentTile = TileGetter.GetTile(targetPositionInGrid, out raycastHit);
+                CurrentTile.OccupyTile(this.gameObject);
             }
         }
     }

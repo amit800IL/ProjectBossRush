@@ -64,6 +64,11 @@ public class Tile : MonoBehaviour
     {
         occupant = null;
     }
+
+    public GameObject GetOccupier()
+    {
+        return occupant;
+    }
 }
 
 public enum TileType

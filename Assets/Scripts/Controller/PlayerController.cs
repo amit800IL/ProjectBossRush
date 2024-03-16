@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     [Header("LayerMasks")]
     [SerializeField] private LayerMask heroMask;
 
-    private void Start()
+    private void Awake()
     {
         inputActions = new BossRush();
         inputActions.Enable();
