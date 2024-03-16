@@ -47,17 +47,9 @@ public class PlayerController : MonoBehaviour
         if (inputAction.performed)
         {
             if (heroMarked)
-                MoveCharachter();
+                MoveHeroToTile();
             else
-                MarkCharachter();
-        }
-    }
-    private void CharchterRaycastTileMovement()
-    {
-        if (CanStepOnTile())
-        {
-            markedHero.MoveHeroToPosition(markedTile.tilePosition);
-            ResetMarkProccess();
+                MarkHero();
         }
     }
     private bool CanStepOnTile()
@@ -75,7 +67,7 @@ public class PlayerController : MonoBehaviour
         return !markedHero.HasHeroMoved && playerResourceManager.UseAP(1);
     }
 
-    private void MoveCharachter()
+    private void MoveHeroToTile()
     {
         if (markedHero != null && heroMarked)
         {
@@ -83,7 +75,11 @@ public class PlayerController : MonoBehaviour
 
             markedTile = TileGetter.GetTile(pressPosition, out raycastHit);
 
-            CharchterRaycastTileMovement();
+            if (CanStepOnTile())
+            {
+                markedHero.MoveHeroToPosition(markedTile.tilePosition);
+                ResetMarkProccess();
+            }
         }
     }
 
@@ -95,7 +91,7 @@ public class PlayerController : MonoBehaviour
         markedTile = null;
     }
 
-    private void MarkCharachter()
+    private void MarkHero()
     {
         Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
 
