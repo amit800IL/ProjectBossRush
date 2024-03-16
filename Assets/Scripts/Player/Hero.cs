@@ -19,6 +19,7 @@ public abstract class Hero : MonoBehaviour
     protected virtual void Start()
     {
         CurrentTile = TileGetter.GetTile(transform.position, out raycastHit);
+        CurrentTile.OccupyTile(this.gameObject);
     }
 
     public void MoveHeroToPosition(Vector2 targetPositionInGrid)
