@@ -42,12 +42,28 @@ public class PlayerController : MonoBehaviour
     {
         inputPosition = Mouse.current.position.ReadValue();
 
+        Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
+
         if (inputAction.performed)
         {
             if (heroMarked)
-                MoveHeroToTile();
+                MoveHeroToTile(pressPosition);
             else
-                MarkHero();
+                MarkHero(pressPosition);
+        }
+    }
+
+    private void MoveHeroToTile(Vector2 pressPosition)
+    {
+        if (markedHero != null && heroMarked)
+        {
+            markedTile = TileGetter.GetTile(pressPosition, out raycastHit);
+
+            if (CanStepOnTile())
+            {
+                markedHero.MoveHeroToPosition(markedTile.tilePosition);
+                ResetMarkProccess();
+            }
         }
     }
     private bool CanStepOnTile()
@@ -65,22 +81,6 @@ public class PlayerController : MonoBehaviour
         return !markedHero.HasHeroMoved && playerResourceManager.UseAP(1);
     }
 
-    private void MoveHeroToTile()
-    {
-        if (markedHero != null && heroMarked)
-        {
-            Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
-
-            markedTile = TileGetter.GetTile(pressPosition, out raycastHit);
-
-            if (CanStepOnTile())
-            {
-                markedHero.MoveHeroToPosition(markedTile.tilePosition);
-                ResetMarkProccess();
-            }
-        }
-    }
-
     private void ResetMarkProccess()
     {
         heroMarked = false;
@@ -89,10 +89,8 @@ public class PlayerController : MonoBehaviour
         markedTile = null;
     }
 
-    private void MarkHero()
+    private void MarkHero(Vector2 pressPosition)
     {
-        Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
-
         raycastHit = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, heroMask);
 
         if (raycastHit && (heroMask.value & (1 << raycastHit.collider.gameObject.layer)) != 0)
