@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("LayerMasks")]
     [SerializeField] private LayerMask heroMask;
-    [SerializeField] private LayerMask tileMask;
-    [SerializeField] private LayerMask bossMask;
 
     private void Awake()
     {
