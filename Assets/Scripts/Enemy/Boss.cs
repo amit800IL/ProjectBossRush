@@ -107,7 +107,7 @@ public class Boss : MonoBehaviour
 
             if (hero != null)
             {
-                Debug.Log("Found hero: " + hero.name + "on tile : " + tile.name);
+                Debug.Log("Found hero: " + hero.name + " on tile : " + tile.gameObject.name);
                 action.EnemyAction.DoActionOnHero(hero);
                 return;
             }

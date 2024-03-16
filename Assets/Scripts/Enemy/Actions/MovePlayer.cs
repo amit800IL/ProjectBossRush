@@ -18,6 +18,5 @@ public class MovePlayer : EnemyAction
             Vector2 moveDirection = movePlayerDirections[randomIndex];
             hero.transform.position = (Vector2)hero.transform.position - moveDirection;
         }
-
     }
 }
