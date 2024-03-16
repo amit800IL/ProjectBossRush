@@ -1,20 +1,26 @@
-using System;
 using UnityEngine;
 
 public abstract class Hero : MonoBehaviour
 {
-    protected float damage = 0.0f;
+
+    [Header("General Variables")]
 
     [SerializeField] protected PlayerResourceManager manager;
+    public bool HasHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
+
+    [Header("Hero Attributes")]
 
     [SerializeField] protected float HP = 0.0f;
 
+    [SerializeField] protected float damage = 0.0f;
+
     [SerializeField] protected float Defense = 0.0f;
+
+    [Header("Tile and raycast")]
 
     protected Tile CurrentTile;
     protected RaycastHit2D raycastHit;
-    public bool HasHeroMoved { get; protected set; } = false;
 
     protected virtual void Start()
     {

@@ -2036,12 +2036,6 @@ MonoBehaviour:
   heroMask:
     serializedVersion: 2
     m_Bits: 8
-  tileMask:
-    serializedVersion: 2
-    m_Bits: 64
-  bossMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &1748874111
 GameObject:
   m_ObjectHideFlags: 0

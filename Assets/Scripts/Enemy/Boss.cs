@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    [Header("General Variables")]
+
     public static Action<int> OnEnemyHealthChanged;
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
-    [SerializeField] private GridManager gridManager;
+    private int attackIndex = 0;
+
+    [Header("Boss Attributes")]
+
     [SerializeField] private float HP = 0.0f;
     [SerializeField] private float damage = 0.0f;
     [SerializeField] private float defense = 0.0f;
-    [SerializeField] private LayerMask charachterMask;
+
+    [Header("Attacking actions")]
+
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private Tile tile;
     private RaycastHit2D raycastHit;
 
-    private int attackIndex = 0;
     public void BossRestart()
     {
         HasBossAttacked = false;
@@ -101,7 +107,7 @@ public class Boss : MonoBehaviour
 
             if (hero != null)
             {
-                Debug.Log("Found hero: " + hero.name);
+                Debug.Log("Found hero: " + hero.name + "on tile : " + tile.name);
                 action.EnemyAction.DoActionOnHero(hero);
                 return;
             }

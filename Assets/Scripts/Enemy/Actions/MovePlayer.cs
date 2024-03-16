@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class MovePlayer : EnemyAction
 {
-    [SerializeField] private LayerMask tileMask;
-    [SerializeField] private LayerMask heroMask;
     [SerializeField] private List<Vector2> movePlayerDirections;
     public override void DoActionOnHero(Hero hero)
     {

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5831030080467336696}
   - component: {fileID: 9222636796857158961}
   m_Layer: 3
-  m_Name: Charachter
+  m_Name: Fighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba62f3978faf14b9c710177dd8d965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
   HP: 100
-  Damage: 100
+  damage: 10
   Defense: 100
 --- !u!212 &5831030080467336696
 SpriteRenderer:
