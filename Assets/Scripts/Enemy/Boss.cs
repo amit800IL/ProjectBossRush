@@ -70,32 +70,13 @@ public class Boss : MonoBehaviour
                     if (action.Tiles.Contains(tilePosition))
                     {
                         tile = TileGetter.GetTile(tilePosition, out raycastHit);
-                        DoActionOnTile();
+                        PerformAction(action);
                     }
                 }
             }
         }
 
         attackIndex++;
-    }
-
-    private void DoActionOnTile()
-    {
-        foreach (BossActionSetter action in enemyActions)
-        {
-            if (action == enemyActions[attackIndex])
-            {
-                foreach (Vector2 tilePosition in action.Tiles)
-                {
-                    if (action.Tiles.Contains(tilePosition))
-                    {
-                        PerformAction(action);
-                        break;
-                    }
-                }
-            }
-        }
-
         HasBossAttacked = true;
     }
 
