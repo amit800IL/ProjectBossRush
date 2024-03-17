@@ -32,6 +32,7 @@ public abstract class Hero : MonoBehaviour
         if (IsHeroInMoveRange(targetPositionInGrid))
         {
             transform.position = targetPositionInGrid;
+            heroAnimator.SetTrigger("Walk");
 
             if ((Vector2)transform.position == targetPositionInGrid && CurrentTile != null)
             {
@@ -66,6 +67,8 @@ public abstract class Hero : MonoBehaviour
     {
         HP -= 10f;
         Debug.Log(gameObject.name + "Health : " + HP);
+
+        heroAnimator.SetTrigger("Injured");
 
         if (HP == 0)
         {

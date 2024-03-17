@@ -90,6 +90,8 @@ public class Boss : MonoBehaviour
         {
             Hero hero = tile.GetOccupier().GetComponent<Hero>();
 
+            bossAnimator.SetTrigger("Attack");
+
             if (hero != null)
             {
                 Debug.Log("Found hero: " + hero.name + " on tile : " + tile.gameObject.name);
