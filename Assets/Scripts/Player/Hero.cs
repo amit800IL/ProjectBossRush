@@ -3,9 +3,8 @@ using UnityEngine;
 public abstract class Hero : MonoBehaviour
 {
 
-    [Header("General Variables")]
-
-    [SerializeField] protected PlayerResourceManager manager;
+    [field: Header("General Variables")]
+    [field: SerializeField] public Animator heroAnimator { get; protected set; }
     public bool HasHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 

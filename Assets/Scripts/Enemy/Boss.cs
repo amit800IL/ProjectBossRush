@@ -12,6 +12,8 @@ public class Boss : MonoBehaviour
 
     private int attackIndex = 0;
 
+    [SerializeField] private Animator bossAnimator;
+
     [Header("Boss Attributes")]
 
     [SerializeField] private float HP = 0.0f;
@@ -36,6 +38,8 @@ public class Boss : MonoBehaviour
 
         Debug.Log("Boss HP is " + HP);
         OnEnemyHealthChanged.Invoke((int)HP);
+
+        bossAnimator.SetTrigger("Injured");
 
         if (HP <= 0)
         {
@@ -99,7 +103,7 @@ public class Boss : MonoBehaviour
 
     private bool IsTileValid()
     {
-       return raycastHit && tile != null && tile.IsTileOccupied;
+        return raycastHit && tile != null && tile.IsTileOccupied;
     }
 }
 

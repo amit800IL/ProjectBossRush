@@ -977,6 +977,7 @@ GameObject:
   - component: {fileID: 994719410}
   - component: {fileID: 994719414}
   - component: {fileID: 994719413}
+  - component: {fileID: 994719415}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Untagged
@@ -1108,13 +1109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bc40f5f0e117c4da76c870c64e714c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridManager: {fileID: 1389232238}
+  animator: {fileID: 994719415}
   HP: 100
   damage: 10
   defense: 15
-  charachterMask:
-    serializedVersion: 2
-    m_Bits: 8
   debugMarkerPrefab: {fileID: 4774809326186486300, guid: 5f06d9468f5ca194aa888a17b963cf3d, type: 3}
   enemyActions:
   - enemyAction: {fileID: 1494551776}
@@ -1127,6 +1125,27 @@ MonoBehaviour:
     - {x: 1, y: 1}
     - {x: 2, y: 2}
     - {x: 1, y: 2}
+--- !u!95 &994719415
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994719409}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e5778c54ec5ce244a12091dc1431caa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1204619009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,12 +1903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4214f3f205a5ce347a23a92b4480208d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMask:
-    serializedVersion: 2
-    m_Bits: 64
-  heroMask:
-    serializedVersion: 2
-    m_Bits: 0
   movePlayerDirections:
   - {x: 1, y: 0}
   - {x: -1, y: 0}
