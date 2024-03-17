@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class SymbolTable
 {
     const int SYMBOL_TYPE_COUNT = 6;
@@ -29,10 +30,18 @@ public class SymbolTable
         }
     }
 
+    public void Remove(SymbolTable toRemove)
+    {
+        for (int i = 0; i < SYMBOL_TYPE_COUNT; i++)
+        {
+            table[i] -= toRemove.table[i];
+        }
+    }
+
     // return if this table contains the amount of symbols another table has
     public bool Contains(SymbolTable target)
     {
-        for(int i = 0;i < SYMBOL_TYPE_COUNT; i++)
+        for (int i = 0; i < SYMBOL_TYPE_COUNT; i++)
         {
             if (table[i] < target.table[i])
                 return false;
@@ -41,7 +50,7 @@ public class SymbolTable
     }
 
     // print table to log for testing
-    public void PrintTable()
+    public string PrintTable()
     {
         string output = "";
         for (int i = 0; i < SYMBOL_TYPE_COUNT; i++)
@@ -50,6 +59,19 @@ public class SymbolTable
             output += table[i] + "\n";
         }
         Debug.Log(output);
+        return output;
+    }
+
+    public override string ToString()
+    {
+        string output = "";
+        for (int i = 0; i < SYMBOL_TYPE_COUNT; i++)
+        {
+            output += (Symbols)i + " " + table[i] + "\n";
+            //output += table[i] + "\n";
+        }
+        Debug.Log(output);
+        return output;
     }
 
     public enum Symbols

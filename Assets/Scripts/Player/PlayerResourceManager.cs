@@ -9,13 +9,21 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] SymbolTable symbolCharge = new();
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
+    [SerializeField] private Technique selectedTechnique;
 
-    SymbolTable testTable = new SymbolTable(1);
+    [SerializeField] SymbolTable testTable = new SymbolTable(1);
 
     private void Start()
     {
+        Technique.SelectTechnique += SetSelectedTechnique;
+
         OnAPChanged?.Invoke(AP);
         //InitAP();
+    }
+
+    private void SetSelectedTechnique(Technique selected)
+    {
+        selectedTechnique = selected;
     }
 
     #region symbols
@@ -36,21 +44,28 @@ public class PlayerResourceManager : MonoBehaviour
         symbolCharge.PrintTable();
     }
 
-    [ContextMenu("check contains")]
-    public void CheckContains()
+    [ContextMenu("check contains symbols")]
+    public bool ContainsSymbols(SymbolTable toCheck)
     {
-        print(symbolCharge.Contains(testTable));
+        //print(symbolCharge.Contains(testTable));
+        return symbolCharge.Contains(testTable);
     }
 
-    //public bool UseSymbols(int type, int amount)
-    //{
-    //    if(symbolCharge[type]>=amount)
-    //    {
-    //        symbolCharge[type]-=amount;
-    //        return true;
-    //    }
-    //    return false;
-    //}
+    [ContextMenu("Use technique")]
+    public void UseTechnique()
+    {
+        if (ContainsSymbols(selectedTechnique.GetRequirements()))
+        {
+            UseSymbols(selectedTechnique.GetRequirements());
+            //implement use
+            selectedTechnique.GetTechData();
+        }
+    }
+
+    public void UseSymbols(SymbolTable toUse)
+    {
+        symbolCharge.Remove(toUse);
+    }
     #endregion
 
     #region AP
