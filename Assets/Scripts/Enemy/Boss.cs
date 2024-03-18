@@ -50,26 +50,18 @@ public class Boss : MonoBehaviour
 
     public void InteractWithTiles(bool VisualizeAttack)
     {
-        foreach (BossActionSetter action in enemyActions)
+        foreach (Vector2 tilePosition in enemyActions[attackIndex].Tiles)
         {
-            if (action == enemyActions[attackIndex])
+            if (VisualizeAttack)
             {
-                foreach (Vector2 tilePosition in action.Tiles)
-                {
-                    if (VisualizeAttack)
-                    {
-                        GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, Quaternion.identity);
-                        Destroy(marker, 2f);
-                    }
-                    else
-                    {
-                        tile = TileGetter.GetTile(tilePosition, out raycastHit);
-                        PerformAction(enemyActions[attackIndex]);
+                GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, Quaternion.identity);
+                Destroy(marker, 2f);
+            }
+            else
+            {
+                tile = TileGetter.GetTile(tilePosition, out raycastHit);
 
-                        attackIndex++;
-                        HasBossAttacked = true;
-                    }
-                }
+                PerformAction(enemyActions[attackIndex]);
             }
         }
     }
@@ -86,6 +78,10 @@ public class Boss : MonoBehaviour
             {
                 Debug.Log("Found hero: " + hero.name + " on tile : " + tile.gameObject.name);
                 action.EnemyAction.DoActionOnHero(hero);
+
+                attackIndex++;
+                HasBossAttacked = true;
+
                 return;
             }
         }
