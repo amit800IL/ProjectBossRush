@@ -48,22 +48,7 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public void VisualizeBossActions()
-    {
-        foreach (BossActionSetter action in enemyActions)
-        {
-            if (action == enemyActions[attackIndex])
-            {
-                foreach (Vector2 markerPosition in action.Tiles)
-                {
-                    GameObject marker = Instantiate(debugMarkerPrefab, markerPosition, Quaternion.identity);
-                    Destroy(marker, 2f);
-                }
-            }
-        }
-    }
-
-    public void AttackTile()
+    public void InteractWithTiles(bool VisualizeAttack)
     {
         foreach (BossActionSetter action in enemyActions)
         {
@@ -71,17 +56,22 @@ public class Boss : MonoBehaviour
             {
                 foreach (Vector2 tilePosition in action.Tiles)
                 {
-                    if (action.Tiles.Contains(tilePosition))
+                    if (VisualizeAttack)
+                    {
+                        GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, Quaternion.identity);
+                        Destroy(marker, 2f);
+                    }
+                    else
                     {
                         tile = TileGetter.GetTile(tilePosition, out raycastHit);
-                        PerformAction(action);
+                        PerformAction(enemyActions[attackIndex]);
+
+                        attackIndex++;
+                        HasBossAttacked = true;
                     }
                 }
             }
         }
-
-        attackIndex++;
-        HasBossAttacked = true;
     }
 
     private void PerformAction(BossActionSetter action)
@@ -107,13 +97,6 @@ public class Boss : MonoBehaviour
     {
         return raycastHit && tile != null && tile.IsTileOccupied;
     }
-}
-
-public enum EnemyActions
-{
-    DoNothing,
-    MovePlayer,
-    Attack,
 }
 
 [System.Serializable]

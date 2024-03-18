@@ -3,8 +3,6 @@ using UnityEngine.Rendering;
 
 public class Tile : MonoBehaviour
 {
-
-    [SerializeField] private LayerMask tileMask;
     public Vector2 tilePosition { get; private set; }
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
     [SerializeField] private TileType[] tileType;

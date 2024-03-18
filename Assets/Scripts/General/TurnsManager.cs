@@ -6,34 +6,41 @@ public class TurnsManager : MonoBehaviour
 
     private bool isPlayerTurnActive = false;
 
+    bool onlyVisualizeAction = true;
+
     private void Start()
     {
         StartPlayerTurn();
     }
     private void StartPlayerTurn()
     {
+        bool visualizeAction = onlyVisualizeAction;
+
         if (boss.IsBossAlive)
         {
             if (boss.HasBossAttacked)
                 boss.BossRestart();
 
             if (!boss.HasBossAttacked)
-                boss.VisualizeBossActions();
+                boss.InteractWithTiles(visualizeAction);
 
             isPlayerTurnActive = true;
         }
     }
     public void EndPlayerTurn()
     {
+        bool attackTile = !onlyVisualizeAction;
+
         if (boss.IsBossAlive)
         {
             isPlayerTurnActive = false;
 
             if (!boss.HasBossAttacked)
-                boss.AttackTile();
+                boss.InteractWithTiles(attackTile);
 
             if (boss.HasBossAttacked)
                 StartPlayerTurn();
+
         }
     }
 }

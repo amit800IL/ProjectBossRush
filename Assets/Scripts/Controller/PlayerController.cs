@@ -108,4 +108,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ResetMarkProccessButton()
+    {
+        if ((heroMarked && markedHero != null))
+        {
+            heroMarked = false;
+            markedHero = null;
+        }
+    }
 }
