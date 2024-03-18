@@ -66,7 +66,7 @@ public abstract class Hero : MonoBehaviour
     public void HealthDown()
     {
         HP -= 10f;
-        Debug.Log(gameObject.name + "Health : " + HP);
+        Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HP);
 
         heroAnimator.SetTrigger("Injured");
 

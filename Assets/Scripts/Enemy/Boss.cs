@@ -76,7 +76,7 @@ public class Boss : MonoBehaviour
 
             if (hero != null)
             {
-                Debug.Log("Found hero: " + hero.name + " on tile : " + tile.gameObject.name);
+                Debug.Log("Found hero: " + hero.name + " on a tile");
                 action.EnemyAction.DoActionOnHero(hero);
 
                 attackIndex++;
@@ -86,7 +86,7 @@ public class Boss : MonoBehaviour
             }
         }
 
-        Debug.LogWarning("No hero found on the tile : " + tile.name);
+        Debug.LogWarning("No hero found on the checked tile");
     }
 
     private bool IsTileValid()
