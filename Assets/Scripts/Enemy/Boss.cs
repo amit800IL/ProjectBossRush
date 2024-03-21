@@ -29,6 +29,9 @@ public class Boss : MonoBehaviour
 
     public void BossRestart()
     {
+        if (HasBossAttacked)
+            attackIndex++;
+
         HasBossAttacked = false;
     }
 
@@ -79,7 +82,6 @@ public class Boss : MonoBehaviour
                 Debug.Log("Found hero: " + hero.name + " on a tile");
                 action.EnemyAction.DoActionOnHero(hero);
 
-                attackIndex++;
                 HasBossAttacked = true;
 
                 return;
