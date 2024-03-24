@@ -61,6 +61,11 @@ public class PlayerController : MonoBehaviour
 
             if (CanStepOnTile())
             {
+                if (markedHero.CurrentTile != null)
+                {
+                    markedHero.CurrentTile.ClearTile();
+                }
+
                 markedHero.MoveHeroToPosition(markedTile.tilePosition);
                 ResetMarkProccess();
             }

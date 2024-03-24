@@ -16,9 +16,8 @@ public abstract class Hero : MonoBehaviour
 
     [SerializeField] protected float Defense = 0.0f;
 
-    [Header("Tile and raycast")]
-
-    protected Tile CurrentTile;
+    [field: Header("Tile and raycast")]
+    public Tile CurrentTile { get; protected set; }
     protected RaycastHit2D raycastHit;
 
     protected virtual void Start()
