@@ -30,7 +30,7 @@ public class TurnsManager : MonoBehaviour
             isPlayerTurnActive = true;
             OnPlayerTurnStart.Invoke();
         }
-    }
+    }  
     public void EndPlayerTurn()
     {
         bool attackTile = !onlyVisualizeAction;
