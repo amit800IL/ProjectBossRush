@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class TurnsManager : MonoBehaviour
 {
+    public static event Action OnPlayerTurnStart;
+
     [SerializeField] private Boss boss;
 
     private bool isPlayerTurnActive = false;
@@ -25,6 +28,7 @@ public class TurnsManager : MonoBehaviour
                 boss.InteractWithTiles(visualizeAction);
 
             isPlayerTurnActive = true;
+            OnPlayerTurnStart();
         }
     }
     public void EndPlayerTurn()

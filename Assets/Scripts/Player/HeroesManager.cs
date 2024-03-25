@@ -3,9 +3,20 @@ using UnityEngine;
 
 public class HeroesManager : MonoBehaviour
 {
-    [SerializeField] private PlayerResourceManager playerResourceManager;
+    [SerializeField] private PlayerResourceManager playerResourceManager; //maybe not needed
     [SerializeField] private List<Hero> heroList;
     [SerializeField] private Boss boss;
+
+    private void Start()
+    {
+        PlayerResourceManager.OnTechniqueUsed += UseCombo;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerResourceManager.OnTechniqueUsed -= UseCombo;
+    }
+
     public void AttackBoss()
     {
         foreach (Hero hero in heroList)
@@ -15,8 +26,20 @@ public class HeroesManager : MonoBehaviour
         }
     }
 
-    public void UseTechniqe()
+    [ContextMenu("Combo")]
+    public void UseCombo(Effect[] effects)
     {
-        //Ellie
+        foreach (Effect effect in effects)
+        {
+            switch (effect.Type)
+            {
+                case EffectType.Damage:
+                    boss.TakeDamage(effect.amount);
+                    Debug.Log($"combo dealt {effect.amount} damage");
+                    break;
+                case EffectType.Heal:
+                    break;
+            }
+        }
     }
 }

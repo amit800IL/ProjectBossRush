@@ -5,26 +5,66 @@ using UnityEngine;
 public class PlayerResourceManager : MonoBehaviour
 {
     public static event Action<int> OnAPChanged;
+    public static event Action<Effect[]> OnTechniqueUsed;
 
     [SerializeField] SymbolTable symbolCharge = new();
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
+    [SerializeField] private Technique[] techniques;
     [SerializeField] private Technique selectedTechnique;
 
     [SerializeField] SymbolTable testTable = new SymbolTable(1);
 
     private void Start()
     {
-        Technique.SelectTechnique += SetSelectedTechnique;
-
-        OnAPChanged?.Invoke(AP);
-        //InitAP();
+        Technique.SelectTechnique += SetSelectedCombo;
+        TurnsManager.OnPlayerTurnStart += RollCooldowns;
     }
 
-    private void SetSelectedTechnique(Technique selected)
+    private void OnDestroy()
+    {
+        Technique.SelectTechnique -= SetSelectedCombo;
+        TurnsManager.OnPlayerTurnStart -= RollCooldowns;
+    }
+
+    #region Combos
+
+    private void SetSelectedCombo(Technique selected)
     {
         selectedTechnique = selected;
+        UseTechnique();
     }
+
+    public void RollCooldowns()
+    {
+        foreach (Technique technique in techniques)
+        {
+            technique.UpdateCooldown();
+        }
+    }
+
+    [ContextMenu("Use technique")]
+    public void UseTechnique()
+    {
+        if (selectedTechnique.IsReadyToUse())
+        {
+            if (selectedTechnique.GetAPCost() <= AP)
+            {
+                if (ContainsSymbols(selectedTechnique.GetRequirements()))
+                {
+                    UseSymbols(selectedTechnique.GetRequirements());
+                    UseAP(selectedTechnique.GetAPCost());
+                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects());
+                    selectedTechnique.StartCooldown();
+                }
+                else print("not enough symbols");
+            }
+            else print($"not enough AP {AP}/{selectedTechnique.GetAPCost()}");
+        }
+        else print("combo on cooldown");
+    }
+
+    #endregion
 
     #region symbols
     public void AddSymbols(SymbolTable toAdd)
@@ -47,19 +87,7 @@ public class PlayerResourceManager : MonoBehaviour
     [ContextMenu("check contains symbols")]
     public bool ContainsSymbols(SymbolTable toCheck)
     {
-        //print(symbolCharge.Contains(testTable));
-        return symbolCharge.Contains(testTable);
-    }
-
-    [ContextMenu("Use technique")]
-    public void UseTechnique()
-    {
-        if (ContainsSymbols(selectedTechnique.GetRequirements()))
-        {
-            UseSymbols(selectedTechnique.GetRequirements());
-            //implement use
-            selectedTechnique.GetTechData();
-        }
+        return symbolCharge.Contains(toCheck);
     }
 
     public void UseSymbols(SymbolTable toUse)
@@ -69,17 +97,19 @@ public class PlayerResourceManager : MonoBehaviour
     #endregion
 
     #region AP
-    private void InitAP()
+
+    //get maxAP as AP sum from party
+    public void InitAP(int partySum)
     {
-        //get maxAP as AP sum from party
-        //temp
-        maxAP = 4;
+        maxAP = partySum;
+        OnAPChanged?.Invoke(AP);
     }
 
+    //Use to refill AP at the start of turn
     public void ResetAP()
     {
         AP = maxAP;
-        OnAPChanged.Invoke(AP);
+        OnAPChanged?.Invoke(AP);
     }
 
     public bool UseAP(int amount)
@@ -88,7 +118,6 @@ public class PlayerResourceManager : MonoBehaviour
         {
             AP -= amount;
             OnAPChanged?.Invoke(AP);
-            Debug.Log(AP);
             return true;
         }
         return false;
