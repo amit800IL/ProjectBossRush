@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 3192368057145486834}
   - component: {fileID: 5368084892115762372}
   m_Layer: 5
-  m_Name: TechniqeName
+  m_Name: ComboName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 1765192658882995639}
   - component: {fileID: 7022787652848408014}
   m_Layer: 5
-  m_Name: TechniqeNumber
+  m_Name: ComboCostNums
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -614,11 +614,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -637,8 +637,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   techData: {fileID: 11400000, guid: e87d11b271d0cf343b03e4e97d1da4ea, type: 2}
+  cooldown: 0
   nameText: {fileID: 5368084892115762372}
   numText: {fileID: 7022787652848408014}
+  cardBG: {fileID: 8946106312911333985}
 --- !u!1 &8300699704990568692
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,7 +651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5939510860064199776}
   m_Layer: 5
-  m_Name: Techniqe
+  m_Name: ComboCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

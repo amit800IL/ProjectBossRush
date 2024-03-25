@@ -8,5 +8,7 @@ public class TechniqueDataSO : ScriptableObject
 {
     public string Name;
     public SymbolTable Requirements;
+    public int APCost;
+    public int Cooldown;
     public Effect[] Effects;
 }

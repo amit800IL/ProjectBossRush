@@ -70,7 +70,6 @@ public class SymbolTable
             output += (Symbols)i + " " + table[i] + "\n";
             //output += table[i] + "\n";
         }
-        Debug.Log(output);
         return output;
     }
 
