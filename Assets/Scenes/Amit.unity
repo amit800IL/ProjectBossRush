@@ -1139,12 +1139,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   symbolCharge:
-    table: 000000000000000000000000000000000000000000000000
+    table: 020000000000000000000000000000000000000000000000
   maxAP: 5
   AP: 5
+  techniques:
+  - {fileID: 2089339110}
   selectedTechnique: {fileID: 0}
   testTable:
-    table: 000000000100000000000000000000000000000000000000
+    table: 000000000000000000000000000000000000000000000000
 --- !u!4 &956611568
 Transform:
   m_ObjectHideFlags: 0
@@ -2890,6 +2892,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900776947}
   m_CullTransparentMesh: 1
+--- !u!114 &2089339110 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2362781536908731928, guid: 81c35b5e10b08fa4b9fc7d9bd9c8ebe3, type: 3}
+  m_PrefabInstance: {fileID: 1595559677}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f445f3abbe34dad4696fc713f6ffea6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

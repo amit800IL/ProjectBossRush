@@ -57,7 +57,7 @@ public class PlayerResourceManager : MonoBehaviour
                     OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects());
                     selectedTechnique.StartCooldown();
                 }
-                else print("not enough symbols");
+                else print($"not enough symbols {selectedTechnique.GetRequirements()} \n {symbolCharge}");
             }
             else print($"not enough AP {AP}/{selectedTechnique.GetAPCost()}");
         }

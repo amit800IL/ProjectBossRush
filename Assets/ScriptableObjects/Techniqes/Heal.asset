@@ -15,7 +15,9 @@ MonoBehaviour:
   Name: Heal
   Requirements:
     table: 010000000000000000000000000000000000000000000000
+  APCost: 1
+  Cooldown: 1
   Effects:
-  - Type: 1
+  - Type: 0
     duration: 1
     amount: 10
