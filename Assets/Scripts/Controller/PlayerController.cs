@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -42,14 +43,14 @@ public class PlayerController : MonoBehaviour
     {
         inputPosition = Mouse.current.position.ReadValue();
 
-        Vector3 pressPosition = mainCamera.ScreenToWorldPoint(new Vector3(inputPosition.x, inputPosition.y, mainCamera.nearClipPlane));
+        TileGetter.GetTileFromCamera(inputPosition, out raycastHit);
 
         if (inputAction.performed)
         {
             if (heroMarked)
-                MoveHeroToTile(pressPosition);
+                MoveHeroToTile(inputPosition);
             else
-                MarkHero(pressPosition);
+                MarkHero(inputPosition);
         }
     }
 
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour
                     markedHero.CurrentTile.ClearTile();
                 }
 
-                markedHero.MoveHeroToPosition(markedTile.tilePosition);
+                markedHero.MoveHeroToPosition(markedTile.tilePosition + new Vector3(0, 1, 0));
                 ResetMarkProccess();
             }
         }
@@ -96,15 +97,13 @@ public class PlayerController : MonoBehaviour
 
     private void MarkHero(Vector3 pressPosition)
     {
-        Vector3 rayDirection = Quaternion.Euler(14, 0, 0) * Vector3.forward;
-
-        Ray ray = new Ray(pressPosition, rayDirection);
+        Ray ray = Camera.main.ScreenPointToRay(pressPosition);
 
         bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
 
-        Debug.DrawRay(pressPosition, rayDirection * 10, Color.blue, 5f);
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue, 5f);
 
-        Debug.Log(raycast);
+        Debug.Log("Player has been hit : " + raycast);
 
         if (raycast)
         {

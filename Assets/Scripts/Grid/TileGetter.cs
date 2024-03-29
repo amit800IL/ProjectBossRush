@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public static class TileGetter
 {
@@ -13,6 +14,8 @@ public static class TileGetter
         bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, tileMask);
 
         Debug.DrawRay(position, rayDirection, Color.red, 10f);
+
+        Debug.Log("Tile has been hit : " + raycast);
 
         Debug.Log(raycast);
 
@@ -29,13 +32,9 @@ public static class TileGetter
     }
     public static Tile GetTileFromCamera(Vector3 position, out RaycastHit raycastHit)
     {
-        Vector3 rayDirection = Quaternion.Euler(15, 0, 0) * Vector3.forward;
-
-        Ray ray = new Ray(position, rayDirection);
+        Ray ray = Camera.main.ScreenPointToRay(position);
 
         bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, tileMask);
-
-        Debug.DrawRay(position, rayDirection * 10, Color.red, 5f);
 
         if (raycast)
         {
