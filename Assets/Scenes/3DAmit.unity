@@ -352,6 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &72149670
 GameObject:
@@ -523,6 +524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &158960319
 GameObject:
@@ -750,6 +752,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &306572422
 GameObject:
@@ -872,6 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &308367742
 GameObject:
@@ -1131,6 +1135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &324522099
 GameObject:
@@ -1345,7 +1350,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 4
+  near clip plane: 4.8
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
@@ -1545,6 +1550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &460922280
 GameObject:
@@ -1667,6 +1673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &470508648
 GameObject:
@@ -2094,6 +2101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &591770160
 GameObject:
@@ -2303,6 +2311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &616505786
 GameObject:
@@ -2560,6 +2569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &693887077
 GameObject:
@@ -2859,6 +2869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &752283175
 GameObject:
@@ -2981,6 +2992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &763708762
 GameObject:
@@ -3103,6 +3115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &823502821
 GameObject:
@@ -3225,6 +3238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &939105056
 GameObject:
@@ -3545,6 +3559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1073039489
 GameObject:
@@ -3667,6 +3682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1174478152
 GameObject:
@@ -3961,6 +3977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1295973230
 GameObject:
@@ -4083,6 +4100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1296498356
 GameObject:
@@ -4340,6 +4358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1326317689
 GameObject:
@@ -4813,6 +4832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1429519555
 GameObject:
@@ -5281,6 +5301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1551615719
 GameObject:
@@ -5403,6 +5424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1577076768
 GameObject:
@@ -5525,6 +5547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1649567794
 GameObject:
@@ -5647,6 +5670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1650530110
 GameObject:
@@ -5769,6 +5793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1692439446
 GameObject:
@@ -6026,6 +6051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1707684168
 GameObject:
@@ -6148,6 +6174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1742321618
 GameObject:
@@ -6314,6 +6341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1778803668
 GameObject:
@@ -6507,6 +6535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1889667104
 GameObject:
@@ -6629,6 +6658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &1954625056
 GameObject:
@@ -6751,6 +6781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &2010762375
 GameObject:
@@ -6873,6 +6904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &2048403084
 GameObject:
@@ -7040,6 +7072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &2060774953
 GameObject:
@@ -7162,6 +7195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &2103394071
 GameObject:
@@ -7284,6 +7318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &2128015174
 GameObject:
@@ -7406,6 +7441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 0}
   tileType: 
+  spriteRenderer: {fileID: 0}
   occupant: {fileID: 0}
 --- !u!1 &2132328112
 GameObject:

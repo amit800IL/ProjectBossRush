@@ -6,7 +6,7 @@ public class Tile : MonoBehaviour
     public Vector3 tilePosition { get; private set; }
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
     [SerializeField] private TileType[] tileType;
-    //[SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private MeshRenderer spriteRenderer;
 
     //[SerializeField] bool danger;
     //SpriteRenderer material;
@@ -17,6 +17,7 @@ public class Tile : MonoBehaviour
     private void Start()
     {
         tilePosition = transform.position;
+        SetTileRandomColors();
         //SetTileRandomColors();
 
         //material = GetComponent<SpriteRenderer>();
@@ -30,14 +31,14 @@ public class Tile : MonoBehaviour
     //    spriteRenderer.material.SetKeyword(keyword, danger);
     //}
 
-    //private void SetTileRandomColors()
-    //{
-    //    Color[] colors = new Color[5] { Color.gray, Color.yellow, Color.black, Color.cyan, Color.magenta };
+    private void SetTileRandomColors()
+    {
+        Color[] colors = new Color[5] { Color.gray, Color.yellow, Color.black, Color.cyan, Color.magenta };
 
-    //    int randomColor = Random.Range(0, colors.Length);
+        int randomColor = Random.Range(0, colors.Length);
 
-    //    spriteRenderer.color = colors[randomColor];
-    //}
+        spriteRenderer.material.color = colors[randomColor];
+    }
 
     public void SetTileType(TileType[] type)
     {

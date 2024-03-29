@@ -35,7 +35,7 @@ public class GridManager : MonoBehaviour
         transform.rotation = finalAngle;
     }
 
-    private TileType[] CalculateTileType(Vector3 position)
+    private TileType[] CalculateTileType(Vector2 position)
     {
         Debug.Log("this method is only accurate for grids where y = 6");
         TileType[] types = new TileType[1];

@@ -120,4 +120,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TilePrefab>k__BackingField: {fileID: 8648337662786245942}
   tileType: 
+  spriteRenderer: {fileID: 1185575401595583529}
   occupant: {fileID: 0}
