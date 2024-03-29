@@ -8,25 +8,34 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
-        CreateGrid(); 
+        CreateGrid();
     }
 
     public void CreateGrid()
     {
         Tiles = new Tile[gridSize.x, gridSize.y];
 
+        Quaternion initilazeAngle = Quaternion.Euler(-90, 0, 0);
+
+        transform.rotation = initilazeAngle;
+
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
                 Vector3 gridPosition = new Vector2(x, y);
+
                 Tiles[x, y] = Instantiate(tileObject, transform.position + gridPosition, Quaternion.identity, transform);
                 Tiles[x, y].SetTileType(CalculateTileType(gridPosition));
             }
         }
+
+        Quaternion finalAngle = Quaternion.Euler(0, 0, 0);
+
+        transform.rotation = finalAngle;
     }
 
-    private TileType[] CalculateTileType(Vector2 position)
+    private TileType[] CalculateTileType(Vector3 position)
     {
         Debug.Log("this method is only accurate for grids where y = 6");
         TileType[] types = new TileType[1];

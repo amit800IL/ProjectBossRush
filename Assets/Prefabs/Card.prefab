@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64fcc7c46925ad4a9ca4c4118b5c373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   cardData: {fileID: 11400000, guid: 02090c820ae9fe440b20803c5133f3a5, type: 2}
   image: {fileID: 731875991771271914}
   numText: {fileID: 480356783060995671}

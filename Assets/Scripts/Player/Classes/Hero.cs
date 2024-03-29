@@ -18,25 +18,25 @@ public abstract class Hero : MonoBehaviour
 
     [field: Header("Tile and raycast")]
     public Tile CurrentTile { get; protected set; }
-    protected RaycastHit2D raycastHit;
+    protected RaycastHit raycastHit;
 
     protected virtual void Start()
     {
-        CurrentTile = TileGetter.GetTile(transform.position, out raycastHit);
+        CurrentTile = TileGetter.GetTileAtPosition(transform.position, out raycastHit);
         CurrentTile.OccupyTile(this.gameObject);
     }
 
-    public void MoveHeroToPosition(Vector2 targetPositionInGrid)
+    public void MoveHeroToPosition(Vector3 targetPositionInGrid)
     {
         if (IsHeroInMoveRange(targetPositionInGrid))
         {
             transform.position = targetPositionInGrid;
             heroAnimator.SetTrigger("Walk");
 
-            if ((Vector2)transform.position == targetPositionInGrid && CurrentTile != null)
+            if (transform.position == targetPositionInGrid && CurrentTile != null)
             {
                 HasHeroMoved = true;
-                CurrentTile = TileGetter.GetTile(targetPositionInGrid, out raycastHit);
+                CurrentTile = TileGetter.GetTileAtPosition(targetPositionInGrid, out raycastHit);
                 CurrentTile.OccupyTile(this.gameObject);
             }
         }
@@ -52,12 +52,12 @@ public abstract class Hero : MonoBehaviour
         return OnOneTileRange(newPosition) && !OnDiagonalDirection(newPosition);
     }
 
-    private bool OnOneTileRange(Vector2 newPosition)
+    private bool OnOneTileRange(Vector3 newPosition)
     {
         return Mathf.Abs(newPosition.x - transform.position.x) <= 1f && Mathf.Abs(newPosition.y - transform.position.y) <= 1f;
     }
 
-    private bool OnDiagonalDirection(Vector2 newPosition)
+    private bool OnDiagonalDirection(Vector3 newPosition)
     {
         return Mathf.Abs(newPosition.x - transform.position.x) == 1f && Mathf.Abs(newPosition.y - transform.position.y) == 1f;
     }

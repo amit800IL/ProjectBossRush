@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Raycast mark flags")]
 
-    private RaycastHit2D raycastHit;
+    private RaycastHit raycastHit;
     private bool heroMarked = false;
 
     [Header("Game Objects")]
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         inputPosition = Mouse.current.position.ReadValue();
 
-        Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
+        Vector3 pressPosition = mainCamera.ScreenToWorldPoint(new Vector3(inputPosition.x, inputPosition.y, mainCamera.nearClipPlane));
 
         if (inputAction.performed)
         {
@@ -53,11 +53,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MoveHeroToTile(Vector2 pressPosition)
+    private void MoveHeroToTile(Vector3 pressPosition)
     {
         if (markedHero != null && heroMarked)
         {
-            markedTile = TileGetter.GetTile(pressPosition, out raycastHit);
+            markedTile = TileGetter.GetTileFromCamera(pressPosition, out raycastHit);
 
             if (CanStepOnTile())
             {
@@ -94,11 +94,19 @@ public class PlayerController : MonoBehaviour
         markedTile = null;
     }
 
-    private void MarkHero(Vector2 pressPosition)
+    private void MarkHero(Vector3 pressPosition)
     {
-        raycastHit = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, heroMask);
+        Vector3 rayDirection = Quaternion.Euler(14, 0, 0) * Vector3.forward;
 
-        if (raycastHit && (heroMask.value & (1 << raycastHit.collider.gameObject.layer)) != 0)
+        Ray ray = new Ray(pressPosition, rayDirection);
+
+        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
+
+        Debug.DrawRay(pressPosition, rayDirection * 10, Color.blue, 5f);
+
+        Debug.Log(raycast);
+
+        if (raycast)
         {
             heroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();

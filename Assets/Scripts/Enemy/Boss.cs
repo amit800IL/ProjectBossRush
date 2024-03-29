@@ -25,7 +25,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private Tile tile;
-    private RaycastHit2D raycastHit;
+    private RaycastHit raycastHit;
 
     public void BossRestart()
     {
@@ -62,7 +62,7 @@ public class Boss : MonoBehaviour
             }
             else
             {
-                tile = TileGetter.GetTile(tilePosition, out raycastHit);
+                tile = TileGetter.GetTileFromCamera(tilePosition, out raycastHit);
 
                 PerformAction(enemyActions[attackIndex]);
             }
@@ -93,7 +93,7 @@ public class Boss : MonoBehaviour
 
     private bool IsTileValid()
     {
-        return raycastHit && tile != null && tile.IsTileOccupied;
+        return raycastHit.collider != null && tile != null && tile.IsTileOccupied;
     }
 }
 

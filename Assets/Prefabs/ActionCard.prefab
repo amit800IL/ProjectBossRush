@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64fcc7c46925ad4a9ca4c4118b5c373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   cardData: {fileID: 11400000, guid: 04d81c82bb6ecc146aa93a5bbd992c9d, type: 2}
   image: {fileID: 7798563471441502487}
   numText: {fileID: 2066057950592116004}
