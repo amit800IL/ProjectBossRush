@@ -22,8 +22,7 @@ public abstract class Hero : MonoBehaviour
 
     protected virtual void Start()
     {
-        CurrentTile = TileGetter.GetTileAtPosition(transform.position, out raycastHit);
-        CurrentTile.OccupyTile(this.gameObject);
+        TileGetter.OccupyTile(CurrentTile, this.gameObject);
     }
 
     public void MoveHeroToPosition(Vector3 targetPositionInGrid)
@@ -36,8 +35,7 @@ public abstract class Hero : MonoBehaviour
             if (transform.position == targetPositionInGrid && CurrentTile != null)
             {
                 HasHeroMoved = true;
-                CurrentTile = TileGetter.GetTileAtPosition(targetPositionInGrid, out raycastHit);
-                CurrentTile.OccupyTile(this.gameObject);
+                TileGetter.OccupyTile(CurrentTile, this.gameObject);
             }
         }
     }

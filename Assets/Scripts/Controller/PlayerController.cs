@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         inputPosition = Mouse.current.position.ReadValue();
 
-        TileGetter.GetTileFromCamera(inputPosition, out raycastHit);
+        TileGetter.GetTileFromCamera(inputPosition, mainCamera, out raycastHit);
 
         if (inputAction.performed)
         {
@@ -58,7 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         if (markedHero != null && heroMarked)
         {
-            markedTile = TileGetter.GetTileFromCamera(pressPosition, out raycastHit);
+            markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
             if (CanStepOnTile())
             {

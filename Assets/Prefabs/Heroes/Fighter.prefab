@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba62f3978faf14b9c710177dd8d965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroToSpawn: {fileID: 8648337662786245942}
+  <HeroPosition>k__BackingField: {x: 1, y: 1}
   <heroAnimator>k__BackingField: {fileID: 292931841819807597}
   HP: 100
   damage: 10

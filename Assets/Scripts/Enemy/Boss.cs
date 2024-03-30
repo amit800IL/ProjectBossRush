@@ -14,6 +14,8 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private Animator bossAnimator;
 
+    [SerializeField] private Camera mainCamera;
+
     [Header("Boss Attributes")]
 
     [SerializeField] private float HP = 0.0f;
@@ -62,7 +64,7 @@ public class Boss : MonoBehaviour
             }
             else
             {
-                tile = TileGetter.GetTileFromCamera(tilePosition, out raycastHit);
+                tile = TileGetter.GetTileFromCamera(tilePosition, mainCamera, out raycastHit);
 
                 PerformAction(enemyActions[attackIndex]);
             }
