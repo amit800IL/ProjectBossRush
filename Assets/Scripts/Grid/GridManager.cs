@@ -1,18 +1,33 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance { get; private set; }
+
     [SerializeField] private Tile tileObject;
     [SerializeField] private Vector2Int gridSize;
+    [SerializeField] private List<GridObjectToSpawn> gridObjectsToSpawn = new List<GridObjectToSpawn>();
     public Tile[,] Tiles { get; private set; }
+
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         CreateGrid();
     }
 
     public void CreateGrid()
     {
+
         Tiles = new Tile[gridSize.x, gridSize.y];
 
         Quaternion initilazeAngle = Quaternion.Euler(-90, 0, 0);
@@ -30,9 +45,20 @@ public class GridManager : MonoBehaviour
             }
         }
 
+        SpawnObjectsOnGrid();
+
         Quaternion finalAngle = Quaternion.Euler(0, 0, 0);
 
         transform.rotation = finalAngle;
+
+    }
+
+    private void SpawnObjectsOnGrid()
+    {
+        foreach (GridObjectToSpawn gridObject in gridObjectsToSpawn)
+        {
+            Instantiate(gridObject.GridObjectToSpawnObject, gridObject.SpawnPosition, gridObject.GridObjectToSpawnObject.transform.rotation);
+        }
     }
 
     private TileType[] CalculateTileType(Vector2 position)
@@ -60,4 +86,13 @@ public class GridManager : MonoBehaviour
 
         return types;
     }
+}
+
+[System.Serializable]
+public class GridObjectToSpawn
+{
+    [SerializeField] private GameObject gridObjectToSpawnObject;
+    [SerializeField] private Vector3 spawnPosition;
+    public GameObject GridObjectToSpawnObject { get => gridObjectToSpawnObject; private set => gridObjectToSpawnObject = value; }
+    public Vector3 SpawnPosition { get => spawnPosition; private set => spawnPosition = value; }
 }

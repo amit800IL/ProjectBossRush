@@ -1,14 +1,15 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroesManager : MonoBehaviour
 {
     [SerializeField] private PlayerResourceManager playerResourceManager; //maybe not needed
-    [SerializeField] private List<Hero> heroList;
+    private Hero[] heroList;
     [SerializeField] private Boss boss;
 
     private void Start()
     {
+        //I know this line should not exist, its just for testing, it will change soon
+        heroList = FindObjectsOfType<Hero>();
         PlayerResourceManager.OnTechniqueUsed += UseCombo;
     }
 

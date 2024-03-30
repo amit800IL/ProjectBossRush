@@ -55,16 +55,17 @@ public class Boss : MonoBehaviour
 
     public void InteractWithTiles(bool VisualizeAttack)
     {
-        foreach (Vector2 tilePosition in enemyActions[attackIndex].Tiles)
+        foreach (Vector3 tilePosition in enemyActions[attackIndex].Tiles)
         {
             if (VisualizeAttack)
             {
-                GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, Quaternion.identity);
+                GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, debugMarkerPrefab.transform.rotation);
+
                 Destroy(marker, 2f);
             }
             else
             {
-                tile = TileGetter.GetTileFromCamera(tilePosition, mainCamera, out raycastHit);
+                tile = TileGetter.GetTileAtPosition(this.gameObject, out tile);
 
                 PerformAction(enemyActions[attackIndex]);
             }
