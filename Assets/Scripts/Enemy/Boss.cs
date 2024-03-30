@@ -104,10 +104,10 @@ public class Boss : MonoBehaviour
 public class BossActionSetter
 {
     [field: SerializeField] private EnemyAction enemyAction;
-    [field: SerializeField] private List<Vector2> tiles;
+    [field: SerializeField] private List<Vector3> tiles;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
-    public List<Vector2> Tiles { get => tiles; private set => tiles = value; }
+    public List<Vector3> Tiles { get => tiles; private set => tiles = value; }
 
 }
 
