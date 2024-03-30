@@ -45,11 +45,11 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        SpawnObjectsOnGrid();
-
         Quaternion finalAngle = Quaternion.Euler(0, 0, 0);
 
         transform.rotation = finalAngle;
+
+        SpawnObjectsOnGrid();
     }
 
     private void SpawnObjectsOnGrid()
