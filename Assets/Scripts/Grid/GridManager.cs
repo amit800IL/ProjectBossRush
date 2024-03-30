@@ -50,7 +50,6 @@ public class GridManager : MonoBehaviour
         Quaternion finalAngle = Quaternion.Euler(0, 0, 0);
 
         transform.rotation = finalAngle;
-
     }
 
     private void SpawnObjectsOnGrid()
