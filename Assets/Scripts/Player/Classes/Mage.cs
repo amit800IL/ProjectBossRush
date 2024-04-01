@@ -1,9 +1,8 @@
 using UnityEngine;
 public class Mage : Hero
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
     }
     public override void HeroAttackBoss(Boss boss)

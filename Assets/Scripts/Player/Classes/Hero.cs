@@ -23,12 +23,6 @@ public abstract class Hero : MonoBehaviour
 
     protected RaycastHit raycastHit;
 
-    protected virtual void Start()
-    {
-        //CurrentTile = TileGetter.GetTileAtPosition(this.gameObject, out currentTile);
-        //CurrentTile.OccupyTile(this.gameObject);
-    }
-
     public void MoveHeroToPosition(Tile targetTile)
     {
         currentTile = targetTile;
