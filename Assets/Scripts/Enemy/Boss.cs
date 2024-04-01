@@ -55,11 +55,15 @@ public class Boss : MonoBehaviour
 
     public void InteractWithTiles(bool VisualizeAttack)
     {
-        foreach (Vector3 tilePosition in enemyActions[attackIndex].Tiles)
+        Tile[,] tiles = GridManager.Instance.Tiles;
+
+        foreach (Vector2Int tilePosition in enemyActions[attackIndex].Tiles)
         {
             if (VisualizeAttack)
             {
-                GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, debugMarkerPrefab.transform.rotation);
+                Tile tile = tiles[tilePosition.x,tilePosition.y];
+
+                GameObject marker = Instantiate(debugMarkerPrefab, (Vector3Int)tilePosition, debugMarkerPrefab.transform.rotation);
 
                 Destroy(marker, 2f);
             }
@@ -103,10 +107,10 @@ public class Boss : MonoBehaviour
 public class BossActionSetter
 {
     [field: SerializeField] private EnemyAction enemyAction;
-    [field: SerializeField] private List<Vector3> tiles;
+    [field: SerializeField] private List<Vector2Int> tiles;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
-    public List<Vector3> Tiles { get => tiles; private set => tiles = value; }
+    public List<Vector2Int> Tiles { get => tiles; private set => tiles = value; }
 
 }
 
