@@ -60,14 +60,14 @@ public abstract class Hero : MonoBehaviour
     //           Mathf.Abs(newPosition.z - transform.position.z) == 1f;
     //}
 
-    public void HealthDown()
+    public void TakeDamage(int incDmg)
     {
-        HP -= 10f;
+        HP -= incDmg;
         Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HP);
 
         heroAnimator.SetTrigger("Injured");
 
-        if (HP == 0)
+        if (HP <= 0)
         {
             HP = 100f;
 

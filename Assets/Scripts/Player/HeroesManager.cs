@@ -8,14 +8,12 @@ public class HeroesManager : MonoBehaviour
 
     private void Start()
     {
-        //I know this line should not exist, its just for testing, it will change soon
-        heroList = FindObjectsOfType<Hero>();
-        PlayerResourceManager.OnTechniqueUsed += UseCombo;
+        PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
     }
 
     private void OnDestroy()
     {
-        PlayerResourceManager.OnTechniqueUsed -= UseCombo;
+        PlayerResourceManager.OnTechniqueUsed -= ActivateComboEffects;
     }
 
     public void AttackBoss()
@@ -28,17 +26,24 @@ public class HeroesManager : MonoBehaviour
     }
 
     [ContextMenu("Combo")]
-    public void UseCombo(Effect[] effects)
+    public void ActivateComboEffects(Effect[] effects, Hero selectedHero)
     {
         foreach (Effect effect in effects)
         {
             switch (effect.Type)
             {
-                case EffectType.Damage:
+                case EffectType.DamageBoss:
                     boss.TakeDamage(effect.amount);
                     Debug.Log($"combo dealt {effect.amount} damage");
                     break;
-                case EffectType.Heal:
+                case EffectType.HealAll:
+                    foreach (Hero hero in heroList)
+                    {
+                        hero.TakeDamage(-effect.amount);
+                    }
+                    break;
+                case EffectType.BuffDefense1:
+                    
                     break;
             }
         }
