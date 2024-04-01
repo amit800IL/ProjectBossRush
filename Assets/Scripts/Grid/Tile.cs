@@ -61,8 +61,6 @@ public class Tile : MonoBehaviour
         occupant = ocuupantObject;
 
         occupant.transform.position = OccupantContainer.position;
-
-       
     }
 
     public void ClearTile()
