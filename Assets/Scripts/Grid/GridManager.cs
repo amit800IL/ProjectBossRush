@@ -30,25 +30,19 @@ public class GridManager : MonoBehaviour
 
         Tiles = new Tile[gridSize.x, gridSize.y];
 
-        Quaternion initilazeAngle = Quaternion.Euler(-90, 0, 0);
-
-        transform.rotation = initilazeAngle;
-
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 gridPosition = new Vector2(x, y);
+                Vector3 gridPosition = new Vector3(x, 0, y);
 
                 Tiles[x, y] = Instantiate(tileObject, transform.position + gridPosition, Quaternion.identity, transform);
-                Tiles[x, y].SetTileType(CalculateTileType(gridPosition));
+                Tiles[x, y].Initialize(x,y);
+                Tiles[x, y].SetTileType(CalculateTileType(new Vector2 (x,y)));
+           
             }
         }
-
-        Quaternion finalAngle = Quaternion.Euler(0, 0, 0);
-
-        transform.rotation = finalAngle;
-
+        
         SpawnObjectsOnGrid();
     }
 
@@ -56,7 +50,11 @@ public class GridManager : MonoBehaviour
     {
         foreach (GridObjectToSpawn gridObject in gridObjectsToSpawn)
         {
-            Instantiate(gridObject.GridObjectToSpawnObject, gridObject.SpawnPosition, gridObject.GridObjectToSpawnObject.transform.rotation);
+            Tile targetTile = Tiles[gridObject.SpawnPosition.x, gridObject.SpawnPosition.y];
+
+           GameObject hero = Instantiate(gridObject.GridObjectToSpawnObject, targetTile.OccupantContainer.position, gridObject.GridObjectToSpawnObject.transform.rotation);
+            targetTile.OccupyTile(hero);
+            hero.GetComponent<Hero>().CurrentTile = targetTile;
         }
     }
 
@@ -91,7 +89,7 @@ public class GridManager : MonoBehaviour
 public class GridObjectToSpawn
 {
     [SerializeField] private GameObject gridObjectToSpawnObject;
-    [SerializeField] private Vector3 spawnPosition;
+    [SerializeField] private Vector2Int spawnPosition;
     public GameObject GridObjectToSpawnObject { get => gridObjectToSpawnObject; private set => gridObjectToSpawnObject = value; }
-    public Vector3 SpawnPosition { get => spawnPosition; private set => spawnPosition = value; }
+    public Vector2Int SpawnPosition { get => spawnPosition; private set => spawnPosition = value; }
 }

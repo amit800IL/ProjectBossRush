@@ -66,9 +66,7 @@ public class PlayerController : MonoBehaviour
                     markedHero.CurrentTile.ClearTile();
                 }
 
-                Vector3 movingOffset = new Vector3(0, 1, 0);
-
-                markedHero.MoveHeroToPosition(markedTile.tilePosition + movingOffset);
+                markedHero.MoveHeroToPosition(markedTile);
                 ResetMarkProccess();
             }
         }

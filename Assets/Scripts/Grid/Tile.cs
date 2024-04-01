@@ -3,7 +3,9 @@ using UnityEngine.Rendering;
 
 public class Tile : MonoBehaviour
 {
-    public Vector3 tilePosition { get; private set; }
+    public Vector2 tilePosition { get; private set; }
+
+    [field: SerializeField] public Transform OccupantContainer { get; private set; }
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
     [SerializeField] private TileType[] tileType;
     [SerializeField] private MeshRenderer spriteRenderer;
@@ -14,9 +16,9 @@ public class Tile : MonoBehaviour
 
     [SerializeField] private GameObject occupant;
     public bool IsTileOccupied => occupant != null;
-    private void Start()
+    public void Initialize(int x, int y)
     {
-        tilePosition = transform.position;
+        tilePosition = new Vector2(x, y);
         SetTileRandomColors();
         //SetTileRandomColors();
 
@@ -57,6 +59,10 @@ public class Tile : MonoBehaviour
     public void OccupyTile(GameObject ocuupantObject)
     {
         occupant = ocuupantObject;
+
+        occupant.transform.position = OccupantContainer.position;
+
+       
     }
 
     public void ClearTile()

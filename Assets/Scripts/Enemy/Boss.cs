@@ -65,7 +65,6 @@ public class Boss : MonoBehaviour
             }
             else
             {
-                tile = TileGetter.GetTileAtPosition(this.gameObject, out tile);
 
                 PerformAction(enemyActions[attackIndex]);
             }

@@ -19,26 +19,26 @@ public abstract class Hero : MonoBehaviour
     [field: Header("Tile and raycast")]
 
     protected Tile currentTile;
-    public Tile CurrentTile { get => currentTile; protected set => currentTile = value; }
+    public Tile CurrentTile { get => currentTile; set => currentTile = value; }
 
     protected RaycastHit raycastHit;
 
     protected virtual void Start()
     {
-        CurrentTile = TileGetter.GetTileAtPosition(this.gameObject, out currentTile);
-        CurrentTile.OccupyTile(this.gameObject);
+        //CurrentTile = TileGetter.GetTileAtPosition(this.gameObject, out currentTile);
+        //CurrentTile.OccupyTile(this.gameObject);
     }
 
-    public void MoveHeroToPosition(Vector3 targetPositionInGrid)
+    public void MoveHeroToPosition(Tile targetTile)
     {
-        transform.position = targetPositionInGrid;
+        currentTile = targetTile;
+        transform.position = targetTile.OccupantContainer.position;
         heroAnimator.SetTrigger("Walk");
 
-        if (transform.position == targetPositionInGrid && CurrentTile != null)
+        if (transform.position == targetTile.OccupantContainer.position && CurrentTile != null)
         {
             HasHeroMoved = true;
-            CurrentTile = TileGetter.GetTileAtPosition(this.gameObject, out currentTile);
-            CurrentTile.OccupyTile(this.gameObject);
+            targetTile.OccupyTile(this.gameObject);
         }
     }
 

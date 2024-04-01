@@ -1483,9 +1483,9 @@ MonoBehaviour:
   gridSize: {x: 6, y: 6}
   gridObjectsToSpawn:
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-    spawnPosition: {x: 4, y: 1, z: 2}
+    spawnPosition: {x: 1, y: 1}
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-    spawnPosition: {x: 5, y: 1, z: 3}
+    spawnPosition: {x: 2, y: 2}
 --- !u!4 &951524478
 Transform:
   m_ObjectHideFlags: 0
