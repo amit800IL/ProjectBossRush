@@ -14,6 +14,8 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private Animator bossAnimator;
 
+    [SerializeField] private Camera mainCamera;
+
     [Header("Boss Attributes")]
 
     [SerializeField] private float HP = 0.0f;
@@ -25,7 +27,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private Tile tile;
-    private RaycastHit2D raycastHit;
+    private RaycastHit raycastHit;
 
     public void BossRestart()
     {
@@ -53,16 +55,16 @@ public class Boss : MonoBehaviour
 
     public void InteractWithTiles(bool VisualizeAttack)
     {
-        foreach (Vector2 tilePosition in enemyActions[attackIndex].Tiles)
+        foreach (Vector3 tilePosition in enemyActions[attackIndex].Tiles)
         {
             if (VisualizeAttack)
             {
-                GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, Quaternion.identity);
+                GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, debugMarkerPrefab.transform.rotation);
+
                 Destroy(marker, 2f);
             }
             else
             {
-                tile = TileGetter.GetTile(tilePosition, out raycastHit);
 
                 PerformAction(enemyActions[attackIndex]);
             }
@@ -93,7 +95,7 @@ public class Boss : MonoBehaviour
 
     private bool IsTileValid()
     {
-        return raycastHit && tile != null && tile.IsTileOccupied;
+        return raycastHit.collider != null && tile != null && tile.IsTileOccupied;
     }
 }
 
@@ -101,10 +103,10 @@ public class Boss : MonoBehaviour
 public class BossActionSetter
 {
     [field: SerializeField] private EnemyAction enemyAction;
-    [field: SerializeField] private List<Vector2> tiles;
+    [field: SerializeField] private List<Vector3> tiles;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
-    public List<Vector2> Tiles { get => tiles; private set => tiles = value; }
+    public List<Vector3> Tiles { get => tiles; private set => tiles = value; }
 
 }
 

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Ranger : Hero
 {
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
     }
     public override void HeroAttackBoss(Boss boss)

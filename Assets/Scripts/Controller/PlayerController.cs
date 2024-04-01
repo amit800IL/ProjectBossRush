@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action<Hero> OnHeroMarked;
+
     [Header("General variables")]
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private PlayerResourceManager playerResourceManager;
@@ -14,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Raycast mark flags")]
 
-    private RaycastHit2D raycastHit;
+    private RaycastHit raycastHit;
     private bool heroMarked = false;
 
     [Header("Game Objects")]
@@ -42,22 +45,22 @@ public class PlayerController : MonoBehaviour
     {
         inputPosition = Mouse.current.position.ReadValue();
 
-        Vector2 pressPosition = mainCamera.ScreenToWorldPoint(inputPosition);
+        TileGetter.GetTileFromCamera(inputPosition, mainCamera, out raycastHit);
 
         if (inputAction.performed)
         {
             if (heroMarked)
-                MoveHeroToTile(pressPosition);
+                MoveHeroToTile(inputPosition);
             else
-                MarkHero(pressPosition);
+                MarkHero(inputPosition);
         }
     }
 
-    private void MoveHeroToTile(Vector2 pressPosition)
+    private void MoveHeroToTile(Vector3 pressPosition)
     {
         if (markedHero != null && heroMarked)
         {
-            markedTile = TileGetter.GetTile(pressPosition, out raycastHit);
+            markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
             if (CanStepOnTile())
             {
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour
                     markedHero.CurrentTile.ClearTile();
                 }
 
-                markedHero.MoveHeroToPosition(markedTile.tilePosition);
+                markedHero.MoveHeroToPosition(markedTile);
                 ResetMarkProccess();
             }
         }
@@ -94,14 +97,21 @@ public class PlayerController : MonoBehaviour
         markedTile = null;
     }
 
-    private void MarkHero(Vector2 pressPosition)
+    private void MarkHero(Vector3 pressPosition)
     {
-        raycastHit = Physics2D.Raycast(pressPosition, Vector2.zero, Mathf.Infinity, heroMask);
+        Ray ray = Camera.main.ScreenPointToRay(pressPosition);
 
-        if (raycastHit && (heroMask.value & (1 << raycastHit.collider.gameObject.layer)) != 0)
+        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
+
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue, 5f);
+
+        Debug.Log("Player has been hit : " + raycast);
+
+        if (raycast)
         {
             heroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
+            OnHeroMarked.Invoke(markedHero);
         }
     }
 

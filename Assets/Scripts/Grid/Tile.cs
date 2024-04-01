@@ -4,31 +4,34 @@ using UnityEngine.Rendering;
 public class Tile : MonoBehaviour
 {
     public Vector2 tilePosition { get; private set; }
+
+    [field: SerializeField] public Transform OccupantContainer { get; private set; }
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
     [SerializeField] private TileType[] tileType;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private MeshRenderer spriteRenderer;
 
-    [SerializeField] bool danger;
-    SpriteRenderer material;
-    LocalKeyword keyword;
+    //[SerializeField] bool danger;
+    //SpriteRenderer material;
+    //LocalKeyword keyword;
 
     [SerializeField] private GameObject occupant;
     public bool IsTileOccupied => occupant != null;
-    private void Start()
+    public void Initialize(int x, int y)
     {
-        tilePosition = transform.position;
+        tilePosition = new Vector2(x, y);
         SetTileRandomColors();
+        //SetTileRandomColors();
 
-        material = GetComponent<SpriteRenderer>();
-        var shader = spriteRenderer.material.shader;
-        keyword = new(shader, "_WARNING2");
+        //material = GetComponent<SpriteRenderer>();
+        //var shader = spriteRenderer.material.shader;
+        //keyword = new(shader, "_WARNING2");
     }
 
-    [ContextMenu("materialUpdate")]
-    public void MaterialUpdate()
-    {
-        spriteRenderer.material.SetKeyword(keyword, danger);
-    }
+    //[ContextMenu("materialUpdate")]
+    //public void MaterialUpdate()
+    //{
+    //    spriteRenderer.material.SetKeyword(keyword, danger);
+    //}
 
     private void SetTileRandomColors()
     {
@@ -36,7 +39,7 @@ public class Tile : MonoBehaviour
 
         int randomColor = Random.Range(0, colors.Length);
 
-        spriteRenderer.color = colors[randomColor];
+        spriteRenderer.material.color = colors[randomColor];
     }
 
     public void SetTileType(TileType[] type)
@@ -56,6 +59,8 @@ public class Tile : MonoBehaviour
     public void OccupyTile(GameObject ocuupantObject)
     {
         occupant = ocuupantObject;
+
+        occupant.transform.position = OccupantContainer.position;
     }
 
     public void ClearTile()

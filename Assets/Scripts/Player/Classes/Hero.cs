@@ -17,28 +17,22 @@ public abstract class Hero : MonoBehaviour
     [SerializeField] protected float Defense = 0.0f;
 
     [field: Header("Tile and raycast")]
-    public Tile CurrentTile { get; protected set; }
-    protected RaycastHit2D raycastHit;
 
-    protected virtual void Start()
-    {
-        CurrentTile = TileGetter.GetTile(transform.position, out raycastHit);
-        CurrentTile.OccupyTile(this.gameObject);
-    }
+    protected Tile currentTile;
+    public Tile CurrentTile { get => currentTile; set => currentTile = value; }
 
-    public void MoveHeroToPosition(Vector2 targetPositionInGrid)
+    protected RaycastHit raycastHit;
+
+    public void MoveHeroToPosition(Tile targetTile)
     {
-        if (IsHeroInMoveRange(targetPositionInGrid))
+        currentTile = targetTile;
+        transform.position = targetTile.OccupantContainer.position;
+        heroAnimator.SetTrigger("Walk");
+
+        if (transform.position == targetTile.OccupantContainer.position && CurrentTile != null)
         {
-            transform.position = targetPositionInGrid;
-            heroAnimator.SetTrigger("Walk");
-
-            if ((Vector2)transform.position == targetPositionInGrid && CurrentTile != null)
-            {
-                HasHeroMoved = true;
-                CurrentTile = TileGetter.GetTile(targetPositionInGrid, out raycastHit);
-                CurrentTile.OccupyTile(this.gameObject);
-            }
+            HasHeroMoved = true;
+            targetTile.OccupyTile(this.gameObject);
         }
     }
 
@@ -47,29 +41,33 @@ public abstract class Hero : MonoBehaviour
         HasHeroMoved = false;
     }
 
-    private bool IsHeroInMoveRange(Vector2 newPosition)
-    {
-        return OnOneTileRange(newPosition) && !OnDiagonalDirection(newPosition);
-    }
+    //private bool IsHeroInMoveRange(Vector3 newPosition)
+    //{
+    //    return OnOneTileRange(newPosition) && !OnDiagonalDirection(newPosition);
+    //}
 
-    private bool OnOneTileRange(Vector2 newPosition)
-    {
-        return Mathf.Abs(newPosition.x - transform.position.x) <= 1f && Mathf.Abs(newPosition.y - transform.position.y) <= 1f;
-    }
+    //private bool OnOneTileRange(Vector3 newPosition)
+    //{
+    //    return Mathf.Abs(newPosition.x - transform.position.x) <= 1f &&
+    //           Mathf.Abs(newPosition.y - transform.position.y) <= 1f &&
+    //           Mathf.Abs(newPosition.z - transform.position.z) <= 1f;
+    //}
 
-    private bool OnDiagonalDirection(Vector2 newPosition)
-    {
-        return Mathf.Abs(newPosition.x - transform.position.x) == 1f && Mathf.Abs(newPosition.y - transform.position.y) == 1f;
-    }
+    //private bool OnDiagonalDirection(Vector3 newPosition)
+    //{
+    //    return Mathf.Abs(newPosition.x - transform.position.x) == 1f &&
+    //           Mathf.Abs(newPosition.y - transform.position.y) == 1f &&
+    //           Mathf.Abs(newPosition.z - transform.position.z) == 1f;
+    //}
 
-    public void HealthDown()
+    public void TakeDamage(int incDmg)
     {
-        HP -= 10f;
+        HP -= incDmg;
         Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HP);
 
         heroAnimator.SetTrigger("Injured");
 
-        if (HP == 0)
+        if (HP <= 0)
         {
             HP = 100f;
 

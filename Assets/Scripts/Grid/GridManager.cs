@@ -1,28 +1,60 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance { get; private set; }
+
     [SerializeField] private Tile tileObject;
     [SerializeField] private Vector2Int gridSize;
+    [SerializeField] private List<GridObjectToSpawn> gridObjectsToSpawn = new List<GridObjectToSpawn>();
     public Tile[,] Tiles { get; private set; }
+
 
     private void Awake()
     {
-        CreateGrid(); 
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        CreateGrid();
     }
 
     public void CreateGrid()
     {
+
         Tiles = new Tile[gridSize.x, gridSize.y];
 
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 gridPosition = new Vector2(x, y);
+                Vector3 gridPosition = new Vector3(x, 0, y);
+
                 Tiles[x, y] = Instantiate(tileObject, transform.position + gridPosition, Quaternion.identity, transform);
-                Tiles[x, y].SetTileType(CalculateTileType(gridPosition));
+                Tiles[x, y].Initialize(x,y);
+                Tiles[x, y].SetTileType(CalculateTileType(new Vector2 (x,y)));
+           
             }
+        }
+        
+        SpawnObjectsOnGrid();
+    }
+
+    private void SpawnObjectsOnGrid()
+    {
+        foreach (GridObjectToSpawn gridObject in gridObjectsToSpawn)
+        {
+            Tile targetTile = Tiles[gridObject.SpawnPosition.x, gridObject.SpawnPosition.y];
+
+           GameObject hero = Instantiate(gridObject.GridObjectToSpawnObject, targetTile.OccupantContainer.position, gridObject.GridObjectToSpawnObject.transform.rotation);
+            targetTile.OccupyTile(hero);
+            hero.GetComponent<Hero>().CurrentTile = targetTile;
         }
     }
 
@@ -51,4 +83,13 @@ public class GridManager : MonoBehaviour
 
         return types;
     }
+}
+
+[System.Serializable]
+public class GridObjectToSpawn
+{
+    [SerializeField] private GameObject gridObjectToSpawnObject;
+    [SerializeField] private Vector2Int spawnPosition;
+    public GameObject GridObjectToSpawnObject { get => gridObjectToSpawnObject; private set => gridObjectToSpawnObject = value; }
+    public Vector2Int SpawnPosition { get => spawnPosition; private set => spawnPosition = value; }
 }
