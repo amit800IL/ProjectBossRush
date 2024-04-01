@@ -1,17 +1,19 @@
 using System;
 using TMPro;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerResourceManager : MonoBehaviour
 {
     public static event Action<int> OnAPChanged;
-    public static event Action<Effect[]> OnTechniqueUsed;
+    public static event Action<Effect[], Hero> OnTechniqueUsed;
 
     [SerializeField] SymbolTable symbolCharge = new();
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
     [SerializeField] private Technique[] techniques;
     [SerializeField] private Technique selectedTechnique;
+    [SerializeField] private Hero selectedHero;
 
     [SerializeField] SymbolTable testTable = new SymbolTable(1);
 
@@ -19,12 +21,19 @@ public class PlayerResourceManager : MonoBehaviour
     {
         Technique.SelectTechnique += SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart += RollCooldowns;
+        PlayerController.OnHeroMarked += SetSelectedHero;
     }
 
     private void OnDestroy()
     {
         Technique.SelectTechnique -= SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart -= RollCooldowns;
+        PlayerController.OnHeroMarked -= SetSelectedHero;
+    }
+
+    private void SetSelectedHero(Hero hero)
+    {
+        selectedHero = hero;
     }
 
     #region Combos
@@ -54,7 +63,7 @@ public class PlayerResourceManager : MonoBehaviour
                 {
                     UseSymbols(selectedTechnique.GetRequirements());
                     UseAP(selectedTechnique.GetAPCost());
-                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects());
+                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
                     selectedTechnique.StartCooldown();
                 }
                 else print($"not enough symbols {selectedTechnique.GetRequirements()} \n {symbolCharge}");

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public event Action OnHeroMarked;
+    public static event Action<Hero> OnHeroMarked;
 
     [Header("General variables")]
     [SerializeField] private HeroesManager heroesManager;
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
         {
             heroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
-            OnHeroMarked.Invoke();
+            OnHeroMarked.Invoke(markedHero);
         }
     }
 

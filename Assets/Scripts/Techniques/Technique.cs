@@ -17,11 +17,20 @@ public class Technique : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI numText;
     [SerializeField] private Image cardBG;
+    [SerializeField] private Button activationButton;
 
     private void Start()
     {
         nameText.text = techData.Name;
         numText.text = techData.Requirements.ToString();
+
+        Debug.Log("need player input to call an event when selecting a hero");
+        PlayerController.OnHeroMarked += ToggleEnable;
+    }
+
+    void ToggleEnable(Hero hero)
+    {
+        activationButton.enabled = (hero != null);
     }
 
     public void Select()

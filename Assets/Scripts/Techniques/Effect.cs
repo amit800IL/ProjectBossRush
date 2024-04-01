@@ -12,7 +12,8 @@ public struct Effect
 
 public enum EffectType
 {
-    Damage,
-    Heal,
-    Revive
+    DamageBoss,
+    HealAll,
+    Revive,
+    BuffDefense1,
 }
