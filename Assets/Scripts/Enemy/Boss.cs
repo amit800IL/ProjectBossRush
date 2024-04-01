@@ -63,7 +63,7 @@ public class Boss : MonoBehaviour
             {
                 Tile tile = tiles[tilePosition.x,tilePosition.y];
 
-                GameObject marker = Instantiate(debugMarkerPrefab, (Vector3Int)tilePosition, debugMarkerPrefab.transform.rotation);
+                GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position, debugMarkerPrefab.transform.rotation);
 
                 Destroy(marker, 2f);
             }
@@ -79,7 +79,7 @@ public class Boss : MonoBehaviour
     {
         if (IsTileValid())
         {
-            Hero hero = tile.GetOccupier().GetComponent<Hero>();
+            Hero hero = (Hero)tile.GetOccupier();
 
             bossAnimator.SetTrigger("Attack");
 
