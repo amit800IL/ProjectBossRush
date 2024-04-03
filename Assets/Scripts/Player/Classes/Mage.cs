@@ -14,7 +14,7 @@ public class Mage : Hero
     }
     public override bool CanHeroAttack()
     {
-        if (CurrentTile != null && CurrentTile.IsTileOfType(TileType.CloseRange))
+        if (CurrentTile != null && (CurrentTile.IsTileOfType(TileType.CloseRange) || CurrentTile.IsTileOfType(TileType.MediumRange)))
         {
             return true;
         }

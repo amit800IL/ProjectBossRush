@@ -8,6 +8,8 @@ public abstract class Hero : Entity
     public bool HasHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 
+    protected int movementAmount = 0;
+
     [Header("Hero Attributes")]
 
     [SerializeField] protected float HP = 0.0f;

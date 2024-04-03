@@ -1486,8 +1486,10 @@ MonoBehaviour:
   gridObjectsToSpawn:
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
     spawnPosition: {x: 1, y: 1}
-  - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+  - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 239969815e8b7ea469a418b688ac31b4, type: 3}
     spawnPosition: {x: 2, y: 2}
+  - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: b071a6e03b5833945be1cf687bf5c14f, type: 3}
+    spawnPosition: {x: 3, y: 3}
 --- !u!4 &951524478
 Transform:
   m_ObjectHideFlags: 0
