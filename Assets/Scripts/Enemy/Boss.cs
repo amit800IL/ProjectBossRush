@@ -16,10 +16,10 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private Camera mainCamera;
 
-    [Header("Boss Attributes")]
+    [field: Header("Boss Attributes")]
 
     [SerializeField] private float HP = 0.0f;
-    [SerializeField] private float damage = 0.0f;
+    [field: SerializeField] public float Damage { get; private set; } = 0.0f;
     [SerializeField] private float defense = 0.0f;
 
     [Header("Attacking actions")]
@@ -62,7 +62,7 @@ public class Boss : MonoBehaviour
 
             if (VisualizeAttack)
             {
-                GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position-new Vector3(0f,0.9f,0f), debugMarkerPrefab.transform.rotation);
+                GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation);
 
                 Destroy(marker, 2f);
             }

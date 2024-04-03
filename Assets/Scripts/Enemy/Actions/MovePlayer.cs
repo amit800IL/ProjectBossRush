@@ -15,8 +15,9 @@ public class MovePlayer : EnemyAction
 
         if (movePlayerDirections != null && movePlayerDirections.Count > 0)
         {
-            Vector2Int moveDirection = movePlayerDirections[randomIndex];
-            hero.transform.position = hero.transform.position - (Vector3Int)moveDirection;
+            Vector3Int moveDirection = (Vector3Int)movePlayerDirections[randomIndex];
+            moveDirection = new Vector3Int(moveDirection.x, 0, moveDirection.y);
+            hero.transform.position = hero.transform.position - moveDirection;
         }
     }
 }
