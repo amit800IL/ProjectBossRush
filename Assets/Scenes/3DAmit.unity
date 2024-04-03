@@ -622,7 +622,7 @@ Transform:
   m_GameObject: {fileID: 440101994}
   serializedVersion: 2
   m_LocalRotation: {x: 0.09229593, y: -0.7010574, z: 0.09229593, w: 0.7010574}
-  m_LocalPosition: {x: 10, y: 4, z: 2.5}
+  m_LocalPosition: {x: 2, y: 4.5, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -971,6 +971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerResourceManager: {fileID: 1440085249}
   boss: {fileID: 1718161220}
+  heroList: []
 --- !u!4 &603676719
 Transform:
   m_ObjectHideFlags: 0

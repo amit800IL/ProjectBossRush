@@ -11,11 +11,17 @@ public class HeroesManager : MonoBehaviour
     {
         Tile[,] tiles = GridManager.Instance.Tiles;
 
-        foreach (Tile tile in tiles)
+        if (tiles != null)
         {
-            Hero hero = (Hero)tile.GetOccupier();
+            foreach (Tile tile in tiles)
+            {
+                if (tile.IsTileOccupied)
+                {
+                    Hero hero = (Hero)tile.GetOccupier();
 
-            heroList.Add(hero);
+                    heroList.Add(hero);
+                }
+            }
         }
 
         PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;

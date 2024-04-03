@@ -26,7 +26,6 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
-    private Tile tile;
     private RaycastHit raycastHit;
 
     public void BossRestart()
@@ -59,25 +58,24 @@ public class Boss : MonoBehaviour
 
         foreach (Vector2Int tilePosition in enemyActions[attackIndex].Tiles)
         {
+            Tile tile = tiles[tilePosition.x, tilePosition.y];
+
             if (VisualizeAttack)
             {
-                Tile tile = tiles[tilePosition.x,tilePosition.y];
-
-                GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position, debugMarkerPrefab.transform.rotation);
+                GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position-new Vector3(0f,0.9f,0f), debugMarkerPrefab.transform.rotation);
 
                 Destroy(marker, 2f);
             }
             else
             {
-
-                PerformAction(enemyActions[attackIndex]);
+                PerformAction(enemyActions[attackIndex], tile);
             }
         }
     }
 
-    private void PerformAction(BossActionSetter action)
+    private void PerformAction(BossActionSetter action, Tile tile)
     {
-        if (IsTileValid())
+        if (IsTileValid(tile))
         {
             Hero hero = (Hero)tile.GetOccupier();
 
@@ -97,9 +95,9 @@ public class Boss : MonoBehaviour
         Debug.LogWarning("No hero found on the checked tile");
     }
 
-    private bool IsTileValid()
+    private bool IsTileValid(Tile tile)
     {
-        return raycastHit.collider != null && tile != null && tile.IsTileOccupied;
+        return tile != null && tile.IsTileOccupied;
     }
 }
 

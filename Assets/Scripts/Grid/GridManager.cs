@@ -10,7 +10,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] private List<GridObjectToSpawn> gridObjectsToSpawn = new List<GridObjectToSpawn>();
     public Tile[,] Tiles { get; private set; }
 
-
     private void Awake()
     {
         if (Instance == null)

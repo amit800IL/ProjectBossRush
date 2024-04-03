@@ -26,7 +26,6 @@ public static class TileGetter
         if (raycast)
         {
             Tile tile = raycastHit.collider.GetComponent<Tile>();
-            Debug.Log(tile.tilePosition);
             return tile;
         }
         else
