@@ -122,20 +122,20 @@ MonoBehaviour:
   bossAnimator: {fileID: 1881008280043611080}
   mainCamera: {fileID: 0}
   HP: 100
-  damage: 10
+  <Damage>k__BackingField: 10
   defense: 15
   debugMarkerPrefab: {fileID: 4774809326186486300, guid: 5f06d9468f5ca194aa888a17b963cf3d, type: 3}
   enemyActions:
   - enemyAction: {fileID: 0}
     tiles:
-    - {x: 0, y: 0}
-    - {x: 0, y: 1}
-    - {x: 0, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
     - {x: 1, y: 1}
     - {x: 2, y: 2}
+    - {x: 1, y: 3}
+  - enemyAction: {fileID: 0}
+    tiles:
     - {x: 1, y: 2}
+    - {x: 2, y: 3}
+    - {x: 3, y: 2}
 --- !u!95 &1881008280043611080
 Animator:
   serializedVersion: 5

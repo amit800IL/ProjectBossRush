@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Hero : MonoBehaviour
+public abstract class Hero : Entity
 {
 
     [field: Header("General Variables")]
@@ -32,7 +32,7 @@ public abstract class Hero : MonoBehaviour
         if (transform.position == targetTile.OccupantContainer.position && CurrentTile != null)
         {
             HasHeroMoved = true;
-            targetTile.OccupyTile(this.gameObject);
+            targetTile.OccupyTile(this);
         }
     }
 

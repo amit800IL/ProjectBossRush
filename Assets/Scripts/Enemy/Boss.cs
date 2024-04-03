@@ -16,17 +16,16 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private Camera mainCamera;
 
-    [Header("Boss Attributes")]
+    [field: Header("Boss Attributes")]
 
     [SerializeField] private float HP = 0.0f;
-    [SerializeField] private float damage = 0.0f;
+    [field: SerializeField] public float Damage { get; private set; } = 0.0f;
     [SerializeField] private float defense = 0.0f;
 
     [Header("Attacking actions")]
 
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
-    private Tile tile;
     private RaycastHit raycastHit;
 
     public void BossRestart()
@@ -55,27 +54,30 @@ public class Boss : MonoBehaviour
 
     public void InteractWithTiles(bool VisualizeAttack)
     {
-        foreach (Vector3 tilePosition in enemyActions[attackIndex].Tiles)
+        Tile[,] tiles = GridManager.Instance.Tiles;
+
+        foreach (Vector2Int tilePosition in enemyActions[attackIndex].Tiles)
         {
+            Tile tile = tiles[tilePosition.x, tilePosition.y];
+
             if (VisualizeAttack)
             {
-                GameObject marker = Instantiate(debugMarkerPrefab, tilePosition, debugMarkerPrefab.transform.rotation);
+                GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation);
 
                 Destroy(marker, 2f);
             }
             else
             {
-
-                PerformAction(enemyActions[attackIndex]);
+                PerformAction(enemyActions[attackIndex], tile);
             }
         }
     }
 
-    private void PerformAction(BossActionSetter action)
+    private void PerformAction(BossActionSetter action, Tile tile)
     {
-        if (IsTileValid())
+        if (IsTileValid(tile))
         {
-            Hero hero = tile.GetOccupier().GetComponent<Hero>();
+            Hero hero = (Hero)tile.GetOccupier();
 
             bossAnimator.SetTrigger("Attack");
 
@@ -93,9 +95,9 @@ public class Boss : MonoBehaviour
         Debug.LogWarning("No hero found on the checked tile");
     }
 
-    private bool IsTileValid()
+    private bool IsTileValid(Tile tile)
     {
-        return raycastHit.collider != null && tile != null && tile.IsTileOccupied;
+        return tile != null && tile.IsTileOccupied;
     }
 }
 
@@ -103,10 +105,10 @@ public class Boss : MonoBehaviour
 public class BossActionSetter
 {
     [field: SerializeField] private EnemyAction enemyAction;
-    [field: SerializeField] private List<Vector3> tiles;
+    [field: SerializeField] private List<Vector2Int> tiles;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
-    public List<Vector3> Tiles { get => tiles; private set => tiles = value; }
+    public List<Vector2Int> Tiles { get => tiles; private set => tiles = value; }
 
 }
 

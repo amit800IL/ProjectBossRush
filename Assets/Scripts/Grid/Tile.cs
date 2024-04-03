@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Tile : MonoBehaviour
 {
@@ -9,29 +8,14 @@ public class Tile : MonoBehaviour
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
     [SerializeField] private TileType[] tileType;
     [SerializeField] private MeshRenderer spriteRenderer;
-
-    //[SerializeField] bool danger;
-    //SpriteRenderer material;
-    //LocalKeyword keyword;
-
-    [SerializeField] private GameObject occupant;
+    [SerializeField] private Entity occupant;
     public bool IsTileOccupied => occupant != null;
     public void Initialize(int x, int y)
     {
         tilePosition = new Vector2(x, y);
         SetTileRandomColors();
-        //SetTileRandomColors();
-
-        //material = GetComponent<SpriteRenderer>();
-        //var shader = spriteRenderer.material.shader;
-        //keyword = new(shader, "_WARNING2");
     }
 
-    //[ContextMenu("materialUpdate")]
-    //public void MaterialUpdate()
-    //{
-    //    spriteRenderer.material.SetKeyword(keyword, danger);
-    //}
 
     private void SetTileRandomColors()
     {
@@ -56,11 +40,11 @@ public class Tile : MonoBehaviour
         return false;
     }
 
-    public void OccupyTile(GameObject ocuupantObject)
+    public void OccupyTile(Entity ocuupantObject)
     {
         occupant = ocuupantObject;
 
-        occupant.transform.position = OccupantContainer.position;
+        ocuupantObject.transform.position = OccupantContainer.position;
     }
 
     public void ClearTile()
@@ -68,8 +52,10 @@ public class Tile : MonoBehaviour
         occupant = null;
     }
 
-    public GameObject GetOccupier()
+    public Entity GetOccupier()
     {
+        Debug.Log(tilePosition);
+        Debug.Log(occupant);
         return occupant;
     }
 }

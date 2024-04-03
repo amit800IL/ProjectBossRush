@@ -10,7 +10,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] private List<GridObjectToSpawn> gridObjectsToSpawn = new List<GridObjectToSpawn>();
     public Tile[,] Tiles { get; private set; }
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -52,9 +51,13 @@ public class GridManager : MonoBehaviour
         {
             Tile targetTile = Tiles[gridObject.SpawnPosition.x, gridObject.SpawnPosition.y];
 
-           GameObject hero = Instantiate(gridObject.GridObjectToSpawnObject, targetTile.OccupantContainer.position, gridObject.GridObjectToSpawnObject.transform.rotation);
+           GameObject heroObject = Instantiate(gridObject.GridObjectToSpawnObject, targetTile.OccupantContainer.position, gridObject.GridObjectToSpawnObject.transform.rotation);
+
+            Hero hero = heroObject.GetComponent<Hero>();
+
             targetTile.OccupyTile(hero);
-            hero.GetComponent<Hero>().CurrentTile = targetTile;
+
+            hero.CurrentTile = targetTile;
         }
     }
 

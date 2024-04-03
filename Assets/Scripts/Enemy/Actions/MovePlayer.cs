@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MovePlayer : EnemyAction
 {
-    [SerializeField] private List<Vector3> movePlayerDirections;
+    [SerializeField] private List<Vector2Int> movePlayerDirections;
     public override void DoActionOnHero(Hero hero)
     {
         MovePlayeInDirections(hero);
@@ -15,7 +15,8 @@ public class MovePlayer : EnemyAction
 
         if (movePlayerDirections != null && movePlayerDirections.Count > 0)
         {
-            Vector3 moveDirection = movePlayerDirections[randomIndex];
+            Vector3Int moveDirection = (Vector3Int)movePlayerDirections[randomIndex];
+            moveDirection = new Vector3Int(moveDirection.x, 0, moveDirection.y);
             hero.transform.position = hero.transform.position - moveDirection;
         }
     }

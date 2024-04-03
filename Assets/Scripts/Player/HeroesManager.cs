@@ -1,13 +1,29 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroesManager : MonoBehaviour
 {
-    [SerializeField] private PlayerResourceManager playerResourceManager; //maybe not needed
-    private Hero[] heroList;
+    [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Boss boss;
+    [SerializeField] private List<Hero> heroList = new List<Hero>();
 
     private void Start()
     {
+        Tile[,] tiles = GridManager.Instance.Tiles;
+
+        if (tiles != null)
+        {
+            foreach (Tile tile in tiles)
+            {
+                if (tile.IsTileOccupied)
+                {
+                    Hero hero = (Hero)tile.GetOccupier();
+
+                    heroList.Add(hero);
+                }
+            }
+        }
+
         PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
     }
 
@@ -43,7 +59,7 @@ public class HeroesManager : MonoBehaviour
                     }
                     break;
                 case EffectType.BuffDefense1:
-                    
+
                     break;
             }
         }
