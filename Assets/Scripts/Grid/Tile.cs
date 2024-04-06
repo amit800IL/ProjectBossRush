@@ -44,8 +44,6 @@ public class Tile : MonoBehaviour
 
     public Entity GetOccupier()
     {
-        Debug.Log(tilePosition);
-        Debug.Log(occupant);
         return occupant;
     }
 }
