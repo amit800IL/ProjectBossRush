@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
             {
                 markedHero.HeroMovemetAmountReduction((int)movementCost);
 
-                Debug.Log("Hero " + this.name + "Movement cost : " + movementCost);
+                Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementCost);
 
                 markedHero.MoveHeroToPosition(markedTile);
                 ResetMarkProccess();

@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 1
+  m_SpriteSortPoint: 0
 --- !u!95 &4055011698455528204
 Animator:
   serializedVersion: 5
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8396108960678294777}
   - component: {fileID: 247329175590024374}
-  - component: {fileID: 5408617129987352963}
+  - component: {fileID: -3076145136531145256}
   - component: {fileID: 5135979904959998896}
   - component: {fileID: 1015659684323480745}
   m_Layer: 3
@@ -150,14 +150,14 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8648337662786245942}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5408617129987352963
+--- !u!23 &-3076145136531145256
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8648337662786245942}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -227,5 +227,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0874556, y: 1.1737719, z: 0.058536533}
-  m_Center: {x: 0.043727815, y: 0.08688629, z: -0.029268267}
+  m_Size: {x: 1.3149409, y: 1.320569, z: 0.10580386}
+  m_Center: {x: 0.042317837, y: 0.013487697, z: -0.005634606}
