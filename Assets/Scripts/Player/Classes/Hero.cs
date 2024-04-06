@@ -28,17 +28,17 @@ public abstract class Hero : Entity
     public void MoveHeroToPosition(Tile targetTile)
     {
         CurrentTile = targetTile;
-        transform.position = targetTile.OccupantContainer.position;
+        transform.position = CurrentTile.OccupantContainer.position;
         heroAnimator.SetTrigger("Walk");
 
-        if (transform.position == targetTile.OccupantContainer.position && targetTile != null)
+        if (transform.position == CurrentTile.OccupantContainer.position && CurrentTile != null)
         {
-            if (targetTile.IsTileOccupied)
+            if (CurrentTile.IsTileOccupied)
             {
-                targetTile.ClearTile();
+                CurrentTile.ClearTile();
             }
 
-            targetTile.OccupyTile(this);
+            CurrentTile.OccupyTile(this);
         }
     }
 

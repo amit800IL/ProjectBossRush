@@ -20,9 +20,7 @@ public class MovePlayer : EnemyAction
             {
                 for (int j = 0; j < randomColumm; j++)
                 {
-                    hero.MoveHeroToPosition(tiles[i,j]);
-
-                    tiles[i, j].OccupyTile(hero);
+                    hero.transform.position = tiles[i,j].OccupantContainer.position;
                 }
             }
         }
