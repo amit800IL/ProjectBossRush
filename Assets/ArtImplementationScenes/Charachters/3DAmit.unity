@@ -1480,11 +1480,11 @@ MonoBehaviour:
   gridSize: {x: 6, y: 6}
   gridObjectsToSpawn:
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-    spawnPosition: {x: 1, y: 1}
+    spawnPosition: {x: 1, y: 3}
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 4068406bcfedfa04ca165c63e9edd5a4, type: 3}
     spawnPosition: {x: 2, y: 2}
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 2abcc348862f5e348b5336d5ddb77f45, type: 3}
-    spawnPosition: {x: 2, y: 1}
+    spawnPosition: {x: 3, y: 1}
 --- !u!4 &951524478
 Transform:
   m_ObjectHideFlags: 0
