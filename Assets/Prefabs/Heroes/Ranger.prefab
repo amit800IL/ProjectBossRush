@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 1869749389656844612}
   - component: {fileID: 5098085220533761170}
   - component: {fileID: 1000198798684184334}
-  - component: {fileID: 5135979904959998896}
+  - component: {fileID: 1430819559320283854}
   - component: {fileID: 292931841819807597}
   m_Layer: 3
-  m_Name: Fighter
+  m_Name: Ranger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a750d33aa226dae439ab102a8f2b6ff8, type: 2}
+  - {fileID: 2100000, guid: f91397614fc2c2a4bb7f872a1a8abbd7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5135979904959998896
+--- !u!114 &1430819559320283854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,13 +118,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8648337662786245942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ba62f3978faf14b9c710177dd8d965, type: 3}
+  m_Script: {fileID: 11500000, guid: effc8fbe46e7b8c429fcfd193790c450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <heroAnimator>k__BackingField: {fileID: 292931841819807597}
   HP: 100
   damage: 10
-  Defense: 100
+  Defense: 10
 --- !u!95 &292931841819807597
 Animator:
   serializedVersion: 5

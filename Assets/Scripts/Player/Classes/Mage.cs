@@ -3,6 +3,7 @@ public class Mage : Hero
 {
     private void Start()
     {
+        movementAmount = 3;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
     }
     public override void HeroAttackBoss(Boss boss)
@@ -14,7 +15,7 @@ public class Mage : Hero
     }
     public override bool CanHeroAttack()
     {
-        if (CurrentTile != null && CurrentTile.IsTileOfType(TileType.CloseRange))
+        if (CurrentTile != null && (CurrentTile.IsTileOfType(TileType.CloseRange) || CurrentTile.IsTileOfType(TileType.MediumRange)))
         {
             return true;
         }
