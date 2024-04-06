@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovePlayer : EnemyAction
 {
-    [SerializeField] private List<Vector2Int> movePlayerDirections;
     public override void DoActionOnHero(Hero hero)
     {
         MovePlayeInDirections(hero);
@@ -11,13 +9,21 @@ public class MovePlayer : EnemyAction
 
     public void MovePlayeInDirections(Hero hero)
     {
-        int randomIndex = Random.Range(0, movePlayerDirections.Count);
+        Tile[,] tiles = GridManager.Instance.Tiles;
 
-        if (movePlayerDirections != null && movePlayerDirections.Count > 0)
+        int randomRow = Random.Range(0, tiles.GetLength(0));
+        int randomColumm = Random.Range(0, tiles.GetLength(1));
+
+        if (tiles != null)
         {
-            Vector3Int moveDirection = (Vector3Int)movePlayerDirections[randomIndex];
-            moveDirection = new Vector3Int(moveDirection.x, 0, moveDirection.y);
-            hero.transform.position = hero.transform.position - moveDirection;
+            for (int i = 0; i < randomRow; i++)
+            {
+                for (int j = 0; j < randomColumm; j++)
+                {
+                    hero.transform.position = tiles[i,j].OccupantContainer.position;
+                }
+            }
         }
     }
 }
+

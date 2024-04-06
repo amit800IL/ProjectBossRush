@@ -27,40 +27,35 @@ public abstract class Hero : Entity
 
     public void MoveHeroToPosition(Tile targetTile)
     {
-        currentTile = targetTile;
-        transform.position = targetTile.OccupantContainer.position;
+        CurrentTile = targetTile;
+        transform.position = CurrentTile.OccupantContainer.position;
         heroAnimator.SetTrigger("Walk");
 
-        if (transform.position == targetTile.OccupantContainer.position && CurrentTile != null)
+        if (transform.position == CurrentTile.OccupantContainer.position && CurrentTile != null)
         {
-            HasHeroMoved = true;
-            targetTile.OccupyTile(this);
+            if (CurrentTile.IsTileOccupied)
+            {
+                CurrentTile.ClearTile();
+            }
+
+            CurrentTile.OccupyTile(this);
         }
+    }
+
+    public void HeroMovemetAmountReduction(int amountToReduce)
+    {
+        movementAmount -= amountToReduce;
+    }
+
+    public bool CanHeroMove(int amountToReduce)
+    {
+        return movementAmount > 0 && movementAmount >= amountToReduce;
     }
 
     public void ResetHeroMovement()
     {
         HasHeroMoved = false;
     }
-
-    //private bool IsHeroInMoveRange(Vector3 newPosition)
-    //{
-    //    return OnOneTileRange(newPosition) && !OnDiagonalDirection(newPosition);
-    //}
-
-    //private bool OnOneTileRange(Vector3 newPosition)
-    //{
-    //    return Mathf.Abs(newPosition.x - transform.position.x) <= 1f &&
-    //           Mathf.Abs(newPosition.y - transform.position.y) <= 1f &&
-    //           Mathf.Abs(newPosition.z - transform.position.z) <= 1f;
-    //}
-
-    //private bool OnDiagonalDirection(Vector3 newPosition)
-    //{
-    //    return Mathf.Abs(newPosition.x - transform.position.x) == 1f &&
-    //           Mathf.Abs(newPosition.y - transform.position.y) == 1f &&
-    //           Mathf.Abs(newPosition.z - transform.position.z) == 1f;
-    //}
 
     public void TakeDamage(int incDmg)
     {
