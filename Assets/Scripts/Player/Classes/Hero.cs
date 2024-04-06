@@ -33,11 +33,7 @@ public abstract class Hero : Entity
 
         if (transform.position == CurrentTile.OccupantContainer.position && CurrentTile != null)
         {
-            if (CurrentTile.IsTileOccupied)
-            {
-                CurrentTile.ClearTile();
-            }
-
+            CurrentTile.ClearTile();
             CurrentTile.OccupyTile(this);
         }
     }
