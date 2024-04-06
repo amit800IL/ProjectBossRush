@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 283413691873563881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.225, y: 0, z: 0}
+  m_LocalPosition: {x: -1.145, y: 0, z: 0.037}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &4055011698455528204
 Animator:
   serializedVersion: 5
@@ -227,5 +227,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3149409, y: 1.320569, z: 0.10580386}
-  m_Center: {x: 0.042317837, y: 0.013487697, z: -0.005634606}
+  m_Size: {x: 1.2278761, y: 1.3741903, z: 0.16867587}
+  m_Center: {x: 0.16085577, y: -0.23534477, z: -0.037070617}
