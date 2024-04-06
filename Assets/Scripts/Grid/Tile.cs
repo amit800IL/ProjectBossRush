@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
     public void Initialize(int x, int y)
     {
         tilePosition = new Vector2(x, y);
-        SetTileRandomColors();
+        //SetTileRandomColors();
     }
 
 

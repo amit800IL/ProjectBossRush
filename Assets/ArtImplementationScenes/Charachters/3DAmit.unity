@@ -764,7 +764,7 @@ Camera:
     height: 1
   near clip plane: 4.5
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 4.81
   m_Depth: -1
@@ -1012,7 +1012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -804, y: -90}
+  m_AnchoredPosition: {x: -833, y: -90}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510194171
@@ -1693,7 +1693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939510860064199776, guid: 81c35b5e10b08fa4b9fc7d9bd9c8ebe3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -135
       objectReference: {fileID: 0}
     - target: {fileID: 5939510860064199776, guid: 81c35b5e10b08fa4b9fc7d9bd9c8ebe3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1713,11 +1713,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939510860064199776, guid: 81c35b5e10b08fa4b9fc7d9bd9c8ebe3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -749
+      value: 689
       objectReference: {fileID: 0}
     - target: {fileID: 5939510860064199776, guid: 81c35b5e10b08fa4b9fc7d9bd9c8ebe3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -688
+      value: -183
       objectReference: {fileID: 0}
     - target: {fileID: 5939510860064199776, guid: 81c35b5e10b08fa4b9fc7d9bd9c8ebe3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2724,11 +2724,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalRotation.w

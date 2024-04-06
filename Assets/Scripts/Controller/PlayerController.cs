@@ -66,6 +66,11 @@ public class PlayerController : MonoBehaviour
 
             if (CanStepOnTile() && markedHero.CanHeroMove((int)movementCost))
             {
+                if (markedHero.CurrentTile.IsTileOccupied)
+                {
+                    markedHero.CurrentTile.ClearTile();
+                }
+
                 markedHero.HeroMovemetAmountReduction((int)movementCost);
 
                 Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementCost);
