@@ -1481,10 +1481,10 @@ MonoBehaviour:
   gridObjectsToSpawn:
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
     spawnPosition: {x: 1, y: 1}
-  - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 239969815e8b7ea469a418b688ac31b4, type: 3}
+  - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 4068406bcfedfa04ca165c63e9edd5a4, type: 3}
     spawnPosition: {x: 2, y: 2}
-  - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: b071a6e03b5833945be1cf687bf5c14f, type: 3}
-    spawnPosition: {x: 3, y: 3}
+  - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 2abcc348862f5e348b5336d5ddb77f45, type: 3}
+    spawnPosition: {x: 2, y: 1}
 --- !u!4 &951524478
 Transform:
   m_ObjectHideFlags: 0
@@ -2449,6 +2449,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4768851582892093066, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7844508577259880778, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: mainCamera
       value: 
