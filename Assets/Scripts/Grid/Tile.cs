@@ -13,18 +13,8 @@ public class Tile : MonoBehaviour
     public void Initialize(int x, int y)
     {
         tilePosition = new Vector2(x, y);
-        //SetTileRandomColors();
     }
 
-
-    private void SetTileRandomColors()
-    {
-        Color[] colors = new Color[5] { Color.gray, Color.yellow, Color.black, Color.cyan, Color.magenta };
-
-        int randomColor = Random.Range(0, colors.Length);
-
-        spriteRenderer.material.color = colors[randomColor];
-    }
 
     public void SetTileType(TileType[] type)
     {
