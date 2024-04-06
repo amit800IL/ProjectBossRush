@@ -3,6 +3,7 @@ public class Mage : Hero
 {
     private void Start()
     {
+        movementAmount = 10;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
     }
     public override void HeroAttackBoss(Boss boss)

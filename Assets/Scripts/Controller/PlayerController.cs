@@ -62,18 +62,29 @@ public class PlayerController : MonoBehaviour
         {
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
-            if (CanStepOnTile())
+            float movementCost = HeroMovementCost();
+
+            if (CanStepOnTile() && markedHero.CanHeroMove((int)movementCost))
             {
-                if (markedHero.CurrentTile != null)
-                {
-                    markedHero.CurrentTile.ClearTile();
-                }
+                markedHero.HeroMovemetAmountReduction((int)movementCost);
+
+                Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementCost);
 
                 markedHero.MoveHeroToPosition(markedTile);
                 ResetMarkProccess();
             }
         }
     }
+
+    public float HeroMovementCost()
+    {
+        float distanceX = Mathf.Abs(markedTile.tilePosition.x - markedHero.CurrentTile.tilePosition.x);
+        float distanceY = Mathf.Abs(markedTile.tilePosition.y - markedHero.CurrentTile.tilePosition.y);
+        float movementCost = distanceX + distanceY;
+
+        return movementCost;
+    }
+
     private bool CanStepOnTile()
     {
         return TileChecks() && PlayerChecks();
