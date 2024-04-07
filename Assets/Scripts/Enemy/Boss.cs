@@ -20,7 +20,8 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private float HP = 0.0f;
     [field: SerializeField] public float Damage { get; private set; } = 0.0f;
-    [SerializeField] private float defense = 0.0f;
+
+    [SerializeField] private float Defense = 0.0f;
 
     [Header("Attacking actions")]
 

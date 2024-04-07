@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,6 +41,14 @@ public class HeroesManager : MonoBehaviour
             hero.heroAnimator.SetTrigger("Attack");
         }
     }
+    public void HerosDefend()
+    {
+        foreach (Hero hero in heroList)
+        {
+            hero.HeroDefend(boss);
+            hero.heroAnimator.SetTrigger("Defend");
+        }
+    }
 
     [ContextMenu("Combo")]
     public void ActivateComboEffects(Effect[] effects, Hero selectedHero)
@@ -64,4 +73,5 @@ public class HeroesManager : MonoBehaviour
             }
         }
     }
+
 }

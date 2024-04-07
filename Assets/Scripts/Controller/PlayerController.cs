@@ -66,11 +66,6 @@ public class PlayerController : MonoBehaviour
 
             if (CanStepOnTile() && markedHero.CanHeroMove((int)movementCost))
             {
-                if (markedHero.CurrentTile.IsTileOccupied)
-                {
-                    markedHero.CurrentTile.ClearTile();
-                }
-
                 markedHero.HeroMovemetAmountReduction((int)movementCost);
 
                 Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementCost);
@@ -139,6 +134,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void PlayerDefend()
+    {
+        if (boss.IsBossAlive && playerResourceManager.UseAP(1))
+        {
+            heroesManager.HerosDefend();
+        }
+    }
     public void ResetMarkProccessButton()
     {
         if ((heroMarked && markedHero != null))

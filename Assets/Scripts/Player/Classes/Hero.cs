@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Hero : Entity
@@ -5,6 +6,9 @@ public abstract class Hero : Entity
 
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
+
+    [SerializeField] protected ParticleSystem attackingParticle;
+    [SerializeField] protected ParticleSystem defendingParticle;
     public bool HasHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 
@@ -25,16 +29,23 @@ public abstract class Hero : Entity
 
     protected RaycastHit raycastHit;
 
+    protected void Awake()
+    {
+        TurnsManager.OnPlayerTurnStart += HeroNewTurnRestart;
+    }
+
     public void MoveHeroToPosition(Tile targetTile)
     {
+        CurrentTile.ClearTile();
+
         CurrentTile = targetTile;
-        transform.position = CurrentTile.OccupantContainer.position;
+
+        transform.position = targetTile.OccupantContainer.position;
         heroAnimator.SetTrigger("Walk");
 
-        if (transform.position == CurrentTile.OccupantContainer.position && CurrentTile != null)
+        if (transform.position == targetTile.OccupantContainer.position && targetTile != null)
         {
-            CurrentTile.ClearTile();
-            CurrentTile.OccupyTile(this);
+            targetTile.OccupyTile(this);
         }
     }
 
@@ -46,6 +57,13 @@ public abstract class Hero : Entity
     public bool CanHeroMove(int amountToReduce)
     {
         return movementAmount > 0 && movementAmount >= amountToReduce;
+    }
+
+    public void HeroNewTurnRestart()
+    {
+        HP -= Defense;
+
+        Debug.Log("Post Defense HP " + HP);
     }
 
     public void ResetHeroMovement()
@@ -62,13 +80,13 @@ public abstract class Hero : Entity
 
         if (HP <= 0)
         {
-            HP = 100f;
-
             gameObject.SetActive(false);
         }
     }
 
     public abstract void HeroAttackBoss(Boss boss);
+
+    public abstract void HeroDefend(Boss boss);
     public abstract bool CanHeroAttack();
 }
 

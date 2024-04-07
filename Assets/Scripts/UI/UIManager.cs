@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
         bossHealthText.text = "Boss HP : " + bossHealth.ToString();
     }
 
+
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

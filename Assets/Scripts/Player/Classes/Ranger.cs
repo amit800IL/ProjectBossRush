@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ranger : Hero
@@ -12,9 +10,21 @@ public class Ranger : Hero
     public override void HeroAttackBoss(Boss boss)
     {
         if (CanHeroAttack())
+        {
+            attackingParticle.Play();
             boss.TakeDamage(damage);
+        }
         else
+        {
             Debug.Log("Hero can't attack");
+        }
+    }
+    public override void HeroDefend(Boss boss)
+    {
+        defendingParticle.Play();
+        HP += 20;
+
+        Debug.Log("Defense HP " + HP);
     }
     public override bool CanHeroAttack()
     {
@@ -24,4 +34,5 @@ public class Ranger : Hero
         }
         return false;
     }
+
 }
