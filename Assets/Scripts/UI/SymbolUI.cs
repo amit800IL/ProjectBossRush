@@ -5,7 +5,7 @@ using TMPro;
 
 public class SymbolUI : MonoBehaviour
 {
-    public TextMeshProUGUI symbolText;
+    [SerializeField] private TextMeshProUGUI symbolText;
 
     public void UpdateUI(string text)
     {

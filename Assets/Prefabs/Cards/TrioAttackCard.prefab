@@ -581,11 +581,11 @@ RectTransform:
   - {fileID: 7134864541906809332}
   m_Father: {fileID: 5939510860064199776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 350}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1136327323982919644
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -641,6 +641,7 @@ MonoBehaviour:
   nameText: {fileID: 5368084892115762372}
   numText: {fileID: 7022787652848408014}
   cardBG: {fileID: 8946106312911333985}
+  activationButton: {fileID: 4447610879390625392}
 --- !u!1 &8300699704990568692
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5939510860064199776}
   m_Layer: 5
-  m_Name: ComboCard
+  m_Name: TrioAttackCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -672,8 +673,8 @@ RectTransform:
   - {fileID: 8982370321157996887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
