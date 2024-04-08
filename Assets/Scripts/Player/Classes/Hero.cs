@@ -84,7 +84,7 @@ public abstract class Hero : Entity
         }
     }
 
-    public abstract void HeroAttackBoss(Boss boss);
+    public abstract bool HeroAttackBoss(Boss boss);
 
     public abstract void HeroDefend(Boss boss);
     public abstract bool CanHeroAttack();

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   Name: Heal
+  RequiresTargetHero: 1
   Requirements:
     table: 010000000000000000000000000000000000000000000000
   APCost: 1

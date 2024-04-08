@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Game Objects")]
 
-    private Hero markedHero;
+    [SerializeField] private Hero markedHero;
     private Tile markedTile;
     [SerializeField] private Boss boss;
 
@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
         heroMarked = false;
         markedHero.ResetHeroMovement();
         markedHero = null;
+        OnHeroMarked.Invoke(markedHero);
         markedTile = null;
     }
 

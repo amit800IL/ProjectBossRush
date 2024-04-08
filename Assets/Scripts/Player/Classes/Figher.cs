@@ -7,16 +7,18 @@ public class Figher : Hero
         movementAmount = 10;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
     }
-    public override void HeroAttackBoss(Boss boss)
+    public override bool HeroAttackBoss(Boss boss)
     {
         if (CanHeroAttack())
         {
             attackingParticle.Play();
             boss.TakeDamage(damage);
+            return true;
         }
         else
         {
             Debug.Log("Hero can't attack");
+            return false;
         }
     }
     public override void HeroDefend(Boss boss)

@@ -24,13 +24,15 @@ public class Technique : MonoBehaviour
         nameText.text = techData.Name;
         numText.text = techData.Requirements.ToString();
 
-        Debug.Log("need player input to call an event when selecting a hero");
-        PlayerController.OnHeroMarked += ToggleEnable;
+        //needs to move to a manager
+        PlayerController.OnHeroMarked += UpdateUsability;
+        UpdateUsability(null);
     }
 
-    void ToggleEnable(Hero hero)
+    void UpdateUsability(Hero hero)
     {
-        activationButton.enabled = (hero != null);
+        if (techData.RequiresTargetHero)
+            activationButton.interactable = (hero != null);
     }
 
     public void Select()
@@ -56,7 +58,11 @@ public class Technique : MonoBehaviour
     public void StartCooldown()
     {
         cooldown = techData.Cooldown;
-        UpdateCooldownGraphic();
+        if (cooldown > 0)
+        {
+
+            UpdateCooldownGraphic();
+        }
     }
 
     public bool IsReadyToUse() => cooldown == 0;

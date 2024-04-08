@@ -37,8 +37,11 @@ public class HeroesManager : MonoBehaviour
     {
         foreach (Hero hero in heroList)
         {
-            hero.HeroAttackBoss(boss);
-            hero.heroAnimator.SetTrigger("Attack");
+            if (hero.HeroAttackBoss(boss))
+            {
+                playerResourceManager.AddSymbols(hero.SymbolTable);
+                hero.heroAnimator.SetTrigger("Attack");
+            }
         }
     }
     public void HerosDefend()
