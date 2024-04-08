@@ -4,7 +4,7 @@ public class Ranger : Hero
 {
     private void Start()
     {
-        movementAmount = 10;
+        movementAmount = 3;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
     }
     public override bool HeroAttackBoss(Boss boss)
