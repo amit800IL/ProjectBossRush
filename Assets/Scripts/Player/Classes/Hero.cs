@@ -76,6 +76,7 @@ public abstract class Hero : Entity
 
     public void ResetHeroMovement()
     {
+        movementAmount = 0;
         CanHeroMoved = false;
     }
 
