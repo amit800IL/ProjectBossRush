@@ -60,6 +60,9 @@ public class PlayerController : MonoBehaviour
     {
         if (markedHero != null && heroMarked)
         {
+            if (!markedHero.CanHeroMoved && playerResourceManager.UseAP(1))
+                markedHero.UnlockHeroMovement();
+
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
             float movementCost = HeroMovementCost();
@@ -97,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
     private bool PlayerChecks()
     {
-        return !markedHero.HasHeroMoved && playerResourceManager.UseAP(1);
+        return markedHero.CanHeroMoved;
     }
 
     private void ResetMarkProccess()

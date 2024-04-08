@@ -3,9 +3,11 @@ public class Mage : Hero
 {
     private void Start()
     {
-        movementAmount = 3;
+        maxMovementAmount = 3;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
     }
+
+    
     public override bool HeroAttackBoss(Boss boss)
     {
         if (CanHeroAttack())

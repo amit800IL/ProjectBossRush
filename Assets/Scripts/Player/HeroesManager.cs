@@ -6,7 +6,7 @@ public class HeroesManager : MonoBehaviour
 {
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Boss boss;
-    [SerializeField] private List<Hero> heroList = new List<Hero>();
+    [SerializeField] public List<Hero> heroList { get; private set; } = new List<Hero>();
 
     private void Start()
     {

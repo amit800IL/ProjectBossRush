@@ -1,17 +1,19 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public abstract class Hero : Entity
 {
-
     [field: Header("General Variables")]
+    [SerializeField] protected PlayerResourceManager playerResourceManager;
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
 
     [SerializeField] protected ParticleSystem attackingParticle;
     [SerializeField] protected ParticleSystem defendingParticle;
-    public bool HasHeroMoved { get; protected set; } = false;
+    public bool CanHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 
+    protected int maxMovementAmount = 0;
     protected int movementAmount = 0;
 
     [Header("Hero Attributes")]
@@ -30,7 +32,7 @@ public abstract class Hero : Entity
     protected RaycastHit raycastHit;
 
     protected void Awake()
-    {
+    {    
         TurnsManager.OnPlayerTurnStart += HeroNewTurnRestart;
     }
 
@@ -49,6 +51,14 @@ public abstract class Hero : Entity
         }
     }
 
+    public void UnlockHeroMovement()
+    {
+        if (movementAmount <= 0)
+        {
+            movementAmount += maxMovementAmount;
+            CanHeroMoved = true;
+        }
+    }
     public void HeroMovemetAmountReduction(int amountToReduce)
     {
         movementAmount -= amountToReduce;
@@ -61,14 +71,12 @@ public abstract class Hero : Entity
 
     public void HeroNewTurnRestart()
     {
-        HP -= Defense;
-
-        Debug.Log("Post Defense HP " + HP);
+        movementAmount = 0;
     }
 
     public void ResetHeroMovement()
     {
-        HasHeroMoved = false;
+        CanHeroMoved = false;
     }
 
     public void TakeDamage(int incDmg)
