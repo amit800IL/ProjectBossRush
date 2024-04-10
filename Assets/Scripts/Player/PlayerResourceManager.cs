@@ -21,6 +21,7 @@ public class PlayerResourceManager : MonoBehaviour
     {
         Technique.SelectTechnique += SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart += RollCooldowns;
+        TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
 
         symbolUI.UpdateUI(symbolCharge.ToString());
@@ -31,6 +32,7 @@ public class PlayerResourceManager : MonoBehaviour
     {
         Technique.SelectTechnique -= SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart -= RollCooldowns;
+        TurnsManager.OnPlayerTurnStart -= ResetAP;
         PlayerController.OnHeroMarked -= SetSelectedHero;
     }
 

@@ -4,7 +4,7 @@ public class Figher : Hero
 {
     protected void Start()
     {
-        movementAmount = 10;
+        maxMovementAmount = 3;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
     }
     public override bool HeroAttackBoss(Boss boss)

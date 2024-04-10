@@ -60,6 +60,9 @@ public class PlayerController : MonoBehaviour
     {
         if (markedHero != null && heroMarked)
         {
+            if (!markedHero.CanHeroMoved && playerResourceManager.UseAP(1))
+                markedHero.UnlockHeroMovement();
+
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
             float movementCost = HeroMovementCost();
@@ -77,7 +80,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public float HeroMovementCost()
-    {
+    { 
         float distanceX = Mathf.Abs(markedTile.tilePosition.x - markedHero.CurrentTile.tilePosition.x);
         float distanceY = Mathf.Abs(markedTile.tilePosition.y - markedHero.CurrentTile.tilePosition.y);
         float movementCost = distanceX + distanceY;
@@ -87,17 +90,7 @@ public class PlayerController : MonoBehaviour
 
     private bool CanStepOnTile()
     {
-        return TileChecks() && PlayerChecks();
-    }
-
-    private bool TileChecks()
-    {
-        return markedTile != null && !markedTile.IsTileOccupied;
-    }
-
-    private bool PlayerChecks()
-    {
-        return !markedHero.HasHeroMoved && playerResourceManager.UseAP(1);
+        return markedTile != null && !markedTile.IsTileOccupied && markedHero.CanHeroMoved;
     }
 
     private void ResetMarkProccess()
