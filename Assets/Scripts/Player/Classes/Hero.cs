@@ -1,11 +1,15 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Hero : Entity
 {
+
+    public static Action<int> OnHeroHealthChanged;
+    public static Action<int> OnHeroDefenceChanged;
+
     [field: Header("General Variables")]
-    [SerializeField] protected PlayerResourceManager playerResourceManager;
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
 
     [SerializeField] protected ParticleSystem attackingParticle;
@@ -32,8 +36,14 @@ public abstract class Hero : Entity
     protected RaycastHit raycastHit;
 
     protected void Awake()
-    {    
+    {
         TurnsManager.OnPlayerTurnStart += HeroNewTurnRestart;
+    }
+
+    protected virtual void Start()
+    {
+        OnHeroHealthChanged.Invoke((int)HP);
+        OnHeroDefenceChanged.Invoke((int)Defense);
     }
 
     public void MoveHeroToPosition(Tile targetTile)
@@ -83,7 +93,7 @@ public abstract class Hero : Entity
     public void TakeDamage(int incDmg)
     {
         HP -= incDmg;
-        Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HP);
+        OnHeroHealthChanged.Invoke((int)HP);
 
         heroAnimator.SetTrigger("Injured");
 
@@ -94,7 +104,6 @@ public abstract class Hero : Entity
     }
 
     public abstract bool HeroAttackBoss(Boss boss);
-
     public abstract void HeroDefend(Boss boss);
     public abstract bool CanHeroAttack();
 }

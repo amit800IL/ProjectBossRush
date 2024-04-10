@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Figher : Hero
 {
-    protected void Start()
+    protected override void Start()
     {
+        base.Start();
         maxMovementAmount = 3;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
     }
@@ -24,9 +25,8 @@ public class Figher : Hero
     public override void HeroDefend(Boss boss)
     {
         defendingParticle.Play();
-        HP += 20;
 
-        Debug.Log("Defense HP " + HP);
+        OnHeroDefenceChanged.Invoke((int)Defense);
     }
     public override bool CanHeroAttack()
     {
