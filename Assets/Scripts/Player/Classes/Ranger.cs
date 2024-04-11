@@ -21,13 +21,6 @@ public class Ranger : Hero
             return false;
         }
     }
-    public override void HeroDefend(Boss boss)
-    {
-        defendingParticle.Play();
-        HP += 20;
-
-        Debug.Log("Defense HP " + HP);
-    }
     public override bool CanHeroAttack()
     {
         if (CurrentTile != null && CurrentTile.IsTileOfType(TileType.LongRange))
@@ -37,4 +30,8 @@ public class Ranger : Hero
         return false;
     }
 
+    public override bool CanHeroDefend()
+    {
+        return CurrentTile.IsTileOfType(TileType.LongRange);
+    }
 }

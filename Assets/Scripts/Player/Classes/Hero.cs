@@ -22,7 +22,9 @@ public abstract class Hero : Entity
 
     [SerializeField] protected float damage = 0.0f;
 
-    [SerializeField] protected float Defense = 0.0f;
+    [SerializeField] protected int Defense = 0;
+
+    [SerializeField] protected int tempHP;
 
     [field: Header("Tile and raycast")]
 
@@ -30,11 +32,6 @@ public abstract class Hero : Entity
     public Tile CurrentTile { get => currentTile; set => currentTile = value; }
 
     protected RaycastHit raycastHit;
-
-    protected void Awake()
-    {    
-        TurnsManager.OnPlayerTurnStart += HeroNewTurnRestart;
-    }
 
     public void MoveHeroToPosition(Tile targetTile)
     {
@@ -80,9 +77,24 @@ public abstract class Hero : Entity
         CanHeroMoved = false;
     }
 
+    public void ResetTempHP()
+    {
+        tempHP = 0;
+    }
+
     public void TakeDamage(int incDmg)
     {
-        HP -= incDmg;
+        if (incDmg <= tempHP)
+        {
+            tempHP -= incDmg;
+        }
+        else
+        {
+            incDmg -= tempHP;
+            tempHP = 0;
+            HP -= incDmg;
+        }
+
         Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HP);
 
         heroAnimator.SetTrigger("Injured");
@@ -95,8 +107,20 @@ public abstract class Hero : Entity
 
     public abstract bool HeroAttackBoss(Boss boss);
 
-    public abstract void HeroDefend(Boss boss);
+    public bool Defend()
+    {
+        if (CanHeroDefend())
+        {
+            tempHP += Defense;
+            heroAnimator.SetTrigger("Defend");
+            defendingParticle.Play();
+            return true;
+        }
+        return false;
+    }
     public abstract bool CanHeroAttack();
+
+    public abstract bool CanHeroDefend();
 }
 
 

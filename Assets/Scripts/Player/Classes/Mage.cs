@@ -22,13 +22,6 @@ public class Mage : Hero
             return false;
         }
     }
-    public override void HeroDefend(Boss boss)
-    {
-        defendingParticle.Play();
-        HP += Defense;
-
-        Debug.Log("Defense HP " + HP);
-    }
     public override bool CanHeroAttack()
     {
         if (CurrentTile != null && (CurrentTile.IsTileOfType(TileType.CloseRange) || CurrentTile.IsTileOfType(TileType.MediumRange)))
@@ -36,5 +29,11 @@ public class Mage : Hero
             return true;
         }
         return false;
+    }
+
+    public override bool CanHeroDefend()
+    {
+        return CurrentTile.IsTileOfType(TileType.MediumRange) && !CurrentTile.IsTileOfType(TileType.Flank) ||
+            CurrentTile.IsTileOfType(TileType.LongRange) && currentTile.IsTileOfType(TileType.Flank);
     }
 }

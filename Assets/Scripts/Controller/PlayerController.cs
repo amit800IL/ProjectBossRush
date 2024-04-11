@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
     {
         if (boss.IsBossAlive && playerResourceManager.UseAP(1))
         {
-            heroesManager.AttackBoss();
+            heroesManager.CommandAttack();
         }
     }
 
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
     {
         if (boss.IsBossAlive && playerResourceManager.UseAP(1))
         {
-            heroesManager.HerosDefend();
+            heroesManager.CommandDefend();
         }
     }
     public void ResetMarkProccessButton()
