@@ -22,7 +22,7 @@ public abstract class Hero : Entity
 
     [Header("Hero Attributes")]
 
-    [SerializeField] protected float HP = 0.0f;
+    [SerializeField] public float HP = 0.0f;
 
     [SerializeField] protected float damage = 0.0f;
 
