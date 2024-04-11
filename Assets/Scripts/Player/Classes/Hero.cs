@@ -42,8 +42,8 @@ public abstract class Hero : Entity
 
     protected virtual void Start()
     {
-        OnHeroHealthChanged.Invoke((int)HP);
-        OnHeroDefenceChanged.Invoke((int)Defense);
+        OnHeroHealthChanged?.Invoke((int)HP);
+        OnHeroDefenceChanged?.Invoke((int)Defense);
     }
 
     public void MoveHeroToPosition(Tile targetTile)
