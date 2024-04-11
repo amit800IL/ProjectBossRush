@@ -1,6 +1,4 @@
 using System;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Hero : Entity
@@ -20,9 +18,9 @@ public abstract class Hero : Entity
     protected int maxMovementAmount = 0;
     protected int movementAmount = 0;
 
-    [Header("Hero Attributes")]
+    [field: Header("Hero Attributes")]
 
-    [SerializeField] public float HP = 0.0f;
+    [field: SerializeField] public float HP { get; protected set; } = 0.0f;
 
     [SerializeField] protected float damage = 0.0f;
 

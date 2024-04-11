@@ -561,7 +561,7 @@ MonoBehaviour:
   <heroAnimator>k__BackingField: {fileID: 4055011698455528204}
   attackingParticle: {fileID: 8690024532622214642}
   defendingParticle: {fileID: 7429320887859590558}
-  HP: 100
+  <HP>k__BackingField: 100
   damage: 10
   Defense: 10
 --- !u!65 &1015659684323480745
