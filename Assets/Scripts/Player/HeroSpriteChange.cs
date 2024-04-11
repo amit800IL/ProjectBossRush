@@ -16,7 +16,7 @@ public class HeroSpriteChange : MonoBehaviour
     {
         lowHp = 20;
 
-        if (hero.HP <= lowHp)
+        if (hero.HP <= lowHp && heroSpriteRenderer != null)
         {
             heroSpriteRenderer.material = lowHpMaterial;
         }

@@ -38,6 +38,7 @@ public class Mage : Hero
 
     public override bool CanHeroDefend()
     {
-        throw new System.NotImplementedException();
+        return CurrentTile.IsTileOfType(TileType.MediumRange) && !CurrentTile.IsTileOfType(TileType.Flank) ||
+            CurrentTile.IsTileOfType(TileType.LongRange) && currentTile.IsTileOfType(TileType.Flank);
     }
 }

@@ -177,6 +177,7 @@ MonoBehaviour:
   <HP>k__BackingField: 100
   damage: 10
   Defense: 10
+  tempHP: 10
 --- !u!65 &1015659684323480745
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -39,6 +39,6 @@ public class Ranger : Hero
 
     public override bool CanHeroDefend()
     {
-        throw new System.NotImplementedException();
+        return CurrentTile.IsTileOfType(TileType.LongRange);
     }
 }
