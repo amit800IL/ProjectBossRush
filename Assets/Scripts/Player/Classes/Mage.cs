@@ -3,8 +3,8 @@ public class Mage : Hero
 {
     protected override void Start()
     {
-        base.Start();
         maxMovementAmount = 3;
+        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
     }  
     public override bool HeroAttackBoss(Boss boss)
