@@ -10,6 +10,20 @@ public class HeroesManager : MonoBehaviour
 
     private void Start()
     {
+        InitializeHeroList();
+
+        PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
+        TurnsManager.OnPlayerTurnStart += NextTurnHeroMethods;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerResourceManager.OnTechniqueUsed -= ActivateComboEffects;
+        TurnsManager.OnPlayerTurnStart -= NextTurnHeroMethods;
+    }
+
+    private void InitializeHeroList()
+    {
         Tile[,] tiles = GridManager.Instance.Tiles;
 
         if (tiles != null)
@@ -24,16 +38,18 @@ public class HeroesManager : MonoBehaviour
                 }
             }
         }
-
-        PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
     }
 
-    private void OnDestroy()
+    private void NextTurnHeroMethods()
     {
-        PlayerResourceManager.OnTechniqueUsed -= ActivateComboEffects;
+        foreach (Hero hero in heroList)
+        {
+            hero.HeroNewTurnRestart();
+            hero.ResetTempHP();
+        }
     }
 
-    public void AttackBoss()
+    public void CommandAttack()
     {
         foreach (Hero hero in heroList)
         {
@@ -44,12 +60,15 @@ public class HeroesManager : MonoBehaviour
             }
         }
     }
-    public void HerosDefend()
+
+    public void CommandDefend()
     {
         foreach (Hero hero in heroList)
         {
-            hero.HeroDefend(boss);
-            hero.heroAnimator.SetTrigger("Defend");
+            if (hero.Defend())
+            {
+                playerResourceManager.AddSymbols(new((int)SymbolTable.Symbols.Defense));
+            }
         }
     }
 
