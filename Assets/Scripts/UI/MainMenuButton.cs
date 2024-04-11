@@ -8,7 +8,7 @@ public class MainMenuButton : MonoBehaviour
 
     public void OnButtonHoveringEnter()
     {
-        float buttonTextAlpha = 255;
+        float buttonTextAlpha = (buttonText.color.a * 3);
 
         buttonText.color = new Color(buttonText.color.r, buttonText.color.g, buttonText.color.b, buttonTextAlpha);
 
@@ -17,7 +17,7 @@ public class MainMenuButton : MonoBehaviour
 
     public void OnButtonHoveringExit()
     {
-        float buttonTextAlpha = 128;
+        float buttonTextAlpha = buttonText.color.a / 3;
 
         buttonText.color = new Color(buttonText.color.r, buttonText.color.g, buttonText.color.b, buttonTextAlpha);
 
