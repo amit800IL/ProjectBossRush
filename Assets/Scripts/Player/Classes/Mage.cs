@@ -35,4 +35,9 @@ public class Mage : Hero
         }
         return false;
     }
+
+    public override bool CanHeroDefend()
+    {
+        throw new System.NotImplementedException();
+    }
 }

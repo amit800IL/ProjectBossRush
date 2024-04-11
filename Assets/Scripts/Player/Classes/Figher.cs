@@ -37,4 +37,8 @@ public class Figher : Hero
         return false;
     }
 
+    public override bool CanHeroDefend()
+    {
+        throw new System.NotImplementedException();
+    }
 }
