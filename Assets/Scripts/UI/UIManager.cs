@@ -6,7 +6,11 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Boss UI")]
+
     [SerializeField] private TextMeshProUGUI bossHealthText;
+
+    [Header("AP UI")]
 
     [SerializeField] private List<Image> actionPoints = new List<Image>();
     [SerializeField] private Sprite apSpriteOn;
