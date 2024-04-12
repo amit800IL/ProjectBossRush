@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         {
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
-            if (!markedHero.CanHeroMoved && markedTile != null && !markedTile.IsTileOccupied)
+            if (CanHeroUnlockMovement())
             {
                 if (playerResourceManager.UseAP(1))
                     markedHero.UnlockHeroMovement();
@@ -94,6 +94,11 @@ public class PlayerController : MonoBehaviour
     private bool CanStepOnTile()
     {
         return markedTile != null && !markedTile.IsTileOccupied && markedHero.CanHeroMoved;
+    }
+
+    private bool CanHeroUnlockMovement()
+    {
+        return !markedHero.CanHeroMoved && markedTile != null && !markedTile.IsTileOccupied;
     }
 
     private void ResetMarkProccess()
