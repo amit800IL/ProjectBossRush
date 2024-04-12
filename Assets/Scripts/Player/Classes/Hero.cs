@@ -8,7 +8,6 @@ public abstract class Hero : Entity
     public static Action<int> OnHeroDefenceChanged;
 
     [field: Header("General Variables")]
-    [SerializeField] protected PlayerResourceManager playerResourceManager;
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
 
     [SerializeField] protected ParticleSystem attackingParticle;

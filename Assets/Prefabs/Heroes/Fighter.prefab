@@ -561,10 +561,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba62f3978faf14b9c710177dd8d965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerResourceManager: {fileID: 0}
   <heroAnimator>k__BackingField: {fileID: 4055011698455528204}
   attackingParticle: {fileID: 512755043837770258}
   defendingParticle: {fileID: 7831400537010597187}
-  <HP>k__BackingField: 100
+  HP: 100
   damage: 10
   Defense: 10
   tempHP: 10
