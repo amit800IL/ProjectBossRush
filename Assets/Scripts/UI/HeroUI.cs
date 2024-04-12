@@ -8,12 +8,24 @@ public class HeroUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI heroHPText;
     [SerializeField] private TextMeshProUGUI heroDefenceText;
+    [SerializeField] private Transform canvasFollowtarget;
+    [SerializeField] private Canvas heroUICanvas;
+    [SerializeField] private Vector3 offset;
+
 
     private void Start()
     {
+        heroUICanvas.worldCamera = Camera.main;
+
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
+
     }
+    void Update()
+    {
+        transform.position = canvasFollowtarget.position + offset;
+    }
+
     private void HeroHealthChange(int heroHealth)
     {
         heroHPText.text = "HP: " + heroHealth.ToString();
