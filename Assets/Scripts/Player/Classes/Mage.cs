@@ -21,12 +21,7 @@ public class Mage : Hero
             return false;
         }
     }
-    public override void HeroDefend(Boss boss)
-    {
-        defendingParticle.Play();
 
-        OnHeroDefenceChanged.Invoke((int)Defense);
-    }
     public override bool CanHeroAttack()
     {
         if (CurrentTile != null && (CurrentTile.IsTileOfType(TileType.CloseRange) || CurrentTile.IsTileOfType(TileType.MediumRange)))

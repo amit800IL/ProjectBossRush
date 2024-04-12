@@ -1,13 +1,14 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public abstract class Hero : Entity
 {
-
     public static Action<int> OnHeroHealthChanged;
     public static Action<int> OnHeroDefenceChanged;
 
     [field: Header("General Variables")]
+    [SerializeField] protected PlayerResourceManager playerResourceManager;
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
 
     [SerializeField] protected ParticleSystem attackingParticle;
@@ -18,15 +19,15 @@ public abstract class Hero : Entity
     protected int maxMovementAmount = 0;
     protected int movementAmount = 0;
 
-    [field: Header("Hero Attributes")]
+    [Header("Hero Attributes")]
 
-    [field: SerializeField] public float HP { get; protected set; } = 0.0f;
+    [SerializeField] protected int HP = 0;
 
-    [SerializeField] protected float damage = 0.0f;
+    [SerializeField] protected int damage = 0;
 
-    [SerializeField] protected float Defense = 0.0f;
+    [SerializeField] protected int Defense = 0;
 
-    [SerializeField] protected float tempHP;
+    [SerializeField] protected int tempHP;
 
     [field: Header("Tile and raycast")]
 
@@ -35,15 +36,10 @@ public abstract class Hero : Entity
 
     protected RaycastHit raycastHit;
 
-    protected void Awake()
-    {
-        TurnsManager.OnPlayerTurnStart += HeroNewTurnRestart;
-    }
-
     protected virtual void Start()
     {
-        OnHeroHealthChanged?.Invoke((int)HP);
-        OnHeroDefenceChanged?.Invoke((int)Defense);
+        OnHeroHealthChanged?.Invoke(HP);
+        OnHeroDefenceChanged?.Invoke(Defense);
     }
 
     public void MoveHeroToPosition(Tile targetTile)
@@ -83,15 +79,16 @@ public abstract class Hero : Entity
     {
         movementAmount = 0;
     }
-    public void ResetTempHP()
-    {
-        tempHP = 0;
-    }
 
     public void ResetHeroMovement()
     {
         movementAmount = 0;
         CanHeroMoved = false;
+    }
+
+    public void ResetTempHP()
+    {
+        tempHP = 0;
     }
 
     public void TakeDamage(int incDmg)
@@ -102,7 +99,7 @@ public abstract class Hero : Entity
         }
         else
         {
-            incDmg -= (int)tempHP;
+            incDmg -= tempHP;
             tempHP = 0;
             HP -= incDmg;
         }
@@ -116,6 +113,9 @@ public abstract class Hero : Entity
             gameObject.SetActive(false);
         }
     }
+
+    public abstract bool HeroAttackBoss(Boss boss);
+
     public bool Defend()
     {
         if (CanHeroDefend())
@@ -127,16 +127,10 @@ public abstract class Hero : Entity
         }
         return false;
     }
-    public abstract bool HeroAttackBoss(Boss boss);
-    public abstract void HeroDefend(Boss boss);
     public abstract bool CanHeroAttack();
+
     public abstract bool CanHeroDefend();
 }
-
-
-
-
-
 
 
 

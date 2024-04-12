@@ -6,17 +6,16 @@ public class HeroSpriteChange : MonoBehaviour
     [SerializeField] private SpriteRenderer heroSpriteRenderer;
     [SerializeField] private Material heroMaterial;
     [SerializeField] private Material lowHpMaterial;
+    private int LowHPThreshold = 20;
 
     private void Start()
     {
         Hero.OnHeroHealthChanged += OnHpLow;
     }
 
-    private void OnHpLow(int lowHp)
+    private void OnHpLow(int HeroHp)
     {
-        lowHp = 20;
-
-        if (hero.HP <= lowHp && heroSpriteRenderer != null)
+        if (HeroHp <= LowHPThreshold && heroSpriteRenderer != null)
         {
             heroSpriteRenderer.material = lowHpMaterial;
         }
