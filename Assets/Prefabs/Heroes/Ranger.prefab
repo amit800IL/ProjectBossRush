@@ -375,7 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroHPText: {fileID: 3876949270945657088}
   heroDefenceText: {fileID: 4832620444831923615}
-  canvasFollowtarget: {fileID: 8396108960678294777}
+  canvasFollowTarget: {fileID: 8396108960678294777}
   heroUICanvas: {fileID: 2804058491853409822}
   offset: {x: 0, y: 2.5, z: 0}
 --- !u!1 &3553176630575290343

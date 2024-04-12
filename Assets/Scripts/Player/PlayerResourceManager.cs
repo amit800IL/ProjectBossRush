@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class PlayerResourceManager : MonoBehaviour
@@ -53,7 +52,8 @@ public class PlayerResourceManager : MonoBehaviour
     {
         foreach (Technique technique in techniques)
         {
-            technique.UpdateCooldown();
+            if (technique != null)
+                technique.UpdateCooldown();
         }
     }
 

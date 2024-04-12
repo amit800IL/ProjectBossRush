@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         inputActions.Player.PlayerPress.performed -= OnPlayerMove;
     }

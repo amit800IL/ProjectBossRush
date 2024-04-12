@@ -509,7 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroHPText: {fileID: 2226046137844830052}
   heroDefenceText: {fileID: 8370230286598590739}
-  canvasFollowtarget: {fileID: 8396108960678294777}
+  canvasFollowTarget: {fileID: 8396108960678294777}
   heroUICanvas: {fileID: 155671491243393761}
   offset: {x: 0, y: 2.5, z: 0}
 --- !u!1 &8648337662786245942
@@ -561,7 +561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba62f3978faf14b9c710177dd8d965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerResourceManager: {fileID: 0}
   <heroAnimator>k__BackingField: {fileID: 4055011698455528204}
   attackingParticle: {fileID: 512755043837770258}
   defendingParticle: {fileID: 7831400537010597187}

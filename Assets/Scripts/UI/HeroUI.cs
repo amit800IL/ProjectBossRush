@@ -8,7 +8,7 @@ public class HeroUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI heroHPText;
     [SerializeField] private TextMeshProUGUI heroDefenceText;
-    [SerializeField] private Transform canvasFollowtarget;
+    [SerializeField] private Transform canvasFollowTarget;
     [SerializeField] private Canvas heroUICanvas;
     [SerializeField] private Vector3 offset;
 
@@ -23,7 +23,7 @@ public class HeroUI : MonoBehaviour
     }
     void Update()
     {
-        transform.position = canvasFollowtarget.position + offset;
+        transform.position = canvasFollowTarget.position + offset;
     }
 
     private void HeroHealthChange(int heroHealth)

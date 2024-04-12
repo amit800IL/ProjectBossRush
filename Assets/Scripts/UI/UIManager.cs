@@ -22,6 +22,12 @@ public class UIManager : MonoBehaviour
         PlayerResourceManager.OnAPChanged += ApUIChange;
     }
 
+    private void OnDestroy()
+    {
+        Boss.OnEnemyHealthChanged -= BossHealthChange;
+        PlayerResourceManager.OnAPChanged -= ApUIChange;
+    }
+
     private void ApUIChange(int ap)
     {
         for (int i = 0; i < actionPoints.Count; i++)

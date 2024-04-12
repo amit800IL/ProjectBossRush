@@ -13,6 +13,11 @@ public class HeroSpriteChange : MonoBehaviour
         Hero.OnHeroHealthChanged += OnHpLow;
     }
 
+    private void OnDisable()
+    {
+        Hero.OnHeroHealthChanged -= OnHpLow;
+    }
+
     private void OnHpLow(int HeroHp)
     {
         if (HeroHp <= LowHPThreshold && heroSpriteRenderer != null)
