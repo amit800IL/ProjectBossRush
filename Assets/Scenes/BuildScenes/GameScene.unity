@@ -2579,7 +2579,7 @@ MonoBehaviour:
   - {fileID: 0}
   selectedTechnique: {fileID: 0}
   selectedHero: {fileID: 0}
-  symbolUI: {fileID: 0}
+  symbolUI: {fileID: 1465665199}
   testTable:
     table: 000000000000000000000000000000000000000000000000
 --- !u!1 &1465665197
