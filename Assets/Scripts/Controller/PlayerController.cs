@@ -106,8 +106,9 @@ public class PlayerController : MonoBehaviour
         heroMarked = false;
         markedHero.ResetHeroMovement();
         markedHero = null;
-        OnHeroMarked.Invoke(markedHero);
+        OnHeroMarked?.Invoke(markedHero);
         markedTile = null;
+
     }
 
     private void MarkHero(Vector3 pressPosition)
@@ -124,7 +125,7 @@ public class PlayerController : MonoBehaviour
         {
             heroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
-            OnHeroMarked.Invoke(markedHero);
+            OnHeroMarked?.Invoke(markedHero);
         }
     }
 
@@ -149,6 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             heroMarked = false;
             markedHero = null;
+            OnHeroMarked?.Invoke(markedHero);
         }
     }
 }
