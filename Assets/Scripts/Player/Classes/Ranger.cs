@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Ranger : Hero
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         maxMovementAmount = 3;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
     }
@@ -20,6 +21,12 @@ public class Ranger : Hero
             Debug.Log("Hero can't attack");
             return false;
         }
+    }
+    public override void HeroDefend(Boss boss)
+    {
+        defendingParticle.Play();
+
+        OnHeroDefenceChanged.Invoke((int)Defense);
     }
     public override bool CanHeroAttack()
     {
