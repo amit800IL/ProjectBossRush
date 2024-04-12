@@ -123,6 +123,7 @@ MonoBehaviour:
   heroSpriteRenderer: {fileID: 5670658661669503013}
   heroMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   lowHpMaterial: {fileID: 2100000, guid: 82432be50ef630d479f2a5083ab22de8, type: 2}
+  markMaterial: {fileID: 2100000, guid: 2d73527204aea1e46b8503aeee8aa156, type: 2}
 --- !u!1 &983378079051192937
 GameObject:
   m_ObjectHideFlags: 0
