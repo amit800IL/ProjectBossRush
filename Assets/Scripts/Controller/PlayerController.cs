@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         {
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
-            if (!markedHero.CanHeroMoved && markedTile != null)
+            if (!markedHero.CanHeroMoved && markedTile != null && !markedTile.IsTileOccupied)
             {
                 if (playerResourceManager.UseAP(1))
                     markedHero.UnlockHeroMovement();
