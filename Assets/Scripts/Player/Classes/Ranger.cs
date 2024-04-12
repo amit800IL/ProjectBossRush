@@ -22,12 +22,7 @@ public class Ranger : Hero
             return false;
         }
     }
-    public override void HeroDefend(Boss boss)
-    {
-        defendingParticle.Play();
 
-        OnHeroDefenceChanged.Invoke((int)Defense);
-    }
     public override bool CanHeroAttack()
     {
         if (CurrentTile != null && CurrentTile.IsTileOfType(TileType.LongRange))

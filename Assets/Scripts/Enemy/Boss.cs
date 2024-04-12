@@ -87,12 +87,12 @@ public class Boss : MonoBehaviour
                 Debug.Log("Found hero: " + hero.name + " on a tile");
                 action.EnemyAction.DoActionOnHero(hero);
 
-                HasBossAttacked = true;
 
                 return;
             }
         }
 
+        HasBossAttacked = true;
         Debug.LogWarning("No hero found on the checked tile");
     }
 

@@ -42,7 +42,7 @@ public class HeroesManager : MonoBehaviour
 
     private void NextTurnHeroMethods()
     {
-        foreach(Hero hero in heroList)
+        foreach (Hero hero in heroList)
         {
             hero.HeroNewTurnRestart();
             hero.ResetTempHP();

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Hero : Entity
 {
+    public static Action<int> OnHeroHealthChanged;
+    public static Action<int> OnHeroDefenceChanged;
+
     [field: Header("General Variables")]
     [SerializeField] protected PlayerResourceManager playerResourceManager;
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
@@ -18,9 +21,9 @@ public abstract class Hero : Entity
 
     [Header("Hero Attributes")]
 
-    [SerializeField] protected float HP = 0.0f;
+    [SerializeField] protected int HP = 0;
 
-    [SerializeField] protected float damage = 0.0f;
+    [SerializeField] protected int damage = 0;
 
     [SerializeField] protected int Defense = 0;
 
@@ -32,6 +35,12 @@ public abstract class Hero : Entity
     public Tile CurrentTile { get => currentTile; set => currentTile = value; }
 
     protected RaycastHit raycastHit;
+
+    protected virtual void Start()
+    {
+        OnHeroHealthChanged?.Invoke(HP);
+        OnHeroDefenceChanged?.Invoke(Defense);
+    }
 
     public void MoveHeroToPosition(Tile targetTile)
     {

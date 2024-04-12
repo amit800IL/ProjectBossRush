@@ -85,7 +85,7 @@ public class Technique : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.localPosition = new(transform.localPosition.x, 300, transform.localPosition.z);
+        transform.localPosition = new(transform.localPosition.x, 270, transform.localPosition.z);
     }
 
     public void OnPointerExit(PointerEventData eventData)
