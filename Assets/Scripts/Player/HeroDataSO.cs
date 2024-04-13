@@ -5,7 +5,9 @@ public class HeroDataSO : ScriptableObject
 {
     public Sprite heroGraphicLook;
 
-    public HeroesNames Name;
+    public string Name;
+    
+    public int maxHP = 100;
 
     public int HP = 0;
 
@@ -14,9 +16,3 @@ public class HeroDataSO : ScriptableObject
     public int Defense = 0;
 }
 
-public enum HeroesNames
-{
-    Berzeker,
-    Mage,
-    Ranger,
-}

@@ -32,6 +32,8 @@ public abstract class Hero : Entity
 
     protected virtual void Start()
     {
+        HeroData.HP = HeroData.maxHP;
+
         OnHeroHealthChanged?.Invoke(HeroData.HP);
         OnHeroDefenceChanged?.Invoke(HeroData.Defense);
     }
@@ -98,7 +100,7 @@ public abstract class Hero : Entity
             HeroData.HP -= incDmg;
         }
 
-        Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HeroData.HP);
+        OnHeroHealthChanged?.Invoke(HeroData.HP);
 
         heroAnimator.SetTrigger("Injured");
 

@@ -34,7 +34,7 @@ public class HeroUI : MonoBehaviour
         {
             heroPanel.SetActive(true);
 
-            isPanelActive = true;   
+            isPanelActive = true;
         }
         else
         {
@@ -50,11 +50,12 @@ public class HeroUI : MonoBehaviour
     }
     private void WriteHeroName()
     {
-        heroNameText.text = hero.HeroData.Name.ToString();
+        heroNameText.text = hero.HeroData.Name;
     }
 
     private void HeroHealthChange(int heroHealth)
     {
+        heroHealth = hero.HeroData.HP;
         hero.HeroData.HP = heroHealth;
 
         heroHPText.text = "HP : " + heroHealth.ToString();
@@ -62,6 +63,7 @@ public class HeroUI : MonoBehaviour
 
     private void HeroDefenceChange(int heroDefence)
     {
+        heroDefence = hero.HeroData.Defense;
         hero.HeroData.Defense = heroDefence;
 
         heroDefenceText.text = "Defence : " + heroDefence.ToString();
