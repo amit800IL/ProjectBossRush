@@ -16,5 +16,6 @@ MonoBehaviour:
   heroName: Berseker
   maxHP: 100
   HP: 100
+  maxMovementAmount: 3
   damage: 10
-  Defense: 10
+  defense: 10

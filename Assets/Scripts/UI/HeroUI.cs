@@ -10,16 +10,26 @@ public class HeroUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI heroNameText;
     [SerializeField] private TextMeshProUGUI heroHPText;
     [SerializeField] private TextMeshProUGUI heroDefenceText;
+    [SerializeField] private TextMeshProUGUI heroMovementAmountText;
 
     private bool isPanelActive = false;
 
     private void Start()
     {
+        IntitiliazeHeroUI();
+    }
+
+    private void IntitiliazeHeroUI()
+    {
         ShowHeroSprite();
         WriteHeroName();
+        ShowHeroMovementAmount();
 
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
+
+        HeroHealthChange(hero.HeroData.maxHP);
+        HeroDefenceChange(hero.HeroData.defense);
     }
 
     private void OnDestroy()
@@ -55,15 +65,16 @@ public class HeroUI : MonoBehaviour
 
     private void HeroHealthChange(int heroHealth)
     {
-        hero.HeroData.HP = heroHealth;
+        heroHPText.text = "HP: " + heroHealth.ToString();
+    }
 
-        heroHPText.text = "HP : " + heroHealth.ToString();
+    private void ShowHeroMovementAmount()
+    {
+        heroMovementAmountText.text = "Movement: " + hero.HeroData.maxMovementAmount.ToString();
     }
 
     private void HeroDefenceChange(int heroDefence)
     {
-        hero.HeroData.Defense = heroDefence;
-
-        heroDefenceText.text = "Defence : " + heroDefence.ToString();
+        heroDefenceText.text = "Defence: " + heroDefence.ToString();
     }
 }

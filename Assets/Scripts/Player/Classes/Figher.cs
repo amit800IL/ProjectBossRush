@@ -5,7 +5,6 @@ public class Figher : Hero
     protected override void Start()
     {
         base.Start();
-        maxMovementAmount = 3;
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
 
       

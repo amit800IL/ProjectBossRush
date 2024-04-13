@@ -14,13 +14,12 @@ public abstract class Hero : Entity
     public bool CanHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 
-    protected int maxMovementAmount = 0;
     protected int movementAmount = 0;
 
     [field: Header("Hero Attributes")]
 
     [field: SerializeField] public HeroDataSO HeroData { get; protected set; }
-
+    [field: SerializeField] public int HP { get; protected set; } = 0;
     [SerializeField] protected int tempHP;
 
     [field: Header("Tile and raycast")]
@@ -32,10 +31,11 @@ public abstract class Hero : Entity
 
     protected virtual void Start()
     {
-        HeroData.HP = HeroData.maxHP;
+        HP = HeroData.maxHP;
+        HeroData.defense = tempHP;
 
-        OnHeroHealthChanged?.Invoke(HeroData.HP);
-        OnHeroDefenceChanged?.Invoke(HeroData.Defense);
+        OnHeroHealthChanged?.Invoke(HP);
+        OnHeroDefenceChanged?.Invoke(tempHP);
     }
 
     public void MoveHeroToPosition(Tile targetTile)
@@ -57,7 +57,7 @@ public abstract class Hero : Entity
     {
         if (movementAmount <= 0)
         {
-            movementAmount += maxMovementAmount;
+            movementAmount += HeroData.maxMovementAmount;
             CanHeroMoved = true;
         }
     }
@@ -85,6 +85,7 @@ public abstract class Hero : Entity
     public void ResetTempHP()
     {
         tempHP = 0;
+        OnHeroDefenceChanged?.Invoke(tempHP);
     }
 
     public void TakeDamage(int incDmg)
@@ -97,14 +98,15 @@ public abstract class Hero : Entity
         {
             incDmg -= tempHP;
             tempHP = 0;
-            HeroData.HP -= incDmg;
+            HP -= incDmg;
         }
 
-        OnHeroHealthChanged?.Invoke(HeroData.HP);
+        OnHeroHealthChanged?.Invoke(HP);
+        OnHeroDefenceChanged?.Invoke(tempHP);
 
         heroAnimator.SetTrigger("Injured");
 
-        if (HeroData.HP <= 0)
+        if (HP <= 0)
         {
             gameObject.SetActive(false);
         }
@@ -116,7 +118,8 @@ public abstract class Hero : Entity
     {
         if (CanHeroDefend())
         {
-            tempHP += HeroData.Defense;
+            tempHP += HeroData.defense;
+            OnHeroDefenceChanged?.Invoke(tempHP);
             heroAnimator.SetTrigger("Defend");
             defendingParticle.Play();
             return true;

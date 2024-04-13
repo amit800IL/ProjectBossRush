@@ -9,10 +9,10 @@ public class HeroDataSO : ScriptableObject
     
     public int maxHP = 100;
 
-    public int HP = 0;
+    public int maxMovementAmount = 0;
 
     public int damage = 0;
 
-    public int Defense = 0;
+    public int defense = 0;
 }
 
