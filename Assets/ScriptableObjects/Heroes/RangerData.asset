@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36621d483fa56aa4fbe6b59e2ea5a5e4, type: 3}
   m_Name: RangerData
   m_EditorClassIdentifier: 
-  heroGraphicLook: {fileID: 21300000, guid: 09fa811d60118594797807450eb612d3, type: 3}
-  Name: Ranger
+  heroSpritePresentation: {fileID: 21300000, guid: 09fa811d60118594797807450eb612d3, type: 3}
+  heroName: Ranger
+  maxHP: 100
   HP: 100
   damage: 10
   Defense: 10

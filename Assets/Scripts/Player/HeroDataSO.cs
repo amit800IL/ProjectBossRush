@@ -3,9 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "HeroData", menuName = "ScriptableObject/HeroData")]
 public class HeroDataSO : ScriptableObject
 {
-    public Sprite heroGraphicLook;
+    public Sprite heroSpritePresentation;
 
-    public string Name;
+    public string heroName;
     
     public int maxHP = 100;
 

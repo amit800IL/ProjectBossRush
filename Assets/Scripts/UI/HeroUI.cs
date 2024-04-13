@@ -46,11 +46,11 @@ public class HeroUI : MonoBehaviour
 
     private void ShowHeroSprite()
     {
-        spritePresention.sprite = hero.HeroData.heroGraphicLook;
+        spritePresention.sprite = hero.HeroData.heroSpritePresentation;
     }
     private void WriteHeroName()
     {
-        heroNameText.text = hero.HeroData.Name;
+        heroNameText.text = hero.HeroData.heroName;
     }
 
     private void HeroHealthChange(int heroHealth)
