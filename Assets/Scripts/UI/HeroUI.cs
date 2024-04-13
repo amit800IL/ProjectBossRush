@@ -55,7 +55,6 @@ public class HeroUI : MonoBehaviour
 
     private void HeroHealthChange(int heroHealth)
     {
-        heroHealth = hero.HeroData.HP;
         hero.HeroData.HP = heroHealth;
 
         heroHPText.text = "HP : " + heroHealth.ToString();
@@ -63,7 +62,6 @@ public class HeroUI : MonoBehaviour
 
     private void HeroDefenceChange(int heroDefence)
     {
-        heroDefence = hero.HeroData.Defense;
         hero.HeroData.Defense = heroDefence;
 
         heroDefenceText.text = "Defence : " + heroDefence.ToString();
