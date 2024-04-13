@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,9 +6,23 @@ public class HeroesManager : MonoBehaviour
 {
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Boss boss;
-    [SerializeField] private List<Hero> heroList = new List<Hero>();
+    [SerializeField] public List<Hero> heroList { get; private set; } = new List<Hero>();
 
     private void Start()
+    {
+        InitializeHeroList();
+
+        PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
+        TurnsManager.OnPlayerTurnStart += NextTurnHeroMethods;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerResourceManager.OnTechniqueUsed -= ActivateComboEffects;
+        TurnsManager.OnPlayerTurnStart -= NextTurnHeroMethods;
+    }
+
+    private void InitializeHeroList()
     {
         Tile[,] tiles = GridManager.Instance.Tiles;
 
@@ -23,21 +38,37 @@ public class HeroesManager : MonoBehaviour
                 }
             }
         }
-
-        PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
     }
 
-    private void OnDestroy()
-    {
-        PlayerResourceManager.OnTechniqueUsed -= ActivateComboEffects;
-    }
-
-    public void AttackBoss()
+    private void NextTurnHeroMethods()
     {
         foreach (Hero hero in heroList)
         {
-            hero.HeroAttackBoss(boss);
-            hero.heroAnimator.SetTrigger("Attack");
+            hero.HeroNewTurnRestart();
+            hero.ResetTempHP();
+        }
+    }
+
+    public void CommandAttack()
+    {
+        foreach (Hero hero in heroList)
+        {
+            if (hero.HeroAttackBoss(boss))
+            {
+                playerResourceManager.AddSymbols(hero.SymbolTable);
+                hero.heroAnimator.SetTrigger("Attack");
+            }
+        }
+    }
+
+    public void CommandDefend()
+    {
+        foreach (Hero hero in heroList)
+        {
+            if (hero.Defend())
+            {
+                playerResourceManager.AddSymbols(new((int)SymbolTable.Symbols.Defense));
+            }
         }
     }
 
@@ -64,4 +95,5 @@ public class HeroesManager : MonoBehaviour
             }
         }
     }
+
 }

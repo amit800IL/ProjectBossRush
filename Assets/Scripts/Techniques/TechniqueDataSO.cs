@@ -7,6 +7,7 @@ using UnityEngine;
 public class TechniqueDataSO : ScriptableObject
 {
     public string Name;
+    public bool RequiresTargetHero;
     public SymbolTable Requirements;
     public int APCost;
     public int Cooldown;

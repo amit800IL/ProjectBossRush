@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Technique : MonoBehaviour
+public class Technique : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
@@ -24,13 +25,15 @@ public class Technique : MonoBehaviour
         nameText.text = techData.Name;
         numText.text = techData.Requirements.ToString();
 
-        Debug.Log("need player input to call an event when selecting a hero");
-        PlayerController.OnHeroMarked += ToggleEnable;
+        //needs to move to a manager
+        PlayerController.OnHeroMarked += UpdateUsability;
+        UpdateUsability(null);
     }
 
-    void ToggleEnable(Hero hero)
+    void UpdateUsability(Hero hero)
     {
-        activationButton.enabled = (hero != null);
+        if (techData.RequiresTargetHero)
+            activationButton.interactable = (hero != null);
     }
 
     public void Select()
@@ -56,7 +59,11 @@ public class Technique : MonoBehaviour
     public void StartCooldown()
     {
         cooldown = techData.Cooldown;
-        UpdateCooldownGraphic();
+        if (cooldown > 0)
+        {
+
+            UpdateCooldownGraphic();
+        }
     }
 
     public bool IsReadyToUse() => cooldown == 0;
@@ -74,5 +81,15 @@ public class Technique : MonoBehaviour
     private void UpdateCooldownGraphic()
     {
         cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.localPosition = new(transform.localPosition.x, 270, transform.localPosition.z);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        transform.localPosition = new(transform.localPosition.x, 0, transform.localPosition.z);
     }
 }

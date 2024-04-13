@@ -2,18 +2,28 @@ using UnityEngine;
 
 public class Figher : Hero
 {
-    protected void Start()
+    protected override void Start()
     {
-        movementAmount = 10;
+        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
+
+      
     }
-    public override void HeroAttackBoss(Boss boss)
+    public override bool HeroAttackBoss(Boss boss)
     {
         if (CanHeroAttack())
-            boss.TakeDamage(damage);
+        {
+            attackingParticle.Play();
+            boss.TakeDamage(HeroData.damage);
+            return true;
+        }
         else
+        {
             Debug.Log("Hero can't attack");
+            return false;
+        }
     }
+
     public override bool CanHeroAttack()
     {
         if (CurrentTile != null && CurrentTile.IsTileOfType(TileType.CloseRange))
@@ -23,4 +33,8 @@ public class Figher : Hero
         return false;
     }
 
+    public override bool CanHeroDefend()
+    {
+        return !CurrentTile.IsTileOfType(TileType.LongRange);
+    }
 }

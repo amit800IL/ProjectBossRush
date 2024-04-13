@@ -1,22 +1,26 @@
+using System;
 using UnityEngine;
 
 public abstract class Hero : Entity
 {
+    public static Action<int> OnHeroHealthChanged;
+    public static Action<int> OnHeroDefenceChanged;
 
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
-    public bool HasHeroMoved { get; protected set; } = false;
+
+    [SerializeField] protected ParticleSystem attackingParticle;
+    [SerializeField] protected ParticleSystem defendingParticle;
+    public bool CanHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 
     protected int movementAmount = 0;
 
-    [Header("Hero Attributes")]
+    [field: Header("Hero Attributes")]
 
-    [SerializeField] protected float HP = 0.0f;
-
-    [SerializeField] protected float damage = 0.0f;
-
-    [SerializeField] protected float Defense = 0.0f;
+    [field: SerializeField] public HeroDataSO HeroData { get; protected set; }
+    [field: SerializeField] public int HP { get; protected set; } = 0;
+    [SerializeField] protected int tempHP;
 
     [field: Header("Tile and raycast")]
 
@@ -25,19 +29,38 @@ public abstract class Hero : Entity
 
     protected RaycastHit raycastHit;
 
+    protected virtual void Start()
+    {
+        HP = HeroData.maxHP;
+        HeroData.defense = tempHP;
+
+        OnHeroHealthChanged?.Invoke(HP);
+        OnHeroDefenceChanged?.Invoke(tempHP);
+    }
+
     public void MoveHeroToPosition(Tile targetTile)
     {
+        CurrentTile.ClearTile();
+
         CurrentTile = targetTile;
-        transform.position = CurrentTile.OccupantContainer.position;
+
+        transform.position = targetTile.OccupantContainer.position;
         heroAnimator.SetTrigger("Walk");
 
-        if (transform.position == CurrentTile.OccupantContainer.position && CurrentTile != null)
+        if (transform.position == targetTile.OccupantContainer.position && targetTile != null)
         {
-            CurrentTile.ClearTile();
-            CurrentTile.OccupyTile(this);
+            targetTile.OccupyTile(this);
         }
     }
 
+    public void UnlockHeroMovement()
+    {
+        if (movementAmount <= 0)
+        {
+            movementAmount += HeroData.maxMovementAmount;
+            CanHeroMoved = true;
+        }
+    }
     public void HeroMovemetAmountReduction(int amountToReduce)
     {
         movementAmount -= amountToReduce;
@@ -48,28 +71,64 @@ public abstract class Hero : Entity
         return movementAmount > 0 && movementAmount >= amountToReduce;
     }
 
+    public void HeroNewTurnRestart()
+    {
+        movementAmount = 0;
+    }
+
     public void ResetHeroMovement()
     {
-        HasHeroMoved = false;
+        movementAmount = 0;
+        CanHeroMoved = false;
+    }
+
+    public void ResetTempHP()
+    {
+        tempHP = 0;
+        OnHeroDefenceChanged?.Invoke(tempHP);
     }
 
     public void TakeDamage(int incDmg)
     {
-        HP -= incDmg;
-        Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HP);
+        if (incDmg <= tempHP)
+        {
+            tempHP -= incDmg;
+        }
+        else
+        {
+            incDmg -= tempHP;
+            tempHP = 0;
+            HP -= incDmg;
+        }
+
+        OnHeroHealthChanged?.Invoke(HP);
+        OnHeroDefenceChanged?.Invoke(tempHP);
 
         heroAnimator.SetTrigger("Injured");
 
         if (HP <= 0)
         {
-            HP = 100f;
-
             gameObject.SetActive(false);
         }
     }
 
-    public abstract void HeroAttackBoss(Boss boss);
+    public abstract bool HeroAttackBoss(Boss boss);
+
+    public bool Defend()
+    {
+        if (CanHeroDefend())
+        {
+            tempHP += HeroData.defense;
+            OnHeroDefenceChanged?.Invoke(tempHP);
+            heroAnimator.SetTrigger("Defend");
+            defendingParticle.Play();
+            return true;
+        }
+        return false;
+    }
     public abstract bool CanHeroAttack();
+
+    public abstract bool CanHeroDefend();
 }
 
 

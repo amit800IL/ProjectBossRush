@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class PlayerResourceManager : MonoBehaviour
@@ -13,6 +12,7 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] private Technique[] techniques;
     [SerializeField] private Technique selectedTechnique;
     [SerializeField] private Hero selectedHero;
+    [SerializeField] private SymbolUI symbolUI;
 
     [SerializeField] SymbolTable testTable = new SymbolTable(1);
 
@@ -20,13 +20,18 @@ public class PlayerResourceManager : MonoBehaviour
     {
         Technique.SelectTechnique += SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart += RollCooldowns;
+        TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
+
+        symbolUI.UpdateUI(symbolCharge.ToString());
+
     }
 
     private void OnDestroy()
     {
         Technique.SelectTechnique -= SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart -= RollCooldowns;
+        TurnsManager.OnPlayerTurnStart -= ResetAP;
         PlayerController.OnHeroMarked -= SetSelectedHero;
     }
 
@@ -47,7 +52,8 @@ public class PlayerResourceManager : MonoBehaviour
     {
         foreach (Technique technique in techniques)
         {
-            technique.UpdateCooldown();
+            if (technique != null)
+                technique.UpdateCooldown();
         }
     }
 
@@ -78,6 +84,7 @@ public class PlayerResourceManager : MonoBehaviour
     public void AddSymbols(SymbolTable toAdd)
     {
         symbolCharge.Add(toAdd);
+        symbolUI.UpdateUI(symbolCharge.ToString());
     }
 
     [ContextMenu("add test table")]
@@ -101,6 +108,7 @@ public class PlayerResourceManager : MonoBehaviour
     public void UseSymbols(SymbolTable toUse)
     {
         symbolCharge.Remove(toUse);
+        symbolUI.UpdateUI(symbolCharge.ToString());
     }
     #endregion
 

@@ -26,22 +26,22 @@ public class GridManager : MonoBehaviour
 
     public void CreateGrid()
     {
-
         Tiles = new Tile[gridSize.x, gridSize.y];
+
+        float tileGap = 0.1f;
 
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 gridPosition = new Vector3(x, 0, y);
+                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x + tileGap)), 0, y * (tileObject.transform.localScale.z + tileGap));
 
-                Tiles[x, y] = Instantiate(tileObject, transform.position + gridPosition, Quaternion.identity, transform);
-                Tiles[x, y].Initialize(x,y);
-                Tiles[x, y].SetTileType(CalculateTileType(new Vector2 (x,y)));
-           
+                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-2, 0,0)), Quaternion.identity, transform);
+                Tiles[x, y].Initialize(x, y);
+                Tiles[x, y].SetTileType(CalculateTileType(new Vector2(x, y)));
             }
         }
-        
+
         SpawnObjectsOnGrid();
     }
 
@@ -51,7 +51,7 @@ public class GridManager : MonoBehaviour
         {
             Tile targetTile = Tiles[gridObject.SpawnPosition.x, gridObject.SpawnPosition.y];
 
-           GameObject heroObject = Instantiate(gridObject.GridObjectToSpawnObject, targetTile.OccupantContainer.position, gridObject.GridObjectToSpawnObject.transform.rotation);
+            GameObject heroObject = Instantiate(gridObject.GridObjectToSpawnObject, targetTile.OccupantContainer.position, gridObject.GridObjectToSpawnObject.transform.rotation);
 
             Hero hero = heroObject.GetComponent<Hero>();
 

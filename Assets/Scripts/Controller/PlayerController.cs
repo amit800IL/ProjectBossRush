@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Game Objects")]
 
-    private Hero markedHero;
+    [SerializeField] private Hero markedHero;
     private Tile markedTile;
     [SerializeField] private Boss boss;
 
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         inputActions.Player.PlayerPress.performed -= OnPlayerMove;
     }
@@ -61,6 +61,12 @@ public class PlayerController : MonoBehaviour
         if (markedHero != null && heroMarked)
         {
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
+
+            if (CanHeroUnlockMovement())
+            {
+                if (playerResourceManager.UseAP(1))
+                    markedHero.UnlockHeroMovement();
+            }
 
             float movementCost = HeroMovementCost();
 
@@ -87,17 +93,12 @@ public class PlayerController : MonoBehaviour
 
     private bool CanStepOnTile()
     {
-        return TileChecks() && PlayerChecks();
+        return markedTile != null && !markedTile.IsTileOccupied && markedHero.CanHeroMoved;
     }
 
-    private bool TileChecks()
+    private bool CanHeroUnlockMovement()
     {
-        return markedTile != null && !markedTile.IsTileOccupied;
-    }
-
-    private bool PlayerChecks()
-    {
-        return !markedHero.HasHeroMoved && playerResourceManager.UseAP(1);
+        return !markedHero.CanHeroMoved && markedTile != null && !markedTile.IsTileOccupied;
     }
 
     private void ResetMarkProccess()
@@ -105,7 +106,9 @@ public class PlayerController : MonoBehaviour
         heroMarked = false;
         markedHero.ResetHeroMovement();
         markedHero = null;
+        OnHeroMarked?.Invoke(markedHero);
         markedTile = null;
+
     }
 
     private void MarkHero(Vector3 pressPosition)
@@ -122,7 +125,7 @@ public class PlayerController : MonoBehaviour
         {
             heroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
-            OnHeroMarked.Invoke(markedHero);
+            OnHeroMarked?.Invoke(markedHero);
         }
     }
 
@@ -130,16 +133,24 @@ public class PlayerController : MonoBehaviour
     {
         if (boss.IsBossAlive && playerResourceManager.UseAP(1))
         {
-            heroesManager.AttackBoss();
+            heroesManager.CommandAttack();
         }
     }
 
+    public void PlayerDefend()
+    {
+        if (boss.IsBossAlive && playerResourceManager.UseAP(1))
+        {
+            heroesManager.CommandDefend();
+        }
+    }
     public void ResetMarkProccessButton()
     {
         if ((heroMarked && markedHero != null))
         {
             heroMarked = false;
             markedHero = null;
+            OnHeroMarked?.Invoke(markedHero);
         }
     }
 }
