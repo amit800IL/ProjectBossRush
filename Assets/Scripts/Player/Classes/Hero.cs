@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public abstract class Hero : Entity
@@ -18,13 +17,9 @@ public abstract class Hero : Entity
     protected int maxMovementAmount = 0;
     protected int movementAmount = 0;
 
-    [Header("Hero Attributes")]
+    [field: Header("Hero Attributes")]
 
-    [SerializeField] protected int HP = 0;
-
-    [SerializeField] protected int damage = 0;
-
-    [SerializeField] protected int Defense = 0;
+    [field: SerializeField] public HeroDataSO HeroData { get; protected set; }
 
     [SerializeField] protected int tempHP;
 
@@ -37,8 +32,8 @@ public abstract class Hero : Entity
 
     protected virtual void Start()
     {
-        OnHeroHealthChanged?.Invoke(HP);
-        OnHeroDefenceChanged?.Invoke(Defense);
+        OnHeroHealthChanged?.Invoke(HeroData.HP);
+        OnHeroDefenceChanged?.Invoke(HeroData.Defense);
     }
 
     public void MoveHeroToPosition(Tile targetTile)
@@ -100,14 +95,14 @@ public abstract class Hero : Entity
         {
             incDmg -= tempHP;
             tempHP = 0;
-            HP -= incDmg;
+            HeroData.HP -= incDmg;
         }
 
-        Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HP);
+        Debug.Log("Hero " + name + " has been attacked" + ", Health : " + HeroData.HP);
 
         heroAnimator.SetTrigger("Injured");
 
-        if (HP <= 0)
+        if (HeroData.HP <= 0)
         {
             gameObject.SetActive(false);
         }
@@ -119,7 +114,7 @@ public abstract class Hero : Entity
     {
         if (CanHeroDefend())
         {
-            tempHP += Defense;
+            tempHP += HeroData.Defense;
             heroAnimator.SetTrigger("Defend");
             defendingParticle.Play();
             return true;

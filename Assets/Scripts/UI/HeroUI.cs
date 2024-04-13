@@ -1,38 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HeroUI : MonoBehaviour
 {
+    [SerializeField] private GameObject heroPanel;
+    [SerializeField] private Hero hero;
+    [SerializeField] private Image spritePresention;
+    [SerializeField] private TextMeshProUGUI heroNameText;
     [SerializeField] private TextMeshProUGUI heroHPText;
     [SerializeField] private TextMeshProUGUI heroDefenceText;
-    [SerializeField] private Transform canvasFollowTarget;
-    [SerializeField] private Canvas heroUICanvas;
-    [SerializeField] private Vector3 offset;
 
+    private bool isPanelActive = false;
 
     private void Start()
     {
-        heroUICanvas.worldCamera = Camera.main;
+        ShowHeroSprite();
+        WriteHeroName();
 
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
-
     }
-    void Update()
+
+    private void OnDestroy()
     {
-        transform.position = canvasFollowTarget.position + offset;
+        Hero.OnHeroHealthChanged -= HeroHealthChange;
+        Hero.OnHeroDefenceChanged -= HeroDefenceChange;
+    }
+
+    public void ShowOrHidePanel()
+    {
+        if (!isPanelActive)
+        {
+            heroPanel.SetActive(true);
+
+            isPanelActive = true;   
+        }
+        else
+        {
+            heroPanel.SetActive(false);
+
+            isPanelActive = false;
+        }
+    }
+
+    private void ShowHeroSprite()
+    {
+        spritePresention.sprite = hero.HeroData.heroGraphicLook;
+    }
+    private void WriteHeroName()
+    {
+        heroNameText.text = hero.HeroData.Name.ToString();
     }
 
     private void HeroHealthChange(int heroHealth)
     {
-        heroHPText.text = "HP: " + heroHealth.ToString();
+        hero.HeroData.HP = heroHealth;
+
+        heroHPText.text = "HP : " + heroHealth.ToString();
     }
 
     private void HeroDefenceChange(int heroDefence)
     {
-        heroDefenceText.text = "Defence: " + heroDefence.ToString();
+        hero.HeroData.Defense = heroDefence;
+
+        heroDefenceText.text = "Defence : " + heroDefence.ToString();
     }
 }

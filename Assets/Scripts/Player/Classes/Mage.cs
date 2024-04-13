@@ -12,7 +12,7 @@ public class Mage : Hero
         if (CanHeroAttack())
         {
             attackingParticle.Play();
-            boss.TakeDamage(damage);
+            boss.TakeDamage(HeroData.damage);
             return true;
         }
         else
