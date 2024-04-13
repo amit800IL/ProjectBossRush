@@ -1168,6 +1168,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3994494436439279519, guid: 4cfb0266a8cd6364ebda92cc65a63838, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7794884828159007830, guid: 4cfb0266a8cd6364ebda92cc65a63838, type: 3}
       propertyPath: hero
       value: 
@@ -4885,6 +4889,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BrezekerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3994494436439279519, guid: 4cfb0266a8cd6364ebda92cc65a63838, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794884828159007830, guid: 4cfb0266a8cd6364ebda92cc65a63838, type: 3}
+      propertyPath: hero
+      value: 
+      objectReference: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
     - target: {fileID: 8519477616876630708, guid: 4cfb0266a8cd6364ebda92cc65a63838, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

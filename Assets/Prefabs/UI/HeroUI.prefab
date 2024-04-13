@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroPanel: {fileID: 1402489973097489147}
-  hero: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
+  hero: {fileID: 0}
   spritePresention: {fileID: 3329894675117540775}
   heroNameText: {fileID: 1989655078434513970}
   heroHPText: {fileID: 468619025835842472}
