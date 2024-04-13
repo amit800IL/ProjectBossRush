@@ -3574,6 +3574,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7844508577259880778, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: Defense
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844508577259880778, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 440101996}
