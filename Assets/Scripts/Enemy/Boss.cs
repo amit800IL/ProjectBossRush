@@ -10,7 +10,7 @@ public class Boss : MonoBehaviour
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
-    private int attackIndex = 0;
+    [SerializeField] private int attackIndex = 0;
 
     [SerializeField] private Animator bossAnimator;
 
@@ -25,15 +25,19 @@ public class Boss : MonoBehaviour
 
     [Header("Attacking actions")]
 
+    [SerializeField] private BossTargeting bossTargeting;
+    private List<Vector2Int> targetTiles;
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private RaycastHit raycastHit;
 
     public void BossRestart()
     {
+        print("bossrestart");
         if (HasBossAttacked)
             attackIndex++;
-
+        if (attackIndex == enemyActions.Count)
+            attackIndex = 0;
         HasBossAttacked = false;
     }
 
@@ -57,7 +61,10 @@ public class Boss : MonoBehaviour
     {
         Tile[,] tiles = GridManager.Instance.Tiles;
 
-        foreach (Vector2Int tilePosition in enemyActions[attackIndex].Tiles)
+        if (VisualizeAttack)
+            targetTiles = ReadBossAction(attackIndex);
+
+        foreach (Vector2Int tilePosition in targetTiles)
         {
             Tile tile = tiles[tilePosition.x, tilePosition.y];
 
@@ -72,6 +79,8 @@ public class Boss : MonoBehaviour
                 PerformAction(enemyActions[attackIndex], tile);
             }
         }
+        if (!VisualizeAttack)
+            HasBossAttacked = true;
     }
 
     private void PerformAction(BossActionSetter action, Tile tile)
@@ -80,7 +89,7 @@ public class Boss : MonoBehaviour
         {
             Hero hero = (Hero)tile.GetOccupier();
 
-            bossAnimator.SetTrigger("Attack");
+            //bossAnimator.SetTrigger("Attack");
 
             if (hero != null)
             {
@@ -92,7 +101,6 @@ public class Boss : MonoBehaviour
             }
         }
 
-        HasBossAttacked = true;
         Debug.LogWarning("No hero found on the checked tile");
     }
 
@@ -100,15 +108,26 @@ public class Boss : MonoBehaviour
     {
         return tile != null && tile.IsTileOccupied;
     }
+
+    private List<Vector2Int> ReadBossAction(int index)
+    {
+        List<Vector2Int> toReturn;
+        toReturn = bossTargeting.GetTargetTile(enemyActions[index].Target);
+        if (toReturn.Count == 0)
+            toReturn = enemyActions[index].Tiles;
+        return toReturn;
+    }
 }
 
 [System.Serializable]
 public class BossActionSetter
 {
     [field: SerializeField] private EnemyAction enemyAction;
+    [SerializeField] private BossTargeting.Target target;
     [field: SerializeField] private List<Vector2Int> tiles;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
+    public BossTargeting.Target Target { get => target; private set => target = value; }
     public List<Vector2Int> Tiles { get => tiles; private set => tiles = value; }
 
 }
