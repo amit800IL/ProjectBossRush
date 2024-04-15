@@ -15,7 +15,6 @@ MonoBehaviour:
   heroSpritePresentation: {fileID: 21300000, guid: a8a8cbd7fd88062438d0fe57d7350001, type: 3}
   heroName: Berseker
   maxHP: 100
-  HP: 100
   maxMovementAmount: 3
-  damage: 10
+  damage: 2
   defense: 10

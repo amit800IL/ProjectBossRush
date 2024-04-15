@@ -15,7 +15,6 @@ MonoBehaviour:
   heroSpritePresentation: {fileID: 21300000, guid: 98e063796244f7f428acd1e99fe30af7, type: 3}
   heroName: Mage
   maxHP: 100
-  HP: 100
   maxMovementAmount: 3
-  damage: 10
+  damage: 2
   defense: 10
