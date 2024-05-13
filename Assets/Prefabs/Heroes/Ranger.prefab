@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 09fa811d60118594797807450eb612d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 5.12, y: 5.12}
@@ -176,6 +176,7 @@ MonoBehaviour:
   attackingParticle: {fileID: 8690024532622214642}
   defendingParticle: {fileID: 7429320887859590558}
   <HeroData>k__BackingField: {fileID: 11400000, guid: 597cc32d1a346f14e8cb038a201bd392, type: 2}
+  <HP>k__BackingField: 0
   tempHP: 10
 --- !u!65 &1015659684323480745
 BoxCollider:
