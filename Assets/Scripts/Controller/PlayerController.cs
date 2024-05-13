@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        inputActions ??= new BossRush();
-        inputActions?.Enable();
+        inputActions = new BossRush();
+        inputActions.Enable();
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
     }
 
