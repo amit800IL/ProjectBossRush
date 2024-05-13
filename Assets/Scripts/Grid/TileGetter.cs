@@ -28,9 +28,7 @@ public static class TileGetter
             Tile tile = raycastHit.collider.GetComponent<Tile>();
             return tile;
         }
-        else
-        {
-            return null;
-        }
+
+        return null;
     }
 }

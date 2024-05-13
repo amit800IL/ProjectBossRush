@@ -29,14 +29,14 @@ public class PlayerController : MonoBehaviour
     [Header("LayerMasks")]
     [SerializeField] private LayerMask heroMask;
 
-    private void Awake()
+    private void Start()
     {
-        inputActions = new BossRush();
-        inputActions.Enable();
+        inputActions ??= new BossRush();
+        inputActions?.Enable();
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         inputActions.Player.PlayerPress.performed -= OnPlayerMove;
     }

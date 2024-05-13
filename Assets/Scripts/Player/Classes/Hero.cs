@@ -19,7 +19,7 @@ public abstract class Hero : Entity
     [field: Header("Hero Attributes")]
 
     [field: SerializeField] public HeroDataSO HeroData { get; protected set; }
-    [field: SerializeField] public int HP { get; protected set; } = 0;
+    public int HP { get; protected set; } = 0;
     [SerializeField] protected int tempHP;
 
     [field: Header("Tile and raycast")]
