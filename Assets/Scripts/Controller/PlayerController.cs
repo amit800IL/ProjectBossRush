@@ -45,14 +45,17 @@ public class PlayerController : MonoBehaviour
     {
         inputPosition = Mouse.current.position.ReadValue();
 
-        TileGetter.GetTileFromCamera(inputPosition, mainCamera, out raycastHit);
-
-        if (inputAction.performed)
+        if (inputActions != null && inputPosition != null)
         {
-            if (heroMarked)
-                MoveHeroToTile(inputPosition);
-            else
-                MarkHero(inputPosition);
+            TileGetter.GetTileFromCamera(inputPosition, mainCamera, out raycastHit);
+
+            if (inputAction.performed)
+            {
+                if (heroMarked)
+                    MoveHeroToTile(inputPosition);
+                else
+                    MarkHero(inputPosition);
+            }
         }
     }
 
@@ -70,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
             float movementCost = HeroMovementCost();
 
-            if (CanStepOnTile() && markedHero.CanHeroMove((int)movementCost))
+            if (CanStepOnTile() && markedHero.CanHeroMove((int)movementCost) && movementCost > 0)
             {
                 markedHero.HeroMovemetAmountReduction((int)movementCost);
 

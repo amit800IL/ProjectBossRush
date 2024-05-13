@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -56,7 +55,9 @@ public class HeroesManager : MonoBehaviour
             if (hero.HeroAttackBoss(boss))
             {
                 playerResourceManager.AddSymbols(hero.SymbolTable);
-                hero.heroAnimator.SetTrigger("Attack");
+
+                if (hero.heroAnimator != null)
+                    hero.heroAnimator.SetTrigger("Attack");
             }
         }
     }
