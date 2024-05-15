@@ -3348,7 +3348,7 @@ MonoBehaviour:
   - {fileID: 0}
   selectedTechnique: {fileID: 0}
   selectedHero: {fileID: 0}
-  symbolUI: {fileID: 0}
+  symbolUI: {fileID: 1465665199}
   testTable:
     table: 000000000000000000000000000000000000000000000000
 --- !u!1 &1465665197
@@ -5097,9 +5097,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossHealthText: {fileID: 484598320}
-  actionPoints: []
-  apSpriteOn: {fileID: 0}
-  apSpriteOff: {fileID: 0}
+  actionPoints:
+  - {fileID: 153467381}
+  - {fileID: 1583549457}
+  - {fileID: 1901211631}
+  - {fileID: 1362053617}
+  - {fileID: 422172449}
+  - {fileID: 4586349}
+  - {fileID: 684786072}
+  - {fileID: 1599271832}
+  apSpriteOn: {fileID: 21300000, guid: 595afbec34545cc4da9f5d87d5f48989, type: 3}
+  apSpriteOff: {fileID: 21300000, guid: 7ec170543ece3e04e9cebb033faa01c9, type: 3}
 --- !u!1001 &3918381264633397835
 PrefabInstance:
   m_ObjectHideFlags: 0
