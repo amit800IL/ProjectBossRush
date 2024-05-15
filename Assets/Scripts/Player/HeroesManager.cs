@@ -69,6 +69,7 @@ public class HeroesManager : MonoBehaviour
             if (hero.Defend())
             {
                 playerResourceManager.AddSymbols(new((int)SymbolTable.Symbols.Defense));
+                hero.heroAnimator.SetTrigger("Defend");
             }
         }
     }
