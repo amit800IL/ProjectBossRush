@@ -4150,7 +4150,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4033079273320059126, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_Name
-      value: Boss
+      value: Dracovid
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.x
