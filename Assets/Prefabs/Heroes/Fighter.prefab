@@ -176,6 +176,7 @@ MonoBehaviour:
   <heroAnimator>k__BackingField: {fileID: 4055011698455528204}
   attackingParticle: {fileID: 396827281315564155}
   defendingParticle: {fileID: 7831400537010597187}
+  <SlashParticle>k__BackingField: {fileID: 2410101694312882325}
   <HeroData>k__BackingField: {fileID: 11400000, guid: f217499e30f7df74d97de3e6db2b8156, type: 2}
   tempHP: 10
 --- !u!65 &1015659684323480745
@@ -292,7 +293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 32947971759561811, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.16
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 32947971759561811, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
       propertyPath: m_LocalPosition.y
@@ -335,6 +336,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
+--- !u!198 &2410101694312882325 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 32947971759561808, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
+  m_PrefabInstance: {fileID: 2379986075001715909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2410101694312882326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 32947971759561811, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
