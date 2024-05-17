@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36621d483fa56aa4fbe6b59e2ea5a5e4, type: 3}
   m_Name: BerzekerData
   m_EditorClassIdentifier: 
-  heroSpritePresentation: {fileID: 21300000, guid: a8a8cbd7fd88062438d0fe57d7350001, type: 3}
+  heroSpritePresentation: {fileID: 21300000, guid: b8c40bb171be01144a9c149df3563ad7, type: 3}
   heroName: Berseker
   maxHP: 100
   maxMovementAmount: 3
