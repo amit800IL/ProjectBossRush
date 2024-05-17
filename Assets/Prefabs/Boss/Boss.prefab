@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 227781433be8e7845a9c7aa9c3ae2ffc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8d024df511b01f48b39f372c1be3153, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 6.77, y: 6.02}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -115,7 +115,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4279627372560626414}
-  - component: {fileID: 7844508577259880778}
+  - component: {fileID: 1854894706076407634}
+  - component: {fileID: 8102175058986379393}
   - component: {fileID: 2184812753848581850}
   m_Layer: 8
   m_Name: Boss
@@ -134,13 +135,13 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4326333479627609464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7844508577259880778
+--- !u!114 &1854894706076407634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,168 +153,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bc40f5f0e117c4da76c870c64e714c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackIndex: 0
   bossAnimator: {fileID: 5224418785857767808}
   mainCamera: {fileID: 0}
   HP: 100
   <Damage>k__BackingField: 10
   Defense: 10
+  bossTargeting: {fileID: 8102175058986379393}
   debugMarkerPrefab: {fileID: 4774809326186486300, guid: 5f06d9468f5ca194aa888a17b963cf3d, type: 3}
-  enemyActions:
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 1}
-    - {x: 2, y: 2}
-    - {x: 1, y: 3}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 3, y: 4}
-    - {x: 1, y: 5}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 0, y: 3}
-    - {x: 2, y: 3}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 5, y: 0}
-    - {x: 3, y: 3}
-    - {x: 1, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 5}
-    - {x: 2, y: 3}
-    - {x: 3, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 2, y: 4}
-    - {x: 5, y: 5}
-    - {x: 0, y: 3}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 3, y: 5}
-    - {x: 2, y: 3}
-    - {x: 2, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 5, y: 4}
-    - {x: 4, y: 5}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 3, y: 2}
-    - {x: 2, y: 5}
-    - {x: 4, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 5}
-    - {x: 2, y: 4}
-    - {x: 5, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 4, y: 2}
-    - {x: 2, y: 4}
-    - {x: 4, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 4, y: 4}
-    - {x: 1, y: 4}
-    - {x: 2, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 5}
-    - {x: 4, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 4}
-    - {x: 5, y: 3}
-    - {x: 4, y: 5}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 5, y: 4}
-    - {x: 2, y: 3}
-    - {x: 3, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 5}
-    - {x: 2, y: 3}
-    - {x: 4, y: 5}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 5, y: 3}
-    - {x: 3, y: 5}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 3, y: 3}
-    - {x: 4, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 5, y: 2}
-    - {x: 2, y: 5}
-    - {x: 3, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 5, y: 2}
-    - {x: 4, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 2, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 5, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 4}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 2}
-    - {x: 2, y: 3}
-    - {x: 3, y: 2}
-  - enemyAction: {fileID: 0}
-    tiles:
-    - {x: 1, y: 5}
-    - {x: 2, y: 5}
-    - {x: 3, y: 4}
+  enemyActions: []
+--- !u!114 &8102175058986379393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4033079273320059126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7f4addf1fdd6541bc8bebe85125db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroesManager: {fileID: 0}
+  gridSize: {x: 6, y: 6}
 --- !u!65 &2184812753848581850
 BoxCollider:
   m_ObjectHideFlags: 0
