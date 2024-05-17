@@ -8,22 +8,35 @@ public class BossTargeting : MonoBehaviour
     {
         AllHeroes,
         RandomHero,
-        Random3Column,
+        RandomColumn,
+        RandomRow,
         Manual
     }
 
     [SerializeField] private HeroesManager heroesManager;
+    [SerializeField] private Vector2Int gridSize;
 
-    public List<Vector2Int> GetTargetTile(Target target)
+    private void Start()
+    {
+        Debug.LogWarning("gridSize needs to be taken from GridManager");
+    }
+
+    public List<Vector2Int> GetTargetTile(TargetInfo targetInfo)
     {
         List<Vector2Int> toReturn = new();
-        switch (target)
+        int size = targetInfo.Size;
+        int rnd;
+        if (size < 1) size = 1;
+        if (size > gridSize.x) size = gridSize.x;
+
+        switch (targetInfo.Target)
         {
             case Target.AllHeroes:
                 int heroCount = heroesManager.heroList.Count;
                 for (int i = 0; i < heroCount; i++)
                 {
-                    toReturn.Add(heroesManager.heroList[i].CurrentTile.tilePosition);
+                    //toReturn.Add(heroesManager.heroList[i].CurrentTile.tilePosition);
+                    toReturn.AddRange(GetTilesAround(heroesManager.heroList[i].CurrentTile.tilePosition, size - 1));
                 }
                 break;
 
@@ -31,13 +44,24 @@ public class BossTargeting : MonoBehaviour
                 toReturn.Add(heroesManager.GetRandomHero().CurrentTile.tilePosition);
                 break;
 
-            case Target.Random3Column:
-                int rnd = Random.Range(0, 4);
-                for (int i = rnd; i < rnd + 3; i++)
+            case Target.RandomColumn:
+                rnd = Random.Range(0, gridSize.x - size + 1);
+                for (int i = rnd; i < rnd + size; i++)
                 {
-                    for (int j = 0; j < 6; j++)
+                    for (int j = 0; j < gridSize.y; j++)
                     {
                         toReturn.Add(new(i, j));
+                    }
+                }
+                break;
+
+            case Target.RandomRow:
+                rnd = Random.Range(0, gridSize.y - size + 1);
+                for (int i = rnd; i < rnd + size; i++)
+                {
+                    for (int j = 0; j < gridSize.y; j++)
+                    {
+                        toReturn.Add(new(j, i));
                     }
                 }
                 break;
@@ -48,4 +72,48 @@ public class BossTargeting : MonoBehaviour
         }
         return toReturn;
     }
+
+    private List<Vector2Int> GetTilesAround(Vector2Int origin, int radius)
+    {
+        List<Vector2Int> toReturn = new();
+        for (int i = origin.x - radius; i <= origin.x + radius; i++)
+        {
+            if (i < 0) continue;
+            if (i >= gridSize.x) continue;
+            for (int j = origin.y - radius; j <= origin.y + radius; j++)
+            {
+                if (j < 0) continue;
+                if (j >= gridSize.y) continue;
+                toReturn.Add(new(i, j));
+            }
+        }
+        return toReturn;
+    }
+
+    public List<Hero> GetTargetHeroes(TargetInfo targetInfo)
+    {
+        List<Hero> toReturn = new();
+        switch (targetInfo.Target)
+        {
+            case Target.AllHeroes:
+                toReturn.AddRange(heroesManager.heroList);
+                break;
+            case Target.RandomHero:
+                toReturn.Add(heroesManager.GetRandomHero());
+                break;
+            default:
+                break;
+        }
+
+        return toReturn;
+    }
+}
+
+[System.Serializable]
+public struct TargetInfo
+{
+    public BossTargeting.Target Target;
+    public bool TargetHeroItself;
+    public int Amount;
+    public int Size;
 }

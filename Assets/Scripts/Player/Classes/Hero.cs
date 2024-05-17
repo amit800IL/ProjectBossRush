@@ -16,6 +16,8 @@ public abstract class Hero : Entity
 
     protected int movementAmount = 0;
 
+    private GameObject targetMarker;
+
     [field: Header("Hero Attributes")]
 
     [field: SerializeField] public HeroDataSO HeroData { get; protected set; }
@@ -88,6 +90,11 @@ public abstract class Hero : Entity
         OnHeroDefenceChanged?.Invoke(tempHP);
     }
 
+    public void ApplyTargetMarker(GameObject marker)
+    {
+        targetMarker = Instantiate(marker, transform);
+    }
+
     public void TakeDamage(int incDmg)
     {
         if (incDmg <= tempHP)
@@ -109,6 +116,10 @@ public abstract class Hero : Entity
         if (HP <= 0)
         {
             gameObject.SetActive(false);
+        }
+        if (targetMarker != null)
+        {
+            Destroy(targetMarker);
         }
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class Boss : MonoBehaviour
 {
@@ -57,11 +58,21 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public void InteractWithTiles(bool VisualizeAttack)
+    public void InteractWithTiles(bool VisualizeAttack) //instead of taking a parameter, bool should be dependant per attack
     {
         Tile[,] tiles = GridManager.Instance.Tiles;
+        bool targetHero = enemyActions[attackIndex].Target.TargetHeroItself;
+        if (VisualizeAttack && targetHero)
+        {
+            print("hi");
 
-        if (VisualizeAttack)
+            foreach (Hero hero in bossTargeting.GetTargetHeroes(enemyActions[attackIndex].Target))
+            {
+                hero.ApplyTargetMarker(enemyActions[attackIndex].TargetMarker);
+            }
+        }
+
+        if (VisualizeAttack || targetHero) //not efficient
             targetTiles = ReadBossAction(attackIndex);
 
         foreach (Vector2Int tilePosition in targetTiles)
@@ -70,9 +81,12 @@ public class Boss : MonoBehaviour
 
             if (VisualizeAttack)
             {
-                GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation);
+                if (!targetHero)
+                {
+                    GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation);
 
-                Destroy(marker, 2f);
+                    Destroy(marker, 2f);
+                }
             }
             else
             {
@@ -87,6 +101,8 @@ public class Boss : MonoBehaviour
     {
         if (IsTileValid(tile))
         {
+            action.EnemyAction.DoActionOnTile(tile);
+            /*
             Hero hero = (Hero)tile.GetOccupier();
 
             //bossAnimator.SetTrigger("Attack");
@@ -99,9 +115,10 @@ public class Boss : MonoBehaviour
 
                 return;
             }
+            */
         }
 
-        Debug.LogWarning("No hero found on the checked tile");
+        //Debug.LogWarning("No hero found on the checked tile");
     }
 
     private bool IsTileValid(Tile tile)
@@ -123,12 +140,14 @@ public class Boss : MonoBehaviour
 public class BossActionSetter
 {
     [field: SerializeField] private EnemyAction enemyAction;
-    [SerializeField] private BossTargeting.Target target;
+    [SerializeField] private TargetInfo target;
     [field: SerializeField] private List<Vector2Int> tiles;
+    [SerializeField] private GameObject targetMarker;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
-    public BossTargeting.Target Target { get => target; private set => target = value; }
+    public TargetInfo Target { get => target; private set => target = value; }
     public List<Vector2Int> Tiles { get => tiles; private set => tiles = value; }
+    public GameObject TargetMarker { get => targetMarker; private set => targetMarker = value; }
 
 }
 
