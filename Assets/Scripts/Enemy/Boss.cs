@@ -91,6 +91,7 @@ public class Boss : MonoBehaviour
             else
             {
                 PerformAction(enemyActions[attackIndex], tile);
+                bossAnimator.SetTrigger("Attack");
             }
         }
         if (!VisualizeAttack)
