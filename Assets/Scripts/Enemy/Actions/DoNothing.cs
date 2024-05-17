@@ -6,4 +6,9 @@ public class DoNothing : EnemyAction
     {
         Debug.Log("I Have no strength in me");
     }
+
+    public override void DoActionOnTile(Tile tile)
+    {
+        throw new System.NotImplementedException();
+    }
 }

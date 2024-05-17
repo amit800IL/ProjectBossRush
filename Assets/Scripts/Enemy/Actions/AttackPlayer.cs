@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
+//this class should become not monobehavior, and be used as a data structure, to be used in a struct with other values
 public class AttackPlayer : EnemyAction
 {
     [SerializeField] private Boss boss;
@@ -14,4 +15,19 @@ public class AttackPlayer : EnemyAction
         hero.TakeDamage((int)boss.Damage);
     }
 
+    public override void DoActionOnTile(Tile tile)
+    {
+        Hero hero = (Hero)tile.GetOccupier();
+
+        //bossAnimator.SetTrigger("Attack");
+
+        if (hero != null)
+        {
+            Debug.Log("Found hero: " + hero.name + " on a tile");
+            hero.TakeDamage((int)boss.Damage);
+
+            return;
+        }
+
+    }
 }

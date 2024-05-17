@@ -7,6 +7,11 @@ public class MovePlayer : EnemyAction
         MovePlayeInDirections(hero);
     }
 
+    public override void DoActionOnTile(Tile tile)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void MovePlayeInDirections(Hero hero)
     {
         Tile[,] tiles = GridManager.Instance.Tiles;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class Boss : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Boss : MonoBehaviour
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
-    private int attackIndex = 0;
+    [SerializeField] private int attackIndex = 0;
 
     [SerializeField] private Animator bossAnimator;
 
@@ -25,15 +26,19 @@ public class Boss : MonoBehaviour
 
     [Header("Attacking actions")]
 
+    [SerializeField] private BossTargeting bossTargeting;
+    private List<Vector2Int> targetTiles;
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private RaycastHit raycastHit;
 
     public void BossRestart()
     {
+        print("bossrestart");
         if (HasBossAttacked)
             attackIndex++;
-
+        if (attackIndex == enemyActions.Count)
+            attackIndex = 0;
         HasBossAttacked = false;
     }
 
@@ -53,34 +58,54 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public void InteractWithTiles(bool VisualizeAttack)
+    public void InteractWithTiles(bool VisualizeAttack) //instead of taking a parameter, bool should be dependant per attack
     {
         Tile[,] tiles = GridManager.Instance.Tiles;
+        bool targetHero = enemyActions[attackIndex].Target.TargetHeroItself;
+        if (VisualizeAttack && targetHero)
+        {
+            print("hi");
 
-        foreach (Vector2Int tilePosition in enemyActions[attackIndex].Tiles)
+            foreach (Hero hero in bossTargeting.GetTargetHeroes(enemyActions[attackIndex].Target))
+            {
+                hero.ApplyTargetMarker(enemyActions[attackIndex].TargetMarker);
+            }
+        }
+
+        if (VisualizeAttack || targetHero) //not efficient
+            targetTiles = ReadBossAction(attackIndex);
+
+        foreach (Vector2Int tilePosition in targetTiles)
         {
             Tile tile = tiles[tilePosition.x, tilePosition.y];
 
             if (VisualizeAttack)
             {
-                GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation);
+                if (!targetHero)
+                {
+                    GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation);
 
-                Destroy(marker, 2f);
+                    Destroy(marker, 2f);
+                }
             }
             else
             {
                 PerformAction(enemyActions[attackIndex], tile);
             }
         }
+        if (!VisualizeAttack)
+            HasBossAttacked = true;
     }
 
     private void PerformAction(BossActionSetter action, Tile tile)
     {
         if (IsTileValid(tile))
         {
+            action.EnemyAction.DoActionOnTile(tile);
+            /*
             Hero hero = (Hero)tile.GetOccupier();
 
-            bossAnimator.SetTrigger("Attack");
+            //bossAnimator.SetTrigger("Attack");
 
             if (hero != null)
             {
@@ -90,15 +115,24 @@ public class Boss : MonoBehaviour
 
                 return;
             }
+            */
         }
 
-        HasBossAttacked = true;
-        Debug.LogWarning("No hero found on the checked tile");
+        //Debug.LogWarning("No hero found on the checked tile");
     }
 
     private bool IsTileValid(Tile tile)
     {
         return tile != null && tile.IsTileOccupied;
+    }
+
+    private List<Vector2Int> ReadBossAction(int index)
+    {
+        List<Vector2Int> toReturn;
+        toReturn = bossTargeting.GetTargetTile(enemyActions[index].Target);
+        if (toReturn.Count == 0)
+            toReturn = enemyActions[index].Tiles;
+        return toReturn;
     }
 }
 
@@ -106,10 +140,14 @@ public class Boss : MonoBehaviour
 public class BossActionSetter
 {
     [field: SerializeField] private EnemyAction enemyAction;
+    [SerializeField] private TargetInfo target;
     [field: SerializeField] private List<Vector2Int> tiles;
+    [SerializeField] private GameObject targetMarker;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
+    public TargetInfo Target { get => target; private set => target = value; }
     public List<Vector2Int> Tiles { get => tiles; private set => tiles = value; }
+    public GameObject TargetMarker { get => targetMarker; private set => targetMarker = value; }
 
 }
 
