@@ -9,6 +9,7 @@ public class AttackPlayer : EnemyAction
     public override void DoActionOnHero(Hero hero)
     {
         AttackHero(hero);
+        hero.SlashParticle.Play();
     }
     public void AttackHero(Hero hero)
     {
@@ -25,6 +26,7 @@ public class AttackPlayer : EnemyAction
         {
             Debug.Log("Found hero: " + hero.name + " on a tile");
             hero.TakeDamage((int)boss.Damage);
+            hero.SlashParticle.Play();
 
             return;
         }
