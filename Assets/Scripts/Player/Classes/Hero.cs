@@ -11,6 +11,7 @@ public abstract class Hero : Entity
 
     [SerializeField] protected ParticleSystem attackingParticle;
     [SerializeField] protected ParticleSystem defendingParticle;
+    [field: SerializeField] public ParticleSystem SlashParticle {  get; protected set; }
     public bool CanHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 

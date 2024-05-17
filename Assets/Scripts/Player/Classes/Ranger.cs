@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Ranger : Hero
 {
+
+    [SerializeField] private ParticleSystem arrowVFX;
     protected override void Start()
     {
         base.Start();
@@ -12,6 +14,7 @@ public class Ranger : Hero
         if (CanHeroAttack())
         {
             attackingParticle.Play();
+            arrowVFX.Play();
             boss.TakeDamage(HeroData.damage);
             return true;
         }
