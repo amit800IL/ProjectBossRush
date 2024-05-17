@@ -11,10 +11,13 @@ public abstract class Hero : Entity
 
     [SerializeField] protected ParticleSystem attackingParticle;
     [SerializeField] protected ParticleSystem defendingParticle;
+    [field: SerializeField] public ParticleSystem SlashParticle {  get; protected set; }
     public bool CanHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 
     protected int movementAmount = 0;
+
+    private GameObject targetMarker;
 
     [field: Header("Hero Attributes")]
 
@@ -88,6 +91,11 @@ public abstract class Hero : Entity
         OnHeroDefenceChanged?.Invoke(tempHP);
     }
 
+    public void ApplyTargetMarker(GameObject marker)
+    {
+        targetMarker = Instantiate(marker, transform);
+    }
+
     public void TakeDamage(int incDmg)
     {
         if (incDmg <= tempHP)
@@ -109,6 +117,10 @@ public abstract class Hero : Entity
         if (HP <= 0)
         {
             gameObject.SetActive(false);
+        }
+        if (targetMarker != null)
+        {
+            Destroy(targetMarker);
         }
     }
 

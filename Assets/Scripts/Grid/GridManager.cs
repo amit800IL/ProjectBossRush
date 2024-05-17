@@ -34,7 +34,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x + tileGap)), 0, y * (tileObject.transform.localScale.z + tileGap));
+                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x + tileGap)), 0, y * ((tileObject.transform.localScale.z + tileGap)) * 1.1f);
 
                 Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-2, 0,0)), Quaternion.identity, transform);
                 Tiles[x, y].Initialize(x, y);

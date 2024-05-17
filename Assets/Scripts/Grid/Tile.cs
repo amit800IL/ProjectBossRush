@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public Vector2 tilePosition { get; private set; }
+    public Vector2Int tilePosition { get; private set; }
 
     [field: SerializeField] public Transform OccupantContainer { get; private set; }
     [field: SerializeField] public GameObject TilePrefab { get; private set; }
@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
     public bool IsTileOccupied => occupant != null;
     public void Initialize(int x, int y)
     {
-        tilePosition = new Vector2(x, y);
+        tilePosition = new Vector2Int(x, y);
     }
 
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class HeroesManager : MonoBehaviour
 {
@@ -37,6 +38,11 @@ public class HeroesManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public Hero GetRandomHero()
+    {
+        return heroList[Random.Range(0, heroList.Count)];
     }
 
     private void NextTurnHeroMethods()
