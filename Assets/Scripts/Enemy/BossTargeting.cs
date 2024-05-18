@@ -15,6 +15,7 @@ public class BossTargeting : MonoBehaviour
 
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private Vector2Int gridSize;
+    private List<Hero> targetedHeroes = new();
 
     private void Start()
     {
@@ -41,7 +42,17 @@ public class BossTargeting : MonoBehaviour
                 break;
 
             case Target.RandomHero:
-                toReturn.Add(heroesManager.GetRandomHero().CurrentTile.tilePosition);
+                if (targetInfo.TargetHeroItself)
+                {
+                    foreach (Hero hero in targetedHeroes)
+                    {
+                        toReturn.AddRange(GetTilesAround(hero.CurrentTile.tilePosition, size - 1));
+                    }
+                }
+                else
+                {
+                    toReturn.AddRange(GetTilesAround(heroesManager.GetRandomHero().CurrentTile.tilePosition, size - 1));
+                }
                 break;
 
             case Target.RandomColumn:
@@ -88,6 +99,15 @@ public class BossTargeting : MonoBehaviour
             }
         }
         return toReturn;
+    }
+
+    public void MarkTargetedHeroes(BossActionSetter bossAction)
+    {
+        targetedHeroes = GetTargetHeroes(bossAction.Target);
+        foreach (Hero hero in targetedHeroes)
+        {
+            hero.ApplyTargetMarker(bossAction.TargetMarker);
+        }
     }
 
     public List<Hero> GetTargetHeroes(TargetInfo targetInfo)
