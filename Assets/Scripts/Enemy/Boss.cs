@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public class Boss : MonoBehaviour
 {
     [Header("General Variables")]
 
-    public static Action<int> OnEnemyHealthChanged;
+    public static Action<Boss> OnEnemyHealthChanged;
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
@@ -19,7 +18,8 @@ public class Boss : MonoBehaviour
 
     [field: Header("Boss Attributes")]
 
-    [SerializeField] private float HP = 0.0f;
+    [field: SerializeField] public int maxHP { get; private set; } = 100;
+    public int HP { get; private set; } = 0;
     [field: SerializeField] public float Damage { get; private set; } = 0.0f;
 
     [SerializeField] private float Defense = 0.0f;
@@ -31,6 +31,11 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private RaycastHit raycastHit;
+
+    private void Start()
+    {
+        HP = maxHP;
+    }
 
     public void BossRestart()
     {
@@ -44,10 +49,10 @@ public class Boss : MonoBehaviour
 
     public void TakeDamage(float takenDamage)
     {
-        HP -= takenDamage;
+        HP -= (int)takenDamage;
 
         Debug.Log("Boss HP is " + HP);
-        OnEnemyHealthChanged.Invoke((int)HP);
+        OnEnemyHealthChanged.Invoke(this);
 
         bossAnimator.SetTrigger("Injured");
 
