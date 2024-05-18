@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Boss UI")]
 
-    [SerializeField] private TextMeshProUGUI bossHealthText;
+    [SerializeField] private Image bossHealthBar;
 
     [Header("AP UI")]
 
@@ -66,9 +66,9 @@ public class UIManager : MonoBehaviour
         roundUI.text = "Round: " + roundNumber.ToString();
     }
 
-    private void BossHealthChange(int bossHealth)
+    private void BossHealthChange(Boss boss)
     {
-        bossHealthText.text = "Boss HP : " + bossHealth.ToString();
+        bossHealthBar.fillAmount = (float)boss.HP / boss.maxHP;
     }
 
     public void ReturnToMainMenu()
