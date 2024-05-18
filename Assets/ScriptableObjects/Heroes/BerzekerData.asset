@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36621d483fa56aa4fbe6b59e2ea5a5e4, type: 3}
   m_Name: BerzekerData
   m_EditorClassIdentifier: 
-  heroSpritePresentation: {fileID: 21300000, guid: a8a8cbd7fd88062438d0fe57d7350001, type: 3}
   heroName: Berseker
+  headshotSprite: {fileID: 21300000, guid: 398058ef9a56d7a4c89c2144000f2a7e, type: 3}
   maxHP: 100
   maxMovementAmount: 3
   damage: 2

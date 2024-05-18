@@ -11,19 +11,17 @@ public class HeroSpriteChange : MonoBehaviour
 
     private void Start()
     {
-        Hero.OnHeroHealthChanged += OnHpLow;
         PlayerController.OnHeroMarked += HeroMark;
     }
 
     private void OnDisable()
     {
-        Hero.OnHeroHealthChanged -= OnHpLow;
         PlayerController.OnHeroMarked -= HeroMark;
     }
 
-    private void OnHpLow(int HeroHp)
+    public void OnHpLow(int HP)
     {
-        if (HeroHp <= LowHPThreshold && heroSpriteRenderer != null)
+        if (HP <= LowHPThreshold && heroSpriteRenderer != null)
         {
             heroSpriteRenderer.material = lowHpMaterial;
         }

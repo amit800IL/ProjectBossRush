@@ -174,11 +174,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <heroAnimator>k__BackingField: {fileID: 4055011698455528204}
+  spriteChange: {fileID: 86562549729304831}
   attackingParticle: {fileID: 3523773280845591856}
   defendingParticle: {fileID: 4633142284472209159}
   <SlashParticle>k__BackingField: {fileID: 5760940764760878894}
   <HeroData>k__BackingField: {fileID: 11400000, guid: 60b3bbec89804e04eac02c5ae768c4fa, type: 2}
-  tempHP: 10
+  <HP>k__BackingField: 0
 --- !u!65 &1015659684323480745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -380,15 +381,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 32947971759561811, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.51
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 32947971759561811, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.24
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 32947971759561811, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.3037879
+      value: -0.43
       objectReference: {fileID: 0}
     - target: {fileID: 32947971759561811, guid: 1019606f883b04f42b0392ae26f2af27, type: 3}
       propertyPath: m_LocalRotation.w

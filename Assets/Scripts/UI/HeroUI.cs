@@ -5,31 +5,30 @@ using UnityEngine.UI;
 public class HeroUI : MonoBehaviour
 {
     [SerializeField] private GameObject heroPanel;
+    [SerializeField] private Image graphic;
     [SerializeField] private Hero hero;
-    [SerializeField] private Image spritePresention;
-    [SerializeField] private TextMeshProUGUI heroNameText;
-    [SerializeField] private TextMeshProUGUI heroHPText;
+    [SerializeField] private Image hpBar;
     [SerializeField] private TextMeshProUGUI heroDefenceText;
     [SerializeField] private TextMeshProUGUI heroMovementAmountText;
 
     private bool isPanelActive = false;
 
-    private void Start()
+    public void AssignHero(Hero hero)
     {
+        this.hero = hero;
         IntitiliazeHeroUI();
     }
 
     private void IntitiliazeHeroUI()
     {
-        ShowHeroSprite();
-        WriteHeroName();
         ShowHeroMovementAmount();
+        graphic.sprite = hero.HeroData.headshotSprite;
+
+        HeroHealthChange(hero);
+        HeroDefenceChange(hero);
 
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
-
-        HeroHealthChange(hero.HeroData.maxHP);
-        HeroDefenceChange(hero.HeroData.defense);
     }
 
     private void OnDestroy()
@@ -54,27 +53,26 @@ public class HeroUI : MonoBehaviour
         }
     }
 
-    private void ShowHeroSprite()
+    private void HeroHealthChange(Hero h)
     {
-        spritePresention.sprite = hero.HeroData.heroSpritePresentation;
-    }
-    private void WriteHeroName()
-    {
-        heroNameText.text = hero.HeroData.heroName;
-    }
+        if (hero == h)
+        {
+            hpBar.fillAmount = (float)hero.HP / hero.HeroData.maxHP;
 
-    private void HeroHealthChange(int heroHealth)
-    {
-        heroHPText.text = "HP: " + heroHealth.ToString();
+        }
     }
 
     private void ShowHeroMovementAmount()
     {
-        heroMovementAmountText.text = "Movement: " + hero.HeroData.maxMovementAmount.ToString();
+        heroMovementAmountText.text = hero.HeroData.maxMovementAmount.ToString();
     }
 
-    private void HeroDefenceChange(int heroDefence)
+    private void HeroDefenceChange(Hero h)
     {
-        heroDefenceText.text = "Defence: " + heroDefence.ToString();
+        if (hero == h)
+        {
+            heroDefenceText.text = hero.tempHP.ToString();
+
+        }
     }
 }

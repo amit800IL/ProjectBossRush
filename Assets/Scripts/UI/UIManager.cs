@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,12 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("General UI")]
+    private int roundNumber = 1;
+    [SerializeField] private TextMeshProUGUI roundUI;
+    [SerializeField] private HeroUI[] heroUI;
+    private int assignedheroes = 0;
+
     [Header("Boss UI")]
 
     [SerializeField] private TextMeshProUGUI bossHealthText;
@@ -16,16 +23,26 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite apSpriteOn;
     [SerializeField] private Sprite apSpriteOff;
 
-    private void Start()
+    private void Awake()
     {
+        Hero.OnHeroSpawned += AssignHeroToUI;
         Boss.OnEnemyHealthChanged += BossHealthChange;
         PlayerResourceManager.OnAPChanged += ApUIChange;
+        TurnsManager.OnPlayerTurnStart += RoundNumberChange;
     }
 
     private void OnDestroy()
     {
+        Hero.OnHeroSpawned -= AssignHeroToUI;
         Boss.OnEnemyHealthChanged -= BossHealthChange;
         PlayerResourceManager.OnAPChanged -= ApUIChange;
+        TurnsManager.OnPlayerTurnStart -= RoundNumberChange;
+    }
+
+    private void AssignHeroToUI(Hero hero)
+    {
+        heroUI[assignedheroes].AssignHero(hero);
+        assignedheroes++;
     }
 
     private void ApUIChange(int ap)
@@ -41,6 +58,12 @@ public class UIManager : MonoBehaviour
                 actionPoints[i].sprite = apSpriteOn;
             }
         }
+    }
+
+    private void RoundNumberChange()
+    {
+        roundNumber++;
+        roundUI.text = "Round: " + roundNumber.ToString();
     }
 
     private void BossHealthChange(int bossHealth)

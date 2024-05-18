@@ -3,15 +3,16 @@ using UnityEngine;
 
 public abstract class Hero : Entity
 {
-    public static Action<int> OnHeroHealthChanged;
-    public static Action<int> OnHeroDefenceChanged;
+    public static event Action<Hero> OnHeroSpawned;
+    public static event Action<Hero> OnHeroHealthChanged;
+    public static event Action<Hero> OnHeroDefenceChanged;
 
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
-
+    [SerializeField] private HeroSpriteChange spriteChange;
     [SerializeField] protected ParticleSystem attackingParticle;
     [SerializeField] protected ParticleSystem defendingParticle;
-    [field: SerializeField] public ParticleSystem SlashParticle {  get; protected set; }
+    [field: SerializeField] public ParticleSystem SlashParticle { get; protected set; }
     public bool CanHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 
@@ -22,8 +23,8 @@ public abstract class Hero : Entity
     [field: Header("Hero Attributes")]
 
     [field: SerializeField] public HeroDataSO HeroData { get; protected set; }
-    public int HP { get; protected set; } = 0;
-    [SerializeField] protected int tempHP;
+    [field: SerializeField] public int HP { get; protected set; }
+    [SerializeField] public int tempHP { get; protected set; } = 0;
 
     [field: Header("Tile and raycast")]
 
@@ -35,10 +36,11 @@ public abstract class Hero : Entity
     protected virtual void Start()
     {
         HP = HeroData.maxHP;
-        HeroData.defense = tempHP;
 
-        OnHeroHealthChanged?.Invoke(HP);
-        OnHeroDefenceChanged?.Invoke(tempHP);
+        OnHeroSpawned?.Invoke(this);
+
+        OnHeroHealthChanged?.Invoke(this);
+        OnHeroDefenceChanged?.Invoke(this);
     }
 
     public void MoveHeroToPosition(Tile targetTile)
@@ -88,7 +90,7 @@ public abstract class Hero : Entity
     public void ResetTempHP()
     {
         tempHP = 0;
-        OnHeroDefenceChanged?.Invoke(tempHP);
+        OnHeroDefenceChanged?.Invoke(this);
     }
 
     public void ApplyTargetMarker(GameObject marker)
@@ -109,10 +111,11 @@ public abstract class Hero : Entity
             HP -= incDmg;
         }
 
-        OnHeroHealthChanged?.Invoke(HP);
-        OnHeroDefenceChanged?.Invoke(tempHP);
+        OnHeroHealthChanged?.Invoke(this);
+        OnHeroDefenceChanged?.Invoke(this);
 
         heroAnimator.SetTrigger("Injured");
+        spriteChange.OnHpLow(HP);
 
         if (HP <= 0)
         {
@@ -131,7 +134,7 @@ public abstract class Hero : Entity
         if (CanHeroDefend())
         {
             tempHP += HeroData.defense;
-            OnHeroDefenceChanged?.Invoke(tempHP);
+            OnHeroDefenceChanged?.Invoke(this);
             heroAnimator.SetTrigger("Defend");
             defendingParticle.Play();
             return true;
