@@ -65,17 +65,17 @@ public class GridManager : MonoBehaviour
     {
         Debug.Log("this method is only accurate for grids where y = 6");
         TileType[] types = new TileType[1];
-        if (position.x == 0 || position.x == gridSize.x - 1)
+        if (position.y == 0 || position.y == gridSize.y - 1)
         {
             types = new TileType[2];
             types[1] = TileType.Flank;
         }
 
-        if (position.y > 3)
+        if (position.x > 3)
         {
             types[0] = TileType.CloseRange;
         }
-        else if (position.y < 2)
+        else if (position.x < 2)
         {
             types[0] = TileType.LongRange;
         }

@@ -169,10 +169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroPanel: {fileID: 824149152538430731}
+  graphic: {fileID: 3928491405720308655}
   hero: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
-  spritePresention: {fileID: 3928491405720308655}
   hpBar: {fileID: 6432533227581654511}
-  heroHPText: {fileID: 0}
   heroDefenceText: {fileID: 487431984262999229}
   heroMovementAmountText: {fileID: 6151778085540724}
 --- !u!1 &1006075365802966041

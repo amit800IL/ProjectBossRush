@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class HeroUI : MonoBehaviour
 {
     [SerializeField] private GameObject heroPanel;
+    [SerializeField] private Image graphic;
     [SerializeField] private Hero hero;
     [SerializeField] private Image hpBar;
     [SerializeField] private TextMeshProUGUI heroDefenceText;
@@ -12,17 +13,19 @@ public class HeroUI : MonoBehaviour
 
     private bool isPanelActive = false;
 
-    private void Start()
+    public void AssignHero(Hero hero)
     {
+        this.hero = hero;
         IntitiliazeHeroUI();
     }
 
     private void IntitiliazeHeroUI()
     {
         ShowHeroMovementAmount();
+        graphic.sprite = hero.HeroData.headshotSprite;
 
-        HeroHealthChange(hero.HP);
-        HeroDefenceChange(hero.HeroData.defense);
+        HeroHealthChange(hero);
+        HeroDefenceChange(hero);
 
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
@@ -50,9 +53,13 @@ public class HeroUI : MonoBehaviour
         }
     }
 
-    private void HeroHealthChange(int heroHealth)
+    private void HeroHealthChange(Hero h)
     {
-        hpBar.fillAmount = (float)heroHealth / hero.HeroData.maxHP;
+        if (hero == h)
+        {
+            hpBar.fillAmount = (float)hero.HP / hero.HeroData.maxHP;
+
+        }
     }
 
     private void ShowHeroMovementAmount()
@@ -60,8 +67,12 @@ public class HeroUI : MonoBehaviour
         heroMovementAmountText.text = hero.HeroData.maxMovementAmount.ToString();
     }
 
-    private void HeroDefenceChange(int heroDefence)
+    private void HeroDefenceChange(Hero h)
     {
-        heroDefenceText.text = heroDefence.ToString();
+        if (hero == h)
+        {
+            heroDefenceText.text = hero.tempHP.ToString();
+
+        }
     }
 }

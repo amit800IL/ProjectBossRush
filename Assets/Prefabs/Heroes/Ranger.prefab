@@ -175,11 +175,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <heroAnimator>k__BackingField: {fileID: 4055011698455528204}
+  spriteChange: {fileID: 4581812566125371204}
   attackingParticle: {fileID: 2224333103308652194}
   defendingParticle: {fileID: 7429320887859590558}
   <SlashParticle>k__BackingField: {fileID: 3297225965136918269}
   <HeroData>k__BackingField: {fileID: 11400000, guid: 597cc32d1a346f14e8cb038a201bd392, type: 2}
-  tempHP: 10
+  <HP>k__BackingField: 0
   arrowVFX: {fileID: 6294264818554504005}
 --- !u!65 &1015659684323480745
 BoxCollider:

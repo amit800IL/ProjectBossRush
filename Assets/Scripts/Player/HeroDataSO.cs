@@ -4,6 +4,7 @@ using UnityEngine;
 public class HeroDataSO : ScriptableObject
 {
     public string heroName;
+    public Sprite headshotSprite;
     
     public int maxHP = 100;
 
