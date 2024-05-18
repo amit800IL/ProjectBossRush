@@ -5,10 +5,13 @@ using TMPro;
 
 public class SymbolUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI symbolText;
+    [SerializeField] private TextMeshProUGUI[] symbolText;
 
     public void UpdateUI(string text)
     {
-        symbolText.text = text;
+        for (int i = 0; i < SymbolTable.SYMBOL_TYPE_COUNT; i++)
+        {
+            symbolText[i].text = text[i].ToString();
+        }
     }
 }

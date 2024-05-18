@@ -23,7 +23,7 @@ public class PlayerResourceManager : MonoBehaviour
         TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
 
-        symbolUI.UpdateUI(symbolCharge.ToString());
+        UpdateSymbolUI();
 
     }
 
@@ -84,7 +84,7 @@ public class PlayerResourceManager : MonoBehaviour
     public void AddSymbols(SymbolTable toAdd)
     {
         symbolCharge.Add(toAdd);
-        symbolUI.UpdateUI(symbolCharge.ToString());
+        UpdateSymbolUI();
     }
 
     [ContextMenu("add test table")]
@@ -108,7 +108,12 @@ public class PlayerResourceManager : MonoBehaviour
     public void UseSymbols(SymbolTable toUse)
     {
         symbolCharge.Remove(toUse);
-        symbolUI.UpdateUI(symbolCharge.ToString());
+        UpdateSymbolUI();
+    }
+
+    private void UpdateSymbolUI()
+    {
+        symbolUI.UpdateUI(symbolCharge.ToShortString());
     }
     #endregion
 

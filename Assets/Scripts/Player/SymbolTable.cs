@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SymbolTable
 {
-    const int SYMBOL_TYPE_COUNT = 6;
+    public const int SYMBOL_TYPE_COUNT = 6;
 
     public int[] table;
 
@@ -62,13 +62,22 @@ public class SymbolTable
         return output;
     }
 
+    public string ToShortString()
+    {
+        string output = "";
+        for (int i = 0; i < SYMBOL_TYPE_COUNT; i++)
+        {
+            output += table[i];
+        }
+        return output;
+    }
+
     public override string ToString()
     {
         string output = "";
         for (int i = 0; i < SYMBOL_TYPE_COUNT; i++)
         {
             output += (Symbols)i + " " + table[i] + "\n";
-            //output += table[i] + "\n";
         }
         return output;
     }

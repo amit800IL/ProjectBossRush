@@ -30,9 +30,14 @@ public class Technique : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         UpdateUsability(null);
     }
 
+    private void OnDestroy()
+    {
+        PlayerController.OnHeroMarked -= UpdateUsability;
+    }
+
     void UpdateUsability(Hero hero)
     {
-        if (techData.RequiresTargetHero && activationButton != null)
+        if (techData.RequiresTargetHero)
             activationButton.interactable = (hero != null);
     }
 
