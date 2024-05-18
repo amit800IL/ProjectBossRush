@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("General UI")]
+    private int roundNumber = 1;
+    [SerializeField] private TextMeshProUGUI roundUI;
+
     [Header("Boss UI")]
 
     [SerializeField] private TextMeshProUGUI bossHealthText;
@@ -20,12 +24,14 @@ public class UIManager : MonoBehaviour
     {
         Boss.OnEnemyHealthChanged += BossHealthChange;
         PlayerResourceManager.OnAPChanged += ApUIChange;
+        TurnsManager.OnPlayerTurnStart += RoundNumberChange;
     }
 
     private void OnDestroy()
     {
         Boss.OnEnemyHealthChanged -= BossHealthChange;
         PlayerResourceManager.OnAPChanged -= ApUIChange;
+        TurnsManager.OnPlayerTurnStart -= RoundNumberChange;
     }
 
     private void ApUIChange(int ap)
@@ -41,6 +47,12 @@ public class UIManager : MonoBehaviour
                 actionPoints[i].sprite = apSpriteOn;
             }
         }
+    }
+
+    private void RoundNumberChange()
+    {
+        roundNumber++;
+        roundUI.text = "Round: " + roundNumber.ToString();
     }
 
     private void BossHealthChange(int bossHealth)
