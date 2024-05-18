@@ -6,9 +6,7 @@ public class HeroUI : MonoBehaviour
 {
     [SerializeField] private GameObject heroPanel;
     [SerializeField] private Hero hero;
-    [SerializeField] private Image spritePresention;
-    [SerializeField] private TextMeshProUGUI heroNameText;
-    [SerializeField] private TextMeshProUGUI heroHPText;
+    [SerializeField] private Image hpBar;
     [SerializeField] private TextMeshProUGUI heroDefenceText;
     [SerializeField] private TextMeshProUGUI heroMovementAmountText;
 
@@ -21,15 +19,13 @@ public class HeroUI : MonoBehaviour
 
     private void IntitiliazeHeroUI()
     {
-        ShowHeroSprite();
-        WriteHeroName();
         ShowHeroMovementAmount();
+
+        HeroHealthChange(hero.HP);
+        HeroDefenceChange(hero.HeroData.defense);
 
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
-
-        HeroHealthChange(hero.HeroData.maxHP);
-        HeroDefenceChange(hero.HeroData.defense);
     }
 
     private void OnDestroy()
@@ -54,27 +50,18 @@ public class HeroUI : MonoBehaviour
         }
     }
 
-    private void ShowHeroSprite()
-    {
-        spritePresention.sprite = hero.HeroData.heroSpritePresentation;
-    }
-    private void WriteHeroName()
-    {
-        heroNameText.text = hero.HeroData.heroName;
-    }
-
     private void HeroHealthChange(int heroHealth)
     {
-        heroHPText.text = "HP: " + heroHealth.ToString();
+        hpBar.fillAmount = (float)heroHealth / hero.HeroData.maxHP;
     }
 
     private void ShowHeroMovementAmount()
     {
-        heroMovementAmountText.text = "Movement: " + hero.HeroData.maxMovementAmount.ToString();
+        heroMovementAmountText.text = hero.HeroData.maxMovementAmount.ToString();
     }
 
     private void HeroDefenceChange(int heroDefence)
     {
-        heroDefenceText.text = "Defence: " + heroDefence.ToString();
+        heroDefenceText.text = heroDefence.ToString();
     }
 }

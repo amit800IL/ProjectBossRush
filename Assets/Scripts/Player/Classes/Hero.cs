@@ -11,7 +11,7 @@ public abstract class Hero : Entity
 
     [SerializeField] protected ParticleSystem attackingParticle;
     [SerializeField] protected ParticleSystem defendingParticle;
-    [field: SerializeField] public ParticleSystem SlashParticle {  get; protected set; }
+    [field: SerializeField] public ParticleSystem SlashParticle { get; protected set; }
     public bool CanHeroMoved { get; protected set; } = false;
     public SymbolTable SymbolTable { get; protected set; }
 
@@ -22,7 +22,7 @@ public abstract class Hero : Entity
     [field: Header("Hero Attributes")]
 
     [field: SerializeField] public HeroDataSO HeroData { get; protected set; }
-    public int HP { get; protected set; } = 0;
+    [field: SerializeField] public int HP { get; protected set; }
     [SerializeField] protected int tempHP;
 
     [field: Header("Tile and raycast")]
@@ -101,16 +101,19 @@ public abstract class Hero : Entity
         if (incDmg <= tempHP)
         {
             tempHP -= incDmg;
+
+            OnHeroHealthChanged?.Invoke(HP);
+            OnHeroDefenceChanged?.Invoke(tempHP);
         }
         else
         {
             incDmg -= tempHP;
             tempHP = 0;
             HP -= incDmg;
-        }
 
-        OnHeroHealthChanged?.Invoke(HP);
-        OnHeroDefenceChanged?.Invoke(tempHP);
+            OnHeroHealthChanged?.Invoke(HP);
+            OnHeroDefenceChanged?.Invoke(tempHP);
+        }
 
         heroAnimator.SetTrigger("Injured");
 
