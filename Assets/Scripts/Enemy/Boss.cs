@@ -31,6 +31,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject debugMarkerPrefab;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private RaycastHit raycastHit;
+    public List<GameObject> currentAttackMarker = new();
 
     private void Start()
     {
@@ -39,7 +40,6 @@ public class Boss : MonoBehaviour
 
     public void BossRestart()
     {
-        print("bossrestart");
         if (HasBossAttacked)
             attackIndex++;
         if (attackIndex == enemyActions.Count)
@@ -67,40 +67,43 @@ public class Boss : MonoBehaviour
     {
         Tile[,] tiles = GridManager.Instance.Tiles;
         bool targetHero = enemyActions[attackIndex].Target.TargetHeroItself;
-        if (VisualizeAttack && targetHero)
+
+        if (VisualizeAttack)
         {
-            print("hi");
-
-            foreach (Hero hero in bossTargeting.GetTargetHeroes(enemyActions[attackIndex].Target))
+            if (targetHero)
             {
-                hero.ApplyTargetMarker(enemyActions[attackIndex].TargetMarker);
-            }
-        }
-
-        if (VisualizeAttack || targetHero) //not efficient
-            targetTiles = ReadBossAction(attackIndex);
-
-        foreach (Vector2Int tilePosition in targetTiles)
-        {
-            Tile tile = tiles[tilePosition.x, tilePosition.y];
-
-            if (VisualizeAttack)
-            {
-                if (!targetHero)
-                {
-                    GameObject marker = Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation);
-
-                    Destroy(marker, 2f);
-                }
+                bossTargeting.MarkTargetedHeroes(enemyActions[attackIndex]);
             }
             else
             {
-                PerformAction(enemyActions[attackIndex], tile);
-                bossAnimator.SetTrigger("Attack");
+                targetTiles = ReadBossAction(attackIndex);
+                foreach (Vector2Int tilePosition in targetTiles)
+                {
+                    Tile tile = tiles[tilePosition.x, tilePosition.y];
+                    currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
+                }
             }
         }
-        if (!VisualizeAttack)
+        else
+        {
+            if (targetHero)
+            {
+                targetTiles = ReadBossAction(attackIndex);
+            }
+            foreach (Vector2Int tilePosition in targetTiles)
+            {
+                Tile tile = tiles[tilePosition.x, tilePosition.y];
+                PerformAction(enemyActions[attackIndex], tile);
+                bossAnimator.SetTrigger("Attack");
+
+            }
+            foreach (var item in currentAttackMarker)
+            {
+                Destroy(item);
+            }
+            currentAttackMarker.Clear();
             HasBossAttacked = true;
+        }
     }
 
     private void PerformAction(BossActionSetter action, Tile tile)
@@ -108,23 +111,8 @@ public class Boss : MonoBehaviour
         if (IsTileValid(tile))
         {
             action.EnemyAction.DoActionOnTile(tile);
-            /*
-            Hero hero = (Hero)tile.GetOccupier();
-
-            //bossAnimator.SetTrigger("Attack");
-
-            if (hero != null)
-            {
-                Debug.Log("Found hero: " + hero.name + " on a tile");
-                action.EnemyAction.DoActionOnHero(hero);
-
-
-                return;
-            }
-            */
         }
 
-        //Debug.LogWarning("No hero found on the checked tile");
     }
 
     private bool IsTileValid(Tile tile)
