@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0bfeea4e2bdb03408d14ae7cbd40695, type: 3}
-  m_Name: Heal
+  m_Name: Fireball
   m_EditorClassIdentifier: 
-  Name: Heal
+  Name: Fireball
   RequiresTargetHero: 0
   Requirements:
-    table: 010000000500000000000000000000000000000000000000
-  APCost: 2
-  Cooldown: 2
+    table: 000000000500000002000000000000000000000000000000
+  APCost: 3
+  Cooldown: 3
   Effects:
-  - Type: 1
-    duration: 1
-    amount: 20
+  - Type: 0
+    duration: 0
+    amount: 10

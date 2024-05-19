@@ -93,7 +93,7 @@ public class HeroesManager : MonoBehaviour
                 case EffectType.HealAll:
                     foreach (Hero hero in heroList)
                     {
-                        hero.TakeDamage(-effect.amount);
+                        hero.GetHeal(effect.amount);
                     }
                     break;
                 case EffectType.BuffDefense1:

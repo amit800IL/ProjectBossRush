@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAttack()
     {
-        if (boss.IsBossAlive && playerResourceManager.UseAP(1))
+        if (boss.IsBossAlive && playerResourceManager.UseAP(2))
         {
             heroesManager.CommandAttack();
         }

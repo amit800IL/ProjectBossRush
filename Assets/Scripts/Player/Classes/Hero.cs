@@ -127,6 +127,19 @@ public abstract class Hero : Entity
         }
     }
 
+    public void GetHeal(int incHealth)
+    {
+        HP += incHealth;
+        if(HP>HeroData.maxHP)
+        {
+            HP = HeroData.maxHP;
+        }
+
+        OnHeroHealthChanged?.Invoke(this);
+
+        spriteChange.OnHpLow(HP);
+    }
+
     public abstract bool HeroAttackBoss(Boss boss);
 
     public bool Defend()
