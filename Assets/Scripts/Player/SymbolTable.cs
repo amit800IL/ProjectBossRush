@@ -9,6 +9,8 @@ public class SymbolTable
 
     public int[] table;
 
+    
+
     //ctor for player
     public SymbolTable()
     {

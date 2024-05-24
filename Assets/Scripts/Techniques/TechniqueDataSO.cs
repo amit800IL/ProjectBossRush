@@ -12,4 +12,6 @@ public class TechniqueDataSO : ScriptableObject
     public int APCost;
     public int Cooldown;
     public Effect[] Effects;
+
+ 
 }
