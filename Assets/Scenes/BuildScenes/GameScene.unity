@@ -4506,7 +4506,7 @@ GameObject:
   - component: {fileID: 1269471952}
   - component: {fileID: 1269471951}
   m_Layer: 5
-  m_Name: BTN_CardsLeft (1)
+  m_Name: RightCardsSetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5404,7 +5404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   symbolCharge:
-    table: 020000000000000000000000000000000000000000000000
+    table: 000000000000000000000000000000000000000000000000
   maxAP: 8
   AP: 8
   techniques:
@@ -5415,7 +5415,7 @@ MonoBehaviour:
   selectedHero: {fileID: 0}
   symbolUI: {fileID: 658537898}
   testTable:
-    table: 000000000000000000000000000000000000000000000000
+    table: 000000000100000000000000000000000000000000000000
 --- !u!1 &1446197916
 GameObject:
   m_ObjectHideFlags: 0
@@ -7891,7 +7891,7 @@ GameObject:
   - component: {fileID: 2140862980}
   - component: {fileID: 2140862979}
   m_Layer: 5
-  m_Name: BTN_CardsLeft
+  m_Name: LeftCardsSetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

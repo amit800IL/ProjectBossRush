@@ -13,13 +13,13 @@ public class SymbolTableDrawer : PropertyDrawer
         position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
         EditorGUI.indentLevel++;
 
-        float labelWidth = 70f; // Adjust this value as needed
-        float fieldWidth = 50f; // Adjust this value as needed
+        float labelWidth = 70f; 
+        float fieldWidth = 50f; 
 
         for (int i = 0; i < SymbolTable.SYMBOL_TYPE_COUNT; i++)
         {
             Rect labelRect = new Rect(position.x - 120, position.y + (i * EditorGUIUtility.singleLineHeight), labelWidth, EditorGUIUtility.singleLineHeight);
-            Rect fieldRect = new Rect((position.x + labelWidth) - 120, position.y + (i * EditorGUIUtility.singleLineHeight), fieldWidth, EditorGUIUtility.singleLineHeight);
+            Rect fieldRect = new Rect((position.x + labelWidth) - 100, position.y + (i * EditorGUIUtility.singleLineHeight), fieldWidth, EditorGUIUtility.singleLineHeight);
 
             EditorGUI.LabelField(labelRect, new GUIContent(symbolNames[i]));
             EditorGUI.PropertyField(fieldRect, tableProperty.GetArrayElementAtIndex(i), GUIContent.none);

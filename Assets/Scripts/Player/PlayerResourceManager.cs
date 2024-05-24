@@ -6,11 +6,22 @@ public class PlayerResourceManager : MonoBehaviour
     public static event Action<int> OnAPChanged;
     public static event Action<Effect[], Hero> OnTechniqueUsed;
 
+    [Header("Symbols")]
+
     [SerializeField] SymbolTable symbolCharge = new();
+
+    [Header("AP count")]
+
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
+
+    [Header("Techniques")]
+
     [SerializeField] private Technique[] techniques;
     [SerializeField] private Technique selectedTechnique;
+
+    [Header("Other")]
+
     [SerializeField] private Hero selectedHero;
     [SerializeField] private SymbolUI symbolUI;
 

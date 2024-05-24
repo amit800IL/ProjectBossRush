@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
         inputActions.Enable();
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
     }
-
     private void OnDisable()
     {
         inputActions.Player.PlayerPress.performed -= OnPlayerMove;
@@ -87,6 +86,9 @@ public class PlayerController : MonoBehaviour
 
     public float HeroMovementCost()
     {
+        if (markedHero == null || markedTile == null)
+            return 0;
+
         float distanceX = Mathf.Abs(markedTile.tilePosition.x - markedHero.CurrentTile.tilePosition.x);
         float distanceY = Mathf.Abs(markedTile.tilePosition.y - markedHero.CurrentTile.tilePosition.y);
         float movementCost = distanceX + distanceY;
