@@ -21,7 +21,7 @@ public class SymbolTableDrawer : PropertyDrawer
 
         for (int i = 0; i < SymbolTable.SYMBOL_TYPE_COUNT; i++)
         {
-            Rect labelRect = new Rect(position.x - 120, position.y + (i * EditorGUIUtility.singleLineHeight), labelWidth, EditorGUIUtility.singleLineHeight);
+            Rect labelRect = new Rect(position.x - 90, position.y + (i * EditorGUIUtility.singleLineHeight), labelWidth, EditorGUIUtility.singleLineHeight);
             Rect fieldRect = new Rect((position.x + labelWidth) - 100, position.y + (i * EditorGUIUtility.singleLineHeight), fieldWidth, EditorGUIUtility.singleLineHeight);
 
             EditorGUI.LabelField(labelRect, new GUIContent(symbolNames[i]));
