@@ -1,5 +1,8 @@
+
 using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
 
 [CustomPropertyDrawer(typeof(SymbolTable))]
 public class SymbolTableDrawer : PropertyDrawer
@@ -33,3 +36,5 @@ public class SymbolTableDrawer : PropertyDrawer
         return SymbolTable.SYMBOL_TYPE_COUNT * EditorGUIUtility.singleLineHeight;
     }
 }
+
+#endif
