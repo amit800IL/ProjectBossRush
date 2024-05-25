@@ -8,9 +8,21 @@ public class TechniqueDataSO : ScriptableObject
 {
     public string Name;
     public bool RequiresTargetHero;
+
+    [Header("Requirments")]
+
     public SymbolTable Requirements;
+
+    [Header("Ap cost")]
+
     public int APCost;
+
+    [Header("Cooldown time")]
+
     public int Cooldown;
+
+    [Header("Effect")]
+
     public Effect[] Effects;
 
  
