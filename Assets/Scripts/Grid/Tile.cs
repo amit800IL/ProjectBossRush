@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
@@ -5,10 +6,10 @@ public class Tile : MonoBehaviour
     public Vector2Int tilePosition { get; private set; }
 
     [field: SerializeField] public Transform OccupantContainer { get; private set; }
-    [field: SerializeField] public GameObject TilePrefab { get; private set; }
     [SerializeField] private TileType[] tileType;
-    [SerializeField] private MeshRenderer spriteRenderer;
-    [SerializeField] private Entity occupant;
+    [SerializeField] GameObject AttackDecal;
+    [SerializeField] GameObject DefendDecal;
+    private Entity occupant;
     public bool IsTileOccupied => occupant != null;
     public void Initialize(int x, int y)
     {
@@ -45,6 +46,18 @@ public class Tile : MonoBehaviour
     public Entity GetOccupier()
     {
         return occupant;
+    }
+
+    public void RenderTactical(Hero hero)
+    {
+        AttackDecal.SetActive(hero.AttackPosCondition(this));
+        DefendDecal.SetActive(hero.DefendPosCondition(this));
+    }
+
+    public void StopTactical()
+    {
+        AttackDecal.SetActive(false);
+        DefendDecal.SetActive(false);
     }
 }
 

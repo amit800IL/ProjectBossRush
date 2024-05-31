@@ -156,7 +156,12 @@ public abstract class Hero : Entity
     }
     public abstract bool CanHeroAttack();
 
+    public abstract bool AttackPosCondition(Tile tile);
+
     public abstract bool CanHeroDefend();
+
+    public abstract bool DefendPosCondition(Tile tile);
+
 }
 
 

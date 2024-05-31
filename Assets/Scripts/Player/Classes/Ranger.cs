@@ -27,15 +27,21 @@ public class Ranger : Hero
 
     public override bool CanHeroAttack()
     {
-        if (CurrentTile != null && CurrentTile.IsTileOfType(TileType.LongRange))
-        {
-            return true;
-        }
-        return false;
+        return AttackPosCondition(currentTile);
     }
 
     public override bool CanHeroDefend()
     {
-        return CurrentTile.IsTileOfType(TileType.LongRange);
+        return DefendPosCondition(currentTile);
+    }
+
+    public override bool AttackPosCondition(Tile tile)
+    {
+        return tile != null && tile.IsTileOfType(TileType.LongRange);
+    }
+
+    public override bool DefendPosCondition(Tile tile)
+    {
+        return tile.IsTileOfType(TileType.LongRange);
     }
 }
