@@ -34,13 +34,13 @@ public class PlayerController : MonoBehaviour
         inputActions = new BossRush();
         inputActions.Enable();
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
-        inputActions.UI.Point.started += OnCharachterHover;
+        inputActions.UI.Point.performed += OnCharachterHover;
         inputActions.UI.Point.canceled += OnCharachterHover;
     }
     private void OnDisable()
     {
         inputActions.Player.PlayerPress.performed -= OnPlayerMove;
-        inputActions.UI.Point.started -= OnCharachterHover;
+        inputActions.UI.Point.performed -= OnCharachterHover;
         inputActions.UI.Point.canceled -= OnCharachterHover;
     }
 
@@ -68,14 +68,12 @@ public class PlayerController : MonoBehaviour
 
         if (inputActions != null && inputPosition != null)
         {
-            if (inputAction.started)
+            if (inputAction.performed)
             {
-                Debug.Log("UI HOVER STARTED");
                 TacticalViewPressed();
             }
             else if (inputAction.canceled)
             {
-                Debug.Log("UI HOVER FINISHED");
                 TacticalViewReleased();
             }
         }
