@@ -36,18 +36,16 @@ public class PlayerController : MonoBehaviour
         inputActions = new BossRush();
         inputActions.Enable();
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
-        inputActions.Player.PlayerTactical.performed += OnCharachterHovered;
+        inputActions.Player.PlayerTactical.started += OnCharachterHovered;
         inputActions.Player.PlayerTactical.canceled += OnCharachterHovered;
         inputActions.UI.Point.performed += HoverCharachter;
-        inputActions.UI.Point.canceled += HoverCharachter;
     }
     private void OnDisable()
     {
         inputActions.Player.PlayerPress.performed -= OnPlayerMove;
-        inputActions.Player.PlayerTactical.performed -= OnCharachterHovered;
+        inputActions.Player.PlayerTactical.started -= OnCharachterHovered;
         inputActions.Player.PlayerTactical.canceled -= OnCharachterHovered;
         inputActions.UI.Point.performed -= HoverCharachter;
-        inputActions.UI.Point.canceled -= HoverCharachter;
     }
 
     private void OnPlayerMove(InputAction.CallbackContext inputAction)
@@ -74,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         if (heroHovered)
         {
-            if (inputAction.performed && heroHovered)
+            if (inputPressed == 1)
             {
                 TacticalViewPressed();
             }
@@ -92,10 +90,6 @@ public class PlayerController : MonoBehaviour
         if (inputAction.performed)
         {
             HoverHero(inputPosition);
-        }
-        else if (inputAction.canceled)
-        {
-            UnHoverHero();
         }
     }
 
@@ -189,6 +183,11 @@ public class PlayerController : MonoBehaviour
         {
             heroHovered = true;
             hoveredHero = raycastHit.collider.GetComponent<Hero>();
+        }
+        else
+        {
+            TacticalViewReleased();
+            UnHoverHero();
         }
     }
 
