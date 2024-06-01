@@ -158,4 +158,17 @@ public class PlayerController : MonoBehaviour
             OnHeroMarked?.Invoke(markedHero);
         }
     }
+
+    // this method needs to be called when the input is pressed, and also when the cursor starts and stops hovering over heroes
+    [ContextMenu("tactical")]
+    public void TacticalViewPressed()
+    {
+        GridManager.Instance.StartTacticalView(markedHero); //change to hovered hero
+    }
+
+    [ContextMenu("end tactical")]
+    public void TacticalViewReleased()
+    {
+        GridManager.Instance.StopTacticalView();
+    }
 }

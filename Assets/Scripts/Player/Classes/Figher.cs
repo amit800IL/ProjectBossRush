@@ -7,7 +7,7 @@ public class Figher : Hero
         base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
 
-      
+
     }
     public override bool HeroAttackBoss(Boss boss)
     {
@@ -26,15 +26,21 @@ public class Figher : Hero
 
     public override bool CanHeroAttack()
     {
-        if (CurrentTile != null && CurrentTile.IsTileOfType(TileType.CloseRange))
-        {
-            return true;
-        }
-        return false;
+        return AttackPosCondition(currentTile);
     }
 
     public override bool CanHeroDefend()
     {
-        return !CurrentTile.IsTileOfType(TileType.LongRange);
+        return DefendPosCondition(currentTile);
+    }
+
+    public override bool AttackPosCondition(Tile tile)
+    {
+        return tile != null && tile.IsTileOfType(TileType.CloseRange);
+    }
+
+    public override bool DefendPosCondition(Tile tile)
+    {
+        return !tile.IsTileOfType(TileType.LongRange);
     }
 }

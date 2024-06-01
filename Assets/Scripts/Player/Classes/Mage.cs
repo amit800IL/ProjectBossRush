@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class Mage : Hero
 {
@@ -5,7 +6,7 @@ public class Mage : Hero
     {
         base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
-    }  
+    }
     public override bool HeroAttackBoss(Boss boss)
     {
         if (CanHeroAttack())
@@ -23,16 +24,27 @@ public class Mage : Hero
 
     public override bool CanHeroAttack()
     {
-        if (CurrentTile != null && (CurrentTile.IsTileOfType(TileType.CloseRange) || CurrentTile.IsTileOfType(TileType.MediumRange)))
-        {
-            return true;
-        }
-        return false;
+        return AttackPosCondition(currentTile);
     }
 
     public override bool CanHeroDefend()
     {
-        return CurrentTile.IsTileOfType(TileType.MediumRange) && !CurrentTile.IsTileOfType(TileType.Flank) ||
-            CurrentTile.IsTileOfType(TileType.LongRange) && currentTile.IsTileOfType(TileType.Flank);
+        return DefendPosCondition(currentTile);
+    }
+
+    public override bool AttackPosCondition(Tile tile)
+    {
+        return (
+            tile.IsTileOfType(TileType.MediumRange) ||
+            tile.IsTileOfType(TileType.LongRange) && !tile.IsTileOfType(TileType.Flank)
+        );
+    }
+
+    public override bool DefendPosCondition(Tile tile)
+    {
+        return (
+            tile.IsTileOfType(TileType.MediumRange) && !tile.IsTileOfType(TileType.Flank) ||
+            tile.IsTileOfType(TileType.LongRange) && tile.IsTileOfType(TileType.Flank)
+        );
     }
 }
