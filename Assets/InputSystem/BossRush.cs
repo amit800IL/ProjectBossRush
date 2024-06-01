@@ -35,6 +35,15 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlayerTactical"",
+                    ""type"": ""Button"",
+                    ""id"": ""689be9ef-6327-4c0f-91a4-4f08675958ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PlayerPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9fd9237-68b2-4004-83a5-7efb767f1f6a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerTactical"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -645,6 +665,7 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_PlayerPress = m_Player.FindAction("PlayerPress", throwIfNotFound: true);
+        m_Player_PlayerTactical = m_Player.FindAction("PlayerTactical", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -719,11 +740,13 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_PlayerPress;
+    private readonly InputAction m_Player_PlayerTactical;
     public struct PlayerActions
     {
         private @BossRush m_Wrapper;
         public PlayerActions(@BossRush wrapper) { m_Wrapper = wrapper; }
         public InputAction @PlayerPress => m_Wrapper.m_Player_PlayerPress;
+        public InputAction @PlayerTactical => m_Wrapper.m_Player_PlayerTactical;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -736,6 +759,9 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
             @PlayerPress.started += instance.OnPlayerPress;
             @PlayerPress.performed += instance.OnPlayerPress;
             @PlayerPress.canceled += instance.OnPlayerPress;
+            @PlayerTactical.started += instance.OnPlayerTactical;
+            @PlayerTactical.performed += instance.OnPlayerTactical;
+            @PlayerTactical.canceled += instance.OnPlayerTactical;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -743,6 +769,9 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
             @PlayerPress.started -= instance.OnPlayerPress;
             @PlayerPress.performed -= instance.OnPlayerPress;
             @PlayerPress.canceled -= instance.OnPlayerPress;
+            @PlayerTactical.started -= instance.OnPlayerTactical;
+            @PlayerTactical.performed -= instance.OnPlayerTactical;
+            @PlayerTactical.canceled -= instance.OnPlayerTactical;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -926,6 +955,7 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnPlayerPress(InputAction.CallbackContext context);
+        void OnPlayerTactical(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

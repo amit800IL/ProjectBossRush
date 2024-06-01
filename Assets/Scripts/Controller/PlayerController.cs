@@ -19,10 +19,12 @@ public class PlayerController : MonoBehaviour
 
     private RaycastHit raycastHit;
     private bool heroMarked = false;
+    private bool heroHovered = false;
 
     [Header("Game Objects")]
 
     [SerializeField] private Hero markedHero;
+    [SerializeField] private Hero hoveredHero;
     private Tile markedTile;
     [SerializeField] private Boss boss;
 
@@ -34,14 +36,18 @@ public class PlayerController : MonoBehaviour
         inputActions = new BossRush();
         inputActions.Enable();
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
-        inputActions.UI.Point.performed += OnCharachterHover;
-        inputActions.UI.Point.canceled += OnCharachterHover;
+        inputActions.Player.PlayerTactical.performed += OnCharachterHovered;
+        inputActions.Player.PlayerTactical.canceled += OnCharachterHovered;
+        inputActions.UI.Point.performed += HoverCharachter;
+        inputActions.UI.Point.canceled += HoverCharachter;
     }
     private void OnDisable()
     {
         inputActions.Player.PlayerPress.performed -= OnPlayerMove;
-        inputActions.UI.Point.performed -= OnCharachterHover;
-        inputActions.UI.Point.canceled -= OnCharachterHover;
+        inputActions.Player.PlayerTactical.performed -= OnCharachterHovered;
+        inputActions.Player.PlayerTactical.canceled -= OnCharachterHovered;
+        inputActions.UI.Point.performed -= HoverCharachter;
+        inputActions.UI.Point.canceled -= HoverCharachter;
     }
 
     private void OnPlayerMove(InputAction.CallbackContext inputAction)
@@ -62,13 +68,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCharachterHover(InputAction.CallbackContext inputAction)
+    private void OnCharachterHovered(InputAction.CallbackContext inputAction)
     {
-        inputPosition = Mouse.current.position.ReadValue();
+        float inputPressed = inputAction.ReadValue<float>();
 
-        if (inputActions != null && inputPosition != null)
+        if (heroHovered)
         {
-            if (inputAction.performed)
+            if (inputAction.performed && heroHovered)
             {
                 TacticalViewPressed();
             }
@@ -76,6 +82,20 @@ public class PlayerController : MonoBehaviour
             {
                 TacticalViewReleased();
             }
+        }
+    }
+
+    private void HoverCharachter(InputAction.CallbackContext inputAction)
+    {
+        inputPosition = Mouse.current.position.ReadValue();
+
+        if (inputAction.performed)
+        {
+            HoverHero(inputPosition);
+        }
+        else if (inputAction.canceled)
+        {
+            UnHoverHero();
         }
     }
 
@@ -155,6 +175,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void HoverHero(Vector3 hoverPosition)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(hoverPosition);
+
+        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
+
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue, 5f);
+
+        Debug.Log("Player has been hit : " + raycast);
+
+        if (raycast)
+        {
+            heroHovered = true;
+            hoveredHero = raycastHit.collider.GetComponent<Hero>();
+        }
+    }
+
+    private void UnHoverHero()
+    {
+        heroHovered = false;
+        hoveredHero = null;
+    }
     public void PlayerAttack()
     {
         if (boss.IsBossAlive && playerResourceManager.UseAP(2))
@@ -184,7 +226,7 @@ public class PlayerController : MonoBehaviour
     [ContextMenu("tactical")]
     public void TacticalViewPressed()
     {
-        GridManager.Instance.StartTacticalView(markedHero); //change to hovered hero
+        GridManager.Instance.StartTacticalView(hoveredHero);
     }
 
     [ContextMenu("end tactical")]
