@@ -31,20 +31,23 @@ public class PlayerController : MonoBehaviour
     [Header("LayerMasks")]
     [SerializeField] private LayerMask heroMask;
 
+
+    bool isButtonHeld = false;
+
     private void Start()
     {
         inputActions = new BossRush();
         inputActions.Enable();
         inputActions.Player.PlayerPress.performed += OnPlayerMove;
         inputActions.Player.PlayerTactical.started += OnCharachterHovered;
-        inputActions.Player.PlayerTactical.canceled += OnCharachterHovered;
+        inputActions.Player.PlayerTactical.canceled += OnCharachterReleased;
         inputActions.UI.Point.performed += HoverCharachter;
     }
     private void OnDisable()
     {
         inputActions.Player.PlayerPress.performed -= OnPlayerMove;
         inputActions.Player.PlayerTactical.started -= OnCharachterHovered;
-        inputActions.Player.PlayerTactical.canceled -= OnCharachterHovered;
+        inputActions.Player.PlayerTactical.canceled -= OnCharachterReleased;
         inputActions.UI.Point.performed -= HoverCharachter;
     }
 
@@ -68,20 +71,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnCharachterHovered(InputAction.CallbackContext inputAction)
     {
-        float inputPressed = inputAction.ReadValue<float>();
+        isButtonHeld = true;
 
         if (heroHovered)
         {
-            if (inputPressed == 1)
-            {
-                TacticalViewPressed();
-            }
-            else if (inputAction.canceled)
-            {
-                TacticalViewReleased();
-            }
+            TacticalViewPressed();
         }
     }
+
+    private void OnCharachterReleased(InputAction.CallbackContext inputAction)
+    {
+        isButtonHeld = false;
+        TacticalViewReleased();
+    }
+
 
     private void HoverCharachter(InputAction.CallbackContext inputAction)
     {
@@ -183,6 +186,11 @@ public class PlayerController : MonoBehaviour
         {
             heroHovered = true;
             hoveredHero = raycastHit.collider.GetComponent<Hero>();
+
+            if (isButtonHeld)
+            {
+                TacticalViewPressed();
+            }
         }
         else
         {
