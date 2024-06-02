@@ -14,12 +14,13 @@ public class PlayerController : MonoBehaviour
     [Header("Input system")]
     private BossRush inputActions;
     private Vector2 inputPosition;
+    private bool isButtonHeld = false;
 
     [Header("Raycast mark flags")]
 
     private RaycastHit raycastHit;
-    private bool heroMarked = false;
-    private bool heroHovered = false;
+    private bool isheroMarked = false;
+    private bool isheroHovered = false;
 
     [Header("Game Objects")]
 
@@ -32,7 +33,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask heroMask;
 
 
-    bool isButtonHeld = false;
 
     private void Start()
     {
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
             if (inputAction.performed)
             {
-                if (heroMarked)
+                if (isheroMarked)
                     MoveHeroToTile(inputPosition);
                 else
                     MarkHero(inputPosition);
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
     {
         isButtonHeld = true;
 
-        if (heroHovered)
+        if (isheroHovered)
         {
             TacticalViewPressed();
         }
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
     private void MoveHeroToTile(Vector3 pressPosition)
     {
-        if (markedHero != null && heroMarked)
+        if (markedHero != null && isheroMarked)
         {
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
 
     private void ResetMarkProccess()
     {
-        heroMarked = false;
+        isheroMarked = false;
         markedHero.ResetHeroMovement();
         markedHero = null;
         OnHeroMarked?.Invoke(markedHero);
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
 
         if (raycast)
         {
-            heroMarked = true;
+            isheroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
             OnHeroMarked?.Invoke(markedHero);
         }
@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
         if (raycast)
         {
-            heroHovered = true;
+            isheroHovered = true;
             hoveredHero = raycastHit.collider.GetComponent<Hero>();
 
             if (isButtonHeld)
@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
 
     private void UnHoverHero()
     {
-        heroHovered = false;
+        isheroHovered = false;
         hoveredHero = null;
     }
     public void PlayerAttack()
@@ -221,9 +221,9 @@ public class PlayerController : MonoBehaviour
     }
     public void ResetMarkProccessButton()
     {
-        if ((heroMarked && markedHero != null))
+        if ((isheroMarked && markedHero != null))
         {
-            heroMarked = false;
+            isheroMarked = false;
             markedHero = null;
             OnHeroMarked?.Invoke(markedHero);
         }
