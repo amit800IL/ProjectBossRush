@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class EnemyAction : MonoBehaviour
 {
     public abstract void DoActionOnHero(Hero hero);
-    
-    public abstract void DoActionOnTile(Tile tile);
+
+    public abstract void DoActionOnTiles(List<Vector2Int> tiles, int actionPower);
 
 }

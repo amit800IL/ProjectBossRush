@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MovePlayer : EnemyAction
@@ -7,7 +8,7 @@ public class MovePlayer : EnemyAction
         MovePlayeInDirections(hero);
     }
 
-    public override void DoActionOnTile(Tile tile)
+    public override void DoActionOnTiles(List<Vector2Int> tiles, int actionPower)
     {
         throw new System.NotImplementedException();
     }

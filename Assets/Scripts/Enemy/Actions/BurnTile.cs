@@ -9,7 +9,7 @@ public class BurnTile : EnemyAction
         throw new System.NotImplementedException();
     }
 
-    public override void DoActionOnTile(Tile tile)
+    public override void DoActionOnTiles(List<Vector2Int> tiles, int actionPower)
     {
         
     }
