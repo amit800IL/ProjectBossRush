@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public static event Action<Hero> OnHeroMarked;
+    public static event Action OnPlayerAttack;
+    public static event Action OnPlayerDefend;
 
     [Header("General variables")]
     [SerializeField] private HeroesManager heroesManager;
@@ -209,6 +211,7 @@ public class PlayerController : MonoBehaviour
         if (boss.IsBossAlive && playerResourceManager.UseAP(2))
         {
             heroesManager.CommandAttack();
+            OnPlayerAttack?.Invoke();
         }
     }
 
@@ -217,6 +220,7 @@ public class PlayerController : MonoBehaviour
         if (boss.IsBossAlive && playerResourceManager.UseAP(1))
         {
             heroesManager.CommandDefend();
+            OnPlayerDefend?.Invoke();
         }
     }
     public void ResetMarkProccessButton()

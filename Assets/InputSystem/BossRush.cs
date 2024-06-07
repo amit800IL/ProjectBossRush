@@ -62,7 +62,7 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""f9fd9237-68b2-4004-83a5-7efb767f1f6a"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PlayerTactical"",
