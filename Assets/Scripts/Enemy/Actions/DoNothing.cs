@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DoNothing : EnemyAction
@@ -7,7 +8,7 @@ public class DoNothing : EnemyAction
         Debug.Log("I Have no strength in me");
     }
 
-    public override void DoActionOnTile(Tile tile)
+    public override void DoActionOnTiles(List<Vector2Int> tiles, int actionPower)
     {
         throw new System.NotImplementedException();
     }

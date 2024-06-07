@@ -67,12 +67,13 @@ public class Boss : MonoBehaviour
     {
         Tile[,] tiles = GridManager.Instance.Tiles;
         bool targetHero = enemyActions[attackIndex].Target.TargetHeroItself;
+        BossActionSetter currentAction = enemyActions[attackIndex];
 
         if (VisualizeAttack)
         {
             if (targetHero)
             {
-                bossTargeting.MarkTargetedHeroes(enemyActions[attackIndex]);
+                bossTargeting.MarkTargetedHeroes(currentAction);
             }
             else
             {
@@ -90,13 +91,11 @@ public class Boss : MonoBehaviour
             {
                 targetTiles = ReadBossAction(attackIndex);
             }
-            foreach (Vector2Int tilePosition in targetTiles)
-            {
-                Tile tile = tiles[tilePosition.x, tilePosition.y];
-                PerformAction(enemyActions[attackIndex], tile);
-                bossAnimator.SetTrigger("Attack");
 
-            }
+            currentAction.EnemyAction.DoActionOnTiles(targetTiles, currentAction.Power);
+
+            bossAnimator.SetTrigger("Attack");
+
             foreach (var item in currentAttackMarker)
             {
                 Destroy(item);
@@ -108,9 +107,9 @@ public class Boss : MonoBehaviour
 
     private void PerformAction(BossActionSetter action, Tile tile)
     {
-        if (IsTileValid(tile))
+        if (tile != null)
         {
-            action.EnemyAction.DoActionOnTile(tile);
+            //action.EnemyAction.DoActionOnTiles(tile, action.Power);
         }
 
     }
@@ -134,11 +133,13 @@ public class Boss : MonoBehaviour
 public class BossActionSetter
 {
     [field: SerializeField] private EnemyAction enemyAction;
+    [SerializeField] private int power;
     [SerializeField] private TargetInfo target;
     [field: SerializeField] private List<Vector2Int> tiles;
     [SerializeField] private GameObject targetMarker;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
+    public int Power { get => power; private set => power = value; }
     public TargetInfo Target { get => target; private set => target = value; }
     public List<Vector2Int> Tiles { get => tiles; private set => tiles = value; }
     public GameObject TargetMarker { get => targetMarker; private set => targetMarker = value; }
