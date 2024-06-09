@@ -93,9 +93,11 @@ public abstract class Hero : Entity
         OnHeroDefenceChanged?.Invoke(this);
     }
 
-    public void ApplyTargetMarker(GameObject marker)
+    public void ApplyTargetMarker(GameObject marker, int size)
     {
         targetMarker = Instantiate(marker, transform);
+        targetMarker.transform.localScale = ((size * 2 - 1) * 1.5f - 0.2f) * Vector3.one;
+        print("hi");
     }
 
     public void TakeDamage(int incDmg)
@@ -130,7 +132,7 @@ public abstract class Hero : Entity
     public void GetHeal(int incHealth)
     {
         HP += incHealth;
-        if(HP>HeroData.maxHP)
+        if (HP > HeroData.maxHP)
         {
             HP = HeroData.maxHP;
         }

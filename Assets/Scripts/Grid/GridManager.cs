@@ -22,6 +22,12 @@ public class GridManager : MonoBehaviour
         }
 
         CreateGrid();
+        TurnsManager.OnRoundStart += RollTiles;
+    }
+
+    private void OnDestroy()
+    {
+        TurnsManager.OnRoundStart -= RollTiles;
     }
 
     public void CreateGrid()
@@ -106,6 +112,14 @@ public class GridManager : MonoBehaviour
         foreach(Tile tile in Tiles)
         {
             tile.StopTactical();
+        }
+    }
+
+    private void RollTiles()
+    {
+        foreach (Tile tile in Tiles)
+        {
+            tile.UpdateEffects();
         }
     }
 }

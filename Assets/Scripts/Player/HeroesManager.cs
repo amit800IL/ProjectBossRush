@@ -96,6 +96,9 @@ public class HeroesManager : MonoBehaviour
                         hero.GetHeal(effect.amount);
                     }
                     break;
+                case EffectType.HealTarget:
+                    selectedHero.GetHeal(effect.amount);
+                    break;
                 case EffectType.BuffDefense1:
 
                     break;
