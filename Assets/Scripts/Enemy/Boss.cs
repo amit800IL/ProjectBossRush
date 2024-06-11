@@ -7,6 +7,8 @@ public class Boss : MonoBehaviour
     [Header("General Variables")]
 
     public static Action<Boss> OnEnemyHealthChanged;
+    public static event Action OnBossAttack;
+    public static event Action OnBossInjured;
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
@@ -56,6 +58,8 @@ public class Boss : MonoBehaviour
 
         bossAnimator.SetTrigger("Injured");
 
+        OnBossInjured?.Invoke();
+
         if (HP <= 0)
         {
             IsBossAlive = false;
@@ -95,6 +99,7 @@ public class Boss : MonoBehaviour
             currentAction.EnemyAction.DoActionOnTiles(targetTiles, currentAction.Power);
 
             bossAnimator.SetTrigger("Attack");
+            OnBossAttack?.Invoke();
 
             foreach (var item in currentAttackMarker)
             {

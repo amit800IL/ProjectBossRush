@@ -7,6 +7,11 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroHealthChanged;
     public static event Action<Hero> OnHeroDefenceChanged;
 
+    public static event Action OnHeroWalk;
+    public static event Action OnHeroAttack;
+    public static event Action OnHeroDefend;
+    public static event Action OnHeroInjured;
+
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
     [SerializeField] private HeroSpriteChange spriteChange;
@@ -51,6 +56,7 @@ public abstract class Hero : Entity
 
         transform.position = targetTile.OccupantContainer.position;
         heroAnimator.SetTrigger("Walk");
+        OnHeroWalk?.Invoke();
 
         if (transform.position == targetTile.OccupantContainer.position && targetTile != null)
         {
@@ -117,6 +123,7 @@ public abstract class Hero : Entity
         OnHeroDefenceChanged?.Invoke(this);
 
         heroAnimator.SetTrigger("Injured");
+        OnHeroInjured?.Invoke();
         spriteChange.OnHpLow(HP);
 
         if (HP <= 0)
@@ -151,6 +158,7 @@ public abstract class Hero : Entity
             tempHP += HeroData.defense;
             OnHeroDefenceChanged?.Invoke(this);
             heroAnimator.SetTrigger("Defend");
+            OnHeroDefend?.Invoke();
             defendingParticle.Play();
             return true;
         }

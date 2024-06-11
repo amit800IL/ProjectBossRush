@@ -3723,21 +3723,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Metior VFx
       objectReference: {fileID: 0}
-    - target: {fileID: 5018737003873855086, guid: bbe9be1df7efec345830a9691c919cb8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7845460616933671264, guid: bbe9be1df7efec345830a9691c919cb8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.59
+      value: 6.53
       objectReference: {fileID: 0}
     - target: {fileID: 7845460616933671264, guid: bbe9be1df7efec345830a9691c919cb8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -22.07
+      value: -2.39
       objectReference: {fileID: 0}
     - target: {fileID: 7845460616933671264, guid: bbe9be1df7efec345830a9691c919cb8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 80.981346
+      value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 7845460616933671264, guid: bbe9be1df7efec345830a9691c919cb8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6930,15 +6926,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1460526748072188715, guid: 138543084b755c642af1f3bc2ff7a627, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.7008357
+      value: 6.53
       objectReference: {fileID: 0}
     - target: {fileID: 1460526748072188715, guid: 138543084b755c642af1f3bc2ff7a627, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4560871
+      value: -2.39
       objectReference: {fileID: 0}
     - target: {fileID: 1460526748072188715, guid: 138543084b755c642af1f3bc2ff7a627, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 58.85961
+      value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 1460526748072188715, guid: 138543084b755c642af1f3bc2ff7a627, type: 3}
       propertyPath: m_LocalRotation.w
