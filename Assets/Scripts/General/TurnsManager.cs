@@ -31,7 +31,7 @@ public class TurnsManager : MonoBehaviour
                 boss.InteractWithTiles(visualizeAction);
 
             isPlayerTurnActive = true;
-            OnPlayerTurnStart.Invoke();
+            OnPlayerTurnStart?.Invoke();
         }
     }
     public void EndPlayerTurn()
