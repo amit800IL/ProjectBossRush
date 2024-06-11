@@ -9,25 +9,19 @@ public class Ranger : Hero
         base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
     }
+    public override bool CanHeroAttack()
+    {
+        return AttackPosCondition(currentTile);
+    }
+
     public override bool HeroAttackBoss(Boss boss)
     {
         if (CanHeroAttack())
         {
-            attackingParticle.Play();
             arrowVFX.Play();
-            boss.TakeDamage(HeroData.damage);
-            return true;
         }
-        else
-        {
-            Debug.Log("Hero can't attack");
-            return false;
-        }
-    }
 
-    public override bool CanHeroAttack()
-    {
-        return AttackPosCondition(currentTile);
+        return base.HeroAttackBoss(boss);
     }
 
     public override bool CanHeroDefend()

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -21,18 +18,20 @@ public class SoundManager : MonoBehaviour
         Hero.OnHeroDefend -= ActivatePlayerDefendSound;
     }
 
-    public void ActivatePlayerAttackSound()
+    public void ActivatePlayerAttackSound(Hero hero)
     {
         Debug.Log("Player attack sound played");
 
-        playerAttack.Play();
+        if (hero != null)
+            playerAttack.Play();
     }
 
-    public void ActivatePlayerDefendSound()
+    public void ActivatePlayerDefendSound(Hero hero)
     {
         Debug.Log("Player defend sound played");
 
-        playerDefend.Play();
+        if (hero != null)
+            playerDefend.Play();
     }
 
     public void ActivateBossAttackSound()

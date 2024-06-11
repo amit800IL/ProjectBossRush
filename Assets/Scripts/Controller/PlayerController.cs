@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private HeroUI heroUI;
 
     [Header("Input system")]
     private BossRush inputActions;
@@ -149,6 +150,7 @@ public class PlayerController : MonoBehaviour
         isheroMarked = false;
         markedHero.ResetHeroMovement();
         markedHero = null;
+        heroUI.AssignHero(markedHero);
         OnHeroMarked?.Invoke(markedHero);
         markedTile = null;
 
@@ -160,15 +162,12 @@ public class PlayerController : MonoBehaviour
 
         bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
 
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue, 5f);
-
-        Debug.Log("Player has been hit : " + raycast);
-
         if (raycast)
         {
             isheroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
             OnHeroMarked?.Invoke(markedHero);
+            heroUI.AssignHero(markedHero);
         }
     }
 
@@ -177,10 +176,6 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(hoverPosition);
 
         bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
-
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue, 5f);
-
-        Debug.Log("Player has been hit : " + raycast);
 
         if (raycast)
         {
@@ -225,18 +220,15 @@ public class PlayerController : MonoBehaviour
         {
             isheroMarked = false;
             markedHero = null;
+            heroUI.AssignHero(markedHero);
             OnHeroMarked?.Invoke(markedHero);
         }
     }
 
-    // this method needs to be called when the input is pressed, and also when the cursor starts and stops hovering over heroes
-    [ContextMenu("tactical")]
     public void TacticalViewPressed()
     {
         GridManager.Instance.StartTacticalView(hoveredHero);
     }
-
-    [ContextMenu("end tactical")]
     public void TacticalViewReleased()
     {
         GridManager.Instance.StopTacticalView();

@@ -15,8 +15,11 @@ public class HeroUI : MonoBehaviour
 
     public void AssignHero(Hero hero)
     {
-        this.hero = hero;
-        IntitiliazeHeroUI();
+        if (hero != null)
+        {
+            this.hero = hero;
+            IntitiliazeHeroUI();
+        }
     }
 
     private void IntitiliazeHeroUI()
@@ -64,7 +67,8 @@ public class HeroUI : MonoBehaviour
 
     private void ShowHeroMovementAmount()
     {
-        heroMovementAmountText.text = hero.HeroData.maxMovementAmount.ToString();
+        if (hero != null)
+            heroMovementAmountText.text = hero.HeroData.maxMovementAmount.ToString();
     }
 
     private void HeroDefenceChange(Hero h)
