@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BurnTile : EnemyAction
 {
+    [SerializeField] private Effect burn;
     public override void DoActionOnHero(Hero hero)
     {
         throw new System.NotImplementedException();
@@ -11,6 +12,23 @@ public class BurnTile : EnemyAction
 
     public override void DoActionOnTiles(List<Vector2Int> tiles, int actionPower)
     {
-        
+        Tile[,] grid = GridManager.Instance.Tiles;
+        Tile tile;
+        foreach (Vector2Int tilePosition in tiles)
+        {
+            tile = grid[tilePosition.x, tilePosition.y];
+            if (tile != null)
+            {
+                tile.AddTileEffect(burn);
+                if (tile.IsTileOccupied)
+                {
+                    Hero hero = (Hero)tile.GetOccupier();
+                    hero.TakeDamage(actionPower);
+
+                    hero.SlashParticle.Play();
+                }
+            }
+        }
+
     }
 }

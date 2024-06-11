@@ -106,7 +106,8 @@ public class BossTargeting : MonoBehaviour
         targetedHeroes = GetTargetHeroes(bossAction.Target);
         foreach (Hero hero in targetedHeroes)
         {
-            hero.ApplyTargetMarker(bossAction.TargetMarker);
+            hero.ApplyTargetMarker(bossAction.TargetMarker, bossAction.Target.Size);
+            print(hero.name);
         }
     }
 

@@ -23,9 +23,9 @@ public struct Effect
         amount = effect.amount;
     }
 
-    public void LowerDuration()
+    public Effect LowerDuration()
     {
-        this = new(this, duration - 1);
+        return new(this, duration - 1);
     }
 }
 
@@ -33,6 +33,8 @@ public enum EffectType
 {
     DamageBoss,
     HealAll,
+    HealTarget,
     Revive,
     BuffDefense1,
+    DamageOverTime
 }
