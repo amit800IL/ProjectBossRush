@@ -14,6 +14,8 @@ public class GridManagerEditor : Editor
 
         if (!EditorApplication.isPlaying)
         {
+            EditorGUILayout.HelpBox("Press Clear Grid before pressing play after using editor grid generation", MessageType.Info);
+
             if (GUILayout.Button("Generate Grid"))
             {
                 gridManager.CreateGrid();
@@ -23,6 +25,10 @@ public class GridManagerEditor : Editor
             {
                 gridManager.ClearGrid();
             }
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("Grid controls are disabled during runtime.", MessageType.Info);
         }
     }
 }
