@@ -8,16 +8,19 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tile tileObject;
     [SerializeField] private Vector2Int gridSize;
     [SerializeField] private List<GridObjectToSpawn> gridObjectsToSpawn = new List<GridObjectToSpawn>();
+    private List<GameObject> spawnedObjects = new List<GameObject>();
     public Tile[,] Tiles { get; private set; }
 
     private void Awake()
     {
+
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
+
             Destroy(gameObject);
         }
 
@@ -51,6 +54,28 @@ public class GridManager : MonoBehaviour
         SpawnObjectsOnGrid();
     }
 
+    public void ClearGrid()
+    {
+        if (Tiles != null)
+        {
+            foreach (Tile tile in Tiles)
+            {
+                if (tile != null)
+                {
+                    DestroyImmediate(tile.gameObject);
+                }
+            }
+        }
+
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj != null)
+            {
+                DestroyImmediate(obj);
+            }
+        }
+        spawnedObjects.Clear();
+    }
     private void SpawnObjectsOnGrid()
     {
         foreach (GridObjectToSpawn gridObject in gridObjectsToSpawn)
@@ -64,6 +89,8 @@ public class GridManager : MonoBehaviour
             targetTile.OccupyTile(hero);
 
             hero.CurrentTile = targetTile;
+
+            spawnedObjects.Add(heroObject);
         }
     }
 
@@ -109,7 +136,7 @@ public class GridManager : MonoBehaviour
 
     public void StopTacticalView()
     {
-        foreach(Tile tile in Tiles)
+        foreach (Tile tile in Tiles)
         {
             tile.StopTactical();
         }

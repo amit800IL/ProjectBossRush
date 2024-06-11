@@ -11,14 +11,14 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerController.OnPlayerAttack += ActivatePlayerAttackSound;
-        PlayerController.OnPlayerDefend += ActivatePlayerDefendSound;
+        Hero.OnHeroAttack += ActivatePlayerAttackSound;
+        Hero.OnHeroDefend += ActivatePlayerDefendSound;
     }
 
     private void OnDisable()
     {
-        PlayerController.OnPlayerAttack -= ActivatePlayerAttackSound;
-        PlayerController.OnPlayerDefend -= ActivatePlayerDefendSound;
+        Hero.OnHeroAttack -= ActivatePlayerAttackSound;
+        Hero.OnHeroDefend -= ActivatePlayerDefendSound;
     }
 
     public void ActivatePlayerAttackSound()
