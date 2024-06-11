@@ -14,7 +14,7 @@ public class GridManagerEditor : Editor
 
         if (!EditorApplication.isPlaying)
         {
-            EditorGUILayout.HelpBox("Press Clear Grid before pressing play after using editor grid generation", MessageType.Info);
+            EditorGUILayout.HelpBox("Press Clear Grid before pressing play after using editor grid generation", MessageType.Warning);
 
             if (GUILayout.Button("Generate Grid"))
             {
