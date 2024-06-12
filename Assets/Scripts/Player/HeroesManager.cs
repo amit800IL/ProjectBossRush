@@ -60,7 +60,7 @@ public class HeroesManager : MonoBehaviour
         {
             if (hero.HeroAttackBoss(boss))
             {
-                playerResourceManager.AddSymbols(hero.SymbolTable);
+                playerResourceManager.AddSymbols(hero, hero.SymbolTable);
 
                 if (hero.heroAnimator != null)
                     hero.heroAnimator.SetTrigger("Attack");
@@ -74,7 +74,7 @@ public class HeroesManager : MonoBehaviour
         {
             if (hero.Defend())
             {
-                playerResourceManager.AddSymbols(new((int)SymbolTable.Symbols.Defense));
+                playerResourceManager.AddSymbols(hero, new((int)SymbolTable.Symbols.Defense));
             }
         }
     }

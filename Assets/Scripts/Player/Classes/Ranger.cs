@@ -6,8 +6,8 @@ public class Ranger : Hero
     [SerializeField] private ParticleSystem arrowVFX;
     protected override void Start()
     {
-        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
+        base.Start();
     }
     public override bool CanHeroAttack()
     {

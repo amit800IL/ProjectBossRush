@@ -6,10 +6,6 @@ public class PlayerResourceManager : MonoBehaviour
     public static event Action<int> OnAPChanged;
     public static event Action<Effect[], Hero> OnTechniqueUsed;
 
-    [Header("Symbols")]
-
-    [SerializeField] SymbolTable symbolCharge = new();
-
     [Header("AP count")]
 
     [SerializeField] private int maxAP;
@@ -22,24 +18,26 @@ public class PlayerResourceManager : MonoBehaviour
 
     [Header("Other")]
 
-    [SerializeField] private Hero selectedHero;
+    [SerializeField] private HeroesManager heroes;
     [SerializeField] private SymbolUI symbolUI;
-
-    [SerializeField] SymbolTable testTable = new SymbolTable(1);
 
     private void Start()
     {
+        Hero.OnHeroSymbolChanged += UpdateSymbolUI;
         Technique.SelectTechnique += SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart += RollCooldowns;
         TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
 
-        UpdateSymbolUI();
-
+        foreach (Hero hero in heroes.heroList)
+        {
+            UpdateSymbolUI(hero);
+        }
     }
 
     private void OnDestroy()
     {
+        Hero.OnHeroSymbolChanged -= UpdateSymbolUI;
         Technique.SelectTechnique -= SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart -= RollCooldowns;
         TurnsManager.OnPlayerTurnStart -= ResetAP;
@@ -48,7 +46,9 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void SetSelectedHero(Hero hero)
     {
-        selectedHero = hero;
+        if (hero == null) return;
+
+        UpdateSymbolUI(hero);
     }
 
     #region Combos
@@ -56,7 +56,11 @@ public class PlayerResourceManager : MonoBehaviour
     private void SetSelectedCombo(Technique selected)
     {
         selectedTechnique = selected;
-        UseTechnique();
+
+        foreach (Hero hero in heroes.heroList)
+        {
+            UseTechnique(hero);
+        }
     }
 
     public void RollCooldowns()
@@ -69,20 +73,23 @@ public class PlayerResourceManager : MonoBehaviour
     }
 
     [ContextMenu("Use technique")]
-    public void UseTechnique()
+    public void UseTechnique(Hero hero)
     {
+        if (hero == null) return;
+
         if (selectedTechnique.IsReadyToUse())
         {
             if (selectedTechnique.GetAPCost() <= AP)
             {
-                if (ContainsSymbols(selectedTechnique.GetRequirements()))
+                if (hero.SymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
-                    UseSymbols(selectedTechnique.GetRequirements());
+                    UseSymbols(hero);
                     UseAP(selectedTechnique.GetAPCost());
-                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), hero);
                     selectedTechnique.StartCooldown();
+                    UpdateSymbolUI(hero);
                 }
-                else print($"not enough symbols {selectedTechnique.GetRequirements()} \n {symbolCharge}");
+                else print($"not enough symbols {selectedTechnique.GetRequirements()} \n {hero.SymbolTable}");
             }
             else print($"not enough AP {AP}/{selectedTechnique.GetAPCost()}");
         }
@@ -92,39 +99,46 @@ public class PlayerResourceManager : MonoBehaviour
     #endregion
 
     #region symbols
-    public void AddSymbols(SymbolTable toAdd)
+    public void AddSymbols(Hero hero, SymbolTable toAdd)
     {
-        symbolCharge.Add(toAdd);
-        UpdateSymbolUI();
+        if (hero == null) return;
+
+        hero.SymbolTable.Add(toAdd);
+        UpdateSymbolUI(hero);
+
+        Debug.Log("Symbol added for" + hero);
     }
 
-    [ContextMenu("add test table")]
-    public void AddTestTable()
-    {
-        AddSymbols(testTable);
-    }
+    //[ContextMenu("add test table")]
+    //public void AddTestTable()
+    //{
+    //    AddSymbols(testTable);
+    //}
 
     [ContextMenu("print table")]
     public void PrintSymbols()
     {
-        symbolCharge.PrintTable();
+        foreach (Hero hero in heroes.heroList)
+        {
+            hero.SymbolTable.PrintTable();
+        }
     }
 
     [ContextMenu("check contains symbols")]
-    public bool ContainsSymbols(SymbolTable toCheck)
+    public bool ContainsSymbols(Hero hero)
     {
-        return symbolCharge.Contains(toCheck);
+        return hero.SymbolTable.Contains(hero.SymbolTable);
     }
 
-    public void UseSymbols(SymbolTable toUse)
+    public void UseSymbols(Hero hero)
     {
-        symbolCharge.Remove(toUse);
-        UpdateSymbolUI();
+        hero.SymbolTable.Remove(hero.SymbolTable);
+        UpdateSymbolUI(hero);
     }
 
-    private void UpdateSymbolUI()
+    private void UpdateSymbolUI(Hero hero)
     {
-        symbolUI.UpdateUI(symbolCharge.ToShortString());
+        symbolUI.UpdateUI(hero.SymbolTable.ToShortString());
     }
     #endregion
 

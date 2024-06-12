@@ -4,8 +4,8 @@ public class Figher : Hero
 {
     protected override void Start()
     {
-        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
+        base.Start();
     }
 
     public override bool CanHeroAttack()

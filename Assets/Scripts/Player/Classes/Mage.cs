@@ -4,8 +4,8 @@ public class Mage : Hero
 {
     protected override void Start()
     {
-        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
+        base.Start();
     }
     public override bool CanHeroAttack()
     {

@@ -6,6 +6,7 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroSpawned;
     public static event Action<Hero> OnHeroHealthChanged;
     public static event Action<Hero> OnHeroDefenceChanged;
+    public static event Action<Hero> OnHeroSymbolChanged;
 
     public static event Action<Hero> OnHeroWalk;
     public static event Action<Hero> OnHeroAttack;
@@ -46,6 +47,7 @@ public abstract class Hero : Entity
 
         OnHeroHealthChanged?.Invoke(this);
         OnHeroDefenceChanged?.Invoke(this);
+        OnHeroSymbolChanged?.Invoke(this);
     }
 
     public void MoveHeroToPosition(Tile targetTile)
@@ -156,6 +158,7 @@ public abstract class Hero : Entity
             attackingParticle.Play();
             boss.TakeDamage(HeroData.damage);
             OnHeroAttack?.Invoke(this);
+            OnHeroSymbolChanged?.Invoke(this);
             return true;
         }
         else
@@ -173,6 +176,7 @@ public abstract class Hero : Entity
             OnHeroDefenceChanged?.Invoke(this);
             heroAnimator.SetTrigger("Defend");
             OnHeroDefend?.Invoke(this);
+            OnHeroSymbolChanged?.Invoke(this);
             defendingParticle.Play();
             return true;
         }
