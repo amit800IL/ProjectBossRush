@@ -18,7 +18,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     [Header("Other")]
 
-    [SerializeField] private HeroesManager heroes;
+    [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private SymbolUI symbolUI;
 
     private void Start()
@@ -29,7 +29,7 @@ public class PlayerResourceManager : MonoBehaviour
         TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
 
-        foreach (Hero hero in heroes.heroList)
+        foreach (Hero hero in heroesManager.heroList)
         {
             UpdateSymbolUI(hero);
         }
@@ -57,7 +57,7 @@ public class PlayerResourceManager : MonoBehaviour
     {
         selectedTechnique = selected;
 
-        foreach (Hero hero in heroes.heroList)
+        foreach (Hero hero in heroesManager.heroList)
         {
             UseTechnique(hero);
         }
@@ -118,7 +118,7 @@ public class PlayerResourceManager : MonoBehaviour
     [ContextMenu("print table")]
     public void PrintSymbols()
     {
-        foreach (Hero hero in heroes.heroList)
+        foreach (Hero hero in heroesManager.heroList)
         {
             hero.SymbolTable.PrintTable();
         }
