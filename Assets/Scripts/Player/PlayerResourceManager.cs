@@ -47,11 +47,14 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void SetSelectedHero(Hero hero)
     {
-        UpdateSymbolUI();
-
-        if (hero == null) return;
-         
-        UpdateSymbolUI(hero);
+        if (hero != null)
+        {
+            UpdateSymbolUI(hero);
+        }
+        else
+        {
+            UpdateSymbolUI();
+        }
     }
 
     #region Combos
