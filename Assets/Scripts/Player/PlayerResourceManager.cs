@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class PlayerResourceManager : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class PlayerResourceManager : MonoBehaviour
         foreach (Hero hero in heroesManager.heroList)
         {
             UseTechnique(hero);
+            return;
         }
     }
 
@@ -83,17 +85,19 @@ public class PlayerResourceManager : MonoBehaviour
             {
                 if (hero.SymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
+                    Debug.Log(hero + "Used tecqniqe");
+
                     UseSymbols(hero);
                     UseAP(selectedTechnique.GetAPCost());
                     OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), hero);
                     selectedTechnique.StartCooldown();
                     UpdateSymbolUI(hero);
                 }
-                else print($"not enough symbols {selectedTechnique.GetRequirements()} \n {hero.SymbolTable}");
+                else Debug.Log($"not enough symbols {selectedTechnique.GetRequirements()} \n {hero.SymbolTable}");
             }
-            else print($"not enough AP {AP}/{selectedTechnique.GetAPCost()}");
+            else Debug.Log($"not enough AP {AP}/{selectedTechnique.GetAPCost()}");
         }
-        else print("combo on cooldown");
+        else Debug.Log("combo on cooldown");
     }
 
     #endregion

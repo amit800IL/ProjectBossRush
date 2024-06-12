@@ -36,8 +36,15 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
     void UpdateUsability(Hero hero)
     {
-        if (techData.RequiresTargetHero)
+        activationButton.interactable = false;
+
+        if (hero == null) return;
+
+        if (hero.SymbolTable.Contains(GetRequirements()))
+        {
+            Debug.Log("Techniqe available for " + hero);
             activationButton.interactable = (hero != null);
+        }
     }
 
     public void Select()

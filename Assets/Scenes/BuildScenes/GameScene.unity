@@ -4181,7 +4181,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   selectedTechnique: {fileID: 0}
-  heroesManager: {fileID: 0}
+  heroesManager: {fileID: 603676718}
   symbolUI: {fileID: 658537898}
 --- !u!1 &1446197916
 GameObject:
