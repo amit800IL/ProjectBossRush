@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class PlayerResourceManager : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
+    private SymbolTable playerSymbolTable = new();
 
     [Header("Techniques")]
 
@@ -24,7 +24,6 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void Start()
     {
-        Hero.OnHeroSymbolChanged += UpdateSymbolUI;
         Technique.SelectTechnique += SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart += RollCooldowns;
         TurnsManager.OnPlayerTurnStart += ResetAP;
@@ -38,7 +37,6 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Hero.OnHeroSymbolChanged -= UpdateSymbolUI;
         Technique.SelectTechnique -= SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart -= RollCooldowns;
         TurnsManager.OnPlayerTurnStart -= ResetAP;
@@ -47,8 +45,10 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void SetSelectedHero(Hero hero)
     {
-        if (hero == null) return;
+        UpdateSymbolUI();
 
+        if (hero == null) return;
+         
         UpdateSymbolUI(hero);
     }
 
@@ -83,17 +83,14 @@ public class PlayerResourceManager : MonoBehaviour
         {
             if (selectedTechnique.GetAPCost() <= AP)
             {
-                if (hero.SymbolTable.Contains(selectedTechnique.GetRequirements()))
+                if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
-                    Debug.Log(hero + "Used tecqniqe");
-
-                    UseSymbols(hero);
                     UseAP(selectedTechnique.GetAPCost());
                     OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), hero);
                     selectedTechnique.StartCooldown();
-                    UpdateSymbolUI(hero);
+                    UpdateSymbolUI();
                 }
-                else Debug.Log($"not enough symbols {selectedTechnique.GetRequirements()} \n {hero.SymbolTable}");
+                else Debug.Log($"not enough symbols {selectedTechnique.GetRequirements()} \n {playerSymbolTable}");
             }
             else Debug.Log($"not enough AP {AP}/{selectedTechnique.GetAPCost()}");
         }
@@ -103,14 +100,10 @@ public class PlayerResourceManager : MonoBehaviour
     #endregion
 
     #region symbols
-    public void AddSymbols(Hero hero, SymbolTable toAdd)
+    public void AddSymbols(SymbolTable toAdd)
     {
-        if (hero == null) return;
-
-        hero.SymbolTable.Add(toAdd);
-        UpdateSymbolUI(hero);
-
-        Debug.Log("Symbol added for" + hero);
+        playerSymbolTable.Add(toAdd);
+        UpdateSymbolUI();
     }
 
     //[ContextMenu("add test table")]
@@ -129,15 +122,20 @@ public class PlayerResourceManager : MonoBehaviour
     }
 
     [ContextMenu("check contains symbols")]
-    public bool ContainsSymbols(Hero hero)
+    public bool ContainsSymbols()
     {
-        return hero.SymbolTable.Contains(hero.SymbolTable);
+        return playerSymbolTable.Contains(playerSymbolTable);
     }
 
-    public void UseSymbols(Hero hero)
+    public void UseSymbols()
     {
-        hero.SymbolTable.Remove(hero.SymbolTable);
-        UpdateSymbolUI(hero);
+        playerSymbolTable.Remove(playerSymbolTable);
+        UpdateSymbolUI();
+    }
+
+    private void UpdateSymbolUI()
+    {
+        symbolUI.UpdateUI(playerSymbolTable.ToShortString());
     }
 
     private void UpdateSymbolUI(Hero hero)

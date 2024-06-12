@@ -38,11 +38,8 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     {
         activationButton.interactable = false;
 
-        if (hero == null) return;
-
-        if (hero.SymbolTable.Contains(GetRequirements()))
+        if (IsReadyToUse())
         {
-            Debug.Log("Techniqe available for " + hero);
             activationButton.interactable = (hero != null);
         }
     }
@@ -70,11 +67,13 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     public void StartCooldown()
     {
         cooldown = techData.Cooldown;
-        if (cooldown > 0)
-        {
 
-            UpdateCooldownGraphic();
-        }
+        Debug.Log("Colldown started: " + cooldown);
+        //if (cooldown > 0)
+        //{
+
+        //    UpdateCooldownGraphic();
+        //}
     }
 
     public bool IsReadyToUse() => cooldown == 0;
@@ -85,14 +84,15 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         if (cooldown > 0)
         {
             cooldown--;
-            UpdateCooldownGraphic();
+            Debug.Log("Current cooldown number: " + cooldown);
+            //UpdateCooldownGraphic();
         }
     }
 
-    private void UpdateCooldownGraphic()
-    {
-        cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
-    }
+    //private void UpdateCooldownGraphic()
+    //{
+    //    cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
+    //}
 
     //public void OnPointerEnter(PointerEventData eventData)
     //{
