@@ -33,6 +33,8 @@ public class PlayerResourceManager : MonoBehaviour
         {
             UpdateSymbolUI(hero);
         }
+
+        UpdateSymbolUI();
     }
 
     private void OnDestroy()
