@@ -36,12 +36,8 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
     void UpdateUsability(Hero hero)
     {
-        activationButton.interactable = false;
-
-        if (IsReadyToUse())
-        {
+        if (techData.RequiresTargetHero)
             activationButton.interactable = (hero != null);
-        }
     }
 
     public void Select()
