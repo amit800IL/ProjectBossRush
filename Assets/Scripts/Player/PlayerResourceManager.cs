@@ -19,6 +19,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     [Header("Other")]
 
+    private Hero selectedHero;
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private SymbolUI symbolUI;
 
@@ -47,6 +48,8 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void SetSelectedHero(Hero hero)
     {
+        selectedHero = hero;
+
         if (hero != null)
         {
             UpdateSymbolUI(hero);
@@ -63,11 +66,7 @@ public class PlayerResourceManager : MonoBehaviour
     {
         selectedTechnique = selected;
 
-        foreach (Hero hero in heroesManager.heroList)
-        {
-            UseTechnique(hero);
-            return;
-        }
+        UseTechnique();
     }
 
     public void RollCooldowns()
@@ -80,10 +79,8 @@ public class PlayerResourceManager : MonoBehaviour
     }
 
     [ContextMenu("Use technique")]
-    public void UseTechnique(Hero hero)
+    public void UseTechnique()
     {
-        if (hero == null) return;
-
         if (selectedTechnique.IsReadyToUse())
         {
             if (selectedTechnique.GetAPCost() <= AP)
@@ -91,7 +88,7 @@ public class PlayerResourceManager : MonoBehaviour
                 if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
                     UseAP(selectedTechnique.GetAPCost());
-                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), hero);
+                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
                     selectedTechnique.StartCooldown();
                     UpdateSymbolUI();
                 }
