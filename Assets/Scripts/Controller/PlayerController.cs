@@ -103,15 +103,11 @@ public class PlayerController : MonoBehaviour
         {
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
-            if (markedTile != markedHero.CurrentTile)
-            {
-                if (CanHeroUnlockMovement())
-                {
-                    Vector2 initialPosition = markedTile.tilePosition;
+            int movementAPCost = 1;
 
-                    if (playerResourceManager.UseAP(1))
-                        markedHero.UnlockHeroMovement();
-                }
+            if (CanHeroUnlockMovement() && playerResourceManager.HasEnoughAP(movementAPCost))
+            {
+                markedHero.UnlockHeroMovement();
             }
 
             float movementCost = HeroMovementCost();
@@ -123,6 +119,12 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementCost);
 
                 markedHero.MoveHeroToPosition(markedTile);
+
+                if (markedHero.IsHeroOnNewPosition)
+                {
+                    playerResourceManager.UseAP(movementAPCost);
+                }
+
                 ResetMarkProccess();
             }
         }

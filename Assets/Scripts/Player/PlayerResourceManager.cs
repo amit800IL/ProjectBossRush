@@ -165,13 +165,18 @@ public class PlayerResourceManager : MonoBehaviour
 
     public bool UseAP(int amount)
     {
-        if (AP >= amount)
+        if (HasEnoughAP(amount))
         {
             AP -= amount;
             OnAPChanged?.Invoke(AP);
             return true;
         }
         return false;
+    }
+
+    public bool HasEnoughAP(int amount)
+    {
+        return AP >= amount;
     }
 
     public void ModifyAP(int amount)
