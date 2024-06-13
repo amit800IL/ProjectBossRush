@@ -103,26 +103,26 @@ public class PlayerController : MonoBehaviour
         {
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
-            int movementAPCost = 1;
+            int APCost = 1;
 
-            if (CanHeroUnlockMovement() && playerResourceManager.HasEnoughAP(movementAPCost))
+            if (CanHeroUnlockMovement(APCost))
             {
                 markedHero.UnlockHeroMovement();
             }
 
-            float movementCost = HeroMovementCost();
+            int movementAmount = (int)HeroMovementAmount();
 
-            if (CanStepOnTile() && markedHero.CanHeroMove((int)movementCost) && movementCost > 0)
+            if (CanStepOnTile(movementAmount))
             {
-                markedHero.HeroMovemetAmountReduction((int)movementCost);
+                markedHero.HeroMovemetAmountReduction(movementAmount);
 
-                Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementCost);
+                Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementAmount);
 
                 markedHero.MoveHeroToPosition(markedTile);
 
                 if (markedHero.IsHeroOnNewPosition)
                 {
-                    playerResourceManager.UseAP(movementAPCost);
+                    playerResourceManager.UseAP(APCost);
                 }
 
                 ResetMarkProccess();
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public float HeroMovementCost()
+    public float HeroMovementAmount()
     {
         if (markedHero == null || markedTile == null)
             return 0;
@@ -142,14 +142,14 @@ public class PlayerController : MonoBehaviour
         return movementCost;
     }
 
-    private bool CanStepOnTile()
+    private bool CanStepOnTile(int movementCost)
     {
-        return markedTile != null && !markedTile.IsTileOccupied && markedHero.HasHeroMoved;
+        return markedTile != null && !markedTile.IsTileOccupied && markedHero.HasHeroUnclockedMovement && markedHero.CanHeroMove((int)movementCost);
     }
 
-    private bool CanHeroUnlockMovement()
+    private bool CanHeroUnlockMovement(int movementAPCost)
     {
-        return !markedHero.HasHeroMoved && markedTile != null && !markedTile.IsTileOccupied;
+        return !markedHero.HasHeroUnclockedMovement && markedTile != null && !markedTile.IsTileOccupied && playerResourceManager.HasEnoughAP(movementAPCost);
     }
 
     private void ResetMarkProccess()
