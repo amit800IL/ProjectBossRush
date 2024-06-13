@@ -114,20 +114,25 @@ public class PlayerController : MonoBehaviour
 
             if (CanStepOnTile(movementAmount))
             {
-                markedHero.HeroMovemetAmountReduction(movementAmount);
-
-                Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementAmount);
-
-                markedHero.MoveHeroToPosition(markedTile);
-
-                if (markedHero.IsHeroOnNewPosition)
-                {
-                    playerResourceManager.UseAP(APCost);
-                }
-
-                ResetMarkProccess();
+                MoveHeroToTile(movementAmount, APCost);
             }
         }
+    }
+
+    private void MoveHeroToTile(int movementAmount, int APCost)
+    {
+        markedHero.HeroMovemetAmountReduction(movementAmount);
+
+        Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementAmount);
+
+        markedHero.MoveHeroToPosition(markedTile);
+
+        if (markedHero.IsHeroOnNewPosition)
+        {
+            playerResourceManager.UseAP(APCost);
+        }
+
+        ResetMarkProccess();
     }
 
     public float HeroMovementAmount()
