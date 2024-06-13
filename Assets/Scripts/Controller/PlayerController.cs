@@ -144,12 +144,12 @@ public class PlayerController : MonoBehaviour
 
     private bool CanStepOnTile(int movementCost)
     {
-        return markedTile != null && !markedTile.IsTileOccupied && markedHero.HasHeroUnclockedMovement && markedHero.CanHeroMove((int)movementCost);
+        return markedTile != null && !markedTile.IsTileOccupied && markedHero.HasHeroUnlockedMovement && markedHero.CanHeroMove((int)movementCost);
     }
 
     private bool CanHeroUnlockMovement(int movementAPCost)
     {
-        return !markedHero.HasHeroUnclockedMovement && markedTile != null && !markedTile.IsTileOccupied && playerResourceManager.HasEnoughAP(movementAPCost);
+        return !markedHero.HasHeroUnlockedMovement && markedTile != null && !markedTile.IsTileOccupied && playerResourceManager.HasEnoughAP(movementAPCost);
     }
 
     private void ResetMarkProccess()

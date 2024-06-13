@@ -18,7 +18,7 @@ public abstract class Hero : Entity
     [SerializeField] protected ParticleSystem attackingParticle;
     [SerializeField] protected ParticleSystem defendingParticle;
     [field: SerializeField] public ParticleSystem SlashParticle { get; protected set; }
-    public bool HasHeroUnclockedMovement { get; protected set; } = false;
+    public bool HasHeroUnlockedMovement { get; protected set; } = false;
     public bool IsHeroOnNewPosition { get; protected set; } = false;
     [field: SerializeField] public SymbolTable SymbolTable { get; protected set; }
 
@@ -73,7 +73,7 @@ public abstract class Hero : Entity
         if (movementAmount <= 0)
         {
             movementAmount += HeroData.maxMovementAmount;
-            HasHeroUnclockedMovement = true;
+            HasHeroUnlockedMovement = true;
         }
     }
     public void HeroMovemetAmountReduction(int amountToReduce)
@@ -94,7 +94,7 @@ public abstract class Hero : Entity
     public void ResetHeroMovement()
     {
         movementAmount = 0;
-        HasHeroUnclockedMovement = false;
+        HasHeroUnlockedMovement = false;
     }
 
     public void ResetTempHP()
