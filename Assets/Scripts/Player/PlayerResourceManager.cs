@@ -10,7 +10,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
-    private SymbolTable playerSymbolTable = new();
+    private SymbolTable playerSymbolTable = new SymbolTable();
 
     [Header("Techniques")]
 
@@ -87,6 +87,7 @@ public class PlayerResourceManager : MonoBehaviour
             {
                 if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
+                    UseSymbols(selectedTechnique.GetRequirements());
                     UseAP(selectedTechnique.GetAPCost());
                     OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
                     selectedTechnique.StartCooldown();
@@ -129,9 +130,9 @@ public class PlayerResourceManager : MonoBehaviour
         return playerSymbolTable.Contains(playerSymbolTable);
     }
 
-    public void UseSymbols()
+    public void UseSymbols(SymbolTable toUse)
     {
-        playerSymbolTable.Remove(playerSymbolTable);
+        playerSymbolTable.Remove(toUse);
         UpdateSymbolUI();
     }
 
@@ -180,3 +181,5 @@ public class PlayerResourceManager : MonoBehaviour
 
     #endregion
 }
+
+

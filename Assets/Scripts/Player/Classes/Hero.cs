@@ -18,7 +18,8 @@ public abstract class Hero : Entity
     [SerializeField] protected ParticleSystem attackingParticle;
     [SerializeField] protected ParticleSystem defendingParticle;
     [field: SerializeField] public ParticleSystem SlashParticle { get; protected set; }
-    public bool CanHeroMoved { get; protected set; } = false;
+    public bool HasHeroMoved { get; protected set; } = false;
+    public bool IsHeroOnNewPosition { get; protected set; } = false;
     [field: SerializeField] public SymbolTable SymbolTable { get; protected set; }
 
     protected int movementAmount = 0;
@@ -50,6 +51,8 @@ public abstract class Hero : Entity
 
     public void MoveHeroToPosition(Tile targetTile)
     {
+        IsHeroOnNewPosition = false;
+
         CurrentTile.ClearTile();
 
         CurrentTile = targetTile;
@@ -61,6 +64,7 @@ public abstract class Hero : Entity
         if (transform.position == targetTile.OccupantContainer.position && targetTile != null)
         {
             targetTile.OccupyTile(this);
+            IsHeroOnNewPosition = true;
         }
     }
 
@@ -69,7 +73,7 @@ public abstract class Hero : Entity
         if (movementAmount <= 0)
         {
             movementAmount += HeroData.maxMovementAmount;
-            CanHeroMoved = true;
+            HasHeroMoved = true;
         }
     }
     public void HeroMovemetAmountReduction(int amountToReduce)
@@ -90,7 +94,7 @@ public abstract class Hero : Entity
     public void ResetHeroMovement()
     {
         movementAmount = 0;
-        CanHeroMoved = false;
+        HasHeroMoved = false;
     }
 
     public void ResetTempHP()
