@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Add Shine
-  m_Shader: {fileID: -6465566751694194690, guid: 1add7f43a8e1ead489cac70df7e31f62, type: 3}
+  m_Name: Alpha Fire wall 1
+  m_Shader: {fileID: -6465566751694194690, guid: d00602d28f7e99f4c9ceab4d4ce81899, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 17f09c94c3558d24290af8975230b77d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 712c3846ad997cd4588f2403c133c462, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -44,7 +44,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 22.894424, g: 22.894424, b: 22.894424, a: 1}
+    - _Color: {r: 0.6988599, g: 0.6988599, b: 0.6988599, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &4539947955978261432
 MonoBehaviour:
