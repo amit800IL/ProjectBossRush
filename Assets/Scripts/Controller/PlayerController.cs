@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
             HoverHero(inputPosition);
         }
     }
-
+     
     private void MoveHeroToTile(Vector3 pressPosition)
     {
         if (markedHero != null && isheroMarked)
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     private bool CanStepOnTile(int movementCost)
     {
-        return markedTile != null && !markedTile.IsTileOccupied && markedHero.HasHeroUnlockedMovement && markedHero.CanHeroMove((int)movementCost);
+        return markedTile != null && !markedTile.IsTileOccupied && markedHero.HasHeroUnlockedMovement && markedHero.CanHeroMove(movementCost);
     }
 
     private bool CanHeroUnlockMovement(int movementAPCost)
