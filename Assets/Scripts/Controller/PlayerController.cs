@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private HeroUI heroUI;
 
     [Header("Input system")]
     private BossRush inputActions;
@@ -39,20 +38,22 @@ public class PlayerController : MonoBehaviour
     {
         inputActions = new BossRush();
         inputActions.Enable();
-        inputActions.Player.PlayerPress.performed += OnPlayerMove;
+        inputActions.Player.PlayerPress.performed += HeroMark;
+        inputActions.Player.PlayerCancel.performed += OnHeroUnMarked;
         inputActions.Player.PlayerTactical.started += OnCharachterHovered;
         inputActions.Player.PlayerTactical.canceled += OnCharachterReleased;
         inputActions.UI.Point.performed += HoverCharachter;
     }
     private void OnDisable()
     {
-        inputActions.Player.PlayerPress.performed -= OnPlayerMove;
+        inputActions.Player.PlayerPress.performed -= HeroMark;
+        inputActions.Player.PlayerCancel.performed -= OnHeroUnMarked;
         inputActions.Player.PlayerTactical.started -= OnCharachterHovered;
         inputActions.Player.PlayerTactical.canceled -= OnCharachterReleased;
         inputActions.UI.Point.performed -= HoverCharachter;
     }
 
-    private void OnPlayerMove(InputAction.CallbackContext inputAction)
+    private void HeroMark(InputAction.CallbackContext inputAction)
     {
         inputPosition = Mouse.current.position.ReadValue();
 
@@ -66,6 +67,20 @@ public class PlayerController : MonoBehaviour
                     MoveHeroToTile(inputPosition);
                 else
                     MarkHero(inputPosition);
+            }
+        }
+    }
+
+    private void OnHeroUnMarked(InputAction.CallbackContext inputAction)
+    {
+        inputPosition = Mouse.current.position.ReadValue();
+
+        if (inputActions != null && inputPosition != null)
+        {
+            if (inputAction.performed)
+            {
+                if (isheroMarked)
+                    ResetMarkProccess();
             }
         }
     }
@@ -96,7 +111,7 @@ public class PlayerController : MonoBehaviour
             HoverHero(inputPosition);
         }
     }
-     
+
     private void MoveHeroToTile(Vector3 pressPosition)
     {
         if (markedHero != null && isheroMarked)
@@ -162,7 +177,6 @@ public class PlayerController : MonoBehaviour
         isheroMarked = false;
         markedHero.ResetHeroMovement();
         markedHero = null;
-        heroUI.AssignHero(markedHero);
         OnHeroMarked?.Invoke(markedHero);
         markedTile = null;
 
@@ -179,7 +193,6 @@ public class PlayerController : MonoBehaviour
             isheroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
             OnHeroMarked?.Invoke(markedHero);
-            heroUI.AssignHero(markedHero);
         }
     }
 
@@ -232,7 +245,6 @@ public class PlayerController : MonoBehaviour
         {
             isheroMarked = false;
             markedHero = null;
-            heroUI.AssignHero(markedHero);
             OnHeroMarked?.Invoke(markedHero);
         }
     }

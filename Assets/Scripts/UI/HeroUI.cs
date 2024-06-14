@@ -16,12 +16,12 @@ public class HeroUI : MonoBehaviour
 
     private void Start()
     {
-        PlayerController.OnHeroMarked += UndoHeroSelectionOnUI;
+        PlayerController.OnHeroMarked += AssignHero;
     }
 
     private void OnDisable()
     {
-        PlayerController.OnHeroMarked -= UndoHeroSelectionOnUI;
+        PlayerController.OnHeroMarked -= AssignHero;
     }
 
     public void AssignHero(Hero hero)
@@ -29,14 +29,20 @@ public class HeroUI : MonoBehaviour
         if (hero != null)
         {
             this.hero = hero;
-            IntitiliazeHeroUI();
+            ShowSelectedHeroOnUI();
+        }
+        else
+        {
+            UndoHeroSelectionOnUI();
         }
     }
 
-    private void IntitiliazeHeroUI()
+    private void ShowSelectedHeroOnUI()
     {
         ShowHeroMovementAmount();
         graphic.sprite = hero.HeroData.headshotSprite;
+
+        hpBar.gameObject.SetActive(true);
 
         HeroHealthChange(hero);
         HeroDefenceChange(hero);
@@ -45,11 +51,13 @@ public class HeroUI : MonoBehaviour
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
     }
 
-    private void UndoHeroSelectionOnUI(Hero hero)
+    private void UndoHeroSelectionOnUI()
     {
         heroMovementAmountText.text = "0";
 
         heroDefenceText.text = "0";
+
+        hpBar.gameObject.SetActive(false);
 
         graphic.sprite = null;
 

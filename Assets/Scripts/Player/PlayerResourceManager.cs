@@ -20,7 +20,6 @@ public class PlayerResourceManager : MonoBehaviour
     [Header("Other")]
 
     private Hero selectedHero;
-    //[SerializeField] private HeroesManager heroesManager;
     [SerializeField] private SymbolUI generalSymbolUI;
     [SerializeField] private SymbolUI heroSymbolUI;
 
@@ -30,13 +29,6 @@ public class PlayerResourceManager : MonoBehaviour
         TurnsManager.OnPlayerTurnStart += RollCooldowns;
         TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
-
-        //foreach (Hero hero in heroesManager.heroList)
-        //{
-        //    UpdateSymbolUI(hero);
-        //}
-
-        UpdateSymbolUI();
     }
 
     private void OnDestroy()

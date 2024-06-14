@@ -44,6 +44,15 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlayerCancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e478eee-e83f-406a-b402-956340d6f531"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -53,7 +62,7 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""PlayerPress"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -66,6 +75,17 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PlayerTactical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68473941-950e-47fc-9d3a-5edc66802847"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PlayerCancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -633,6 +653,7 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_PlayerPress = m_Player.FindAction("PlayerPress", throwIfNotFound: true);
         m_Player_PlayerTactical = m_Player.FindAction("PlayerTactical", throwIfNotFound: true);
+        m_Player_PlayerCancel = m_Player.FindAction("PlayerCancel", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -708,12 +729,14 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_PlayerPress;
     private readonly InputAction m_Player_PlayerTactical;
+    private readonly InputAction m_Player_PlayerCancel;
     public struct PlayerActions
     {
         private @BossRush m_Wrapper;
         public PlayerActions(@BossRush wrapper) { m_Wrapper = wrapper; }
         public InputAction @PlayerPress => m_Wrapper.m_Player_PlayerPress;
         public InputAction @PlayerTactical => m_Wrapper.m_Player_PlayerTactical;
+        public InputAction @PlayerCancel => m_Wrapper.m_Player_PlayerCancel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -729,6 +752,9 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
             @PlayerTactical.started += instance.OnPlayerTactical;
             @PlayerTactical.performed += instance.OnPlayerTactical;
             @PlayerTactical.canceled += instance.OnPlayerTactical;
+            @PlayerCancel.started += instance.OnPlayerCancel;
+            @PlayerCancel.performed += instance.OnPlayerCancel;
+            @PlayerCancel.canceled += instance.OnPlayerCancel;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -739,6 +765,9 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
             @PlayerTactical.started -= instance.OnPlayerTactical;
             @PlayerTactical.performed -= instance.OnPlayerTactical;
             @PlayerTactical.canceled -= instance.OnPlayerTactical;
+            @PlayerCancel.started -= instance.OnPlayerCancel;
+            @PlayerCancel.performed -= instance.OnPlayerCancel;
+            @PlayerCancel.canceled -= instance.OnPlayerCancel;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -923,6 +952,7 @@ public partial class @BossRush: IInputActionCollection2, IDisposable
     {
         void OnPlayerPress(InputAction.CallbackContext context);
         void OnPlayerTactical(InputAction.CallbackContext context);
+        void OnPlayerCancel(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
