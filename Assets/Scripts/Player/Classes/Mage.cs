@@ -4,24 +4,9 @@ public class Mage : Hero
 {
     protected override void Start()
     {
-        base.Start();
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
+        base.Start();
     }
-    public override bool HeroAttackBoss(Boss boss)
-    {
-        if (CanHeroAttack())
-        {
-            attackingParticle.Play();
-            boss.TakeDamage(HeroData.damage);
-            return true;
-        }
-        else
-        {
-            Debug.Log("Hero can't attack");
-            return false;
-        }
-    }
-
     public override bool CanHeroAttack()
     {
         return AttackPosCondition(currentTile);

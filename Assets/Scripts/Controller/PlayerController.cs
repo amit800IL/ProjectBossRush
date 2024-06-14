@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private HeroUI heroUI;
 
     [Header("Input system")]
     private BossRush inputActions;
@@ -95,34 +96,46 @@ public class PlayerController : MonoBehaviour
             HoverHero(inputPosition);
         }
     }
-
+     
     private void MoveHeroToTile(Vector3 pressPosition)
     {
         if (markedHero != null && isheroMarked)
         {
             markedTile = TileGetter.GetTileFromCamera(pressPosition, mainCamera, out raycastHit);
 
-            if (CanHeroUnlockMovement())
+            int APCost = 1;
+
+            if (CanHeroUnlockMovement(APCost))
             {
-                if (playerResourceManager.UseAP(1))
-                    markedHero.UnlockHeroMovement();
+                markedHero.UnlockHeroMovement();
             }
 
-            float movementCost = HeroMovementCost();
+            int movementAmount = (int)HeroMovementAmount();
 
-            if (CanStepOnTile() && markedHero.CanHeroMove((int)movementCost) && movementCost > 0)
+            if (CanStepOnTile(movementAmount))
             {
-                markedHero.HeroMovemetAmountReduction((int)movementCost);
-
-                Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementCost);
-
-                markedHero.MoveHeroToPosition(markedTile);
-                ResetMarkProccess();
+                MoveHeroToTile(movementAmount, APCost);
             }
         }
     }
 
-    public float HeroMovementCost()
+    private void MoveHeroToTile(int movementAmount, int APCost)
+    {
+        markedHero.HeroMovemetAmountReduction(movementAmount);
+
+        Debug.Log("Hero " + gameObject.name + "Movement cost : " + movementAmount);
+
+        markedHero.MoveHeroToPosition(markedTile);
+
+        if (markedHero.IsHeroOnNewPosition)
+        {
+            playerResourceManager.UseAP(APCost);
+        }
+
+        ResetMarkProccess();
+    }
+
+    public float HeroMovementAmount()
     {
         if (markedHero == null || markedTile == null)
             return 0;
@@ -134,14 +147,14 @@ public class PlayerController : MonoBehaviour
         return movementCost;
     }
 
-    private bool CanStepOnTile()
+    private bool CanStepOnTile(int movementCost)
     {
-        return markedTile != null && !markedTile.IsTileOccupied && markedHero.CanHeroMoved;
+        return markedTile != null && !markedTile.IsTileOccupied && markedHero.HasHeroUnlockedMovement && markedHero.CanHeroMove(movementCost);
     }
 
-    private bool CanHeroUnlockMovement()
+    private bool CanHeroUnlockMovement(int movementAPCost)
     {
-        return !markedHero.CanHeroMoved && markedTile != null && !markedTile.IsTileOccupied;
+        return !markedHero.HasHeroUnlockedMovement && markedTile != null && !markedTile.IsTileOccupied && playerResourceManager.HasEnoughAP(movementAPCost);
     }
 
     private void ResetMarkProccess()
@@ -149,6 +162,7 @@ public class PlayerController : MonoBehaviour
         isheroMarked = false;
         markedHero.ResetHeroMovement();
         markedHero = null;
+        heroUI.AssignHero(markedHero);
         OnHeroMarked?.Invoke(markedHero);
         markedTile = null;
 
@@ -160,15 +174,12 @@ public class PlayerController : MonoBehaviour
 
         bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
 
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue, 5f);
-
-        Debug.Log("Player has been hit : " + raycast);
-
         if (raycast)
         {
             isheroMarked = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
             OnHeroMarked?.Invoke(markedHero);
+            heroUI.AssignHero(markedHero);
         }
     }
 
@@ -177,10 +188,6 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(hoverPosition);
 
         bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
-
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.blue, 5f);
-
-        Debug.Log("Player has been hit : " + raycast);
 
         if (raycast)
         {
@@ -225,18 +232,15 @@ public class PlayerController : MonoBehaviour
         {
             isheroMarked = false;
             markedHero = null;
+            heroUI.AssignHero(markedHero);
             OnHeroMarked?.Invoke(markedHero);
         }
     }
 
-    // this method needs to be called when the input is pressed, and also when the cursor starts and stops hovering over heroes
-    [ContextMenu("tactical")]
     public void TacticalViewPressed()
     {
         GridManager.Instance.StartTacticalView(hoveredHero);
     }
-
-    [ContextMenu("end tactical")]
     public void TacticalViewReleased()
     {
         GridManager.Instance.StopTacticalView();

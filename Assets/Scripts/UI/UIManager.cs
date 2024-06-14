@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,8 +9,7 @@ public class UIManager : MonoBehaviour
     [Header("General UI")]
     private int roundNumber = 1;
     [SerializeField] private TextMeshProUGUI roundUI;
-    [SerializeField] private HeroUI[] heroUI;
-    private int assignedheroes = 0;
+    [SerializeField] private HeroUI heroUI;
 
     [Header("Boss UI")]
 
@@ -25,7 +23,6 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        Hero.OnHeroSpawned += AssignHeroToUI;
         Boss.OnEnemyHealthChanged += BossHealthChange;
         PlayerResourceManager.OnAPChanged += ApUIChange;
         TurnsManager.OnPlayerTurnStart += RoundNumberChange;
@@ -33,16 +30,9 @@ public class UIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Hero.OnHeroSpawned -= AssignHeroToUI;
         Boss.OnEnemyHealthChanged -= BossHealthChange;
         PlayerResourceManager.OnAPChanged -= ApUIChange;
         TurnsManager.OnPlayerTurnStart -= RoundNumberChange;
-    }
-
-    private void AssignHeroToUI(Hero hero)
-    {
-        heroUI[assignedheroes].AssignHero(hero);
-        assignedheroes++;
     }
 
     private void ApUIChange(int ap)
