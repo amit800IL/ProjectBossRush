@@ -20,8 +20,9 @@ public class PlayerResourceManager : MonoBehaviour
     [Header("Other")]
 
     private Hero selectedHero;
-    [SerializeField] private HeroesManager heroesManager;
-    [SerializeField] private SymbolUI symbolUI;
+    //[SerializeField] private HeroesManager heroesManager;
+    [SerializeField] private SymbolUI generalSymbolUI;
+    [SerializeField] private SymbolUI heroSymbolUI;
 
     private void Start()
     {
@@ -30,10 +31,10 @@ public class PlayerResourceManager : MonoBehaviour
         TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
 
-        foreach (Hero hero in heroesManager.heroList)
-        {
-            UpdateSymbolUI(hero);
-        }
+        //foreach (Hero hero in heroesManager.heroList)
+        //{
+        //    UpdateSymbolUI(hero);
+        //}
 
         UpdateSymbolUI();
     }
@@ -56,7 +57,7 @@ public class PlayerResourceManager : MonoBehaviour
         }
         else
         {
-            UpdateSymbolUI();
+            heroSymbolUI.ResetUI();
         }
     }
 
@@ -118,10 +119,7 @@ public class PlayerResourceManager : MonoBehaviour
     [ContextMenu("print table")]
     public void PrintSymbols()
     {
-        foreach (Hero hero in heroesManager.heroList)
-        {
-            hero.SymbolTable.PrintTable();
-        }
+        playerSymbolTable.PrintTable();
     }
 
     [ContextMenu("check contains symbols")]
@@ -138,12 +136,12 @@ public class PlayerResourceManager : MonoBehaviour
 
     private void UpdateSymbolUI()
     {
-        symbolUI.UpdateUI(playerSymbolTable.ToShortString());
+        generalSymbolUI.UpdateUI(playerSymbolTable.ToShortString());
     }
 
     private void UpdateSymbolUI(Hero hero)
     {
-        symbolUI.UpdateUI(hero.SymbolTable.ToShortString());
+        heroSymbolUI.UpdateUI(hero.SymbolTable.ToShortString());
     }
     #endregion
 

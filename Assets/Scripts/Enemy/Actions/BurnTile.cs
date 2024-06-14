@@ -5,7 +5,6 @@ using UnityEngine;
 public class BurnTile : EnemyAction
 {
     [SerializeField] private Effect burn;
-    [SerializeField] private ParticleSystem fireWall;
     public override void DoActionOnHero(Hero hero)
     {
         throw new System.NotImplementedException();
@@ -28,10 +27,6 @@ public class BurnTile : EnemyAction
                     hero.TakeDamage(actionPower);
 
                     hero.SlashParticle.Play();
-
-                    fireWall.transform.position = tile.OccupantContainer.transform.position;
-
-                    fireWall.Play();
                 }
             }
         }

@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 398058ef9a56d7a4c89c2144000f2a7e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -175,6 +175,7 @@ MonoBehaviour:
   hpBar: {fileID: 6432533227581654511}
   heroDefenceText: {fileID: 487431984262999229}
   heroMovementAmountText: {fileID: 6151778085540724}
+  symbolUI: {fileID: 8353326632168935356}
 --- !u!1 &1006075365802966041
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +324,7 @@ GameObject:
   - component: {fileID: 4473653425404997705}
   - component: {fileID: 8353326632168935356}
   m_Layer: 5
-  m_Name: ResourcesPanel
+  m_Name: HeroResourcesUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

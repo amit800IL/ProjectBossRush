@@ -14,4 +14,12 @@ public class SymbolUI : MonoBehaviour
             symbolText[i].text = text[i].ToString();
         }
     }
+
+    public void ResetUI()
+    {
+        for (int i = 0; i < SymbolTable.SYMBOL_TYPE_COUNT; i++)
+        {
+            symbolText[i].text = "0";
+        }
+    }
 }

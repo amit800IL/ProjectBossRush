@@ -10,8 +10,19 @@ public class HeroUI : MonoBehaviour
     [SerializeField] private Image hpBar;
     [SerializeField] private TextMeshProUGUI heroDefenceText;
     [SerializeField] private TextMeshProUGUI heroMovementAmountText;
+    [SerializeField] private SymbolUI symbolUI;
 
     private bool isPanelActive = false;
+
+    private void Start()
+    {
+        PlayerController.OnHeroMarked += UndoHeroSelectionOnUI;
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.OnHeroMarked -= UndoHeroSelectionOnUI;
+    }
 
     public void AssignHero(Hero hero)
     {
@@ -26,6 +37,21 @@ public class HeroUI : MonoBehaviour
     {
         ShowHeroMovementAmount();
         graphic.sprite = hero.HeroData.headshotSprite;
+
+        HeroHealthChange(hero);
+        HeroDefenceChange(hero);
+
+        Hero.OnHeroHealthChanged += HeroHealthChange;
+        Hero.OnHeroDefenceChanged += HeroDefenceChange;
+    }
+
+    private void UndoHeroSelectionOnUI(Hero hero)
+    {
+        heroMovementAmountText.text = "0";
+
+        heroDefenceText.text = "0";
+
+        graphic.sprite = null;
 
         HeroHealthChange(hero);
         HeroDefenceChange(hero);
