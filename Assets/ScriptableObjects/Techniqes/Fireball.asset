@@ -17,7 +17,7 @@ MonoBehaviour:
   Requirements:
     table: 000000000500000002000000000000000000000000000000
   APCost: 3
-  Cooldown: 1
+  Cooldown: 3
   Effects:
   - Type: 0
     duration: 0

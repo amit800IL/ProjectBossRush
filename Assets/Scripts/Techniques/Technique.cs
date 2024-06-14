@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
+public class Technique : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
@@ -20,9 +23,7 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     private void Start()
     {
         nameText.text = techData.Name;
-
-        if (numText != null)
-            numText.text = techData.Requirements.ToString();
+        numText.text = techData.Requirements.ToString();
 
         //needs to move to a manager
         PlayerController.OnHeroMarked += UpdateUsability;
@@ -63,13 +64,11 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     public void StartCooldown()
     {
         cooldown = techData.Cooldown;
+        if (cooldown > 0)
+        {
 
-        Debug.Log("Colldown started: " + cooldown);
-        //if (cooldown > 0)
-        //{
-
-        //    UpdateCooldownGraphic();
-        //}
+            UpdateCooldownGraphic();
+        }
     }
 
     public bool IsReadyToUse() => cooldown == 0;
@@ -80,23 +79,22 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         if (cooldown > 0)
         {
             cooldown--;
-            Debug.Log("Current cooldown number: " + cooldown);
-            //UpdateCooldownGraphic();
+            UpdateCooldownGraphic();
         }
     }
 
-    //private void UpdateCooldownGraphic()
-    //{
-    //    cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
-    //}
+    private void UpdateCooldownGraphic()
+    {
+        cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
+    }
 
-    //public void OnPointerEnter(PointerEventData eventData)
-    //{
-    //    transform.localPosition = new(transform.localPosition.x, 270, transform.localPosition.z);
-    //}
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.localPosition = new(transform.localPosition.x, 270, transform.localPosition.z);
+    }
 
-    //public void OnPointerExit(PointerEventData eventData)
-    //{
-    //    transform.localPosition = new(transform.localPosition.x, 0, transform.localPosition.z);
-    //}
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        transform.localPosition = new(transform.localPosition.x, 0, transform.localPosition.z);
+    }
 }

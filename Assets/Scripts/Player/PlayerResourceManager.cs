@@ -6,11 +6,14 @@ public class PlayerResourceManager : MonoBehaviour
     public static event Action<int> OnAPChanged;
     public static event Action<Effect[], Hero> OnTechniqueUsed;
 
+    [Header("Symbols")]
+
+    [SerializeField] SymbolTable symbolCharge = new();
+
     [Header("AP count")]
 
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
-    private SymbolTable playerSymbolTable = new SymbolTable();
 
     [Header("Techniques")]
 
@@ -19,9 +22,10 @@ public class PlayerResourceManager : MonoBehaviour
 
     [Header("Other")]
 
-    private Hero selectedHero;
-    [SerializeField] private HeroesManager heroesManager;
+    [SerializeField] private Hero selectedHero;
     [SerializeField] private SymbolUI symbolUI;
+
+    [SerializeField] SymbolTable testTable = new SymbolTable(1);
 
     private void Start()
     {
@@ -30,12 +34,8 @@ public class PlayerResourceManager : MonoBehaviour
         TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
 
-        foreach (Hero hero in heroesManager.heroList)
-        {
-            UpdateSymbolUI(hero);
-        }
-
         UpdateSymbolUI();
+
     }
 
     private void OnDestroy()
@@ -49,15 +49,6 @@ public class PlayerResourceManager : MonoBehaviour
     private void SetSelectedHero(Hero hero)
     {
         selectedHero = hero;
-
-        if (hero != null)
-        {
-            UpdateSymbolUI(hero);
-        }
-        else
-        {
-            UpdateSymbolUI();
-        }
     }
 
     #region Combos
@@ -65,7 +56,6 @@ public class PlayerResourceManager : MonoBehaviour
     private void SetSelectedCombo(Technique selected)
     {
         selectedTechnique = selected;
-
         UseTechnique();
     }
 
@@ -85,19 +75,18 @@ public class PlayerResourceManager : MonoBehaviour
         {
             if (selectedTechnique.GetAPCost() <= AP)
             {
-                if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
+                if (ContainsSymbols(selectedTechnique.GetRequirements()))
                 {
                     UseSymbols(selectedTechnique.GetRequirements());
                     UseAP(selectedTechnique.GetAPCost());
                     OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
                     selectedTechnique.StartCooldown();
-                    UpdateSymbolUI();
                 }
-                else Debug.Log($"not enough symbols {selectedTechnique.GetRequirements()} \n {playerSymbolTable}");
+                else print($"not enough symbols {selectedTechnique.GetRequirements()} \n {symbolCharge}");
             }
-            else Debug.Log($"not enough AP {AP}/{selectedTechnique.GetAPCost()}");
+            else print($"not enough AP {AP}/{selectedTechnique.GetAPCost()}");
         }
-        else Debug.Log("combo on cooldown");
+        else print("combo on cooldown");
     }
 
     #endregion
@@ -105,45 +94,37 @@ public class PlayerResourceManager : MonoBehaviour
     #region symbols
     public void AddSymbols(SymbolTable toAdd)
     {
-        playerSymbolTable.Add(toAdd);
+        symbolCharge.Add(toAdd);
         UpdateSymbolUI();
     }
 
-    //[ContextMenu("add test table")]
-    //public void AddTestTable()
-    //{
-    //    AddSymbols(testTable);
-    //}
+    [ContextMenu("add test table")]
+    public void AddTestTable()
+    {
+        AddSymbols(testTable);
+    }
 
     [ContextMenu("print table")]
     public void PrintSymbols()
     {
-        foreach (Hero hero in heroesManager.heroList)
-        {
-            hero.SymbolTable.PrintTable();
-        }
+        symbolCharge.PrintTable();
     }
 
     [ContextMenu("check contains symbols")]
-    public bool ContainsSymbols()
+    public bool ContainsSymbols(SymbolTable toCheck)
     {
-        return playerSymbolTable.Contains(playerSymbolTable);
+        return symbolCharge.Contains(toCheck);
     }
 
     public void UseSymbols(SymbolTable toUse)
     {
-        playerSymbolTable.Remove(toUse);
+        symbolCharge.Remove(toUse);
         UpdateSymbolUI();
     }
 
     private void UpdateSymbolUI()
     {
-        symbolUI.UpdateUI(playerSymbolTable.ToShortString());
-    }
-
-    private void UpdateSymbolUI(Hero hero)
-    {
-        symbolUI.UpdateUI(hero.SymbolTable.ToShortString());
+        symbolUI.UpdateUI(symbolCharge.ToShortString());
     }
     #endregion
 
@@ -165,18 +146,13 @@ public class PlayerResourceManager : MonoBehaviour
 
     public bool UseAP(int amount)
     {
-        if (HasEnoughAP(amount))
+        if (AP >= amount)
         {
             AP -= amount;
             OnAPChanged?.Invoke(AP);
             return true;
         }
         return false;
-    }
-
-    public bool HasEnoughAP(int amount)
-    {
-        return AP >= amount;
     }
 
     public void ModifyAP(int amount)
@@ -186,5 +162,3 @@ public class PlayerResourceManager : MonoBehaviour
 
     #endregion
 }
-
-
