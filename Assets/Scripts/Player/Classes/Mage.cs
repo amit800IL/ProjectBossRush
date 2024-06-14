@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 public class Mage : Hero
 {
+    [SerializeField] private ParticleSystem fireBall;
     protected override void Start()
     {
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
@@ -9,6 +10,7 @@ public class Mage : Hero
     }
     public override bool CanHeroAttack()
     {
+        fireBall.Play();
         return AttackPosCondition(currentTile);
     }
 
