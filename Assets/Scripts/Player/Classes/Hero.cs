@@ -17,6 +17,8 @@ public abstract class Hero : Entity
     [SerializeField] private HeroSpriteChange spriteChange;
     [SerializeField] protected ParticleSystem attackingParticle;
     [SerializeField] protected ParticleSystem defendingParticle;
+
+    [field: SerializeField] public ParticleSystem HealingEffect { get; protected set; }
     [field: SerializeField] public ParticleSystem SlashParticle { get; protected set; }
     public bool HasHeroUnlockedMovement { get; protected set; } = false;
     public bool IsHeroOnNewPosition { get; protected set; } = false;

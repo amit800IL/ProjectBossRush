@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
+public class Technique : MonoBehaviour
 {
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
@@ -13,16 +13,14 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
 
     [Header("Debug")]
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI numText;
-    [SerializeField] private Image cardBG;
+    //[SerializeField] private TextMeshProUGUI numText;
+    //[SerializeField] private Image cardBG;
     [SerializeField] private Button activationButton;
 
     private void Start()
     {
         nameText.text = techData.Name;
-
-        if (numText != null)
-            numText.text = techData.Requirements.ToString();
+        //numText.text = techData.Requirements.ToString();
 
         //needs to move to a manager
         PlayerController.OnHeroMarked += UpdateUsability;
@@ -63,13 +61,11 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
     public void StartCooldown()
     {
         cooldown = techData.Cooldown;
+        if (cooldown > 0)
+        {
 
-        Debug.Log("Colldown started: " + cooldown);
-        //if (cooldown > 0)
-        //{
-
-        //    UpdateCooldownGraphic();
-        //}
+            //UpdateCooldownGraphic();
+        }
     }
 
     public bool IsReadyToUse() => cooldown == 0;
@@ -80,7 +76,6 @@ public class Technique : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHand
         if (cooldown > 0)
         {
             cooldown--;
-            Debug.Log("Current cooldown number: " + cooldown);
             //UpdateCooldownGraphic();
         }
     }
