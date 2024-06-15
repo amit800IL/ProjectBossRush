@@ -53,7 +53,8 @@ public class Technique : MonoBehaviour
     {
         if (InstanitePos != null)
         {
-            Instantiate(techData.particleObject, InstanitePos.position, Quaternion.identity);
+            GameObject instanitiedParticle = Instantiate(techData.particleObject, InstanitePos.position, Quaternion.identity);
+            Destroy(instanitiedParticle, 5f);
         }
 
         SelectTechnique?.Invoke(this);
