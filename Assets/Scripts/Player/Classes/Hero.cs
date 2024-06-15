@@ -108,8 +108,17 @@ public abstract class Hero : Entity
     public void ApplyTargetMarker(GameObject marker, int size)
     {
         targetMarker = Instantiate(marker, transform);
-        targetMarker.transform.localScale = ((size * 2 - 1) * 1.5f - 0.2f) * Vector3.one;
-        print("hi");
+        float newScale = ((size * 2 - 1) * 1.5f - 0.2f);
+        targetMarker.transform.localScale = new(newScale, 1, newScale);
+        //targetMarker.transform.localScale = ((size * 2 - 1) * 1.5f - 0.2f) * Vector3.one;
+    }
+
+    public void RemoveTargetMarker()
+    {
+        if (targetMarker != null)
+        {
+            Destroy(targetMarker);
+        }
     }
 
     public void TakeDamage(int incDmg)
@@ -135,10 +144,6 @@ public abstract class Hero : Entity
         if (HP <= 0)
         {
             gameObject.SetActive(false);
-        }
-        if (targetMarker != null)
-        {
-            Destroy(targetMarker);
         }
     }
 
