@@ -37,13 +37,13 @@ public class GridManager : MonoBehaviour
     {
         Tiles = new Tile[gridSize.x, gridSize.y];
 
-        float tileGap = 0.1f;
+        float tileGap = 1.01f;
 
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x + tileGap)), 0, y * ((tileObject.transform.localScale.z + tileGap)) * 1.1f);
+                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x)) * tileGap, 0f , y * ((tileObject.transform.localScale.z)) * tileGap);
 
                 Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-4, 0.5f, 0)), Quaternion.identity, transform);
                 Tiles[x, y].Initialize(x, y);
