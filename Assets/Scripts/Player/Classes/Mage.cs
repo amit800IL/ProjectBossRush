@@ -5,8 +5,6 @@ public class Mage : Hero
 
     [SerializeField] private ParticleSystem[] fireBallLifetimeObjects;
 
-    private Transform target;
-
     protected override void Start()
     {
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
@@ -17,8 +15,6 @@ public class Mage : Hero
         fireBall.Play();
 
         SetFireballTargetPosition(boss.transform.position);
-
-        target = boss.transform;
 
         return AttackPosCondition(currentTile);
     }

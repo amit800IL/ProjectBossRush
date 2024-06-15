@@ -61,11 +61,11 @@ public class Technique : MonoBehaviour
     public void StartCooldown()
     {
         cooldown = techData.Cooldown;
-        if (cooldown > 0)
-        {
+        //if (cooldown > 0)
+        //{
 
-            //UpdateCooldownGraphic();
-        }
+        //    UpdateCooldownGraphic();
+        //}
     }
 
     public bool IsReadyToUse() => cooldown == 0;
