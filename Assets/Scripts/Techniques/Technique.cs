@@ -46,12 +46,18 @@ public class Technique : MonoBehaviour
     void UpdateUsability()
     {
         if (!techData.RequiresTargetHero && IsReadyToUse())
+        {
             activationButton.interactable = true;
+        }
+        else
+        {
+            activationButton.interactable = false;
+        }
     }
 
     public void Select()
     {
-        if (InstanitePos != null)
+        if (IsReadyToUse() && InstanitePos != null)
         {
             GameObject instanitiedParticle = Instantiate(techData.particleObject, InstanitePos.position, Quaternion.identity);
             Destroy(instanitiedParticle, 5f);

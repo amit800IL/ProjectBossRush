@@ -87,7 +87,15 @@ public class HeroesManager : MonoBehaviour
             switch (effect.Type)
             {
                 case EffectType.DamageBoss:
+
+                    foreach (Hero hero in heroList)
+                    {
+                        hero.heroAnimator.SetTrigger("Attack");
+                        hero.AttackingParticle.Play();       
+                    }
+
                     boss.TakeDamage(effect.amount);
+
                     Debug.Log($"combo dealt {effect.amount} damage");
                     break;
                 case EffectType.HealAll:

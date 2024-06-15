@@ -15,7 +15,7 @@ public abstract class Hero : Entity
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
     [SerializeField] private HeroSpriteChange spriteChange;
-    [SerializeField] protected ParticleSystem attackingParticle;
+    [field: SerializeField] public ParticleSystem AttackingParticle { get; protected set; }
     [SerializeField] protected ParticleSystem defendingParticle;
 
     [field: SerializeField] public ParticleSystem HealingEffect { get; protected set; }
@@ -164,7 +164,7 @@ public abstract class Hero : Entity
     {
         if (CanHeroAttack(boss))
         {
-            attackingParticle.Play();
+            AttackingParticle.Play();
             boss.TakeDamage(HeroData.damage);
             OnHeroAttack?.Invoke(this);
             return true;

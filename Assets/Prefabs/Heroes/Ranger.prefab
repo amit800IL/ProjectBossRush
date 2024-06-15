@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <heroAnimator>k__BackingField: {fileID: 4055011698455528204}
   spriteChange: {fileID: 4581812566125371204}
-  attackingParticle: {fileID: 2224333103308652194}
+  <AttackingParticle>k__BackingField: {fileID: 2224333103308652194}
   defendingParticle: {fileID: 7429320887859590558}
   <HealingEffect>k__BackingField: {fileID: 3107842986788967952}
   <SlashParticle>k__BackingField: {fileID: 3297225965136918269}
