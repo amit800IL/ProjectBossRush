@@ -184,6 +184,7 @@ MonoBehaviour:
   <HeroData>k__BackingField: {fileID: 11400000, guid: 597cc32d1a346f14e8cb038a201bd392, type: 2}
   <HP>k__BackingField: 0
   arrowVFX: {fileID: 6294264818554504005}
+  arrowLifeTimeObject: {fileID: 6294264819164658546}
 --- !u!65 &1015659684323480745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -549,6 +550,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8396108960678294777}
     m_Modifications:
+    - target: {fileID: 7202621968042801311, guid: 863f8a7d2b3674e4d9fc294af36ad21e, type: 3}
+      propertyPath: VelocityModule.inWorldSpace
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7202621968640606378, guid: 863f8a7d2b3674e4d9fc294af36ad21e, type: 3}
       propertyPath: m_Name
       value: Arrow VFX
@@ -606,5 +611,10 @@ Transform:
 --- !u!198 &6294264818554504005 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7202621968640606376, guid: 863f8a7d2b3674e4d9fc294af36ad21e, type: 3}
+  m_PrefabInstance: {fileID: 3795797838786561005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6294264819164658546 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7202621968042801311, guid: 863f8a7d2b3674e4d9fc294af36ad21e, type: 3}
   m_PrefabInstance: {fileID: 3795797838786561005}
   m_PrefabAsset: {fileID: 0}

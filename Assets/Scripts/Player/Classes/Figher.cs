@@ -8,7 +8,7 @@ public class Figher : Hero
         base.Start();
     }
 
-    public override bool CanHeroAttack()
+    public override bool CanHeroAttack(Boss boss)
     {
         return AttackPosCondition(currentTile);
     }

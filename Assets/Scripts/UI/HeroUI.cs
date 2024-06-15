@@ -74,22 +74,6 @@ public class HeroUI : MonoBehaviour
         Hero.OnHeroDefenceChanged -= HeroDefenceChange;
     }
 
-    public void ShowOrHidePanel()
-    {
-        if (!isPanelActive)
-        {
-            heroPanel.SetActive(true);
-
-            isPanelActive = true;
-        }
-        else
-        {
-            heroPanel.SetActive(false);
-
-            isPanelActive = false;
-        }
-    }
-
     private void HeroHealthChange(Hero h)
     {
         if (hero == h)

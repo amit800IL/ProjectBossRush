@@ -157,7 +157,7 @@ public abstract class Hero : Entity
 
     public virtual bool HeroAttackBoss(Boss boss)
     {
-        if (CanHeroAttack())
+        if (CanHeroAttack(boss))
         {
             attackingParticle.Play();
             boss.TakeDamage(HeroData.damage);
@@ -184,7 +184,7 @@ public abstract class Hero : Entity
         }
         return false;
     }
-    public abstract bool CanHeroAttack();
+    public abstract bool CanHeroAttack(Boss boss);
 
     public abstract bool AttackPosCondition(Tile tile);
 
