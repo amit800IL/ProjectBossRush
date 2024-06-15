@@ -2608,7 +2608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerResourceManager: {fileID: 1440085249}
-  boss: {fileID: 0}
+  boss: {fileID: 913413898}
   <heroList>k__BackingField: []
 --- !u!4 &603676719
 Transform:
@@ -3505,6 +3505,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: ff2626171fe3e9a45ab3d33a5acefc8d, type: 3}
   m_ActionId: df2b42e2-0f62-479d-910b-9130aab1dffd
+--- !u!114 &913413898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+  m_PrefabInstance: {fileID: 1238616495}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bc40f5f0e117c4da76c870c64e714c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &939105056
 GameObject:
   m_ObjectHideFlags: 0
@@ -8456,7 +8467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cded3e068be9d874bb309dba02ce4d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 0}
+  boss: {fileID: 913413898}
 --- !u!4 &2048403086
 Transform:
   m_ObjectHideFlags: 0
