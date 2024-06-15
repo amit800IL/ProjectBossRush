@@ -3004,7 +3004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56355519eb9d144baf63780017a4d1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boss: {fileID: 0}
+  boss: {fileID: 913413898}
 --- !u!4 &693887079
 Transform:
   m_ObjectHideFlags: 0
@@ -5181,6 +5181,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[2].bossVFX
+      value: 
+      objectReference: {fileID: 1976596342}
     - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: enemyActions.Array.data[0].enemyAction
       value: 
@@ -7810,6 +7814,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1976596342 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3133577252538418101, guid: 138543084b755c642af1f3bc2ff7a627, type: 3}
+  m_PrefabInstance: {fileID: 1639712531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1994786517
 GameObject:
   m_ObjectHideFlags: 0
