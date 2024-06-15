@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Heal
   RequiresTargetHero: 1
+  particleObject: {fileID: 0}
   Requirements:
     table: 010000000500000000000000000000000000000000000000
   APCost: 2
   Cooldown: 1
   Effects:
-  - Type: 1
+  - Type: 2
     duration: 1
     amount: 20
