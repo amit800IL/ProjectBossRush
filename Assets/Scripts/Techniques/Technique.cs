@@ -8,6 +8,7 @@ public class Technique : MonoBehaviour
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
 
+    [SerializeField] private Transform InstanitePos;
     [SerializeField] private TechniqueDataSO techData;
     [SerializeField] private int cooldown;
 
@@ -22,14 +23,18 @@ public class Technique : MonoBehaviour
         nameText.text = techData.Name;
         //numText.text = techData.Requirements.ToString();
 
+        activationButton.interactable = false;
+
         //needs to move to a manager
         PlayerController.OnHeroMarked += UpdateUsability;
+        TurnsManager.OnPlayerTurnStart += UpdateUsability;
         UpdateUsability(null);
     }
 
     private void OnDestroy()
     {
         PlayerController.OnHeroMarked -= UpdateUsability;
+        TurnsManager.OnPlayerTurnStart -= UpdateUsability;
     }
 
     void UpdateUsability(Hero hero)
@@ -38,8 +43,19 @@ public class Technique : MonoBehaviour
             activationButton.interactable = (hero != null);
     }
 
+    void UpdateUsability()
+    {
+        if (!techData.RequiresTargetHero && IsReadyToUse())
+            activationButton.interactable = true;
+    }
+
     public void Select()
     {
+        if (InstanitePos != null)
+        {
+            Instantiate(techData.particleObject, InstanitePos.position, Quaternion.identity);
+        }
+
         SelectTechnique?.Invoke(this);
     }
 

@@ -1,9 +1,9 @@
 using UnityEngine;
 public class Mage : Hero
 {
-    [SerializeField] private ParticleSystem fireBall;
+    //[SerializeField] private ParticleSystem fireBall;
 
-    [SerializeField] private ParticleSystem[] fireBallLifetimeObjects;
+    //[SerializeField] private ParticleSystem[] fireBallLifetimeObjects;
 
     protected override void Start()
     {
@@ -12,34 +12,34 @@ public class Mage : Hero
     }
     public override bool CanHeroAttack(Boss boss)
     {
-        fireBall.Play();
+        //fireBall.Play();
 
-        SetFireballTargetPosition(boss.transform.position);
+        //SetFireballTargetPosition(boss.transform.position);
 
         return AttackPosCondition(currentTile);
     }
 
-    private void SetFireballTargetPosition(Vector3 targerPosition)
-    {
-        foreach (ParticleSystem particePart in fireBallLifetimeObjects)
-        {
-            ParticleSystem.MainModule main = particePart.main;
+    //private void SetFireballTargetPosition(Vector3 targerPosition)
+    //{
+    //    foreach (ParticleSystem particePart in fireBallLifetimeObjects)
+    //    {
+    //        ParticleSystem.MainModule main = particePart.main;
 
-            float distance = Vector3.Distance(particePart.transform.position, targerPosition);
+    //        float distance = Vector3.Distance(particePart.transform.position, targerPosition);
 
-            ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = particePart.velocityOverLifetime;
+    //        ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = particePart.velocityOverLifetime;
 
-            velocityOverLifetime.enabled = true;
+    //        velocityOverLifetime.enabled = true;
 
-            ParticleSystem.MinMaxCurve xCurve = new ParticleSystem.MinMaxCurve(distance / main.startLifetime.constant);
-            ParticleSystem.MinMaxCurve yCurve = new ParticleSystem.MinMaxCurve(particePart.velocityOverLifetime.y.constant);
-            ParticleSystem.MinMaxCurve zCurve = new ParticleSystem.MinMaxCurve(particePart.velocityOverLifetime.z.constant);
+    //        ParticleSystem.MinMaxCurve xCurve = new ParticleSystem.MinMaxCurve(distance / main.startLifetime.constant);
+    //        ParticleSystem.MinMaxCurve yCurve = new ParticleSystem.MinMaxCurve(particePart.velocityOverLifetime.y.constant);
+    //        ParticleSystem.MinMaxCurve zCurve = new ParticleSystem.MinMaxCurve(particePart.velocityOverLifetime.z.constant);
 
-            velocityOverLifetime.x = xCurve;
-            velocityOverLifetime.y = yCurve;
-            velocityOverLifetime.z = zCurve;
-        }
-    }
+    //        velocityOverLifetime.x = xCurve;
+    //        velocityOverLifetime.y = yCurve;
+    //        velocityOverLifetime.z = zCurve;
+    //    }
+    //}
 
     public override bool CanHeroDefend()
     {

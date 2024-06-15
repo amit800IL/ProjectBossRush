@@ -8,6 +8,7 @@ public class TechniqueDataSO : ScriptableObject
 {
     public string Name;
     public bool RequiresTargetHero;
+    public GameObject particleObject;
 
     [Header("Requirments")]
 
