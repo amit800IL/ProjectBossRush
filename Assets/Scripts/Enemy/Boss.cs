@@ -9,6 +9,7 @@ public class Boss : MonoBehaviour
     public static Action<Boss> OnEnemyHealthChanged;
     public static event Action OnBossAttack;
     public static event Action OnBossInjured;
+    public static event Action OnBossDeath;
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
@@ -63,6 +64,7 @@ public class Boss : MonoBehaviour
         if (HP <= 0)
         {
             IsBossAlive = false;
+            OnBossDeath?.Invoke();
             gameObject.SetActive(false);
         }
     }

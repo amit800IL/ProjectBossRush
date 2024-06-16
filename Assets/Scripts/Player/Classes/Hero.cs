@@ -6,6 +6,7 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroSpawned;
     public static event Action<Hero> OnHeroHealthChanged;
     public static event Action<Hero> OnHeroDefenceChanged;
+    public static event Action<Hero> OnHeroDeath;
 
     public static event Action<Hero> OnHeroWalk;
     public static event Action<Hero> OnHeroAttack;
@@ -143,6 +144,7 @@ public abstract class Hero : Entity
 
         if (HP <= 0)
         {
+            OnHeroDeath?.Invoke(this);
             gameObject.SetActive(false);
         }
     }
