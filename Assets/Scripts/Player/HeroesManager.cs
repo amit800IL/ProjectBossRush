@@ -79,9 +79,9 @@ public class HeroesManager : MonoBehaviour
 
     public void OnAllHeroesDeath(Hero hero)
     {
-        foreach (Hero item in heroList)
+        foreach (Hero listHero in heroList)
         {
-            if (item == hero)
+            if (listHero == hero)
             {
                 heroesCount--;
 

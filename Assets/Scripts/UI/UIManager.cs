@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour
 {
     [Header("General UI")]
     private int roundNumber = 0;
-    [SerializeField] private Canvas gameOverScreen;
+    [SerializeField] private Canvas winScreen;
+    [SerializeField] private Canvas lostScreen;
     [SerializeField] private TextMeshProUGUI roundUI;
     [SerializeField] private HeroUI heroUI;
 
@@ -27,8 +28,8 @@ public class UIManager : MonoBehaviour
         Boss.OnEnemyHealthChanged += BossHealthChange;
         PlayerResourceManager.OnAPChanged += ApUIChange;
         TurnsManager.OnPlayerTurnStart += RoundNumberChange;
-        HeroesManager.OnHeroesDeath += ShowGameOverScreen;
-        Boss.OnBossDeath += ShowGameOverScreen;
+        HeroesManager.OnHeroesDeath += ShowLostScreen;
+        Boss.OnBossDeath += ShowWinScreen;
     }
 
     private void OnDestroy()
@@ -36,8 +37,8 @@ public class UIManager : MonoBehaviour
         Boss.OnEnemyHealthChanged -= BossHealthChange;
         PlayerResourceManager.OnAPChanged -= ApUIChange;
         TurnsManager.OnPlayerTurnStart -= RoundNumberChange;
-        HeroesManager.OnHeroesDeath -= ShowGameOverScreen;
-        Boss.OnBossDeath -= ShowGameOverScreen;
+        HeroesManager.OnHeroesDeath -= ShowLostScreen;
+        Boss.OnBossDeath -= ShowWinScreen;
     }
 
     private void ApUIChange(int ap)
@@ -66,11 +67,18 @@ public class UIManager : MonoBehaviour
         bossHealthBar.fillAmount = (float)boss.HP / boss.maxHP;
     }
 
-    private void ShowGameOverScreen()
+    private void ShowWinScreen()
     {
-        gameOverScreen.gameObject.SetActive(true);
+        winScreen.gameObject.SetActive(true);
         Time.timeScale = 0f;
     }
+
+    private void ShowLostScreen()
+    {
+        lostScreen.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
 
     public void ReturnToMainMenu()
     {
@@ -79,9 +87,14 @@ public class UIManager : MonoBehaviour
 
     public void RestartScene()
     {
-        if (gameOverScreen.gameObject.activeInHierarchy)
+        if (winScreen.gameObject.activeInHierarchy)
         {
-            gameOverScreen.gameObject.SetActive(false);
+            winScreen.gameObject.SetActive(false);
+        }
+
+        if (lostScreen.gameObject.activeInHierarchy)
+        {
+            lostScreen.gameObject.SetActive(false);
         }
 
         Time.timeScale = 1f;
