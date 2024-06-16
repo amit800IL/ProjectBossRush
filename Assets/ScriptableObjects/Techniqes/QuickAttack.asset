@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Quick Attack
   RequiresTargetHero: 0
+  particleObject: {fileID: 0}
   Requirements:
     table: 020000000000000002000000000000000000000000000000
   APCost: 1
-  Cooldown: 1
+  Cooldown: 0
   Effects:
   - Type: 0
     duration: 1

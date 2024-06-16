@@ -99,6 +99,7 @@ public class Tile : MonoBehaviour
 
     private void ApplyEffectToOccupant()
     {
+        print("boop");
         foreach (Effect effect in effectsOnTile)
         {
             switch (effect.Type)

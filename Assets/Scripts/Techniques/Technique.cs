@@ -1,9 +1,11 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Technique : MonoBehaviour
+public class Technique : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
@@ -13,14 +15,16 @@ public class Technique : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private TextMeshProUGUI nameText;
-    //[SerializeField] private TextMeshProUGUI numText;
     //[SerializeField] private Image cardBG;
     [SerializeField] private Button activationButton;
+    [SerializeField] private GameObject toolTip;
+    [SerializeField] private TextMeshProUGUI numText;
 
     private void Start()
     {
         nameText.text = TechData.Name;
-        //numText.text = techData.Requirements.ToString();
+        numText.text = $"AP {TechData.APCost}\n";
+        numText.text += TechData.Requirements.ToString();
 
         activationButton.interactable = false;
 
@@ -101,13 +105,15 @@ public class Technique : MonoBehaviour
     //    cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
     //}
 
-    //public void OnPointerEnter(PointerEventData eventData)
-    //{
-    //    transform.localPosition = new(transform.localPosition.x, 270, transform.localPosition.z);
-    //}
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        toolTip.SetActive(true);
+        //transform.localPosition = new(transform.localPosition.x, 270, transform.localPosition.z);
+    }
 
-    //public void OnPointerExit(PointerEventData eventData)
-    //{
-    //    transform.localPosition = new(transform.localPosition.x, 0, transform.localPosition.z);
-    //}
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        toolTip.SetActive(false);
+        //transform.localPosition = new(transform.localPosition.x, 0, transform.localPosition.z);
+    }
 }
