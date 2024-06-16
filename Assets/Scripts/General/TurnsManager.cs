@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class TurnsManager : MonoBehaviour
 {
-   
+
+    public static event Action OnRoundStart;
     public static event Action OnPlayerTurnStart;
 
     [SerializeField] private Boss boss;
@@ -18,6 +19,7 @@ public class TurnsManager : MonoBehaviour
     }
     private void StartPlayerTurn()
     {
+        OnRoundStart?.Invoke();
         bool visualizeAction = onlyVisualizeAction;
 
         if (boss.IsBossAlive)
@@ -29,7 +31,7 @@ public class TurnsManager : MonoBehaviour
                 boss.InteractWithTiles(visualizeAction);
 
             isPlayerTurnActive = true;
-            OnPlayerTurnStart.Invoke();
+            OnPlayerTurnStart?.Invoke();
         }
     }
     public void EndPlayerTurn()

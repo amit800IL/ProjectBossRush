@@ -7,6 +7,9 @@ public class Boss : MonoBehaviour
     [Header("General Variables")]
 
     public static Action<Boss> OnEnemyHealthChanged;
+    public static event Action OnBossAttack;
+    public static event Action OnBossInjured;
+    public static event Action OnBossDeath;
     public bool IsBossAlive { get; private set; } = true;
     public bool HasBossAttacked { get; private set; } = false;
 
@@ -56,9 +59,12 @@ public class Boss : MonoBehaviour
 
         bossAnimator.SetTrigger("Injured");
 
+        OnBossInjured?.Invoke();
+
         if (HP <= 0)
         {
             IsBossAlive = false;
+            OnBossDeath?.Invoke();
             gameObject.SetActive(false);
         }
     }
@@ -90,11 +96,21 @@ public class Boss : MonoBehaviour
             if (targetHero)
             {
                 targetTiles = ReadBossAction(attackIndex);
+                bossTargeting.UnMarkTargetedHeroes();
             }
 
             currentAction.EnemyAction.DoActionOnTiles(targetTiles, currentAction.Power);
 
             bossAnimator.SetTrigger("Attack");
+            if (currentAction.BossVFX != null) currentAction.BossVFX.SetActive(true);
+            if (currentAction.HitVFX != null)
+            {
+                Vector2Int hitPos = bossTargeting.GetCenters()[0];
+                currentAction.HitVFX.transform.position = tiles[hitPos.x, hitPos.y].transform.position;
+                currentAction.HitVFX.SetActive(true);
+            }
+
+            OnBossAttack?.Invoke();
 
             foreach (var item in currentAttackMarker)
             {
@@ -137,12 +153,15 @@ public class BossActionSetter
     [SerializeField] private TargetInfo target;
     [field: SerializeField] private List<Vector2Int> tiles;
     [SerializeField] private GameObject targetMarker;
+    [SerializeField] private GameObject bossVFX;
+    [SerializeField] private GameObject hitVFX;
 
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
     public int Power { get => power; private set => power = value; }
     public TargetInfo Target { get => target; private set => target = value; }
     public List<Vector2Int> Tiles { get => tiles; private set => tiles = value; }
     public GameObject TargetMarker { get => targetMarker; private set => targetMarker = value; }
-
+    public GameObject BossVFX { get => bossVFX; private set => bossVFX = value; }
+    public GameObject HitVFX { get => hitVFX; private set => hitVFX = value; }
 }
 

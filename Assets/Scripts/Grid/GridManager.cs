@@ -8,35 +8,44 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tile tileObject;
     [SerializeField] private Vector2Int gridSize;
     [SerializeField] private List<GridObjectToSpawn> gridObjectsToSpawn = new List<GridObjectToSpawn>();
+    private List<GameObject> spawnedObjects = new List<GameObject>();
     public Tile[,] Tiles { get; private set; }
 
     private void Awake()
     {
+
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
+
             Destroy(gameObject);
         }
 
         CreateGrid();
+        TurnsManager.OnRoundStart += RollTiles;
+    }
+
+    private void OnDestroy()
+    {
+        TurnsManager.OnRoundStart -= RollTiles;
     }
 
     public void CreateGrid()
     {
         Tiles = new Tile[gridSize.x, gridSize.y];
 
-        float tileGap = 0.1f;
+        float tileGap = 1.01f;
 
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x + tileGap)), 0, y * ((tileObject.transform.localScale.z + tileGap)) * 1.1f);
+                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x)) * tileGap, 0f , y * ((tileObject.transform.localScale.z)) * tileGap);
 
-                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-4, 0, 0)), Quaternion.identity, transform);
+                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-4, 0.5f, 0)), Quaternion.identity, transform);
                 Tiles[x, y].Initialize(x, y);
                 Tiles[x, y].SetTileType(CalculateTileType(new Vector2(x, y)));
             }
@@ -45,6 +54,28 @@ public class GridManager : MonoBehaviour
         SpawnObjectsOnGrid();
     }
 
+    public void ClearGrid()
+    {
+        if (Tiles != null)
+        {
+            foreach (Tile tile in Tiles)
+            {
+                if (tile != null)
+                {
+                    DestroyImmediate(tile.gameObject);
+                }
+            }
+        }
+
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj != null)
+            {
+                DestroyImmediate(obj);
+            }
+        }
+        spawnedObjects.Clear();
+    }
     private void SpawnObjectsOnGrid()
     {
         foreach (GridObjectToSpawn gridObject in gridObjectsToSpawn)
@@ -58,6 +89,8 @@ public class GridManager : MonoBehaviour
             targetTile.OccupyTile(hero);
 
             hero.CurrentTile = targetTile;
+
+            spawnedObjects.Add(heroObject);
         }
     }
 
@@ -103,9 +136,17 @@ public class GridManager : MonoBehaviour
 
     public void StopTacticalView()
     {
-        foreach(Tile tile in Tiles)
+        foreach (Tile tile in Tiles)
         {
             tile.StopTactical();
+        }
+    }
+
+    private void RollTiles()
+    {
+        foreach (Tile tile in Tiles)
+        {
+            tile.UpdateEffects();
         }
     }
 }

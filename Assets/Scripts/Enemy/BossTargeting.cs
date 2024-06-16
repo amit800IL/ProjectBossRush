@@ -16,6 +16,7 @@ public class BossTargeting : MonoBehaviour
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private Vector2Int gridSize;
     private List<Hero> targetedHeroes = new();
+    private List<Vector2Int> centers = new();
 
     private void Start()
     {
@@ -24,6 +25,7 @@ public class BossTargeting : MonoBehaviour
 
     public List<Vector2Int> GetTargetTile(TargetInfo targetInfo)
     {
+        centers.Clear();
         List<Vector2Int> toReturn = new();
         int size = targetInfo.Size;
         int rnd;
@@ -86,6 +88,7 @@ public class BossTargeting : MonoBehaviour
 
     private List<Vector2Int> GetTilesAround(Vector2Int origin, int radius)
     {
+        centers.Add(origin);
         List<Vector2Int> toReturn = new();
         for (int i = origin.x - radius; i <= origin.x + radius; i++)
         {
@@ -106,7 +109,16 @@ public class BossTargeting : MonoBehaviour
         targetedHeroes = GetTargetHeroes(bossAction.Target);
         foreach (Hero hero in targetedHeroes)
         {
-            hero.ApplyTargetMarker(bossAction.TargetMarker);
+            hero.ApplyTargetMarker(bossAction.TargetMarker, bossAction.Target.Size);
+            print(hero.name);
+        }
+    }
+
+    public void UnMarkTargetedHeroes()
+    {
+        foreach (Hero hero in targetedHeroes)
+        {
+            hero.RemoveTargetMarker();
         }
     }
 
@@ -126,6 +138,11 @@ public class BossTargeting : MonoBehaviour
         }
 
         return toReturn;
+    }
+
+    public List<Vector2Int> GetCenters()
+    {
+        return centers;
     }
 }
 

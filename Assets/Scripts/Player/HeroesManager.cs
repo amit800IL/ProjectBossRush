@@ -1,12 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class HeroesManager : MonoBehaviour
 {
+    public static event Action OnHeroesDeath;
+
+    private int heroesCount = 0;
+
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Boss boss;
-    [field:SerializeField] public List<Hero> heroList { get; private set; } = new List<Hero>();
+    [field: SerializeField] public List<Hero> heroList { get; private set; } = new List<Hero>();
 
     private void Start()
     {
@@ -14,12 +19,14 @@ public class HeroesManager : MonoBehaviour
 
         PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
         TurnsManager.OnPlayerTurnStart += NextTurnHeroMethods;
+        Hero.OnHeroDeath += OnAllHeroesDeath;
     }
 
     private void OnDestroy()
     {
         PlayerResourceManager.OnTechniqueUsed -= ActivateComboEffects;
         TurnsManager.OnPlayerTurnStart -= NextTurnHeroMethods;
+        Hero.OnHeroDeath -= OnAllHeroesDeath;
     }
 
     private void InitializeHeroList()
@@ -35,6 +42,8 @@ public class HeroesManager : MonoBehaviour
                     Hero hero = (Hero)tile.GetOccupier();
 
                     heroList.Add(hero);
+
+                    heroesCount = heroList.Count;
                 }
             }
         }
@@ -68,6 +77,22 @@ public class HeroesManager : MonoBehaviour
         }
     }
 
+    public void OnAllHeroesDeath(Hero hero)
+    {
+        foreach (Hero item in heroList)
+        {
+            if (item == hero)
+            {
+                heroesCount--;
+
+                if (heroesCount == 0)
+                {
+                    OnHeroesDeath?.Invoke();
+                }
+            }
+        }
+    }
+
     public void CommandDefend()
     {
         foreach (Hero hero in heroList)
@@ -87,14 +112,27 @@ public class HeroesManager : MonoBehaviour
             switch (effect.Type)
             {
                 case EffectType.DamageBoss:
+
+                    foreach (Hero hero in heroList)
+                    {
+                        hero.heroAnimator.SetTrigger("Attack");
+                        hero.AttackingParticle.Play();
+                    }
+
                     boss.TakeDamage(effect.amount);
+
                     Debug.Log($"combo dealt {effect.amount} damage");
                     break;
                 case EffectType.HealAll:
                     foreach (Hero hero in heroList)
                     {
                         hero.GetHeal(effect.amount);
+                        hero.HealingEffect.Play();
                     }
+                    break;
+                case EffectType.HealTarget:
+                    selectedHero.GetHeal(effect.amount);
+                    selectedHero.HealingEffect.Play();
                     break;
                 case EffectType.BuffDefense1:
 

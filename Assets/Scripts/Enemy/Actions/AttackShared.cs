@@ -30,7 +30,7 @@ public class AttackShared : EnemyAction
             Debug.Log("No Targets hit, this shouldnt happen");
             return;
         }
-
+        Debug.Log($"{hitTargets} targets sharing");
         foreach (Vector2Int tilePosition in tiles)
         {
             tile = grid[tilePosition.x, tilePosition.y];

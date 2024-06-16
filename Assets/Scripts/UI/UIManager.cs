@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,10 +7,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [Header("General UI")]
-    private int roundNumber = 1;
+    private int roundNumber = 0;
+    [SerializeField] private Canvas gameOverScreen;
     [SerializeField] private TextMeshProUGUI roundUI;
-    [SerializeField] private HeroUI[] heroUI;
-    private int assignedheroes = 0;
+    [SerializeField] private HeroUI heroUI;
 
     [Header("Boss UI")]
 
@@ -25,24 +24,20 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        Hero.OnHeroSpawned += AssignHeroToUI;
         Boss.OnEnemyHealthChanged += BossHealthChange;
         PlayerResourceManager.OnAPChanged += ApUIChange;
         TurnsManager.OnPlayerTurnStart += RoundNumberChange;
+        HeroesManager.OnHeroesDeath += ShowGameOverScreen;
+        Boss.OnBossDeath += ShowGameOverScreen;
     }
 
     private void OnDestroy()
     {
-        Hero.OnHeroSpawned -= AssignHeroToUI;
         Boss.OnEnemyHealthChanged -= BossHealthChange;
         PlayerResourceManager.OnAPChanged -= ApUIChange;
         TurnsManager.OnPlayerTurnStart -= RoundNumberChange;
-    }
-
-    private void AssignHeroToUI(Hero hero)
-    {
-        heroUI[assignedheroes].AssignHero(hero);
-        assignedheroes++;
+        HeroesManager.OnHeroesDeath -= ShowGameOverScreen;
+        Boss.OnBossDeath -= ShowGameOverScreen;
     }
 
     private void ApUIChange(int ap)
@@ -71,6 +66,12 @@ public class UIManager : MonoBehaviour
         bossHealthBar.fillAmount = (float)boss.HP / boss.maxHP;
     }
 
+    private void ShowGameOverScreen()
+    {
+        gameOverScreen.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
@@ -78,6 +79,12 @@ public class UIManager : MonoBehaviour
 
     public void RestartScene()
     {
+        if (gameOverScreen.gameObject.activeInHierarchy)
+        {
+            gameOverScreen.gameObject.SetActive(false);
+        }
+
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
