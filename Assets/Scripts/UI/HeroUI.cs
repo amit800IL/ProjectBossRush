@@ -61,9 +61,6 @@ public class HeroUI : MonoBehaviour
         hpBar.gameObject.SetActive(false);
 
         graphic.sprite = null;
-
-        HeroHealthChange(hero);
-        HeroDefenceChange(hero);
     }
     private void HeroHealthChange(Hero h)
     {
