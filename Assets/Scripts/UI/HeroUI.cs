@@ -17,11 +17,15 @@ public class HeroUI : MonoBehaviour
     private void Start()
     {
         PlayerController.OnHeroMarked += AssignHero;
+        Hero.OnHeroHealthChanged += HeroHealthChange;
+        Hero.OnHeroDefenceChanged += HeroDefenceChange;
     }
 
     private void OnDisable()
     {
         PlayerController.OnHeroMarked -= AssignHero;
+        Hero.OnHeroHealthChanged -= HeroHealthChange;
+        Hero.OnHeroDefenceChanged -= HeroDefenceChange;
     }
 
     public void AssignHero(Hero hero)
@@ -46,9 +50,6 @@ public class HeroUI : MonoBehaviour
 
         HeroHealthChange(hero);
         HeroDefenceChange(hero);
-
-        Hero.OnHeroHealthChanged += HeroHealthChange;
-        Hero.OnHeroDefenceChanged += HeroDefenceChange;
     }
 
     private void UndoHeroSelectionOnUI()
@@ -63,23 +64,12 @@ public class HeroUI : MonoBehaviour
 
         HeroHealthChange(hero);
         HeroDefenceChange(hero);
-
-        Hero.OnHeroHealthChanged += HeroHealthChange;
-        Hero.OnHeroDefenceChanged += HeroDefenceChange;
     }
-
-    private void OnDestroy()
-    {
-        Hero.OnHeroHealthChanged -= HeroHealthChange;
-        Hero.OnHeroDefenceChanged -= HeroDefenceChange;
-    }
-
     private void HeroHealthChange(Hero h)
     {
         if (hero == h)
         {
             hpBar.fillAmount = (float)hero.HP / hero.HeroData.maxHP;
-
         }
     }
 
@@ -94,7 +84,6 @@ public class HeroUI : MonoBehaviour
         if (hero == h)
         {
             heroDefenceText.text = hero.tempHP.ToString();
-
         }
     }
 }

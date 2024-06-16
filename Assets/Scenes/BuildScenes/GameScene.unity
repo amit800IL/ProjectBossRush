@@ -5940,7 +5940,7 @@ MonoBehaviour:
   - {fileID: 655547247}
   - {fileID: 699919196}
   selectedTechnique: {fileID: 0}
-  vfxInstiniatePosition: {fileID: 0}
+  vfxInstiniatePosition: {fileID: 977542794}
   generalSymbolUI: {fileID: 795631976}
   heroSymbolUI: {fileID: 658537898}
 --- !u!1 &1440492894
