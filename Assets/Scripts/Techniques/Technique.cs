@@ -8,8 +8,7 @@ public class Technique : MonoBehaviour
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
 
-    [SerializeField] private Transform InstanitePos;
-    [SerializeField] private TechniqueDataSO techData;
+    [field: SerializeField] public TechniqueDataSO TechData { get; private set; }
     [SerializeField] private int cooldown;
 
     [Header("Debug")]
@@ -20,7 +19,7 @@ public class Technique : MonoBehaviour
 
     private void Start()
     {
-        nameText.text = techData.Name;
+        nameText.text = TechData.Name;
         //numText.text = techData.Requirements.ToString();
 
         activationButton.interactable = false;
@@ -39,13 +38,13 @@ public class Technique : MonoBehaviour
 
     void UpdateUsability(Hero hero)
     {
-        if (techData.RequiresTargetHero)
+        if (TechData.RequiresTargetHero)
             activationButton.interactable = (hero != null);
     }
 
     void UpdateUsability()
     {
-        if (!techData.RequiresTargetHero && IsReadyToUse())
+        if (!TechData.RequiresTargetHero && IsReadyToUse())
         {
             activationButton.interactable = true;
         }
@@ -57,33 +56,27 @@ public class Technique : MonoBehaviour
 
     public void Select()
     {
-        if (IsReadyToUse() && InstanitePos != null)
-        {
-            GameObject instanitiedParticle = Instantiate(techData.particleObject, InstanitePos.position, Quaternion.identity);
-            Destroy(instanitiedParticle, 5f);
-        }
-
         SelectTechnique?.Invoke(this);
     }
 
     public SymbolTable GetRequirements()
     {
-        return techData.Requirements;
+        return TechData.Requirements;
     }
 
     public int GetAPCost()
     {
-        return techData.APCost;
+        return TechData.APCost;
     }
 
     public Effect[] GetTechEffects()
     {
-        return techData.Effects;
+        return TechData.Effects;
     }
 
     public void StartCooldown()
     {
-        cooldown = techData.Cooldown;
+        cooldown = TechData.Cooldown;
         //if (cooldown > 0)
         //{
 

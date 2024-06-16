@@ -1098,9 +1098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f445f3abbe34dad4696fc713f6ffea6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstanitePos: {fileID: 977542794}
-  techData: {fileID: 11400000, guid: bd48c500af752cb4f9cf89f9143a9ffb, type: 2}
-  cooldown: 0
+  <TechData>k__BackingField: {fileID: 11400000, guid: bd48c500af752cb4f9cf89f9143a9ffb, type: 2}
+  cooldown: 5
   nameText: {fileID: 34504570}
   activationButton: {fileID: 343253317}
 --- !u!114 &343253319
@@ -1324,9 +1323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f445f3abbe34dad4696fc713f6ffea6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstanitePos: {fileID: 0}
-  techData: {fileID: 11400000, guid: d787e08f3361ee0469dae027712952af, type: 2}
-  cooldown: 0
+  <TechData>k__BackingField: {fileID: 11400000, guid: d787e08f3361ee0469dae027712952af, type: 2}
+  cooldown: 5
   nameText: {fileID: 1016289745}
   activationButton: {fileID: 370184407}
 --- !u!114 &370184409
@@ -2591,9 +2589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f445f3abbe34dad4696fc713f6ffea6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstanitePos: {fileID: 977542794}
-  techData: {fileID: 11400000, guid: bd48c500af752cb4f9cf89f9143a9ffb, type: 2}
-  cooldown: 0
+  <TechData>k__BackingField: {fileID: 11400000, guid: bd48c500af752cb4f9cf89f9143a9ffb, type: 2}
+  cooldown: 5
   nameText: {fileID: 376183448}
   activationButton: {fileID: 649092713}
 --- !u!114 &649092711
@@ -2798,9 +2795,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f445f3abbe34dad4696fc713f6ffea6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstanitePos: {fileID: 0}
-  techData: {fileID: 11400000, guid: d787e08f3361ee0469dae027712952af, type: 2}
-  cooldown: 0
+  <TechData>k__BackingField: {fileID: 11400000, guid: d787e08f3361ee0469dae027712952af, type: 2}
+  cooldown: 5
   nameText: {fileID: 559005762}
   activationButton: {fileID: 655547246}
 --- !u!114 &655547248
@@ -3133,9 +3129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f445f3abbe34dad4696fc713f6ffea6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstanitePos: {fileID: 0}
-  techData: {fileID: 11400000, guid: bee8951bb2a10eb428a125177219281b, type: 2}
-  cooldown: 0
+  <TechData>k__BackingField: {fileID: 11400000, guid: bee8951bb2a10eb428a125177219281b, type: 2}
+  cooldown: 5
   nameText: {fileID: 381051377}
   activationButton: {fileID: 699919195}
 --- !u!114 &699919197
@@ -5945,6 +5940,7 @@ MonoBehaviour:
   - {fileID: 655547247}
   - {fileID: 699919196}
   selectedTechnique: {fileID: 0}
+  vfxInstiniatePosition: {fileID: 0}
   generalSymbolUI: {fileID: 795631976}
   heroSymbolUI: {fileID: 658537898}
 --- !u!1 &1440492894
@@ -7914,9 +7910,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f445f3abbe34dad4696fc713f6ffea6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstanitePos: {fileID: 0}
-  techData: {fileID: 11400000, guid: bee8951bb2a10eb428a125177219281b, type: 2}
-  cooldown: 0
+  <TechData>k__BackingField: {fileID: 11400000, guid: bee8951bb2a10eb428a125177219281b, type: 2}
+  cooldown: 5
   nameText: {fileID: 865943458}
   activationButton: {fileID: 2016243023}
 --- !u!114 &2016243025

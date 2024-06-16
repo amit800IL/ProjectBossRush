@@ -16,6 +16,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     [SerializeField] private Technique[] techniques;
     [SerializeField] private Technique selectedTechnique;
+    [SerializeField] private Transform vfxInstiniatePosition;
 
     [Header("Other")]
 
@@ -80,6 +81,12 @@ public class PlayerResourceManager : MonoBehaviour
             {
                 if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
+                    if (vfxInstiniatePosition != null && selectedTechnique.TechData.Name == "Fireball")
+                    {
+                        GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
+                        Destroy(instanitiedParticle, 5f);
+                    }
+
                     UseSymbols(selectedTechnique.GetRequirements());
                     UseAP(selectedTechnique.GetAPCost());
                     OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
