@@ -447,6 +447,7 @@ RectTransform:
   - {fileID: 145105098}
   - {fileID: 1242097621}
   - {fileID: 657205711}
+  - {fileID: 1234978955}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1369,7 +1370,6 @@ MonoBehaviour:
   cooldown: 5
   nameText: {fileID: 34504570}
   activationButton: {fileID: 343253317}
-  toolTip: {fileID: 0}
   numText: {fileID: 0}
 --- !u!114 &343253319
 MonoBehaviour:
@@ -1597,7 +1597,6 @@ MonoBehaviour:
   cooldown: 0
   nameText: {fileID: 1016289745}
   activationButton: {fileID: 370184407}
-  toolTip: {fileID: 961670595}
   numText: {fileID: 736843454}
 --- !u!114 &370184409
 MonoBehaviour:
@@ -3287,7 +3286,6 @@ MonoBehaviour:
   cooldown: 0
   nameText: {fileID: 376183448}
   activationButton: {fileID: 649092713}
-  toolTip: {fileID: 527770382}
   numText: {fileID: 1448744867}
 --- !u!114 &649092711
 MonoBehaviour:
@@ -3495,7 +3493,6 @@ MonoBehaviour:
   cooldown: 5
   nameText: {fileID: 559005762}
   activationButton: {fileID: 655547246}
-  toolTip: {fileID: 0}
   numText: {fileID: 0}
 --- !u!114 &655547248
 MonoBehaviour:
@@ -3831,7 +3828,6 @@ MonoBehaviour:
   cooldown: 5
   nameText: {fileID: 381051377}
   activationButton: {fileID: 699919195}
-  toolTip: {fileID: 0}
   numText: {fileID: 0}
 --- !u!114 &699919197
 MonoBehaviour:
@@ -6603,6 +6599,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: ff2626171fe3e9a45ab3d33a5acefc8d, type: 3}
   m_ActionId: dd378923-52c6-4913-b450-d06482065ca6
+--- !u!1 &1234978954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234978955}
+  - component: {fileID: 1234978956}
+  m_Layer: 0
+  m_Name: ToolTipManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1234978955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234978954}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -966.1875, y: -538.25256, z: -0.0053739487}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 37441763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1234978956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234978954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5e91614cd6fe646bd1e7de1426df71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTip:
+  - {fileID: 527770382}
+  - {fileID: 961670595}
+  - {fileID: 1966236083}
 --- !u!1001 &1238616495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9851,7 +9895,6 @@ MonoBehaviour:
   cooldown: 0
   nameText: {fileID: 865943458}
   activationButton: {fileID: 2016243023}
-  toolTip: {fileID: 1966236083}
   numText: {fileID: 1190358102}
 --- !u!114 &2016243025
 MonoBehaviour:

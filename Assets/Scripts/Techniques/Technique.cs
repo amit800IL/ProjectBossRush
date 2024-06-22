@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Technique : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Technique : MonoBehaviour
 {
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
@@ -17,7 +17,6 @@ public class Technique : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private TextMeshProUGUI nameText;
     //[SerializeField] private Image cardBG;
     [SerializeField] private Button activationButton;
-    [SerializeField] private GameObject toolTip;
     [SerializeField] private TextMeshProUGUI numText;
 
     private void Start()
@@ -104,16 +103,4 @@ public class Technique : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     //{
     //    cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
     //}
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        toolTip.SetActive(true);
-        //transform.localPosition = new(transform.localPosition.x, 270, transform.localPosition.z);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        toolTip.SetActive(false);
-        //transform.localPosition = new(transform.localPosition.x, 0, transform.localPosition.z);
-    }
 }
