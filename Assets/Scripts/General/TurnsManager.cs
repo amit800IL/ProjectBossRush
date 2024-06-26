@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class TurnsManager : MonoBehaviour
@@ -36,6 +37,11 @@ public class TurnsManager : MonoBehaviour
     }
     public void EndPlayerTurn()
     {
+        StartCoroutine(EnemyTurnDelay());
+    }
+
+    private IEnumerator EnemyTurnDelay()
+    {
         bool attackTile = !onlyVisualizeAction;
 
         if (boss.IsBossAlive)
@@ -45,9 +51,10 @@ public class TurnsManager : MonoBehaviour
             if (!boss.HasBossAttacked)
                 boss.InteractWithTiles(attackTile);
 
+            yield return new WaitForSeconds(10f);
+
             if (boss.HasBossAttacked)
                 StartPlayerTurn();
-
         }
     }
 }
