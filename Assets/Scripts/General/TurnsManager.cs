@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class TurnsManager : MonoBehaviour
@@ -10,9 +11,6 @@ public class TurnsManager : MonoBehaviour
     [SerializeField] private Boss boss;
 
     private bool isPlayerTurnActive = false;
-    private bool isBossTurnActive = false;
-    private float bossTurnDuration = 10f;
-    private float bossTurnTimer = 0f;
 
     bool onlyVisualizeAction = true;
 
@@ -20,21 +18,6 @@ public class TurnsManager : MonoBehaviour
     {
         StartPlayerTurn();
     }
-
-    private void Update()
-    {
-        if (isBossTurnActive)
-        {
-            bossTurnTimer += Time.deltaTime;
-
-            if (bossTurnTimer >= bossTurnDuration)
-            {
-                isBossTurnActive = false;
-                StartPlayerTurn();
-            }
-        }
-    }
-
     private void StartPlayerTurn()
     {
         OnRoundStart?.Invoke();
@@ -54,6 +37,11 @@ public class TurnsManager : MonoBehaviour
     }
     public void EndPlayerTurn()
     {
+        StartCoroutine(EnemyTurnDelay());
+    }
+
+    private IEnumerator EnemyTurnDelay()
+    {
         bool attackTile = !onlyVisualizeAction;
 
         if (boss.IsBossAlive)
@@ -63,8 +51,10 @@ public class TurnsManager : MonoBehaviour
             if (!boss.HasBossAttacked)
                 boss.InteractWithTiles(attackTile);
 
-            isBossTurnActive = false;
-            bossTurnTimer = 0f;
+            yield return new WaitForSeconds(10f);
+
+            if (boss.HasBossAttacked)
+                StartPlayerTurn();
         }
     }
 }
