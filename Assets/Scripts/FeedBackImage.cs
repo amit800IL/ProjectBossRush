@@ -6,7 +6,6 @@ public class FeedBackImage : MonoBehaviour
     [SerializeField] private Hero hero;
     [SerializeField] private SpriteRenderer floatingImage;
     private Vector3 initialFeedbackImagePosition;
-
     private Coroutine feedbackImageCoroutine;
 
     private void Start()
