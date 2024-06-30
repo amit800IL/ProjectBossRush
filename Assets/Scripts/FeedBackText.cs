@@ -1,16 +1,19 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
-public class FeedBackImage : MonoBehaviour
+public class FeedBackText : MonoBehaviour
 {
     [SerializeField] private Hero hero;
-    [SerializeField] private SpriteRenderer floatingImage;
+    [SerializeField] private TextMeshProUGUI floatingText;
     private Vector3 initialFeedbackImagePosition;
     private Coroutine feedbackImageCoroutine;
+    private float previousHealth;
 
     private void Start()
     {
-        initialFeedbackImagePosition = floatingImage.transform.position;
+        initialFeedbackImagePosition = floatingText.transform.position;
+        previousHealth = hero.HP;
         Hero.OnHeroHealthChanged += OnPlayerHit;
     }
 
@@ -23,27 +26,32 @@ public class FeedBackImage : MonoBehaviour
     {
         if (this.hero == hero)
         {
+            float damage = previousHealth - hero.HP;
+            previousHealth = hero.HP;
+
             if (feedbackImageCoroutine != null)
             {
                 StopCoroutine(feedbackImageCoroutine);
             }
 
-            feedbackImageCoroutine = StartCoroutine(FeedbackImageFloating());
+            feedbackImageCoroutine = StartCoroutine(FloatingEnemyDamageNumber(damage));
         }
     }
 
-    private IEnumerator FeedbackImageFloating()
+    private IEnumerator FloatingEnemyDamageNumber(float damage)
     {
-        floatingImage.gameObject.SetActive(true);
+        floatingText.text = "-" + damage.ToString();
+
+        floatingText.gameObject.SetActive(true);
 
         Vector3 floatingPosition = new Vector3(0, 1, 0);
 
         float timerMax = 3f;
         float timeLapse = 0f;
 
-        Color currentColor = floatingImage.color;
+        Color currentColor = floatingText.color;
         currentColor.a = 1f;
-        floatingImage.color = currentColor;
+        floatingText.color = currentColor;
 
         Color targetTransparency = new Color(currentColor.r, currentColor.g, currentColor.b, 0f);
 
@@ -51,11 +59,11 @@ public class FeedBackImage : MonoBehaviour
         {
             timeLapse += Time.deltaTime;
             float progress = timeLapse / timerMax;
-            floatingImage.transform.position = Vector3.Lerp(initialFeedbackImagePosition, initialFeedbackImagePosition + floatingPosition, progress);
-            floatingImage.color = Color.Lerp(currentColor, targetTransparency, progress);
+            floatingText.transform.position = Vector3.Lerp(initialFeedbackImagePosition, initialFeedbackImagePosition + floatingPosition, progress);
+            floatingText.color = Color.Lerp(currentColor, targetTransparency, progress);
             yield return null;
         }
 
-        floatingImage.gameObject.SetActive(false);
+        floatingText.gameObject.SetActive(false);
     }
 }
