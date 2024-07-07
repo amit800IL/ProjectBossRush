@@ -6659,6 +6659,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: <BossAnimator>k__BackingField
+      value: 
+      objectReference: {fileID: 2010916593}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: enemyActions.Array.data[3].hitVFX
       value: 
       objectReference: {fileID: 544873090}
@@ -9761,6 +9765,11 @@ MonoBehaviour:
   playerAttack: {fileID: 1301875409}
   playerDefend: {fileID: 970846054}
   bossAttack: {fileID: 1162970201}
+--- !u!95 &2010916593 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5224418785857767808, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+  m_PrefabInstance: {fileID: 1238616495}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2016243021
 GameObject:
   m_ObjectHideFlags: 0

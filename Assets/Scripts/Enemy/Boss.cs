@@ -15,7 +15,7 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private int attackIndex = 0;
 
-    [SerializeField] private Animator bossAnimator;
+    [SerializeField] public Animator bossAnimator;
 
     [SerializeField] private Camera mainCamera;
 
