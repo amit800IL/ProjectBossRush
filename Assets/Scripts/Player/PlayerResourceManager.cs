@@ -10,7 +10,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
-    private SymbolTable playerSymbolTable = new SymbolTable();
+    [SerializeField] private SymbolTable playerSymbolTable = new SymbolTable();
 
     [Header("Techniques")]
 
