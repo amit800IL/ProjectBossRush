@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Figher : Hero
@@ -7,6 +8,7 @@ public class Figher : Hero
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
         base.Start();
     }
+
 
     public override bool CanHeroAttack(Boss boss)
     {

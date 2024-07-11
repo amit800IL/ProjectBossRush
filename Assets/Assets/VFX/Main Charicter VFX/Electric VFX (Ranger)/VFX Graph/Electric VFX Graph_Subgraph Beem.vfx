@@ -4636,7 +4636,7 @@ MonoBehaviour:
   - {fileID: 114350483966675126}
   m_ExposedName: Pos1
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 1
   m_Category: 
   m_Min:
     m_Type:
@@ -4821,7 +4821,7 @@ MonoBehaviour:
   - {fileID: 114350483966675131}
   m_ExposedName: Nose Speed
   m_Exposed: 1
-  m_Order: 4
+  m_Order: 2
   m_Category: 
   m_Min:
     m_Type:
@@ -4901,7 +4901,7 @@ MonoBehaviour:
   - {fileID: 114350483966675133}
   m_ExposedName: Nose Power
   m_Exposed: 1
-  m_Order: 5
+  m_Order: 3
   m_Category: 
   m_Min:
     m_Type:
@@ -4984,7 +4984,7 @@ MonoBehaviour:
   - {fileID: 114350483966675135}
   m_ExposedName: Nose Frequency
   m_Exposed: 1
-  m_Order: 6
+  m_Order: 4
   m_Category: 
   m_Min:
     m_Type:
@@ -5064,7 +5064,7 @@ MonoBehaviour:
   - {fileID: 114350483966675137}
   m_ExposedName: Pos2
   m_Exposed: 1
-  m_Order: 7
+  m_Order: 5
   m_Category: 
   m_Min:
     m_Type:
@@ -5249,7 +5249,7 @@ MonoBehaviour:
   - {fileID: 114350483966675142}
   m_ExposedName: Color
   m_Exposed: 1
-  m_Order: 8
+  m_Order: 6
   m_Category: 
   m_Min:
     m_Type:
@@ -5499,7 +5499,7 @@ MonoBehaviour:
   - {fileID: 114350483966675149}
   m_ExposedName: Texture
   m_Exposed: 1
-  m_Order: 9
+  m_Order: 7
   m_Category: 
   m_Min:
     m_Type:
@@ -5676,7 +5676,7 @@ MonoBehaviour:
   - {fileID: 114350483966675154}
   m_ExposedName: Life Time Beem
   m_Exposed: 1
-  m_Order: 10
+  m_Order: 8
   m_Category: 
   m_Min:
     m_Type:
