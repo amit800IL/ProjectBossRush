@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Ranger : Hero
 {
+    [SerializeField] private Transform endingPosition;
     protected override void Start()
     {
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
@@ -15,6 +16,7 @@ public class Ranger : Hero
 
     protected override IEnumerator ActivateAttackVfx(Boss boss)
     {
+        attackVFX.SetVector3("Pos4", boss.transform.position);
         yield return base.ActivateAttackVfx(boss);
     }
 
