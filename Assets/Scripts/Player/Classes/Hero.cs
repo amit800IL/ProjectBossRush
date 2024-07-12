@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public abstract class Hero : Entity
 {
@@ -44,10 +42,6 @@ public abstract class Hero : Entity
 
     protected RaycastHit raycastHit;
 
-    [Header("Heroe VFX")]
-    [SerializeField] protected VisualEffect attackVFX;
-    [SerializeField] protected float vfxTimer;
-
     protected virtual void Start()
     {
         HP = HeroData.maxHP;
@@ -56,9 +50,6 @@ public abstract class Hero : Entity
 
         OnHeroHealthChanged?.Invoke(this);
         OnHeroDefenceChanged?.Invoke(this);
-
-        if (attackVFX != null)
-            attackVFX.Stop();
     }
 
     public void MoveHeroToPosition(Tile targetTile)
@@ -77,16 +68,6 @@ public abstract class Hero : Entity
         {
             targetTile.OccupyTile(this);
             IsHeroOnNewPosition = true;
-        }
-    }
-
-    protected virtual IEnumerator ActivateAttackVfx(Boss boss)
-    {
-        if (attackVFX != null)
-        {
-            attackVFX.Play();
-            yield return new WaitForSeconds(vfxTimer);
-            attackVFX.Stop();
         }
     }
 
@@ -188,7 +169,6 @@ public abstract class Hero : Entity
             AttackingParticle.Play();
             boss.TakeDamage(HeroData.damage);
             OnHeroAttack?.Invoke(this);
-            StartCoroutine(ActivateAttackVfx(boss));
             return true;
         }
         else
