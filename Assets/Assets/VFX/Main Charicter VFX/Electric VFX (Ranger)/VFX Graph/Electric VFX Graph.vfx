@@ -667,7 +667,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614687}
       inputSlot: {fileID: 8926484042661615126}
-    position: {x: 188.5, y: 805}
+    position: {x: -36, y: 828.8}
     expandedSlots: []
     expanded: 0
   - m_Id: 2
@@ -868,7 +868,7 @@ MonoBehaviour:
     expanded: 0
   - m_Id: 1
     linkedSlots: []
-    position: {x: 26, y: 1162}
+    position: {x: 26.400002, y: 1149.6001}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614692
@@ -1052,7 +1052,7 @@ MonoBehaviour:
     expanded: 0
   - m_Id: 1
     linkedSlots: []
-    position: {x: 28, y: 1187.5}
+    position: {x: 26.400002, y: 1186.4}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614697
@@ -1233,7 +1233,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614702}
       inputSlot: {fileID: 8926484042661614952}
-    position: {x: 28, y: 726}
+    position: {x: 144.8, y: 673.6}
     expandedSlots: []
     expanded: 0
   - m_Id: 1
@@ -1247,7 +1247,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614702}
       inputSlot: {fileID: 8926484042661614980}
-    position: {x: 28, y: 1213}
+    position: {x: 26.400002, y: 1279.2001}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614702

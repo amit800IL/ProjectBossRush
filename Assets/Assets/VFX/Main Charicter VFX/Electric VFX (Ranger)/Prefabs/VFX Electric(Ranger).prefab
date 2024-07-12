@@ -63,11 +63,14 @@ VisualEffect:
       - m_Value: 1.35
         m_Name: Nose Speed
         m_Overridden: 1
+      - m_Value: 1
+        m_Name: Beem Life Time
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0.47999996, y: 2.0555573, z: -1.3462489}
+      - m_Value: {x: 0.84, y: 2.05, z: -2.22}
         m_Name: Pos1
         m_Overridden: 1
       - m_Value: {x: 0.49, y: 2.0583253, z: 2.1107578}
@@ -76,7 +79,7 @@ VisualEffect:
       - m_Value: {x: 3.3899999, y: 2.5082767, z: 2.646989}
         m_Name: Pos3
         m_Overridden: 1
-      - m_Value: {x: 6.48, y: 2.1237988, z: -1.2338073}
+      - m_Value: {x: 6.84, y: 2.18, z: -2.2}
         m_Name: Pos4
         m_Overridden: 1
     m_Vector4f:
