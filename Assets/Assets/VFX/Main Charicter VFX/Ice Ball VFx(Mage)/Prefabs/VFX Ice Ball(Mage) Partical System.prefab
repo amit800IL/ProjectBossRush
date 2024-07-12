@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167334201226791583}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05000019, y: 1.62, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.05000019, y: 1.6199999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4862,11 +4862,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5074495413586964897}
-  - {fileID: 1056465325900846752}
   - {fileID: 6724188540878743184}
-  - {fileID: 5067166695376859371}
-  - {fileID: 6712754684384310297}
-  - {fileID: 1218365334353198937}
+  - {fileID: 1056465325900846752}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3903034727393760336
@@ -9694,11 +9691,11 @@ Transform:
   m_GameObject: {fileID: 4670478359974124264}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.05000019, y: -1.18, z: 0}
+  m_LocalPosition: {x: 0, y: -2.7999997, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 3833936695321724682}
+  m_Father: {fileID: 1056465325900846752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &7587668179490056345
 Light:
@@ -9823,11 +9820,11 @@ Transform:
   m_GameObject: {fileID: 4880102222762151759}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.05000019, y: 1.6200004, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3833936695321724682}
+  m_Father: {fileID: 1056465325900846752}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!96 &1129186549912827106
 TrailRenderer:
@@ -9959,11 +9956,11 @@ Transform:
   m_GameObject: {fileID: 5401973830278369240}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.05000019, y: 1.6200004, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3833936695321724682}
+  m_Father: {fileID: 1056465325900846752}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!96 &3225842711587825813
 TrailRenderer:
@@ -14987,7 +14984,10 @@ Transform:
   m_LocalPosition: {x: -0.05000019, y: 1.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6712754684384310297}
+  - {fileID: 1218365334353198937}
+  - {fileID: 5067166695376859371}
   m_Father: {fileID: 3833936695321724682}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &957570239522625437
@@ -18826,8 +18826,13 @@ ParticleSystem:
     primitives: []
   SubModule:
     serializedVersion: 2
-    enabled: 0
+    enabled: 1
     subEmitters:
+    - serializedVersion: 3
+      emitter: {fileID: 1475823120188238892}
+      type: 0
+      properties: 0
+      emitProbability: 1
     - serializedVersion: 3
       emitter: {fileID: 0}
       type: 0
