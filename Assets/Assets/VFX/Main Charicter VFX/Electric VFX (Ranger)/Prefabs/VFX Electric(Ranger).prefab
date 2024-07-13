@@ -69,16 +69,16 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 1.15, y: 3.96, z: 0}
+      - m_Value: {x: 1.04, y: 4.7, z: 0}
         m_Name: Pos1
         m_Overridden: 1
-      - m_Value: {x: 0.96000004, y: 3.96, z: 0}
+      - m_Value: {x: 0.85, y: 4.7, z: 0}
         m_Name: Pos2
         m_Overridden: 1
-      - m_Value: {x: 3.86, y: 4.66, z: 0}
+      - m_Value: {x: 3.75, y: 5.4, z: 0}
         m_Name: Pos3
         m_Overridden: 1
-      - m_Value: {x: 7.61, y: 4.06, z: 0}
+      - m_Value: {x: 7.5, y: 4.8, z: 0}
         m_Name: Pos4
         m_Overridden: 1
     m_Vector4f:

@@ -15,6 +15,7 @@ public class Ranger : Hero
 
     public override bool HeroAttackBoss(Boss boss)
     {
+        attackVFX.SetVector3("Pos4", boss.transform.position);
         return base.HeroAttackBoss(boss);
     }
 

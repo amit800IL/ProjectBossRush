@@ -7,8 +7,10 @@ public class TurnsManager : MonoBehaviour
 
     public static event Action OnRoundStart;
     public static event Action OnPlayerTurnStart;
+    public static event Action OnBossTurnStart;
 
     [SerializeField] private Boss boss;
+    [SerializeField] private float turnBuffer = 1;
     [SerializeField] private float bossTurnDuration = 2;
 
     private bool isPlayerTurnActive = false;
@@ -38,7 +40,14 @@ public class TurnsManager : MonoBehaviour
     }
     public void EndPlayerTurn()
     {
+        StartCoroutine(BossTurn());
+    }
+
+    IEnumerator BossTurn()
+    {
+        OnBossTurnStart?.Invoke();
         bool attackTile = !onlyVisualizeAction;
+        yield return new WaitForSeconds(turnBuffer);
 
         if (boss.IsBossAlive)
         {
@@ -48,13 +57,8 @@ public class TurnsManager : MonoBehaviour
                 boss.InteractWithTiles(attackTile);
 
             if (boss.HasBossAttacked)
-                StartCoroutine(BossTurnTimer());
+                yield return new WaitForSeconds(bossTurnDuration);
         }
-    }
-
-    IEnumerator BossTurnTimer()
-    {
-        yield return new WaitForSeconds(bossTurnDuration);
         StartPlayerTurn();
     }
 }

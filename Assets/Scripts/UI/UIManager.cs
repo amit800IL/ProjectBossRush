@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas lostScreen;
     [SerializeField] private TextMeshProUGUI roundUI;
     [SerializeField] private HeroUI heroUI;
+    [SerializeField] private RoundNotice turnNotice;
 
     [Header("Boss UI")]
 
@@ -28,6 +29,8 @@ public class UIManager : MonoBehaviour
         Boss.OnEnemyHealthChanged += BossHealthChange;
         PlayerResourceManager.OnAPChanged += ApUIChange;
         TurnsManager.OnPlayerTurnStart += RoundNumberChange;
+        TurnsManager.OnPlayerTurnStart += NoticePlayerTurn;
+        TurnsManager.OnBossTurnStart += NoticeBossTurn;
         HeroesManager.OnHeroesDeath += ShowLostScreen;
         Boss.OnBossDeath += ShowWinScreen;
     }
@@ -37,6 +40,8 @@ public class UIManager : MonoBehaviour
         Boss.OnEnemyHealthChanged -= BossHealthChange;
         PlayerResourceManager.OnAPChanged -= ApUIChange;
         TurnsManager.OnPlayerTurnStart -= RoundNumberChange;
+        TurnsManager.OnPlayerTurnStart -= NoticePlayerTurn;
+        TurnsManager.OnBossTurnStart -= NoticeBossTurn;
         HeroesManager.OnHeroesDeath -= ShowLostScreen;
         Boss.OnBossDeath -= ShowWinScreen;
     }
@@ -99,5 +104,15 @@ public class UIManager : MonoBehaviour
 
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void NoticePlayerTurn()
+    {
+        turnNotice.ActivateNotice("Player Turn");
+    }
+
+    private void NoticeBossTurn()
+    {
+        turnNotice.ActivateNotice("Boss Turn");
     }
 }

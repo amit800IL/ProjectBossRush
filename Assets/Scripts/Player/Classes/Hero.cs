@@ -44,7 +44,7 @@ public abstract class Hero : Entity
 
     protected RaycastHit raycastHit;
 
-    [SerializeField] private VisualEffect attackVFX;
+    [SerializeField] protected VisualEffect attackVFX;
     [SerializeField] private float vfxTimer;
 
     protected virtual void Start()
@@ -175,6 +175,7 @@ public abstract class Hero : Entity
             HP = HeroData.maxHP;
         }
 
+        HealingEffect.Play();
         OnHeroHealthChanged?.Invoke(this);
 
         spriteChange.OnHpLow(HP);
