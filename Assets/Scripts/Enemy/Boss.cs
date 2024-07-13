@@ -89,14 +89,11 @@ public class Boss : MonoBehaviour
 
                 foreach (Vector2Int tilePosition in targetTiles)
                 {
-                    if (tilePosition != null && targetTiles != null)
-                    {
-                        Tile tile = tiles[tilePosition.x, tilePosition.y];
+                    Tile tile = tiles[tilePosition.x, tilePosition.y];
 
-                        if (tile != null)
-                        {
-                            currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
-                        }
+                    if (tile != null)
+                    {
+                        currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
                     }
                 }
             }
