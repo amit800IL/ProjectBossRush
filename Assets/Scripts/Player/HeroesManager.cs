@@ -127,12 +127,10 @@ public class HeroesManager : MonoBehaviour
                     foreach (Hero hero in heroList)
                     {
                         hero.GetHeal(effect.amount);
-                        hero.HealingEffect.Play();
                     }
                     break;
                 case EffectType.HealTarget:
                     selectedHero.GetHeal(effect.amount);
-                    selectedHero.HealingEffect.Play();
                     break;
                 case EffectType.BuffDefense1:
 
