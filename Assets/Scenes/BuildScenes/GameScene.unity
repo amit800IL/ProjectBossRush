@@ -4795,7 +4795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileObject: {fileID: 224761121193439107, guid: 6337dc4b77f0e1e4cbf13e316ad3b615, type: 3}
-  gridSize: {x: 6, y: 6}
+  gridSize: {x: 6, y: 4}
   gridObjectsToSpawn:
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
     spawnPosition: {x: 1, y: 3}
