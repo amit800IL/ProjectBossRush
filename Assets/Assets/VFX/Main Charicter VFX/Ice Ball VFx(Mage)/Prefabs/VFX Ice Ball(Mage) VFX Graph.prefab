@@ -498,7 +498,7 @@ VisualEffect:
       - m_Value: 0.37
         m_Name: Size Main
         m_Overridden: 1
-      - m_Value: 0.1
+      - m_Value: 3.52
         m_Name: Speed
         m_Overridden: 1
       - m_Value: 0
@@ -519,6 +519,12 @@ VisualEffect:
         m_Overridden: 1
       - m_Value: {x: 0, y: 0, z: 0}
         m_Name: Speed
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: 0}
+        m_Name: Direction
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: 0}
+        m_Name: Position Start
         m_Overridden: 1
     m_Vector4f:
       m_Array:
