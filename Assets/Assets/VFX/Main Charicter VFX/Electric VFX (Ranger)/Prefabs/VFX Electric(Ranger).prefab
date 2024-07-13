@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 7553740704652872835}
   - component: {fileID: 8001298695883680752}
   - component: {fileID: 2396771536423431216}
-  - component: {fileID: 4172824775667779616}
-  - component: {fileID: 7386620015646540680}
   - component: {fileID: 6098089434351839028}
   m_Layer: 0
   m_Name: Electric VFX Graph
@@ -161,8 +159,6 @@ MonoBehaviour:
   m_ExecuteInEditor: 1
   m_Bindings:
   - {fileID: 2396771536423431216}
-  - {fileID: 4172824775667779616}
-  - {fileID: 7386620015646540680}
   - {fileID: 6098089434351839028}
   m_VisualEffect: {fileID: 3984827929643143909}
 --- !u!114 &2396771536423431216
@@ -180,36 +176,6 @@ MonoBehaviour:
   m_Property:
     m_Name: Pos4
   Target: {fileID: 4363706024498547744}
---- !u!114 &4172824775667779616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482018601286913769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Property:
-    m_Name: Pos3
-  Target: {fileID: 9173779723040392456}
---- !u!114 &7386620015646540680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 482018601286913769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c3070554d0a8944a95ff8f018c2c9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Property:
-    m_Name: Pos2
-  Target: {fileID: 3649572980517968211}
 --- !u!114 &6098089434351839028
 MonoBehaviour:
   m_ObjectHideFlags: 0
