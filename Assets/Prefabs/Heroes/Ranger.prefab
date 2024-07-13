@@ -151,14 +151,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879207483572012265}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalRotation: {x: 0, y: 0.9396927, z: -0.34202018, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -1.0430009}
   m_LocalScale: {x: 0.5000001, y: 0.49999988, z: 0.5000001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 771402950021427342}
   m_Father: {fileID: 8396108960678294777}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 140, y: 0, z: -180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.32, y: -0}
@@ -346,8 +346,8 @@ MonoBehaviour:
   <SlashParticle>k__BackingField: {fileID: 3297225965136918269}
   <HeroData>k__BackingField: {fileID: 11400000, guid: 597cc32d1a346f14e8cb038a201bd392, type: 2}
   <HP>k__BackingField: 0
-  arrowVFX: {fileID: 6294264818554504005}
-  arrowLifeTimeObject: {fileID: 6294264819164658546}
+  attackVFX: {fileID: 0}
+  vfxTimer: 0
 --- !u!65 &1015659684323480745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -903,15 +903,5 @@ PrefabInstance:
 --- !u!4 &6294264818554504002 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7202621968640606383, guid: 863f8a7d2b3674e4d9fc294af36ad21e, type: 3}
-  m_PrefabInstance: {fileID: 3795797838786561005}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6294264818554504005 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7202621968640606376, guid: 863f8a7d2b3674e4d9fc294af36ad21e, type: 3}
-  m_PrefabInstance: {fileID: 3795797838786561005}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6294264819164658546 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7202621968042801311, guid: 863f8a7d2b3674e4d9fc294af36ad21e, type: 3}
   m_PrefabInstance: {fileID: 3795797838786561005}
   m_PrefabAsset: {fileID: 0}
