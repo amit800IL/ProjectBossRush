@@ -498,7 +498,7 @@ VisualEffect:
       - m_Value: 0.37
         m_Name: Size Main
         m_Overridden: 1
-      - m_Value: 3.52
+      - m_Value: 1.93
         m_Name: Speed
         m_Overridden: 1
       - m_Value: 0
@@ -507,6 +507,12 @@ VisualEffect:
       - m_Value: -11.5
         m_Name: Dictnce Pultiplyer
         m_Overridden: 1
+      - m_Value: 0.93
+        m_Name: Life time
+        m_Overridden: 1
+      - m_Value: 2.52
+        m_Name: Life Time
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
       - m_Value: {x: 0.01, y: 0.15}
@@ -514,7 +520,7 @@ VisualEffect:
         m_Overridden: 1
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: 0, z: 0}
+      - m_Value: {x: 9.2, y: 0, z: 0}
         m_Name: Position End
         m_Overridden: 1
       - m_Value: {x: 0, y: 0, z: 0}
