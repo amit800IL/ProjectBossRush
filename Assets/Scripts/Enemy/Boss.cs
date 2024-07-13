@@ -84,10 +84,17 @@ public class Boss : MonoBehaviour
             else
             {
                 targetTiles = ReadBossAction(attackIndex);
+
+
+
                 foreach (Vector2Int tilePosition in targetTiles)
                 {
                     Tile tile = tiles[tilePosition.x, tilePosition.y];
-                    currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
+
+                    if (tile != null)
+                    {
+                        currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
+                    }
                 }
             }
         }
