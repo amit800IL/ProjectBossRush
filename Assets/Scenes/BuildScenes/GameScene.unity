@@ -4795,7 +4795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileObject: {fileID: 224761121193439107, guid: 6337dc4b77f0e1e4cbf13e316ad3b615, type: 3}
-  gridSize: {x: 6, y: 6}
+  gridSize: {x: 6, y: 4}
   gridObjectsToSpawn:
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
     spawnPosition: {x: 1, y: 3}
@@ -8752,7 +8752,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b409e6f95faaa0646a631ab7d2740cc8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64b049869f7a7684bb2159f44f64f4ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
