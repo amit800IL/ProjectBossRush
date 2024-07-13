@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ public class GridManager : MonoBehaviour
             {
                 Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x)) * tileGap, 0f , y * ((tileObject.transform.localScale.z)) * tileGap);
 
-                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-4, 0.5f, 0)), Quaternion.identity, transform);
+                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-4, 1.5f, 0)), Quaternion.identity, transform);
                 Tiles[x, y].Initialize(x, y);
                 Tiles[x, y].SetTileType(CalculateTileType(new Vector2(x, y)));
             }
@@ -96,19 +97,19 @@ public class GridManager : MonoBehaviour
 
     private TileType[] CalculateTileType(Vector2 position)
     {
-        Debug.Log("this method is only accurate for grids where y = 6");
         TileType[] types = new TileType[1];
+
         if (position.y == 0 || position.y == gridSize.y - 1)
         {
-            types = new TileType[2];
+            Array.Resize(ref types, 2);
             types[1] = TileType.Flank;
         }
 
-        if (position.x > 3)
+        if (position.x > gridSize.x / 2)
         {
             types[0] = TileType.CloseRange;
         }
-        else if (position.x < 2)
+        else if (position.x < gridSize.x / 3)
         {
             types[0] = TileType.LongRange;
         }

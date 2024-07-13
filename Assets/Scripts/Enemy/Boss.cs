@@ -84,9 +84,11 @@ public class Boss : MonoBehaviour
             else
             {
                 targetTiles = ReadBossAction(attackIndex);
+
+
+
                 foreach (Vector2Int tilePosition in targetTiles)
                 {
-<<<<<<< HEAD
                     if (tilePosition != null && targetTiles != null)
                     {
                         Tile tile = tiles[tilePosition.x, tilePosition.y];
@@ -96,10 +98,6 @@ public class Boss : MonoBehaviour
                             currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
                         }
                     }
-=======
-                    Tile tile = tiles[tilePosition.x, tilePosition.y];
-                    currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
->>>>>>> parent of ee91de3 (grid size is not adaptable and not bound to y=6 constrain)
                 }
             }
         }
