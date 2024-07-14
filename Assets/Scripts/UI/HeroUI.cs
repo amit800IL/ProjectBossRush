@@ -10,7 +10,6 @@ public class HeroUI : MonoBehaviour
     [SerializeField] private Hero hero;
     [SerializeField] private Image hpBar;
     [SerializeField] private TextMeshProUGUI heroMovementAmountText;
-    [SerializeField] private SymbolUI symbolUI;
 
     private bool isPanelActive = false;
 
@@ -43,14 +42,6 @@ public class HeroUI : MonoBehaviour
             return false;
             //    UndoHeroSelectionOnUI();
         }
-    }
-
-    private void ShowSelectedHeroOnUI()
-    {
-        ShowHeroMovementAmount();
-        graphic.sprite = hero.HeroData.headshotSprite;
-        HeroHealthChange(hero);
-        HeroDefenceChange(hero);
     }
 
     //private void UndoHeroSelectionOnUI()
