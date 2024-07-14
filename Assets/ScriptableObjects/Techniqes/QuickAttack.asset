@@ -22,4 +22,4 @@ MonoBehaviour:
   Effects:
   - Type: 0
     duration: 1
-    amount: 3
+    amount: 6
