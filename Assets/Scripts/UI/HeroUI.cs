@@ -16,7 +16,7 @@ public class HeroUI : MonoBehaviour
     private void Start()
     {
         //PlayerController.OnHeroMarked += AssignHero;
-        ShowSelectedHeroOnUI();
+        //ShowSelectedHeroOnUI();
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
 
@@ -29,18 +29,20 @@ public class HeroUI : MonoBehaviour
         Hero.OnHeroDefenceChanged -= HeroDefenceChange;
     }
 
-    //public void AssignHero(Hero hero)
-    //{
-    //    if (hero != null)
-    //    {
-    //        this.hero = hero;
-    //        ShowSelectedHeroOnUI();
-    //    }
-    //    else
-    //    {
-    //        UndoHeroSelectionOnUI();
-    //    }
-    //}
+    public bool AssignHero(Hero hero)
+    {
+        if (this.hero == null && hero != null)
+        {
+            this.hero = hero;
+            return true;
+            //    ShowSelectedHeroOnUI();
+        }
+        else
+        {
+            return false;
+            //    UndoHeroSelectionOnUI();
+        }
+    }
 
     private void ShowSelectedHeroOnUI()
     {
@@ -65,6 +67,8 @@ public class HeroUI : MonoBehaviour
         if (hero == h)
         {
             hpBar.fillAmount = (float)hero.HP / hero.HeroData.maxHP;
+            Debug.Log(hero.HP);
+            Debug.Log(hero.HeroData.maxHP);
         }
     }
 
