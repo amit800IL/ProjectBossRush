@@ -17,12 +17,20 @@ public class TurnsManager : MonoBehaviour
 
     bool onlyVisualizeAction = true;
 
-    private void Start()
+    private void Awake()
     {
-        StartPlayerTurn();
+        TutorialScript.OnTutorialFinished += StartPlayerTurn;
     }
+
+    private void OnDestroy()
+    {
+        TutorialScript.OnTutorialFinished -= StartPlayerTurn;
+    }
+
     private void StartPlayerTurn()
     {
+        if (isPlayerTurnActive) return;
+
         OnRoundStart?.Invoke();
         bool visualizeAction = onlyVisualizeAction;
 

@@ -11,8 +11,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas winScreen;
     [SerializeField] private Canvas lostScreen;
     [SerializeField] private TextMeshProUGUI roundUI;
+    [SerializeField] private HeroUI heroUI;
     [SerializeField] private RoundNotice turnNotice;
-    [SerializeField] private List<HeroUI> heroUIList;
+    [SerializeField] private GameObject raycastBlockPanel;
 
     [Header("Boss UI")]
 
@@ -33,7 +34,6 @@ public class UIManager : MonoBehaviour
         TurnsManager.OnBossTurnStart += NoticeBossTurn;
         HeroesManager.OnHeroesDeath += ShowLostScreen;
         Boss.OnBossDeath += ShowWinScreen;
-        Hero.OnHeroSpawned += AssignHeroUI;
     }
 
     private void OnDestroy()
@@ -45,7 +45,6 @@ public class UIManager : MonoBehaviour
         TurnsManager.OnBossTurnStart -= NoticeBossTurn;
         HeroesManager.OnHeroesDeath -= ShowLostScreen;
         Boss.OnBossDeath -= ShowWinScreen;
-        Hero.OnHeroSpawned -= AssignHeroUI;
     }
 
     private void ApUIChange(int ap)
@@ -108,26 +107,15 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void AssignHeroUI(Hero hero)
-    {
-        for (int i = 0; i < heroUIList.Count; i++)
-        {
-            if (heroUIList[i].AssignHero(hero))
-            {
-                return;
-            }
-        }
-    }
-
     private void NoticePlayerTurn()
     {
-        if (turnNotice != null)
-            turnNotice.ActivateNotice("Player Turn");
+        turnNotice.ActivateNotice("Player Turn");
+        raycastBlockPanel.SetActive(false);
     }
 
     private void NoticeBossTurn()
     {
-        if (turnNotice != null)
-            turnNotice.ActivateNotice("Boss Turn");
+        turnNotice.ActivateNotice("Boss Turn");
+        raycastBlockPanel.SetActive(true);
     }
 }

@@ -28,7 +28,7 @@ public class RoundNotice : MonoBehaviour
 
     private void SetColorOpacity(bool increase)
     {
-        Color color = new(0, 0, 0, opacityIncrement);
+        Color color = new(0, 0, 0, opacityIncrement * Time.deltaTime);
         for (int i = 0; i < graphics.Count; i++)
         {
             if (increase) graphics[i].color += color;
@@ -38,7 +38,7 @@ public class RoundNotice : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
-        while (graphics[0].color.a < 1)
+        while (graphics[0].color.a < 1) //graphics in edit mode must not be fully opaque in order to pass this on start
         {
             SetColorOpacity(increase: true);
             yield return null;

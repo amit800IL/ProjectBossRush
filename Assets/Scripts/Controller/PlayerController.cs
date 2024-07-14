@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private BossRush inputActions;
     private Vector2 inputPosition;
     private bool isButtonHeld = false;
+    private bool isInputAllowed = false;
 
     [Header("Raycast mark flags")]
 
@@ -32,7 +33,11 @@ public class PlayerController : MonoBehaviour
     [Header("LayerMasks")]
     [SerializeField] private LayerMask heroMask;
 
-
+    private void Awake()
+    {
+        TurnsManager.OnPlayerTurnStart += AllowInput;
+        TurnsManager.OnBossTurnStart += ForbidInput;        
+    }
 
     private void Start()
     {
@@ -44,6 +49,7 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.PlayerTactical.canceled += OnCharachterReleased;
         inputActions.UI.Point.performed += HoverCharachter;
     }
+
     private void OnDisable()
     {
         inputActions.Player.PlayerPress.performed -= HeroMark;
@@ -53,8 +59,16 @@ public class PlayerController : MonoBehaviour
         inputActions.UI.Point.performed -= HoverCharachter;
     }
 
+    private void OnDestroy()
+    {
+        TurnsManager.OnPlayerTurnStart -= AllowInput;
+        TurnsManager.OnBossTurnStart -= ForbidInput;        
+    }
+
     private void HeroMark(InputAction.CallbackContext inputAction)
     {
+        if (!isInputAllowed) return;
+
         inputPosition = Mouse.current.position.ReadValue();
 
         if (inputActions != null && inputPosition != null)
@@ -256,5 +270,15 @@ public class PlayerController : MonoBehaviour
     public void TacticalViewReleased()
     {
         GridManager.Instance.StopTacticalView();
+    }
+
+    private void AllowInput()
+    {
+        isInputAllowed = true;
+    }
+
+    private void ForbidInput()
+    {
+        isInputAllowed = false;
     }
 }
