@@ -17,7 +17,6 @@ public class HeroUI : MonoBehaviour
     private void Start()
     {
         //PlayerController.OnHeroMarked += AssignHero;
-        //ShowSelectedHeroOnUI();
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
 
@@ -35,6 +34,7 @@ public class HeroUI : MonoBehaviour
         if (this.hero == null && hero != null)
         {
             this.hero = hero;
+            graphic.sprite = hero.HeroData.headshotSprite;
             return true;
             //    ShowSelectedHeroOnUI();
         }
