@@ -301,7 +301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7308124050163752447
 Transform:
   m_ObjectHideFlags: 0
@@ -709,6 +709,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VFX Ice Ball(Mage) VFX Graph
       objectReference: {fileID: 0}
+    - target: {fileID: 1866000744077839963, guid: 710b5b842a9a81f48ab7788fdac4ea12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4894208911199018662, guid: 710b5b842a9a81f48ab7788fdac4ea12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.8
@@ -756,6 +760,10 @@ PrefabInstance:
     - target: {fileID: 6344826944436026810, guid: 710b5b842a9a81f48ab7788fdac4ea12, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200421256083256743, guid: 710b5b842a9a81f48ab7788fdac4ea12, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7352865770606061247, guid: 710b5b842a9a81f48ab7788fdac4ea12, type: 3}
       propertyPath: m_LocalPosition.x
