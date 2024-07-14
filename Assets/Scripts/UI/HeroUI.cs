@@ -8,7 +8,6 @@ public class HeroUI : MonoBehaviour
     [SerializeField] private Image graphic;
     [SerializeField] private Hero hero;
     [SerializeField] private Image hpBar;
-    [SerializeField] private TextMeshProUGUI heroDefenceText;
     [SerializeField] private TextMeshProUGUI heroMovementAmountText;
     [SerializeField] private SymbolUI symbolUI;
 
@@ -16,52 +15,51 @@ public class HeroUI : MonoBehaviour
 
     private void Start()
     {
-        PlayerController.OnHeroMarked += AssignHero;
+        //PlayerController.OnHeroMarked += AssignHero;
+        ShowSelectedHeroOnUI();
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
+
     }
 
     private void OnDisable()
     {
-        PlayerController.OnHeroMarked -= AssignHero;
+        //PlayerController.OnHeroMarked -= AssignHero;
         Hero.OnHeroHealthChanged -= HeroHealthChange;
         Hero.OnHeroDefenceChanged -= HeroDefenceChange;
     }
 
-    public void AssignHero(Hero hero)
-    {
-        if (hero != null)
-        {
-            this.hero = hero;
-            ShowSelectedHeroOnUI();
-        }
-        else
-        {
-            UndoHeroSelectionOnUI();
-        }
-    }
+    //public void AssignHero(Hero hero)
+    //{
+    //    if (hero != null)
+    //    {
+    //        this.hero = hero;
+    //        ShowSelectedHeroOnUI();
+    //    }
+    //    else
+    //    {
+    //        UndoHeroSelectionOnUI();
+    //    }
+    //}
 
     private void ShowSelectedHeroOnUI()
     {
         ShowHeroMovementAmount();
         graphic.sprite = hero.HeroData.headshotSprite;
-
-        hpBar.gameObject.SetActive(true);
-
         HeroHealthChange(hero);
         HeroDefenceChange(hero);
     }
 
-    private void UndoHeroSelectionOnUI()
-    {
-        heroMovementAmountText.text = "0";
+    //private void UndoHeroSelectionOnUI()
+    //{
+    //    heroMovementAmountText.text = "0";
 
-        heroDefenceText.text = "0";
+    //    heroDefenceText.text = "0";
 
-        hpBar.gameObject.SetActive(false);
+    //    hpBar.gameObject.SetActive(false);
 
-        graphic.sprite = null;
-    }
+    //    graphic.sprite = null;
+    //}
     private void HeroHealthChange(Hero h)
     {
         if (hero == h)
@@ -80,7 +78,7 @@ public class HeroUI : MonoBehaviour
     {
         if (hero == h)
         {
-            heroDefenceText.text = hero.tempHP.ToString();
+
         }
     }
 }

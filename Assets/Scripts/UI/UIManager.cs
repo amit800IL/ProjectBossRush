@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas winScreen;
     [SerializeField] private Canvas lostScreen;
     [SerializeField] private TextMeshProUGUI roundUI;
-    [SerializeField] private HeroUI heroUI;
     [SerializeField] private RoundNotice turnNotice;
 
     [Header("Boss UI")]
