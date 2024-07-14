@@ -12114,7 +12114,7 @@ MonoBehaviour:
   - {fileID: 348099268}
   - {fileID: 1100340816}
   - {fileID: 1489235356}
-  bossHealthBar: {fileID: 1318184783}
+  bossHealthBar: {fileID: 2068537170}
   actionPoints:
   - {fileID: 1069266886}
   - {fileID: 890620177}
