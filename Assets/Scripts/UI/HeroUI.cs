@@ -6,6 +6,7 @@ public class HeroUI : MonoBehaviour
 {
     [SerializeField] private GameObject heroPanel;
     [SerializeField] private Image graphic;
+    [SerializeField] private Image defenceImage;
     [SerializeField] private Hero hero;
     [SerializeField] private Image hpBar;
     [SerializeField] private TextMeshProUGUI heroMovementAmountText;
@@ -82,7 +83,14 @@ public class HeroUI : MonoBehaviour
     {
         if (hero == h)
         {
-
+            if (hero.tempHP > 0)
+            {
+                defenceImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                defenceImage.gameObject.SetActive(false);
+            }
         }
     }
 }

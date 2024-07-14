@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroPanel: {fileID: 824149152538430731}
   graphic: {fileID: 3928491405720308655}
+  defenceImage: {fileID: 2038277948327664379}
   hero: {fileID: 5135979904959998896, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
   hpBar: {fileID: 6432533227581654511}
   heroMovementAmountText: {fileID: 6151778085540724}
@@ -786,7 +787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1648101091852141576
 RectTransform:
   m_ObjectHideFlags: 0
