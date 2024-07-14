@@ -376,6 +376,8 @@ MonoBehaviour:
   defendingParticle: {fileID: 4633142284472209159}
   <HealingEffect>k__BackingField: {fileID: 1330636499825376249}
   <SlashParticle>k__BackingField: {fileID: 5760940764760878894}
+  <SymbolTable>k__BackingField:
+    table: 000000000000000000000000000000000000000000000000
   <HeroData>k__BackingField: {fileID: 11400000, guid: 60b3bbec89804e04eac02c5ae768c4fa, type: 2}
   <HP>k__BackingField: 0
   attackVFX: {fileID: 1050975479586226131}

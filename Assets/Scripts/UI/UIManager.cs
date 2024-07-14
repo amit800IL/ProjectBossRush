@@ -108,11 +108,13 @@ public class UIManager : MonoBehaviour
 
     private void NoticePlayerTurn()
     {
-        turnNotice.ActivateNotice("Player Turn");
+        if (turnNotice != null)
+            turnNotice.ActivateNotice("Player Turn");
     }
 
     private void NoticeBossTurn()
     {
-        turnNotice.ActivateNotice("Boss Turn");
+        if (turnNotice != null)
+            turnNotice.ActivateNotice("Boss Turn");
     }
 }
