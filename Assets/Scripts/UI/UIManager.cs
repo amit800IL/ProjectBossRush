@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI roundUI;
     [SerializeField] private HeroUI heroUI;
     [SerializeField] private RoundNotice turnNotice;
+    [SerializeField] private GameObject raycastBlockPanel;
 
     [Header("Boss UI")]
 
@@ -109,10 +110,12 @@ public class UIManager : MonoBehaviour
     private void NoticePlayerTurn()
     {
         turnNotice.ActivateNotice("Player Turn");
+        raycastBlockPanel.SetActive(false);
     }
 
     private void NoticeBossTurn()
     {
         turnNotice.ActivateNotice("Boss Turn");
+        raycastBlockPanel.SetActive(true);
     }
 }
