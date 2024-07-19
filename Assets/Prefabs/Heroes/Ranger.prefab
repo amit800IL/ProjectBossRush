@@ -124,6 +124,37 @@ MonoBehaviour:
   heroMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   lowHpMaterial: {fileID: 2100000, guid: 00ad790f1b9cc394cba035555cb5bc9f, type: 2}
   markMaterial: {fileID: 2100000, guid: 7b4f36130b8f04c4996ce9ea990d86db, type: 2}
+--- !u!1 &565966230067662864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5199016024277694738}
+  m_Layer: 0
+  m_Name: HealthDownTextPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5199016024277694738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565966230067662864}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.70710677}
+  m_LocalPosition: {x: -0.13000001, y: 1.2400005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8396108960678294777}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1879207483572012265
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,8 +317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: -6182730332868733307}
+  initialFloatingTextPosition: {fileID: 5199016024277694738}
   defenceFloatingText: {fileID: 5777411466527343332}
-  initialDefenceFloatingTextPosition: {fileID: 7429320887859590557}
   damageFloatingText: {fileID: 5544969394765554223}
 --- !u!1 &6589889961748951414
 GameObject:
@@ -462,6 +493,7 @@ Transform:
   - {fileID: 2552529549256579511}
   - {fileID: 7559903144138348654}
   - {fileID: 7468920026541593228}
+  - {fileID: 5199016024277694738}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!114 &-6182730332868733307

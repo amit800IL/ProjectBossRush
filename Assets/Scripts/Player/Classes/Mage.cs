@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Mage : Hero
 {
-    [SerializeField] private Transform objectTransform;
+    //[SerializeField] private Transform objectTransform;
 
     protected override void Start()
     {
@@ -10,8 +10,8 @@ public class Mage : Hero
     }
     public override bool CanHeroAttack(Boss boss)
     {
-        attackVFX.SetVector3("Position Start", objectTransform.position);
-        attackVFX.SetVector3("Position End", boss.transform.position);
+        //attackVFX.SetVector3("Position Start", objectTransform.position);
+        //attackVFX.SetVector3("Position End", boss.transform.position);
 
         return AttackPosCondition(currentTile);
     }

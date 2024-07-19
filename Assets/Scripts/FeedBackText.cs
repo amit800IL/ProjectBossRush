@@ -5,24 +5,23 @@ using UnityEngine;
 public class FeedBackText : MonoBehaviour
 {
     [SerializeField] private Hero hero;
+    [SerializeField] private Transform initialFloatingTextPosition;
 
     [Header("Defence Feedback")]
 
     [SerializeField] private TextMeshProUGUI defenceFloatingText;
-    [SerializeField] private Transform initialDefenceFloatingTextPosition;
     private Coroutine defenceUpFeedbackCoroutine;
 
     [Header("Damage Feedback")]
 
     [SerializeField] private TextMeshProUGUI damageFloatingText;
-    private Vector3 initialDamageFloatingTextPosition;
     private Coroutine damageFeedbackCoroutine;
     private float previousHealth;
 
     private void Start()
     {
-        initialDamageFloatingTextPosition = damageFloatingText.transform.position;
-        defenceFloatingText.transform.position = initialDefenceFloatingTextPosition.position;
+        damageFloatingText.transform.position = initialFloatingTextPosition.position;
+        defenceFloatingText.transform.position = initialFloatingTextPosition.position;
         previousHealth = hero.HP;
         Hero.OnHeroHealthChanged += OnPlayerHit;
         Hero.OnHeroDefend += OnPlayerDefenceUp;
@@ -47,7 +46,7 @@ public class FeedBackText : MonoBehaviour
                 StopCoroutine(damageFeedbackCoroutine);
             }
 
-            damageFeedbackCoroutine = StartCoroutine(FloatingFeedbackNumber(damageFloatingText, subtractionSymbol, damage, initialDamageFloatingTextPosition));
+            damageFeedbackCoroutine = StartCoroutine(FloatingFeedbackNumber(damageFloatingText, subtractionSymbol, damage, initialFloatingTextPosition.position));
         }
     }
 
@@ -63,7 +62,7 @@ public class FeedBackText : MonoBehaviour
                 StopCoroutine(defenceUpFeedbackCoroutine);
             }
 
-            defenceUpFeedbackCoroutine = StartCoroutine(FloatingFeedbackNumber(defenceFloatingText, additionSymbol, defenceValue, initialDefenceFloatingTextPosition.position));
+            defenceUpFeedbackCoroutine = StartCoroutine(FloatingFeedbackNumber(defenceFloatingText, additionSymbol, defenceValue, initialFloatingTextPosition.position));
         }
     }
 
