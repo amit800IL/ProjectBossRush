@@ -19,6 +19,7 @@ public class Ranger : Hero
         return base.HeroAttackBoss(boss);
     }
 
+    // Kremer, please Remove this method if it is not used
     //private void SetArrowTargetPosition(Vector3 targerPosition)
     //{
     //    ParticleSystem.MainModule main = arrowLifeTimeObject.main;

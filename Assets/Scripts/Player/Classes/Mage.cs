@@ -16,6 +16,7 @@ public class Mage : Hero
         return AttackPosCondition(currentTile);
     }
 
+    // Kremer, please Remove this method if it is not used
     //private void SetFireballTargetPosition(Vector3 targerPosition)
     //{
     //    foreach (ParticleSystem particePart in fireBallLifetimeObjects)

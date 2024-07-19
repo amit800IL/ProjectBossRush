@@ -36,9 +36,10 @@ public class Boss : MonoBehaviour
     private RaycastHit raycastHit;
     public List<GameObject> currentAttackMarker = new();
 
-    private void Start()
+    private void Awake()
     {
         HP = maxHP;
+        
     }
 
     public void BossRestart()
@@ -54,10 +55,10 @@ public class Boss : MonoBehaviour
     {
         HP -= (int)takenDamage;
 
-        Debug.Log("Boss HP is " + HP);
-        OnEnemyHealthChanged.Invoke(this);
+     
+        OnEnemyHealthChanged?.Invoke(this);
 
-        bossAnimator.SetTrigger("Injured");
+        if (bossAnimator != null) bossAnimator.SetTrigger("Injured");
 
         OnBossInjured?.Invoke();
 
@@ -121,6 +122,8 @@ public class Boss : MonoBehaviour
         }
     }
 
+    
+    // Roee - I think this method is not needed
     private void PerformAction(BossActionSetter action, Tile tile)
     {
         if (tile != null)
