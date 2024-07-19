@@ -10,7 +10,7 @@ public class HeroUI : MonoBehaviour
     [SerializeField] private Image defenceImage;
     [SerializeField] private Image hpBar;
     [SerializeField] private Image defenceBar;
-    [SerializeField] private TextMeshProUGUI heroMovementAmountText;
+    //[SerializeField] private TextMeshProUGUI heroMovementAmountText;
 
     private bool isPanelActive = false;
 
@@ -63,11 +63,11 @@ public class HeroUI : MonoBehaviour
         }
     }
 
-    private void ShowHeroMovementAmount()
-    {
-        if (Hero != null)
-            heroMovementAmountText.text = Hero.HeroData.maxMovementAmount.ToString();
-    }
+    //private void ShowHeroMovementAmount()
+    //{
+    //    if (Hero != null)
+    //        heroMovementAmountText.text = Hero.HeroData.maxMovementAmount.ToString();
+    //}
 
     private void HeroDefenceChange(Hero h)
     {

@@ -1,15 +1,16 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class HeroDataBoard : MonoBehaviour
 {
     [SerializeField] private HeroUI heroUI;
     [SerializeField] private TextMeshProUGUI heatlhText;
     [SerializeField] private TextMeshProUGUI defenceText;
+    [SerializeField] private TextMeshProUGUI heroMovementText;
 
     private void Start()
     {
+        ShowHeroMovementAmount();
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
     }
@@ -35,5 +36,13 @@ public class HeroDataBoard : MonoBehaviour
             defenceText.text = "Defence: " + heroUI.Hero.tempHP.ToString();
         }
     }
+
+
+    private void ShowHeroMovementAmount()
+    {
+        if (heroUI.Hero != null)
+            heroMovementText.text = heroUI.Hero.HeroData.maxMovementAmount.ToString();
+    }
+
 
 }
