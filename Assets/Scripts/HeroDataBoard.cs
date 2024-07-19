@@ -12,7 +12,6 @@ public class HeroDataBoard : MonoBehaviour
     {
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
-
     }
 
     private void OnDisable()
