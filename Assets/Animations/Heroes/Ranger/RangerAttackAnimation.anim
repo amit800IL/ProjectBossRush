@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: newRangerAttack
+  m_Name: RangerAttackAnimation
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,11 +21,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: e55cd7c9215b1c848aef9ad6b90b7c90, type: 3}
+      value: {fileID: 21300000, guid: 8e8bc879898c47440ae4bb859c58f5d8, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 859ce894c5daaa246990c0675f5d3643, type: 3}
-    - time: 0.16666667
-      value: {fileID: 21300000, guid: 225a66e01bd6e354a844153b8c3653f0, type: 3}
+      value: {fileID: 21300000, guid: 4fa67715a8920fe40918a3ca00680398, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: 8f6f4dd425ad1214f8c4558171455272, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,15 +48,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: e55cd7c9215b1c848aef9ad6b90b7c90, type: 3}
-    - {fileID: 21300000, guid: 859ce894c5daaa246990c0675f5d3643, type: 3}
-    - {fileID: 21300000, guid: 225a66e01bd6e354a844153b8c3653f0, type: 3}
+    - {fileID: 21300000, guid: 8e8bc879898c47440ae4bb859c58f5d8, type: 3}
+    - {fileID: 21300000, guid: 4fa67715a8920fe40918a3ca00680398, type: 3}
+    - {fileID: 21300000, guid: 8f6f4dd425ad1214f8c4558171455272, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.25
+    m_StopTime: 0.33333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

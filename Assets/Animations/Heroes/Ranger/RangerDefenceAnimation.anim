@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: newRangerDefence
+  m_Name: RangerDefenceAnimation
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 296dce7eea2595241937b26032c448e8, type: 3}
+      value: {fileID: 21300000, guid: 3f5ce220a5bb2ea41bf03e6231466587, type: 3}
     - time: 0.41666666
-      value: {fileID: 21300000, guid: 296dce7eea2595241937b26032c448e8, type: 3}
+      value: {fileID: 21300000, guid: 3f5ce220a5bb2ea41bf03e6231466587, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 296dce7eea2595241937b26032c448e8, type: 3}
-    - {fileID: 21300000, guid: 296dce7eea2595241937b26032c448e8, type: 3}
+    - {fileID: 21300000, guid: 3f5ce220a5bb2ea41bf03e6231466587, type: 3}
+    - {fileID: 21300000, guid: 3f5ce220a5bb2ea41bf03e6231466587, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
