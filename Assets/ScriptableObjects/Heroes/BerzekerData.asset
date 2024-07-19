@@ -18,3 +18,4 @@ MonoBehaviour:
   maxMovementAmount: 2
   damage: 1
   defense: 10
+  maxTempHp: 50

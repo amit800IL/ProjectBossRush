@@ -5,21 +5,33 @@ using UnityEngine;
 public class FeedBackText : MonoBehaviour
 {
     [SerializeField] private Hero hero;
-    [SerializeField] private TextMeshProUGUI floatingText;
-    private Vector3 initialFeedbackImagePosition;
-    private Coroutine feedbackImageCoroutine;
+
+    [Header("Defence Feedback")]
+
+    [SerializeField] private TextMeshProUGUI defenceFloatingText;
+    [SerializeField] private Transform initialDefenceFloatingTextPosition;
+    private Coroutine defenceUpFeedbackCoroutine;
+
+    [Header("Damage Feedback")]
+
+    [SerializeField] private TextMeshProUGUI damageFloatingText;
+    private Vector3 initialDamageFloatingTextPosition;
+    private Coroutine damageFeedbackCoroutine;
     private float previousHealth;
 
     private void Start()
     {
-        initialFeedbackImagePosition = floatingText.transform.position;
+        initialDamageFloatingTextPosition = damageFloatingText.transform.position;
+        defenceFloatingText.transform.position = initialDefenceFloatingTextPosition.position;
         previousHealth = hero.HP;
         Hero.OnHeroHealthChanged += OnPlayerHit;
+        Hero.OnHeroDefend += OnPlayerDefenceUp;
     }
 
     private void OnDisable()
     {
         Hero.OnHeroHealthChanged -= OnPlayerHit;
+        Hero.OnHeroDefend -= OnPlayerDefenceUp;
     }
 
     private void OnPlayerHit(Hero hero)
@@ -28,30 +40,47 @@ public class FeedBackText : MonoBehaviour
         {
             float damage = previousHealth - hero.HP;
             previousHealth = hero.HP;
+            string subtractionSymbol = "-";
 
-            if (feedbackImageCoroutine != null)
+            if (damageFeedbackCoroutine != null)
             {
-                StopCoroutine(feedbackImageCoroutine);
+                StopCoroutine(damageFeedbackCoroutine);
             }
 
-            feedbackImageCoroutine = StartCoroutine(FloatingEnemyDamageNumber(damage));
+            damageFeedbackCoroutine = StartCoroutine(FloatingFeedbackNumber(damageFloatingText, subtractionSymbol, damage, initialDamageFloatingTextPosition));
         }
     }
 
-    private IEnumerator FloatingEnemyDamageNumber(float damage)
+    private void OnPlayerDefenceUp(Hero hero)
     {
-        floatingText.text = "-" + damage.ToString();
+        if (this.hero == hero)
+        {
+            float defenceValue = hero.HeroData.defense;
+            string additionSymbol = "+";
 
-        floatingText.gameObject.SetActive(true);
+            if (defenceUpFeedbackCoroutine != null)
+            {
+                StopCoroutine(defenceUpFeedbackCoroutine);
+            }
+
+            defenceUpFeedbackCoroutine = StartCoroutine(FloatingFeedbackNumber(defenceFloatingText, additionSymbol, defenceValue, initialDefenceFloatingTextPosition.position));
+        }
+    }
+
+    private IEnumerator FloatingFeedbackNumber(TextMeshProUGUI feedBackText, string symbol, float feedBackNumber, Vector3 originalObjectPosition)
+    {
+        feedBackText.text = symbol + feedBackNumber.ToString();
+
+        feedBackText.gameObject.SetActive(true);
 
         Vector3 floatingPosition = new Vector3(0, 1, 0);
 
         float timerMax = 3f;
         float timeLapse = 0f;
 
-        Color currentColor = floatingText.color;
+        Color currentColor = feedBackText.color;
         currentColor.a = 1f;
-        floatingText.color = currentColor;
+        feedBackText.color = currentColor;
 
         Color targetTransparency = new Color(currentColor.r, currentColor.g, currentColor.b, 0f);
 
@@ -59,11 +88,11 @@ public class FeedBackText : MonoBehaviour
         {
             timeLapse += Time.deltaTime;
             float progress = timeLapse / timerMax;
-            floatingText.transform.position = Vector3.Lerp(initialFeedbackImagePosition, initialFeedbackImagePosition + floatingPosition, progress);
-            floatingText.color = Color.Lerp(currentColor, targetTransparency, progress);
+            feedBackText.transform.position = Vector3.Lerp(originalObjectPosition, originalObjectPosition + floatingPosition, progress);
+            feedBackText.color = Color.Lerp(currentColor, targetTransparency, progress);
             yield return null;
         }
 
-        floatingText.gameObject.SetActive(false);
+        feedBackText.gameObject.SetActive(false);
     }
 }

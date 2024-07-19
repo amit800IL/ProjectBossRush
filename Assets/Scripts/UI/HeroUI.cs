@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 public class HeroUI : MonoBehaviour
 {
+    [field: SerializeField] public Hero Hero { get; private set; }
     [SerializeField] private GameObject heroPanel;
     [SerializeField] private Image graphic;
     [SerializeField] private Image defenceImage;
-    [SerializeField] private Hero hero;
     [SerializeField] private Image hpBar;
+    [SerializeField] private Image defenceBar;
     [SerializeField] private TextMeshProUGUI heroMovementAmountText;
 
     private bool isPanelActive = false;
@@ -30,9 +31,9 @@ public class HeroUI : MonoBehaviour
 
     public bool AssignHero(Hero hero)
     {
-        if (this.hero == null && hero != null)
+        if (this.Hero == null && hero != null)
         {
-            this.hero = hero;
+            this.Hero = hero;
             graphic.sprite = hero.HeroData.headshotSprite;
             return true;
             //    ShowSelectedHeroOnUI();
@@ -56,32 +57,23 @@ public class HeroUI : MonoBehaviour
     //}
     private void HeroHealthChange(Hero h)
     {
-        if (hero == h)
+        if (Hero == h)
         {
-            hpBar.fillAmount = (float)hero.HP / hero.HeroData.maxHP;
-            Debug.Log(hero.HP);
-            Debug.Log(hero.HeroData.maxHP);
+            hpBar.fillAmount = (float)Hero.HP / Hero.HeroData.maxHP;
         }
     }
 
     private void ShowHeroMovementAmount()
     {
-        if (hero != null)
-            heroMovementAmountText.text = hero.HeroData.maxMovementAmount.ToString();
+        if (Hero != null)
+            heroMovementAmountText.text = Hero.HeroData.maxMovementAmount.ToString();
     }
 
     private void HeroDefenceChange(Hero h)
     {
-        if (hero == h)
+        if (Hero == h)
         {
-            if (hero.tempHP > 0)
-            {
-                defenceImage.gameObject.SetActive(true);
-            }
-            else
-            {
-                defenceImage.gameObject.SetActive(false);
-            }
+            defenceBar.fillAmount = (float)Hero.tempHP / Hero.HeroData.maxHP;
         }
     }
 }
