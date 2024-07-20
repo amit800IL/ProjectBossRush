@@ -12,10 +12,8 @@ public class BossTest
     [SetUp]
     public void Setup()
     {
-       bossGameObject = new GameObject("Boss");
-        bossScript = bossGameObject.AddComponent<Boss>();
-        //bossScript.bossAnimator = bossGameObject.AddComponent<Animator>();
-        
+        bossGameObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Boss/BossItself/Boss"));
+            bossScript = bossGameObject.GetComponent<Boss>();
     }
     [Test]
     public void BossTestSimplePasses()
@@ -33,12 +31,12 @@ public class BossTest
         Assert.IsNotNull(bossScript);
     }
     [Test]
-    public void BossStartingWithMaxHealth()
+    public void BossStartingWithMaxHealth() //1
     {
         Assert.AreEqual(bossScript.HP, bossScript.maxHP);
     }
     [Test]
-    public void BossGettingRightAmountOfDamage()
+    public void BossGettingRightAmountOfDamage() //2
     {
         float damage = 10f;
         float health = bossScript.HP;
@@ -49,6 +47,26 @@ public class BossTest
         float hpAfterDamageMethod = bossScript.HP;
         Debug.Log($"HP after damage method: {hpAfterDamageMethod}");
         Assert.AreEqual(hpAfterDamage, hpAfterDamageMethod );
+    }
+    [Test]
+    public void BossDoesNotTakeNegativeDamage() //3
+    {
+        float damage = -10f;
+        float health = bossScript.HP;
+        Debug.Log($"Initial HP: {health}");
+        bossScript.TakeDamage(damage);
+        Debug.Log("hp after damage: " + bossScript.HP);
+        Assert.Greater( health, bossScript.HP);
+    }
+    [Test]
+    public void BossHealthDoesNotGoBelow0() //4
+    {
+       float damage = bossScript.HP + 10f;
+       float health = bossScript.HP;
+       Debug.Log($"Initial HP: {health}");
+         bossScript.TakeDamage(damage);
+         Debug.Log("hp after damage: " + bossScript.HP);
+         Assert.LessOrEqual(0f, bossScript.HP);
     }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
