@@ -12,6 +12,7 @@ public class PlayerCharactersTest
     private GameObject fighterGameObject;
     private Mage mageScript;
     private GameObject mageGameObject;
+
     [SetUp]
     public void Setup()
     {
@@ -23,30 +24,41 @@ public class PlayerCharactersTest
         fighterScript = fighterGameObject.GetComponent<Figher>();
 
     }
+
+    //Testing Heroes exist on game
+
     [Test]
-    public void HeroesExists() // 1
+    public void HeroesExists()
     {
         Assert.IsNotNull(rangerGameObject);
         Assert.IsNotNull(fighterGameObject);
         Assert.IsNotNull(mageGameObject);
     }
+
+    //Testing that hereoes script exist on their gameObjects
+
     [Test]
-    public void HeroesScriptsAreNotNull() //2
+    public void HeroesScriptsAreNotNull() 
     {
         Assert.IsNotNull(rangerScript);
         Assert.IsNotNull(fighterScript);
         Assert.IsNotNull(mageScript);
     }
+
+    //Testing that heroes start with their MaxHp
+
     [Test]
-    public void HeroesStartingWithMaxHealth() //3
+    public void HeroesStartingWithMaxHealth()
     {
 
         Assert.AreEqual(rangerScript.HeroData.maxHP, rangerScript.HP);
         Assert.AreEqual(fighterScript.HeroData.maxHP, fighterScript.HP);
         Assert.AreEqual(mageScript.HeroData.maxHP, mageScript.HP);
     }
-    // A Test behaves as an ordinary method
-    public void HeroGettingRightAmountOfDamage() //4
+
+
+    // Testing that heroes get the currect amount of damage;
+    public void HeroGettingRightAmountOfDamage()
     {
         int damage = 10;
         int health = rangerScript.HP;
@@ -69,8 +81,11 @@ public class PlayerCharactersTest
         hpAfterDamageMethod = fighterScript.HP;
         Assert.AreEqual(hpAfterDamage, hpAfterDamageMethod);
     }
+
+    // Testing that heroes cannot take negative amount of damage 
+
     [Test]
-    public void HeroDoesNotTakeNegativeDamage() //5
+    public void HeroDoesNotTakeNegativeDamage()
     {
         int damage = -10;
         int health = rangerScript.HP;
@@ -87,8 +102,11 @@ public class PlayerCharactersTest
         fighterScript.TakeDamage(damage);
         Assert.Greater(health, fighterScript.HP);
     }
+
+    //Checking that heroes hp cannot go below 0
+
     [Test]
-    public void HeroHealthDoesNotGoBelow0() //6
+    public void HeroHealthDoesNotGoBelow0() 
     {
         int damage = rangerScript.HP + 10;
         int health = rangerScript.HP;
