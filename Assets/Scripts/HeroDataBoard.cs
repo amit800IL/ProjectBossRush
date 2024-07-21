@@ -11,7 +11,6 @@ public class HeroDataBoard : MonoBehaviour
         ShowHeroMovementAmount();
     }
 
-
     private void ShowHeroMovementAmount()
     {
         if (heroUI.Hero != null)
