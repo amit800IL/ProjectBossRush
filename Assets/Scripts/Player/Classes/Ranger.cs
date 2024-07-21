@@ -3,10 +3,10 @@ using UnityEngine;
 public class Ranger : Hero
 {
 
-    protected override void Start()
+    protected override void Awake()
     {
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
-        base.Start();
+        base.Awake();
     }
     public override bool CanHeroAttack(Boss boss)
     {

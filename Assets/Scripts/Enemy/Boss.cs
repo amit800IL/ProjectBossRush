@@ -39,7 +39,7 @@ public class Boss : MonoBehaviour
     private void Awake()
     {
         HP = maxHP;
-        
+
     }
 
     public void BossRestart()
@@ -53,21 +53,28 @@ public class Boss : MonoBehaviour
 
     public void TakeDamage(float takenDamage)
     {
+        takenDamage = Mathf.Abs(takenDamage);
+
         HP -= (int)takenDamage;
 
-     
         OnEnemyHealthChanged?.Invoke(this);
 
         if (bossAnimator != null) bossAnimator.SetTrigger("Injured");
 
         OnBossInjured?.Invoke();
 
-        if (HP <= 0)
+        if (HP < 0)
+        {
+            HP = 0;
+        }
+
+        if (HP == 0)
         {
             IsBossAlive = false;
             OnBossDeath?.Invoke();
             gameObject.SetActive(false);
         }
+
     }
 
     public void InteractWithTiles(bool VisualizeAttack) //instead of taking a parameter, bool should be dependant per attack
@@ -122,7 +129,7 @@ public class Boss : MonoBehaviour
         }
     }
 
-    
+
     // Roee - I think this method is not needed
     private void PerformAction(BossActionSetter action, Tile tile)
     {

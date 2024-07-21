@@ -3,10 +3,10 @@ public class Mage : Hero
 {
     [SerializeField] private Transform objectTransform;
 
-    protected override void Start()
+    protected override void Awake()
     {
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
-        base.Start();
+        base.Awake();
     }
     public override bool CanHeroAttack(Boss boss)
     {

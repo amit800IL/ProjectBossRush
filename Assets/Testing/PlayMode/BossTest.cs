@@ -13,7 +13,7 @@ public class BossTest
     public void Setup()
     {
         bossGameObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Boss/BossItself/Boss"));
-            bossScript = bossGameObject.GetComponent<Boss>();
+        bossScript = bossGameObject.GetComponent<Boss>();
     }
     [Test]
     public void BossTestSimplePasses()
@@ -40,33 +40,26 @@ public class BossTest
     {
         float damage = 10f;
         float health = bossScript.HP;
-        Debug.Log($"Initial HP: {health}");
         float hpAfterDamage = health - damage;
-        Debug.Log($"HP after damage: {hpAfterDamage}");
         bossScript.TakeDamage(damage);
         float hpAfterDamageMethod = bossScript.HP;
-        Debug.Log($"HP after damage method: {hpAfterDamageMethod}");
-        Assert.AreEqual(hpAfterDamage, hpAfterDamageMethod );
+        Assert.AreEqual(hpAfterDamage, hpAfterDamageMethod);
     }
     [Test]
     public void BossDoesNotTakeNegativeDamage() //3
     {
         float damage = -10f;
         float health = bossScript.HP;
-        Debug.Log($"Initial HP: {health}");
         bossScript.TakeDamage(damage);
-        Debug.Log("hp after damage: " + bossScript.HP);
-        Assert.Greater( health, bossScript.HP);
+        Assert.Greater(health, bossScript.HP);
     }
     [Test]
     public void BossHealthDoesNotGoBelow0() //4
     {
-       float damage = bossScript.HP + 10f;
-       float health = bossScript.HP;
-       Debug.Log($"Initial HP: {health}");
-         bossScript.TakeDamage(damage);
-         Debug.Log("hp after damage: " + bossScript.HP);
-         Assert.LessOrEqual(0f, bossScript.HP);
+        float damage = bossScript.HP + 10f;
+        float health = bossScript.HP;
+        bossScript.TakeDamage(damage);
+        Assert.LessOrEqual(0f, bossScript.HP);
     }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.

@@ -47,7 +47,7 @@ public abstract class Hero : Entity
     [SerializeField] protected VisualEffect attackVFX;
     [SerializeField] private float vfxTimer;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         HP = HeroData.maxHP;
 
@@ -142,6 +142,8 @@ public abstract class Hero : Entity
 
     public void TakeDamage(int incDmg)
     {
+        incDmg = Mathf.Abs(incDmg);
+
         if (incDmg <= tempHP)
         {
             tempHP -= incDmg;
@@ -160,7 +162,12 @@ public abstract class Hero : Entity
         OnHeroInjured?.Invoke(this);
         spriteChange.OnHpLow(HP);
 
-        if (HP <= 0)
+        if (HP < 0)
+        {
+            HP = 0;
+        }
+
+        if (HP == 0)
         {
             OnHeroDeath?.Invoke(this);
             gameObject.SetActive(false);

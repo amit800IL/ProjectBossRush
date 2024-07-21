@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Figher : Hero
 {
-    protected override void Start()
+    protected override void Awake()
     {
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
-        base.Start();
+        base.Awake();
     }
 
     public override bool CanHeroAttack(Boss boss)
