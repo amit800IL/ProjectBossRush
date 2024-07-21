@@ -4,15 +4,17 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class UITest
+public class GridMovementTest
 {
     
-    [Test]
-    public void UITestSimplePasses()
+
+    [SetUp]
+    public void Setup()
     {
-       
+        
+
     }
-    
+
 
 
 }
