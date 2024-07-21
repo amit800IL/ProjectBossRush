@@ -6,7 +6,7 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance { get; private set; }
 
     [SerializeField] private Tile tileObject;
-    [SerializeField] private Vector2Int gridSize;
+    [SerializeField] public Vector2Int gridSize;
     [SerializeField] private List<GridObjectToSpawn> gridObjectsToSpawn = new List<GridObjectToSpawn>();
     private List<GameObject> spawnedObjects = new List<GameObject>();
     public Tile[,] Tiles { get; private set; }
@@ -94,7 +94,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private TileType[] CalculateTileType(Vector2 position)
+    public TileType[] CalculateTileType(Vector2 position)
     {
         Debug.Log("this method is only accurate for grids where y = 6");
         TileType[] types = new TileType[1];

@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MoveHeroToTile(Vector3 pressPosition)
+    public void MoveHeroToTile(Vector3 pressPosition)
     {
         if (markedHero != null && isheroMarked)
         {
@@ -196,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void MarkHero(Vector3 pressPosition)
+    public void MarkHero(Vector3 pressPosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(pressPosition);
 
