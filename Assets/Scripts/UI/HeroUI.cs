@@ -6,20 +6,21 @@ public class HeroUI : MonoBehaviour
 {
     [field: SerializeField] public Hero Hero { get; private set; }
     [SerializeField] private GameObject heroPanel;
+    [SerializeField] private TextMeshProUGUI heatlhText;
+    [SerializeField] private TextMeshProUGUI maxHealthText;
+    [SerializeField] private TextMeshProUGUI defenceText;
     [SerializeField] private Image graphic;
     [SerializeField] private Image defenceImage;
     [SerializeField] private Image hpBar;
-    [SerializeField] private Image defenceBar;
     //[SerializeField] private TextMeshProUGUI heroMovementAmountText;
 
     private bool isPanelActive = false;
 
     private void Start()
     {
-        //PlayerController.OnHeroMarked += AssignHero;
+        HeroHealthChange(Hero);
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
-
     }
 
     private void OnDisable()
@@ -36,30 +37,32 @@ public class HeroUI : MonoBehaviour
             this.Hero = hero;
             graphic.sprite = hero.HeroData.headshotSprite;
             return true;
-            //    ShowSelectedHeroOnUI();
         }
         else
         {
             return false;
-            //    UndoHeroSelectionOnUI();
         }
     }
 
-    //private void UndoHeroSelectionOnUI()
-    //{
-    //    heroMovementAmountText.text = "0";
-
-    //    heroDefenceText.text = "0";
-
-    //    hpBar.gameObject.SetActive(false);
-
-    //    graphic.sprite = null;
-    //}
     private void HeroHealthChange(Hero h)
     {
-        if (Hero == h)
+        if (Hero == h && Hero != null)
         {
             hpBar.fillAmount = (float)Hero.HP / Hero.HeroData.maxHP;
+            heatlhText.text = Hero.HP.ToString();
+            maxHealthText.text = Hero.HeroData.maxHP.ToString();
+        }
+    }
+    private void HeroDefenceChange(Hero h)
+    {
+        if (Hero == h && Hero != null && Hero.tempHP > 0)
+        {
+            defenceImage.gameObject.SetActive(true);
+            defenceText.text = Hero.tempHP.ToString();
+        }
+        else if (Hero == h && Hero != null && Hero.tempHP <= 0)
+        {
+            defenceImage.gameObject.SetActive(false);
         }
     }
 
@@ -68,12 +71,4 @@ public class HeroUI : MonoBehaviour
     //    if (Hero != null)
     //        heroMovementAmountText.text = Hero.HeroData.maxMovementAmount.ToString();
     //}
-
-    private void HeroDefenceChange(Hero h)
-    {
-        if (Hero == h)
-        {
-            defenceBar.fillAmount = (float)Hero.tempHP / Hero.HeroData.maxHP;
-        }
-    }
 }
