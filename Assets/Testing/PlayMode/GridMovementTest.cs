@@ -33,7 +33,7 @@ public class GridMovementTest
         Assert.IsNotNull(gridManager.Tiles);
     }
 
-    //Checking that the grid size is isantited correctly by the defintion
+    //Checking that the grid size is instantiated correctly by the defintion
 
     [Test]
     public void GridTilesIsEqualToGridSize()
