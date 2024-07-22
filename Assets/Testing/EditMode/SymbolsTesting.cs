@@ -14,6 +14,8 @@ public class SymbolsTesting
         symbolTable = new SymbolTable();
     }
 
+    //Testing that symbol is added to the symbo system at position 1
+
     [Test]
     public void IsSymbolAdded()
     {
@@ -23,6 +25,8 @@ public class SymbolsTesting
 
         Assert.AreEqual(1, symbolTable.table[1]);
     }
+
+    //Testing that symbol is removed from the symbol system at position 1 after addition
 
     [Test]
     public void IsSymbolRemoved()
@@ -35,6 +39,8 @@ public class SymbolsTesting
         Assert.AreEqual(0, symbolTable.table[1]);
     }
 
+    //Testing that the symbolTable contains symbol after addition by calling the contains method
+
     [Test]
     public void ContainsSymbols()
     {
@@ -45,6 +51,8 @@ public class SymbolsTesting
         Assert.IsTrue(symbolTable.Contains(newSymbolTable));
     }
 
+    //Testing the symbol system output by writing its string and comparing it to the real output of the symbol
+
     [Test]
     public void PrintTableOutput()
     {
@@ -54,6 +62,8 @@ public class SymbolsTesting
         string expectedOutput = "Fighter0\nMage1\nRanger0\nRogue0\nMender0\nDefense0\n";
         Assert.AreEqual(expectedOutput, symbolTable.PrintTable());
     }
+
+    //Testing the symbol system short string output by writing its expected output string and comparing it to the real output
 
     [Test]
     public void ToShortStringOutput()

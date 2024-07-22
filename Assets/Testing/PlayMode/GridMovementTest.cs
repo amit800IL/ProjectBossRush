@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -9,33 +8,41 @@ public class GridMovementTest
 {
     GameObject grid;
     GridManager gridManager;
-    GameObject mage;
 
     [SetUp]
     public void Setup()
     {
         grid = new GameObject();
-       mage = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Heroes/Magician"));
         gridManager = grid.AddComponent<GridManager>();
     }
+
+    //Tests that the grid exists and the grid manager exists on the scene
+
     [Test]
     public void AllObjectsExists()
     {
         Assert.IsNotNull(grid);
         Assert.IsNotNull(gridManager);
-        Assert.IsNotNull(mage);
     }
+
+    //Tests that the tiles of the grid exist on scene
 
     [Test]
     public void GridTilesAvailable() 
     {
         Assert.IsNotNull(gridManager.Tiles);
     }
+
+    //Checking that the grid size is isantited correctly by the defintion
+
     [Test]
     public void GridTilesIsEqualToGridSize()
     {
           Assert.AreEqual(gridManager.Tiles.Length, gridManager.gridSize.x * gridManager.gridSize.y);
     }
+
+    //Testing each specific tile to check its existence on scene
+
     [Test]
     public void GridTilesAreNotNull()
     {
@@ -53,7 +60,6 @@ public class GridMovementTest
     public void Teardown()
     {
         Object.DestroyImmediate(grid);
-        Object.DestroyImmediate(mage);
     }
     
 

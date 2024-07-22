@@ -25,7 +25,7 @@ public class PlayerCharactersTest
 
     }
 
-    //Testing Heroes exist on game
+    //Testing Heroes exist on game by checking they are not null
 
     [Test]
     public void HeroesExists()
@@ -35,7 +35,7 @@ public class PlayerCharactersTest
         Assert.IsNotNull(mageGameObject);
     }
 
-    //Testing that hereoes script exist on their gameObjects
+    //Testing that hereoes script exist on their gameObjects by checking the scripts are not null
 
     [Test]
     public void HeroesScriptsAreNotNull() 
@@ -45,7 +45,7 @@ public class PlayerCharactersTest
         Assert.IsNotNull(mageScript);
     }
 
-    //Testing that heroes start with their MaxHp
+    //Testing that heroes start with their MaxHp, by checking that maxHP and hp are equal at start
 
     [Test]
     public void HeroesStartingWithMaxHealth()
@@ -57,7 +57,10 @@ public class PlayerCharactersTest
     }
 
 
-    // Testing that heroes get the currect amount of damage;
+    // Testing that heroes get the currect amount of damage by setting the same number for hp
+    //As the take damage method should return and compare them
+
+    [Test]
     public void HeroGettingRightAmountOfDamage()
     {
         int damage = 10;
@@ -82,7 +85,7 @@ public class PlayerCharactersTest
         Assert.AreEqual(hpAfterDamage, hpAfterDamageMethod);
     }
 
-    // Testing that heroes cannot take negative amount of damage 
+    // Testing that heroes cannot take negative amount of damage, checks if health do not go up by double negativity
 
     [Test]
     public void HeroDoesNotTakeNegativeDamage()
@@ -103,7 +106,7 @@ public class PlayerCharactersTest
         Assert.Greater(health, fighterScript.HP);
     }
 
-    //Checking that heroes hp cannot go below 0
+    //Checking that heroes hp cannot go below 0 by checking that health is equal to 0
 
     [Test]
     public void HeroHealthDoesNotGoBelow0() 
