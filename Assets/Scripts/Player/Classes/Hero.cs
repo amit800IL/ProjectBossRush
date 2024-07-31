@@ -162,9 +162,16 @@ public abstract class Hero : Entity
 
         if (HP <= 0)
         {
-            OnHeroDeath?.Invoke(this);
-            gameObject.SetActive(false);
+            StartCoroutine(DeactivatePlayerTimer());
         }
+    }
+
+    private IEnumerator DeactivatePlayerTimer()
+    {
+        heroAnimator.SetTrigger("Death");
+        yield return new WaitForSeconds(4f);
+        OnHeroDeath?.Invoke(this);
+        gameObject.SetActive(false);
     }
 
     public void GetHeal(int incHealth)
