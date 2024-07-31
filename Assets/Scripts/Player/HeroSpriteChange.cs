@@ -21,7 +21,7 @@ public class HeroSpriteChange : MonoBehaviour
 
     public void OnHpLow(int HP)
     {
-        if (HP <= LowHPThreshold && heroSpriteRenderer != null)
+        if (HP <= LowHPThreshold && HP > 0 && heroSpriteRenderer != null)
         {
             heroSpriteRenderer.material = lowHpMaterial;
         }
