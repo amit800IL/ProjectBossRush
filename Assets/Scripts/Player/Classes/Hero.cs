@@ -70,6 +70,16 @@ public abstract class Hero : Entity
         }
     }
 
+    protected virtual IEnumerator ActivateAttackVfx(Boss boss)
+    {
+        if (attackVFX != null)
+        {
+            attackVFX.Play();
+            yield return new WaitForSeconds(vfxTimer);
+            attackVFX.Stop();
+        }
+    }
+
     public void MoveHeroToPosition(Tile targetTile)
     {
         IsHeroOnNewPosition = false;
