@@ -158,7 +158,6 @@ public abstract class Hero : Entity
 
         heroAnimator.SetTrigger("Injured");
         OnHeroInjured?.Invoke(this);
-        spriteChange.OnHpLow(HP);
 
         if (HP <= 0)
         {
@@ -184,8 +183,6 @@ public abstract class Hero : Entity
 
         HealingEffect.Play();
         OnHeroHealthChanged?.Invoke(this);
-
-        spriteChange.OnHpLow(HP);
     }
 
     public virtual bool HeroAttackBoss(Boss boss)
