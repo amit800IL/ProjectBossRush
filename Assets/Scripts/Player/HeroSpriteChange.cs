@@ -12,6 +12,7 @@ public class HeroSpriteChange : MonoBehaviour
     private void Start()
     {
         Hero.OnHeroAttack += HeroAttack;
+        Hero.OnHeroDefend += HeroDefend;
         PlayerController.OnHeroMarked += HeroMark;
         Hero.OnHeroHealthChanged += OnHpLow;
     }
@@ -19,11 +20,22 @@ public class HeroSpriteChange : MonoBehaviour
     private void OnDisable()
     {
         Hero.OnHeroAttack -= HeroAttack;
+        Hero.OnHeroDefend -= HeroDefend;
         PlayerController.OnHeroMarked -= HeroMark;
         Hero.OnHeroHealthChanged -= OnHpLow;
     }
 
     private void HeroAttack(Hero hero)
+    {
+        TurnOffShader(hero);
+    }
+
+    private void HeroDefend(Hero hero)
+    {
+        TurnOffShader(hero);
+    }
+
+    private void TurnOffShader(Hero hero)
     {
         if (heroSpriteRenderer != null && this.hero == hero)
         {
