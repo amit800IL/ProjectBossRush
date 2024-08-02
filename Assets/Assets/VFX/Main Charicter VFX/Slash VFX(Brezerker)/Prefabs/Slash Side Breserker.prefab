@@ -4898,10 +4898,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1283075289317573095}
   - component: {fileID: 5264548505207097268}
+  - component: {fileID: 5671808185825274731}
   - component: {fileID: 7040030988122507018}
   - component: {fileID: 8877245754366090927}
   - component: {fileID: 3829126928095969749}
-  - component: {fileID: 2145390367992210390}
   m_Layer: 0
   m_Name: Slash Side Breserker
   m_TagString: Untagged
@@ -9653,6 +9653,23 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &5671808185825274731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564292709751350199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e52e3e920e8193459865cc3d858668f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackProjectile: {fileID: 5264548505207097268}
+  projectileImpact: {fileID: 0}
+  startingPosition: {fileID: 0}
+  rigidBody: {fileID: 8877245754366090927}
+  speed: 2
 --- !u!199 &7040030988122507018
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -9775,24 +9792,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.42, y: 1.4200001, z: 1.1585389}
   m_Center: {x: 0, y: -0.0000008985274, z: -0.13074793}
---- !u!114 &2145390367992210390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564292709751350199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a100ef391573ab34c8ade12329c68444, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slashProjectile: {fileID: 5264548505207097268}
-  slahProjectileImpact: {fileID: 0}
-  hero: {fileID: 0}
-  startingPosition: {fileID: 0}
-  rigidBody: {fileID: 8877245754366090927}
-  speed: 2
 --- !u!1 &5648748456664939826
 GameObject:
   m_ObjectHideFlags: 0

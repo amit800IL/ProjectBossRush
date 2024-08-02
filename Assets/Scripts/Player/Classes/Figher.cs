@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Figher : Hero
 {
-    [SerializeField] private BerzekerProjectile berzekerProjectile;
+    [SerializeField] private HeroProjectile berzekerProjectile;
     protected override void Start()
     {
         SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);

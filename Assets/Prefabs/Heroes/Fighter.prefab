@@ -404,7 +404,7 @@ MonoBehaviour:
   <HP>k__BackingField: 0
   attackVFX: {fileID: 0}
   vfxTimer: 3
-  berzekerProjectile: {fileID: 8517320401053815374}
+  berzekerProjectile: {fileID: 0}
 --- !u!65 &1015659684323480745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -925,34 +925,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slash Side Breserker
       objectReference: {fileID: 0}
-    - target: {fileID: 2145390367992210390, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
-      propertyPath: hero
+    - target: {fileID: 5671808185825274731, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
+      propertyPath: projectileImpact
       value: 
-      objectReference: {fileID: 5135979904959998896}
-    - target: {fileID: 2145390367992210390, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
+      objectReference: {fileID: 218151084834200703}
+    - target: {fileID: 5671808185825274731, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
       propertyPath: startingPosition
       value: 
       objectReference: {fileID: 7498393388245739420}
-    - target: {fileID: 2145390367992210390, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
-      propertyPath: slahProjectileImpact
-      value: 
-      objectReference: {fileID: 218151084834200703}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
---- !u!114 &8517320401053815374 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2145390367992210390, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
-  m_PrefabInstance: {fileID: 7779525164709474712}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a100ef391573ab34c8ade12329c68444, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8806800917319086207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1283075289317573095, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
