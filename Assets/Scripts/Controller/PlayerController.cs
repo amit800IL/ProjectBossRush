@@ -193,7 +193,6 @@ public class PlayerController : MonoBehaviour
         markedHero = null;
         OnHeroMarked?.Invoke(markedHero);
         markedTile = null;
-
     }
 
     private void MarkHero(Vector3 pressPosition)
