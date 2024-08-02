@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 2184812753848581850}
   m_Layer: 8
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,12 +237,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.022528172}
-  m_Center: {x: 0, y: 0, z: -0.024564505}
+  m_Size: {x: 2.3103313, y: 4.9607444, z: 1.05}
+  m_Center: {x: -0.18076617, y: -0.404557, z: -0.03582859}
 --- !u!1 &8074803828523096550
 GameObject:
   m_ObjectHideFlags: 0

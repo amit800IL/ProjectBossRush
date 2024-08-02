@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3cab6dab654c9d443b3d236eb18cf3cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2fa23f743f4569d438ae1e9fafc7019d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -308,7 +308,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: 5135979904959998896}
-  floatingText: {fileID: 7895602136472181013}
+  initialFloatingTextPosition: {fileID: 396827281315564156}
+  defenceFloatingText: {fileID: 7895602136472181013}
+  damageFloatingText: {fileID: 7895602136472181013}
 --- !u!1 &4958581480926179235
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,11 +402,13 @@ MonoBehaviour:
   defendingParticle: {fileID: 7831400537010597187}
   <HealingEffect>k__BackingField: {fileID: 4813235378253396414}
   <SlashParticle>k__BackingField: {fileID: 2410101694312882325}
+  <SymbolTable>k__BackingField:
+    table: 000000000000000000000000000000000000000000000000
   <HeroData>k__BackingField: {fileID: 11400000, guid: f217499e30f7df74d97de3e6db2b8156, type: 2}
   <HP>k__BackingField: 0
   attackVFX: {fileID: 0}
   vfxTimer: 3
-  berzekerProjectile: {fileID: 0}
+  berzekerProjectile: {fileID: 2082226322264808064}
 --- !u!65 &1015659684323480745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -925,11 +929,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slash Side Breserker
       objectReference: {fileID: 0}
-    - target: {fileID: 5671808185825274731, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
+    - target: {fileID: 8580449267107736344, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
       propertyPath: projectileImpact
       value: 
       objectReference: {fileID: 218151084834200703}
-    - target: {fileID: 5671808185825274731, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
+    - target: {fileID: 8580449267107736344, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
       propertyPath: startingPosition
       value: 
       objectReference: {fileID: 7498393388245739420}
@@ -938,6 +942,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
+--- !u!114 &2082226322264808064 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8580449267107736344, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}
+  m_PrefabInstance: {fileID: 7779525164709474712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10709f80bc3e7ea4abea5e22faec973d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8806800917319086207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1283075289317573095, guid: c375682008bc2854e8c7c46f2dd421cf, type: 3}

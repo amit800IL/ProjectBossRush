@@ -19596,7 +19596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4770168498536295146
 Transform:
   m_ObjectHideFlags: 0
@@ -24479,7 +24479,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4559182627652419138}
-  - component: {fileID: 6286480131277783021}
+  - component: {fileID: 8675150584211063999}
+  - component: {fileID: 118470321379965458}
+  - component: {fileID: 515855465729484211}
   m_Layer: 0
   m_Name: Projectil
   m_TagString: Untagged
@@ -24505,27 +24507,75 @@ Transform:
   - {fileID: 4770168498536295146}
   m_Father: {fileID: 4402105482493979505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6286480131277783021
-Animator:
-  serializedVersion: 5
+--- !u!114 &8675150584211063999
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6360923013126283357}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ef0faf16d892f5541b83ee77187807be, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b835ab1f549e14ebf02a9ff34fc43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackProjectile: {fileID: 6360923013126283357}
+  projectileImpact: {fileID: 1549372337319241381}
+  trailRenderer: {fileID: 1367418220367901808}
+  startingPosition: {fileID: 0}
+  rigidBody: {fileID: 118470321379965458}
+  speed: 2
+  objectsToTurnOff:
+  - {fileID: 6651394882538085634}
+  - {fileID: 8037777335909886258}
+--- !u!54 &118470321379965458
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360923013126283357}
+  serializedVersion: 4
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!65 &515855465729484211
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360923013126283357}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6410422743024571859
 GameObject:
   m_ObjectHideFlags: 0
@@ -24535,7 +24585,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4402105482493979505}
-  - component: {fileID: 30366047425741329}
   m_Layer: 0
   m_Name: ice VFX Mage Partical System
   m_TagString: Untagged
@@ -24559,27 +24608,6 @@ Transform:
   - {fileID: 4559182627652419138}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &30366047425741329
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6410422743024571859}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: adae71b5e1b75394aa62e55528dcbb28, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6651394882538085634
 GameObject:
   m_ObjectHideFlags: 0
