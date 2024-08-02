@@ -13,7 +13,7 @@ public class Figher : Hero
     {
         if (AttackPosCondition(currentTile))
         {
-            berzekerProjectile.StartCoroutine(berzekerProjectile.MoveProjectile(boss.transform.position));
+            berzekerProjectile.MoveProjectile(boss.transform.position);
         }
         return AttackPosCondition(currentTile);
     }

@@ -1,38 +1,38 @@
-using System.Collections;
 using UnityEngine;
 
 public class BerzekerProjectile : MonoBehaviour
 {
-    [SerializeField] private GameObject slashProjectile;
-    [SerializeField] private GameObject slahProjectileImpact;
+    [SerializeField] private ParticleSystem slashProjectile;
+    [SerializeField] private ParticleSystem slahProjectileImpact;
     [SerializeField] private Hero hero;
     [SerializeField] private Transform startingPosition;
     [SerializeField] private Rigidbody rigidBody;
     [SerializeField] private float speed;
-
     private void Start()
     {
         slashProjectile.transform.position = startingPosition.position;
     }
 
-    public IEnumerator MoveProjectile(Vector3 endingPosition)
+    public void MoveProjectile(Vector3 endingPosition)
     {
+        slashProjectile.gameObject.SetActive(true);
+
         slashProjectile.transform.position = startingPosition.position;
 
-        slashProjectile.SetActive(true);
+        slashProjectile.Play();
 
         Vector3 goToPosition = endingPosition - startingPosition.position;
 
         rigidBody.velocity = goToPosition * speed;
+    }
 
-        yield return new WaitForSeconds(0.2f);
-
-        slahProjectileImpact.transform.position = slashProjectile.transform.position;
-        slahProjectileImpact.SetActive(true);
-
-        yield return new WaitForSeconds(0.1f);
-
-        slahProjectileImpact.SetActive(false);
-        slashProjectile.SetActive(false);
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            slashProjectile.gameObject.SetActive(false);
+            slahProjectileImpact.transform.position = slashProjectile.transform.position;
+            slahProjectileImpact.Play();
+        }
     }
 }
