@@ -16,3 +16,4 @@ public abstract class HeroProjectile : MonoBehaviour
     public abstract void MoveProjectile(Vector3 endingPosition);
     protected abstract void OnTriggerEnter(Collider other);
 }
+   
