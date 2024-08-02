@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tile
   - Charachter
+  - Boss
   layers:
   - Default
   - TransparentFX
