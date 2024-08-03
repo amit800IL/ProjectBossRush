@@ -71,8 +71,8 @@ public class Boss : MonoBehaviour
     private IEnumerator DeactivateBossTimer()
     {
         bossAnimator.SetTrigger("Death");
-        yield return new WaitForSeconds(5f);
         IsBossAlive = false;
+        yield return new WaitForSeconds(5f);
         OnBossDeath?.Invoke();
         gameObject.SetActive(false);
     }

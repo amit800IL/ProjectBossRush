@@ -8,18 +8,17 @@ public class BerzekerProjectile : HeroProjectile
     [SerializeField] private float newX = 0f;
     public override void MoveProjectile(Vector3 endingPosition)
     {
-        //float Distance = Vector3.Distance(startingPosition.position, endingPosition);
+        float Distance = Vector3.Distance(startingPosition.position, endingPosition);
 
-        ////if (Distance >= 3.3f && Distance < 4)
-        ////{
-        ////    trailRenderer.widthMultiplier = newWidth;
-        ////    trailRenderer.transform.position = new Vector3(newX, 0f, 0f);
-        ////}
-        ////else
-        ////{
-        ////    trailRenderer.widthMultiplier = 1.5f;
-        ////    trailRenderer.transform.position = new Vector3(-0.15f, 0f, 0f);
-        ////}
+        if (Distance >= 3.3f && Distance < 4)
+        {
+            trailRenderer.widthMultiplier = newWidth;
+            trailRenderer.transform.position += new Vector3(newX, 0f, 0f);
+        }
+        else
+        {
+            trailRenderer.widthMultiplier = 1.5f;
+        }
 
         attackProjectile.gameObject.SetActive(true);
 

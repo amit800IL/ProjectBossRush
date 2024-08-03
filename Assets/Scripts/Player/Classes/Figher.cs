@@ -13,7 +13,8 @@ public class Figher : Hero
     {
         if (AttackPosCondition(currentTile))
         {
-            berzekerProjectile.MoveProjectile(boss.transform.position);
+            Vector3 positionOffset = new Vector3(0, -2, 0);
+            berzekerProjectile.MoveProjectile(boss.transform.position + positionOffset);
         }
         return AttackPosCondition(currentTile);
     }

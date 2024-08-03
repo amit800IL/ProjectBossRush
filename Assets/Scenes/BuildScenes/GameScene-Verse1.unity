@@ -10599,7 +10599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: <maxHP>k__BackingField
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: <BossAnimator>k__BackingField
@@ -10632,6 +10632,18 @@ PrefabInstance:
     - target: {fileID: 2019696081873761014, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184812753848581850, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: m_Size.z
+      value: 2.237376
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184812753848581850, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: m_Center.y
+      value: -0.40455684
+      objectReference: {fileID: 0}
+    - target: {fileID: 2184812753848581850, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: m_Center.z
+      value: -0.6295152
       objectReference: {fileID: 0}
     - target: {fileID: 2499552867276042103, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11411,7 +11423,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1540462368}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ResetMarkProccessButton
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

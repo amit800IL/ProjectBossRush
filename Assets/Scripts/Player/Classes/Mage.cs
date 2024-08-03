@@ -12,7 +12,8 @@ public class Mage : Hero
     {
         if (AttackPosCondition(currentTile))
         {
-            mageProjectile.MoveProjectile(boss.transform.position);
+            Vector3 positionOffset = new Vector3(0, 2, 0);
+            mageProjectile.MoveProjectile(boss.transform.position + positionOffset);
         }
         return AttackPosCondition(currentTile);
     }
