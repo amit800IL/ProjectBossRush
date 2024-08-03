@@ -1775,10 +1775,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 37441763}
     m_Modifications:
-    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000030517578
-      objectReference: {fileID: 0}
     - target: {fileID: 824149152538430731, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_Name
       value: HeroPanel (2)
@@ -1863,17 +1859,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3224907958894603603, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: hero
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3224907958894603603, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: symbolUI
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1086321387153621563, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
@@ -13484,7 +13471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2688509487581880549, guid: d8b15dd7bbf4f664ebdabbcd922c5139, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5631769470564746673, guid: d8b15dd7bbf4f664ebdabbcd922c5139, type: 3}
       propertyPath: m_Pivot.x
@@ -14638,7 +14625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1743443339
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15306,10 +15293,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 37441763}
     m_Modifications:
-    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000030517578
-      objectReference: {fileID: 0}
     - target: {fileID: 824149152538430731, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_Name
       value: HeroPanel (1)
@@ -15394,21 +15377,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3224907958894603603, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: hero
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3224907958894603603, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: symbolUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5264415193474703779, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: m_FillAmount
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1086321387153621563, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
@@ -17739,10 +17709,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 37441763}
     m_Modifications:
-    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000030517578
-      objectReference: {fileID: 0}
     - target: {fileID: 824149152538430731, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_Name
       value: HeroPanel
@@ -17827,17 +17793,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3224907958894603603, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: hero
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3224907958894603603, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
-      propertyPath: symbolUI
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1086321387153621563, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
