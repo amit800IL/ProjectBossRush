@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,6 +13,8 @@ public class HeroesManager : MonoBehaviour
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Boss boss;
     [field: SerializeField] public List<Hero> heroList { get; private set; } = new List<Hero>();
+
+    [SerializeField] private float heroAttackDelay = 0f;
 
     private void Start()
     {
@@ -63,7 +66,7 @@ public class HeroesManager : MonoBehaviour
         }
     }
 
-    public void CommandAttack()
+    public IEnumerator CommandAttack()
     {
         foreach (Hero hero in heroList)
         {
@@ -74,6 +77,8 @@ public class HeroesManager : MonoBehaviour
                 if (hero.heroAnimator != null)
                     hero.heroAnimator.SetTrigger("Attack");
             }
+
+            yield return new WaitForSeconds(heroAttackDelay);
         }
     }
 

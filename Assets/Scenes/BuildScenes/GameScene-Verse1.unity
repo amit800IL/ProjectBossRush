@@ -5215,6 +5215,7 @@ MonoBehaviour:
   playerResourceManager: {fileID: 1440085249}
   boss: {fileID: 913413898}
   <heroList>k__BackingField: []
+  heroAttackDelay: 1
 --- !u!4 &603676719
 Transform:
   m_ObjectHideFlags: 0
