@@ -83,7 +83,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.25
+  - time: 0.33333334
     functionName: SetMaterialToPrevious
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: d6ff6aaee4a652f4495a7deaff280eca, type: 3}

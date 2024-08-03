@@ -76,9 +76,9 @@ public class HeroesManager : MonoBehaviour
 
                 if (hero.heroAnimator != null)
                     hero.heroAnimator.SetTrigger("Attack");
-            }
 
-            yield return new WaitForSeconds(heroAttackDelay);
+                yield return new WaitForSeconds(heroAttackDelay);
+            }
         }
     }
 
