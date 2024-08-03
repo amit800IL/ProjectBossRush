@@ -30,6 +30,7 @@ public class MageProjectile : HeroProjectile
 
             projectileImpact.transform.position = attackProjectile.transform.position;
             rigidBody.velocity = Vector3.zero;
+            projectileImpact.gameObject.SetActive(true);
             projectileImpact.Play();
         }
     }

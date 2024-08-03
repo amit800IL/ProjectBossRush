@@ -814,7 +814,7 @@ MonoBehaviour:
   attackVFX: {fileID: 0}
   vfxTimer: 3
   heroThrowingWeapon: {fileID: 1651939657868434092}
-  mageProjectile: {fileID: 5304569914324236454}
+  mageProjectile: {fileID: 131024909452331388}
 --- !u!65 &1015659684323480745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -931,10 +931,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8396108960678294777}
     m_Modifications:
-    - target: {fileID: 1549372337319241381, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 3470220545147745637, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+      propertyPath: startingPosition
+      value: 
+      objectReference: {fileID: 5052502030100205306}
     - target: {fileID: 4402105482493979505, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -977,41 +977,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4606624141829936215, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5822551940444716303, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6251601447322363257, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
-      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6410422743024571859, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
       propertyPath: m_Name
       value: ice VFX Mage Partical System
       objectReference: {fileID: 0}
-    - target: {fileID: 8521224145127008864, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
-      propertyPath: playOnAwake
+    - target: {fileID: 6651394882538085634, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8675150584211063999, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
-      propertyPath: startingPosition
-      value: 
-      objectReference: {fileID: 5052502030100205306}
+    - target: {fileID: 8037777335909886258, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
---- !u!4 &931865627318228840 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4402105482493979505, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
-  m_PrefabInstance: {fileID: 3601135073923529753}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5304569914324236454 stripped
+--- !u!114 &131024909452331388 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8675150584211063999, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3470220545147745637, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
   m_PrefabInstance: {fileID: 3601135073923529753}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1020,6 +1007,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b835ab1f549e14ebf02a9ff34fc43c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &931865627318228840 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4402105482493979505, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+  m_PrefabInstance: {fileID: 3601135073923529753}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3604953791155872564
 PrefabInstance:
   m_ObjectHideFlags: 0

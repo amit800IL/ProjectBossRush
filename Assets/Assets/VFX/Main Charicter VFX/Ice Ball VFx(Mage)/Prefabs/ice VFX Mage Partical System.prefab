@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4947,7 +4947,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9844,7 +9844,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -14741,7 +14741,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -19596,7 +19596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4770168498536295146
 Transform:
   m_ObjectHideFlags: 0
@@ -19632,7 +19632,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -24479,9 +24479,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4559182627652419138}
-  - component: {fileID: 8675150584211063999}
   - component: {fileID: 118470321379965458}
   - component: {fileID: 515855465729484211}
+  - component: {fileID: 3470220545147745637}
   m_Layer: 0
   m_Name: Projectil
   m_TagString: Untagged
@@ -24507,27 +24507,6 @@ Transform:
   - {fileID: 4770168498536295146}
   m_Father: {fileID: 4402105482493979505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8675150584211063999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6360923013126283357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b835ab1f549e14ebf02a9ff34fc43c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackProjectile: {fileID: 6360923013126283357}
-  projectileImpact: {fileID: 1549372337319241381}
-  trailRenderer: {fileID: 1367418220367901808}
-  startingPosition: {fileID: 0}
-  rigidBody: {fileID: 118470321379965458}
-  speed: 2
-  objectsToTurnOff:
-  - {fileID: 6651394882538085634}
-  - {fileID: 8037777335909886258}
 --- !u!54 &118470321379965458
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24576,6 +24555,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3470220545147745637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360923013126283357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b835ab1f549e14ebf02a9ff34fc43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackProjectile: {fileID: 6360923013126283357}
+  projectileImpact: {fileID: 1549372337319241381}
+  trailRenderer: {fileID: 1367418220367901808}
+  startingPosition: {fileID: 0}
+  rigidBody: {fileID: 118470321379965458}
+  speed: 2
+  objectsToTurnOff:
+  - {fileID: 6651394882538085634}
+  - {fileID: 8037777335909886258}
 --- !u!1 &6410422743024571859
 GameObject:
   m_ObjectHideFlags: 0
@@ -24804,7 +24804,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

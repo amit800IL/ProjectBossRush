@@ -1139,10 +1139,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slash Impact
       objectReference: {fileID: 0}
-    - target: {fileID: 9032981949376800486, guid: e454828ae86226f4b849d9a19a5c4e7d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
