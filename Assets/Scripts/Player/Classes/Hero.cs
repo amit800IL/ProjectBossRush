@@ -152,6 +152,11 @@ public abstract class Hero : Entity
 
     public void TakeDamage(int incDmg)
     {
+        if (HP <= 0)
+        {
+            HP = 0;
+        }
+
         if (incDmg <= tempHP)
         {
             tempHP -= incDmg;
@@ -162,6 +167,7 @@ public abstract class Hero : Entity
             tempHP = 0;
             HP -= incDmg;
         }
+
 
         OnHeroHealthChanged?.Invoke(this);
         OnHeroDefenceChanged?.Invoke(this);
