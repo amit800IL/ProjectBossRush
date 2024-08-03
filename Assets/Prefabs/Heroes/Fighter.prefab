@@ -124,53 +124,6 @@ MonoBehaviour:
   heroMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   lowHpMaterial: {fileID: 2100000, guid: 82432be50ef630d479f2a5083ab22de8, type: 2}
   markMaterial: {fileID: 2100000, guid: 91414f15c454db94aa1112f6a00f59b3, type: 2}
---- !u!1 &2184644996724519405
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6524181150037175108}
-  - component: {fileID: 1017994913660891251}
-  m_Layer: 0
-  m_Name: ThrowWeaponParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6524181150037175108
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2184644996724519405}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2650181696224639626}
-  m_Father: {fileID: 8396108960678294777}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1017994913660891251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2184644996724519405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe133589cfa7480418079b7a89470270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponRigidBody: {fileID: 6806489076922471803}
-  throwSpeed: 2
 --- !u!1 &2887098908484613637
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2650181696224639626}
   - component: {fileID: 8892539696305974214}
+  - component: {fileID: 991532920147541222}
   - component: {fileID: 6806489076922471803}
   m_Layer: 0
   m_Name: berserker weapon
@@ -322,7 +276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2650181696224639626
 Transform:
   m_ObjectHideFlags: 0
@@ -331,12 +285,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4466707845395304273}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.38302222, y: -0.17860618, z: -0.38302222, w: 0.82139385}
-  m_LocalPosition: {x: 0.24, y: -0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.3830222, y: -0.17860615, z: -0.3830222, w: 0.82139385}
+  m_LocalPosition: {x: 0.24, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.50000006, z: 0.50000006}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6524181150037175108}
+  m_Father: {fileID: 8396108960678294777}
   m_LocalEulerAnglesHint: {x: -50, y: 0, z: -50}
 --- !u!212 &8892539696305974214
 SpriteRenderer:
@@ -390,6 +344,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &991532920147541222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4466707845395304273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe133589cfa7480418079b7a89470270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRigidBody: {fileID: 6806489076922471803}
+  throwSpeed: 2
 --- !u!54 &6806489076922471803
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -541,7 +509,7 @@ Transform:
   - {fileID: 8806800917319086207}
   - {fileID: 7498393388245739420}
   - {fileID: 6928793909906957393}
-  - {fileID: 6524181150037175108}
+  - {fileID: 2650181696224639626}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!114 &5135979904959998896
@@ -568,6 +536,7 @@ MonoBehaviour:
   <HP>k__BackingField: 0
   attackVFX: {fileID: 0}
   vfxTimer: 3
+  heroThrowingWeapon: {fileID: 991532920147541222}
   berzekerProjectile: {fileID: 2082226322264808064}
 --- !u!65 &1015659684323480745
 BoxCollider:

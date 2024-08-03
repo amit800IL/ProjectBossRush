@@ -47,6 +47,8 @@ public abstract class Hero : Entity
     [SerializeField] protected VisualEffect attackVFX;
     [SerializeField] private float vfxTimer;
 
+    [SerializeField] protected HeroThrowingWeapon heroThrowingWeapon;
+
     protected virtual void Start()
     {
         HP = HeroData.maxHP;
@@ -174,7 +176,7 @@ public abstract class Hero : Entity
         heroAnimator.SetTrigger("Injured");
         OnHeroInjured?.Invoke(this);
 
-        if (HP <= 0)
+        if (HP <= 0 && gameObject.activeSelf)
         {
             StartCoroutine(DeactivatePlayerTimer());
         }
@@ -182,8 +184,9 @@ public abstract class Hero : Entity
 
     private IEnumerator DeactivatePlayerTimer()
     {
+        heroThrowingWeapon.gameObject.SetActive(true);
         heroAnimator.SetTrigger("Death");
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f);
         OnHeroDeath?.Invoke(this);
         gameObject.SetActive(false);
     }
