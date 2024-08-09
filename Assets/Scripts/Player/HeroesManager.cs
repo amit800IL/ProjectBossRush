@@ -78,6 +78,11 @@ public class HeroesManager : MonoBehaviour
                     hero.heroAnimator.SetTrigger("Attack");
 
                 yield return new WaitForSeconds(heroAttackDelay);
+
+                if (!boss.IsBossAlive)
+                {
+                    yield break;
+                }
             }
         }
     }
