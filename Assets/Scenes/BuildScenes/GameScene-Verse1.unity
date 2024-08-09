@@ -13282,6 +13282,7 @@ MonoBehaviour:
   heroesManager: {fileID: 603676718}
   playerResourceManager: {fileID: 1440085249}
   mainCamera: {fileID: 440101996}
+  attackingButton: {fileID: 1104961972}
   markedHero: {fileID: 0}
   hoveredHero: {fileID: 0}
   boss: {fileID: 913413898}

@@ -11,13 +11,14 @@ public class HeroesManager : MonoBehaviour
 
     private int heroesCount = 0;
 
+    private bool areHeroesAttacking = false;
+
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Boss boss;
     [field: SerializeField] public List<Hero> heroList { get; private set; } = new List<Hero>();
 
     [SerializeField] private float heroAttackDelay = 0f;
 
-    public bool AreHeroesAttacking { get; private set; } = false;
 
     private void Start()
     {
@@ -71,11 +72,9 @@ public class HeroesManager : MonoBehaviour
 
     public IEnumerator CommandAttack(Button attackingButton)
     {
-        if (AreHeroesAttacking) yield break;
+        if (areHeroesAttacking) yield break;
 
         attackingButton.interactable = false;
-
-        AreHeroesAttacking = true;
 
         foreach (Hero hero in heroList)
         {
@@ -90,7 +89,7 @@ public class HeroesManager : MonoBehaviour
 
                 if (!boss.IsBossAlive)
                 {
-                    AreHeroesAttacking = false;
+                    areHeroesAttacking = false;
                     yield break;
                 }
 
@@ -99,7 +98,7 @@ public class HeroesManager : MonoBehaviour
 
         attackingButton.interactable = true;
 
-        AreHeroesAttacking = false;
+        areHeroesAttacking = false;
     }
 
     public void OnAllHeroesDeath(Hero hero)
