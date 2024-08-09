@@ -520,7 +520,6 @@ GameObject:
   - component: {fileID: 4474319597100205197}
   - component: {fileID: 1651939657868434092}
   - component: {fileID: 687605336887887637}
-  - component: {fileID: 8092139733432430487}
   m_Layer: 0
   m_Name: mage weapon
   m_TagString: Untagged
@@ -536,8 +535,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6680836563830105589}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4161977, y: 0.07338688, z: 0.1573787, w: 0.89253896}
-  m_LocalPosition: {x: -0.3, y: -0.25000006, z: 0.3000001}
+  m_LocalRotation: {x: -0.41619772, y: 0.07338688, z: 0.15737869, w: 0.89253896}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.50000006}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -608,7 +607,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponRigidBody: {fileID: 687605336887887637}
-  throwSpeed: 2
+  throwForce: 5
+  jumpHeight: 2
 --- !u!54 &687605336887887637
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -634,29 +634,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 114
   m_CollisionDetection: 0
---- !u!65 &8092139733432430487
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6680836563830105589}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.1200001, y: 4.2500005, z: 0.20000023}
-  m_Center: {x: 0, y: -0.00000011920929, z: 0.000000007683411}
 --- !u!1 &7143033700631779498
 GameObject:
   m_ObjectHideFlags: 0
