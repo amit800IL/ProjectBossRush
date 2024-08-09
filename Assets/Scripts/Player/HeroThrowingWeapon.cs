@@ -16,24 +16,26 @@ public class HeroThrowingWeapon : MonoBehaviour
 
     private IEnumerator ThrowWeapon()
     {
-        Vector3 throwDirection = new Vector3(0.5f, 0, -5f);
+        Vector3 throwDirection = new Vector3(0, 0, -0.5f);
         weaponRigidBody.velocity = throwDirection * throwSpeed;
 
-        float elapsedTime = 0f;
-        float timerMax = 5f;
+        yield return new WaitForSeconds(5f);
 
-        while (elapsedTime < timerMax)
-        {
-            elapsedTime += Time.deltaTime;
+        //float elapsedTime = 0f;
+        //float timerMax = 5f;
 
-            float progress = elapsedTime / timerMax;
+        //while (elapsedTime < timerMax)
+        //{
+        //    elapsedTime += Time.deltaTime;
 
-            float angle = 360 * progress;
+        //    //float progress = elapsedTime / timerMax;
 
-            weaponRigidBody.rotation = originalRotation * Quaternion.Euler(angle, 0, 0);
+        //    //float angle = 360 * progress;
 
-            yield return null;
-        }
+        //    //weaponRigidBody.rotation = originalRotation * Quaternion.Euler(angle, 0, 0);
+
+        //    yield return null;
+        //}
 
         weaponRigidBody.gameObject.SetActive(false);
     }

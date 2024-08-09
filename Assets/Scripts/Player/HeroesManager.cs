@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class HeroesManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class HeroesManager : MonoBehaviour
     [field: SerializeField] public List<Hero> heroList { get; private set; } = new List<Hero>();
 
     [SerializeField] private float heroAttackDelay = 0f;
+
+    public bool AreHeroesAttacking { get; private set; } = false;
 
     private void Start()
     {
@@ -66,8 +69,14 @@ public class HeroesManager : MonoBehaviour
         }
     }
 
-    public IEnumerator CommandAttack()
+    public IEnumerator CommandAttack(Button attackingButton)
     {
+        if (AreHeroesAttacking) yield break;
+
+        attackingButton.interactable = false;
+
+        AreHeroesAttacking = true;
+
         foreach (Hero hero in heroList)
         {
             if (hero.HeroAttackBoss(boss))
@@ -81,10 +90,16 @@ public class HeroesManager : MonoBehaviour
 
                 if (!boss.IsBossAlive)
                 {
+                    AreHeroesAttacking = false;
                     yield break;
                 }
+
             }
         }
+
+        attackingButton.interactable = true;
+
+        AreHeroesAttacking = false;
     }
 
     public void OnAllHeroesDeath(Hero hero)

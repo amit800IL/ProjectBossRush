@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private Button attackingButton;
 
     [Header("Input system")]
     private BossRush inputActions;
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         TurnsManager.OnPlayerTurnStart += AllowInput;
-        TurnsManager.OnBossTurnStart += ForbidInput;        
+        TurnsManager.OnBossTurnStart += ForbidInput;
     }
 
     private void Start()
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         TurnsManager.OnPlayerTurnStart -= AllowInput;
-        TurnsManager.OnBossTurnStart -= ForbidInput;        
+        TurnsManager.OnBossTurnStart -= ForbidInput;
     }
 
     private void HeroMark(InputAction.CallbackContext inputAction)
@@ -241,7 +243,7 @@ public class PlayerController : MonoBehaviour
     {
         if (boss.IsBossAlive && playerResourceManager.UseAP(2))
         {
-           heroesManager.StartCoroutine(heroesManager.CommandAttack());
+            heroesManager.StartCoroutine(heroesManager.CommandAttack(attackingButton));
         }
     }
 
