@@ -18,7 +18,7 @@ public class HeroDataSO : ScriptableObject
 
     public int damage = 0;
 
-    [Header("Damage")]
+    [Header("Defence")]
 
     public int defense = 0;
 }

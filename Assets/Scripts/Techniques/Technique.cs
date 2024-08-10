@@ -1,8 +1,6 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Technique : MonoBehaviour
@@ -18,6 +16,7 @@ public class Technique : MonoBehaviour
     //[SerializeField] private Image cardBG;
     [SerializeField] private Button activationButton;
     [SerializeField] private TextMeshProUGUI numText;
+    [SerializeField] private TextMeshProUGUI coolDownText;
 
     private void Start()
     {
@@ -30,13 +29,23 @@ public class Technique : MonoBehaviour
         //needs to move to a manager
         PlayerController.OnHeroMarked += UpdateUsability;
         TurnsManager.OnPlayerTurnStart += UpdateUsability;
+        TurnsManager.OnPlayerTurnStart += ShowCooldown;
         UpdateUsability(null);
+        UpdateCooldownOnStart();
+        UpdateUsability();
+        ShowCooldown();
     }
 
     private void OnDestroy()
     {
         PlayerController.OnHeroMarked -= UpdateUsability;
         TurnsManager.OnPlayerTurnStart -= UpdateUsability;
+        TurnsManager.OnPlayerTurnStart -= ShowCooldown;
+    }
+
+    private void ShowCooldown()
+    {
+        coolDownText.text = cooldown.ToString();
     }
 
     void UpdateUsability(Hero hero)
@@ -47,7 +56,7 @@ public class Technique : MonoBehaviour
 
     void UpdateUsability()
     {
-        if (!TechData.RequiresTargetHero && IsReadyToUse())
+        if (!TechData.RequiresTargetHero && cooldown == 0)
         {
             activationButton.interactable = true;
         }
@@ -80,27 +89,25 @@ public class Technique : MonoBehaviour
     public void StartCooldown()
     {
         cooldown = TechData.Cooldown;
-        //if (cooldown > 0)
-        //{
-
-        //    UpdateCooldownGraphic();
-        //}
     }
 
     public bool IsReadyToUse() => cooldown == 0;
 
     //run at the start of every turn on all techniques
+
+    public void UpdateCooldownOnStart()
+    {
+        cooldown = TechData.Cooldown;
+    }
     public void UpdateCooldown()
     {
         if (cooldown > 0)
         {
             cooldown--;
-            //UpdateCooldownGraphic();
+        }
+        else
+        {
+            cooldown = TechData.Cooldown;
         }
     }
-
-    //private void UpdateCooldownGraphic()
-    //{
-    //    cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
-    //}
 }

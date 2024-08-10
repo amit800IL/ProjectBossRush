@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,10 +64,17 @@ public class Boss : MonoBehaviour
 
         if (HP <= 0)
         {
-            IsBossAlive = false;
-            OnBossDeath?.Invoke();
-            gameObject.SetActive(false);
+            StartCoroutine(DeactivateBossTimer());
         }
+    }
+
+    private IEnumerator DeactivateBossTimer()
+    {
+        bossAnimator.SetTrigger("Death");
+        IsBossAlive = false;
+        yield return new WaitForSeconds(5f);
+        OnBossDeath?.Invoke();
+        gameObject.SetActive(false);
     }
 
     public void InteractWithTiles(bool VisualizeAttack) //instead of taking a parameter, bool should be dependant per attack

@@ -47,6 +47,8 @@ public abstract class Hero : Entity
     [SerializeField] protected VisualEffect attackVFX;
     [SerializeField] private float vfxTimer;
 
+    [SerializeField] protected HeroThrowingWeapon heroThrowingWeapon;
+
     protected virtual void Start()
     {
         HP = HeroData.maxHP;
@@ -61,6 +63,16 @@ public abstract class Hero : Entity
     }
 
     protected virtual IEnumerator ActivateAttackVfx()
+    {
+        if (attackVFX != null)
+        {
+            attackVFX.Play();
+            yield return new WaitForSeconds(vfxTimer);
+            attackVFX.Stop();
+        }
+    }
+
+    protected virtual IEnumerator ActivateAttackVfx(Boss boss)
     {
         if (attackVFX != null)
         {
@@ -153,18 +165,30 @@ public abstract class Hero : Entity
             HP -= incDmg;
         }
 
+        if (HP <= 0)
+        {
+            HP = 0;
+        }
+
         OnHeroHealthChanged?.Invoke(this);
         OnHeroDefenceChanged?.Invoke(this);
 
         heroAnimator.SetTrigger("Injured");
         OnHeroInjured?.Invoke(this);
-        spriteChange.OnHpLow(HP);
 
-        if (HP <= 0)
+        if (HP <= 0 && gameObject.activeSelf)
         {
-            OnHeroDeath?.Invoke(this);
-            gameObject.SetActive(false);
+            StartCoroutine(DeactivatePlayerTimer());
         }
+    }
+
+    private IEnumerator DeactivatePlayerTimer()
+    {
+        heroThrowingWeapon.gameObject.SetActive(true);
+        heroAnimator.SetTrigger("Death");
+        yield return new WaitForSeconds(5f);
+        OnHeroDeath?.Invoke(this);
+        gameObject.SetActive(false);
     }
 
     public void GetHeal(int incHealth)
@@ -177,8 +201,6 @@ public abstract class Hero : Entity
 
         HealingEffect.Play();
         OnHeroHealthChanged?.Invoke(this);
-
-        spriteChange.OnHpLow(HP);
     }
 
     public virtual bool HeroAttackBoss(Boss boss)
@@ -200,7 +222,7 @@ public abstract class Hero : Entity
 
     public bool Defend()
     {
-        if (CanHeroDefend())
+        if (CanHeroDefend() && tempHP < HeroData.maxHP)
         {
             tempHP += HeroData.defense;
             OnHeroDefenceChanged?.Invoke(this);

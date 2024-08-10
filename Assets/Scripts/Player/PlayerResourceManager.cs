@@ -29,7 +29,6 @@ public class PlayerResourceManager : MonoBehaviour
         Technique.SelectTechnique += SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart += RollCooldowns;
         TurnsManager.OnPlayerTurnStart += ResetAP;
-        PlayerController.OnHeroMarked += SetSelectedHero;
     }
 
     private void OnDestroy()
@@ -37,21 +36,6 @@ public class PlayerResourceManager : MonoBehaviour
         Technique.SelectTechnique -= SetSelectedCombo;
         TurnsManager.OnPlayerTurnStart -= RollCooldowns;
         TurnsManager.OnPlayerTurnStart -= ResetAP;
-        PlayerController.OnHeroMarked -= SetSelectedHero;
-    }
-
-    private void SetSelectedHero(Hero hero)
-    {
-        selectedHero = hero;
-
-        if (hero != null)
-        {
-            UpdateSymbolUI(hero);
-        }
-        else
-        {
-            heroSymbolUI.ResetUI();
-        }
     }
 
     #region Combos
@@ -138,10 +122,6 @@ public class PlayerResourceManager : MonoBehaviour
         generalSymbolUI.UpdateUI(playerSymbolTable.ToShortString());
     }
 
-    private void UpdateSymbolUI(Hero hero)
-    {
-        heroSymbolUI.UpdateUI(hero.SymbolTable.ToShortString());
-    }
     #endregion
 
     #region AP
