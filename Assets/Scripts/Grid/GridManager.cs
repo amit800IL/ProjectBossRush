@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -32,6 +33,8 @@ public class GridManager : MonoBehaviour
     {
         TurnsManager.OnRoundStart -= RollTiles;
     }
+
+    public Vector2Int GetGridSize() => gridSize;
 
     public void CreateGrid()
     {
@@ -96,7 +99,7 @@ public class GridManager : MonoBehaviour
 
     private TileType[] CalculateTileType(Vector2 position)
     {
-        Debug.Log("this method is only accurate for grids where y = 6");
+        Debug.Log("this method is only accurate for grids where x = 6");
         TileType[] types = new TileType[1];
         if (position.y == 0 || position.y == gridSize.y - 1)
         {
