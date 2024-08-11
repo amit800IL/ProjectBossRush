@@ -69,7 +69,7 @@ public class Technique : MonoBehaviour
 
     void UpdateUsability(Hero hero)
     {
-        if (TechData.RequiresTargetHero)
+        if (TechData.RequiresTargetHero && cooldown <= 1)
             activationButton.interactable = (hero != null);
     }
 
