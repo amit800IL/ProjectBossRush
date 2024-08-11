@@ -27,21 +27,32 @@ public class PlayerResourceManager : MonoBehaviour
     private void Start()
     {
         Technique.SelectTechnique += SetSelectedCombo;
-        TurnsManager.OnPlayerTurnStart += RollCooldowns;
+        PlayerController.OnHeroMarked += SetSelectedHero;
+        //TurnsManager.OnPlayerTurnStart += RollCooldowns;
         TurnsManager.OnPlayerTurnStart += ResetAP;
     }
 
     private void OnDestroy()
     {
         Technique.SelectTechnique -= SetSelectedCombo;
-        TurnsManager.OnPlayerTurnStart -= RollCooldowns;
+        PlayerController.OnHeroMarked += SetSelectedHero;
+        //TurnsManager.OnPlayerTurnStart -= RollCooldowns;
         TurnsManager.OnPlayerTurnStart -= ResetAP;
     }
 
     #region Combos
 
+    private void SetSelectedHero(Hero hero)
+    {
+        if (hero == null) return;
+
+        selectedHero = hero;
+    }
+
     private void SetSelectedCombo(Technique selected)
     {
+        if (selected == null || selected.HasComboBeenUsed) return;
+
         selectedTechnique = selected;
 
         UseTechnique();
@@ -65,17 +76,17 @@ public class PlayerResourceManager : MonoBehaviour
             {
                 if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
-                    if (vfxInstiniatePosition != null && selectedTechnique.TechData.Name == "Fireball")
-                    {
-                        GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
-                        Destroy(instanitiedParticle, 5f);
-                    }
+                    ActivateFireBall();
 
                     UseSymbols(selectedTechnique.GetRequirements());
                     UseAP(selectedTechnique.GetAPCost());
-                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+
+                    OnTechniqueUsed?.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+
                     selectedTechnique.StartCooldown();
                     UpdateSymbolUI();
+
+                    selectedTechnique.HasComboBeenUsed = true;
                 }
                 else Debug.Log($"not enough symbols {selectedTechnique.GetRequirements()} \n {playerSymbolTable}");
             }
@@ -91,6 +102,15 @@ public class PlayerResourceManager : MonoBehaviour
     {
         playerSymbolTable.Add(toAdd);
         UpdateSymbolUI();
+    }
+
+    private void ActivateFireBall()
+    {
+        if (vfxInstiniatePosition != null && selectedTechnique.TechData.Name == "Fireball")
+        {
+            GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
+            Destroy(instanitiedParticle, 5f);
+        }
     }
 
     //[ContextMenu("add test table")]

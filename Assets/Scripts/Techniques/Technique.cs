@@ -8,6 +8,9 @@ public class Technique : MonoBehaviour
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
 
+    private int roundNumber = 1;
+    public bool HasComboBeenUsed { get; set; } = false;
+
     [field: SerializeField] public TechniqueDataSO TechData { get; private set; }
     [SerializeField] private int cooldown;
 
@@ -24,16 +27,15 @@ public class Technique : MonoBehaviour
         numText.text = $"AP {TechData.APCost}\n";
         numText.text += TechData.Requirements.ToString();
 
-        activationButton.interactable = false;
+        activationButton.interactable = true;
 
         //needs to move to a manager
         PlayerController.OnHeroMarked += UpdateUsability;
         TurnsManager.OnPlayerTurnStart += UpdateUsability;
         TurnsManager.OnPlayerTurnStart += ShowCooldown;
-        UpdateUsability(null);
-        UpdateCooldownOnStart();
+        StartCooldown();
         UpdateUsability();
-        ShowCooldown();
+        UpdateUsability(null);
     }
 
     private void OnDestroy()
@@ -45,18 +47,35 @@ public class Technique : MonoBehaviour
 
     private void ShowCooldown()
     {
+        if (roundNumber >= 2)
+        {
+            UpdateCooldown();
+        }
+
         coolDownText.text = cooldown.ToString();
+
+        if (cooldown <= 1 && activationButton.interactable == true)
+        {
+            coolDownText.text = " ";
+        }
+
+        if (TechData.RequiresTargetHero && cooldown <= 1)
+        {
+            coolDownText.text = " ";
+        }
+
+        roundNumber++;
     }
 
     void UpdateUsability(Hero hero)
     {
-        if (TechData.RequiresTargetHero)
+        if (TechData.RequiresTargetHero && cooldown <= 1)
             activationButton.interactable = (hero != null);
     }
 
     void UpdateUsability()
     {
-        if (!TechData.RequiresTargetHero && cooldown == 0)
+        if (cooldown <= 1 && !TechData.RequiresTargetHero)
         {
             activationButton.interactable = true;
         }
@@ -91,23 +110,25 @@ public class Technique : MonoBehaviour
         cooldown = TechData.Cooldown;
     }
 
-    public bool IsReadyToUse() => cooldown == 0;
+    public bool IsReadyToUse() => cooldown < 1;
 
     //run at the start of every turn on all techniques
 
-    public void UpdateCooldownOnStart()
-    {
-        cooldown = TechData.Cooldown;
-    }
+    //public void UpdateCooldownOnStart()
+    //{
+    //    cooldown = TechData.Cooldown;
+    //}
     public void UpdateCooldown()
     {
-        if (cooldown > 0)
+        if (cooldown >= 1)
         {
             cooldown--;
         }
-        else
+
+        if (cooldown >= 1 && HasComboBeenUsed)
         {
-            cooldown = TechData.Cooldown;
+            StartCooldown();
+            HasComboBeenUsed = false;
         }
     }
 }

@@ -62,6 +62,8 @@ public class FeedBackText : MonoBehaviour
                 StopCoroutine(defenceUpFeedbackCoroutine);
             }
 
+
+
             defenceUpFeedbackCoroutine = StartCoroutine(FloatingFeedbackNumber(defenceFloatingText, additionSymbol, defenceValue, initialFloatingTextPosition.position));
         }
     }
@@ -69,6 +71,11 @@ public class FeedBackText : MonoBehaviour
     private IEnumerator FloatingFeedbackNumber(TextMeshProUGUI feedBackText, string symbol, float feedBackNumber, Vector3 originalObjectPosition)
     {
         feedBackText.text = symbol + feedBackNumber.ToString();
+
+        //if (feedBackNumber <= 0)
+        //{
+        //    feedBackText.text = " ";
+        //}
 
         feedBackText.gameObject.SetActive(true);
 

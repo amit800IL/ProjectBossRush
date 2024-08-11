@@ -1913,6 +1913,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HeroPanel (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2691829535117315239, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2916282356377230168, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_Pivot.x
       value: 1.4948825
@@ -7560,7 +7564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileObject: {fileID: 224761121193439107, guid: 6337dc4b77f0e1e4cbf13e316ad3b615, type: 3}
-  gridSize: {x: 6, y: 6}
+  gridSize: {x: 6, y: 4}
   gridObjectsToSpawn:
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
     spawnPosition: {x: 1, y: 3}
@@ -7956,7 +7960,7 @@ Transform:
   m_GameObject: {fileID: 977542793}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.92, y: 2.5, z: 3.52}
+  m_LocalPosition: {x: -2.2, y: 6.3, z: -1.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10694,6 +10698,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 674658116}
     - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[0].target.Size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: enemyActions.Array.data[1].enemyAction
       value: 
       objectReference: {fileID: 674658116}
@@ -10747,11 +10755,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7
+      value: 6.9
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 4.47
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13495,10 +13503,6 @@ PrefabInstance:
     - target: {fileID: 2688509487581880549, guid: d8b15dd7bbf4f664ebdabbcd922c5139, type: 3}
       propertyPath: m_Name
       value: Tutorial
-      objectReference: {fileID: 0}
-    - target: {fileID: 2688509487581880549, guid: d8b15dd7bbf4f664ebdabbcd922c5139, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5631769470564746673, guid: d8b15dd7bbf4f664ebdabbcd922c5139, type: 3}
       propertyPath: m_Pivot.x
