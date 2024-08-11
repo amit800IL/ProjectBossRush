@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -33,6 +34,8 @@ public class GridManager : MonoBehaviour
         TurnsManager.OnRoundStart -= RollTiles;
     }
 
+    public Vector2Int GetGridSize() => gridSize;
+
     public void CreateGrid()
     {
         Tiles = new Tile[gridSize.x, gridSize.y];
@@ -45,7 +48,7 @@ public class GridManager : MonoBehaviour
             {
                 Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x)) * tileGap, 0f , y * ((tileObject.transform.localScale.z)) * tileGap);
 
-                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-4, 0.5f, 0)), Quaternion.identity, transform);
+                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-3.8f, 1.5f, 0)), Quaternion.identity, transform);
                 Tiles[x, y].Initialize(x, y);
                 Tiles[x, y].SetTileType(CalculateTileType(new Vector2(x, y)));
             }
@@ -96,7 +99,7 @@ public class GridManager : MonoBehaviour
 
     private TileType[] CalculateTileType(Vector2 position)
     {
-        Debug.Log("this method is only accurate for grids where y = 6");
+        Debug.Log("this method is only accurate for grids where x = 6");
         TileType[] types = new TileType[1];
         if (position.y == 0 || position.y == gridSize.y - 1)
         {
