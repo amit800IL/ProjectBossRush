@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroName: Berseker
   headshotSprite: {fileID: 21300000, guid: 398058ef9a56d7a4c89c2144000f2a7e, type: 3}
-  maxHP: 50
+  maxHP: 500
   maxMovementAmount: 2
   damage: 1
   defense: 10
-  maxTempHp: 50
