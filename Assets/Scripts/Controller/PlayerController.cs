@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public static event Action<Hero> OnHeroMarked;
+    public static event Action<bool> OnTacticalViewToggled;
 
     [Header("General variables")]
     [SerializeField] private HeroesManager heroesManager;
@@ -14,58 +16,64 @@ public class PlayerController : MonoBehaviour
     [Header("Input system")]
     private BossRush inputActions;
     private Vector2 inputPosition;
-    private bool isButtonHeld = false;
     private bool isInputAllowed = false;
+    private bool isTacticalViewOn = false;
+
+    private bool isTracingHeroRoute = false;
+    private List<Tile> route = new();
 
     [Header("Raycast mark flags")]
 
     private RaycastHit raycastHit;
     private bool isheroMarked = false;
-    private bool isheroHovered = false;
 
     [Header("Game Objects")]
 
     [SerializeField] private Hero markedHero;
     [SerializeField] private Hero hoveredHero;
+    private Tile hoveredTile;
     private Tile markedTile;
     [SerializeField] private Boss boss;
 
     [Header("LayerMasks")]
     [SerializeField] private LayerMask heroMask;
+    [SerializeField] private LayerMask tileMask;
 
     private void Awake()
     {
         TurnsManager.OnPlayerTurnStart += AllowInput;
-        TurnsManager.OnBossTurnStart += ForbidInput;        
+        TurnsManager.OnBossTurnStart += ForbidInput;
     }
 
     private void Start()
     {
         inputActions = new BossRush();
         inputActions.Enable();
-        inputActions.Player.PlayerPress.performed += HeroMark;
-        inputActions.Player.PlayerCancel.performed += OnHeroUnMarked;
-        inputActions.Player.PlayerTactical.started += OnCharachterHovered;
-        inputActions.Player.PlayerTactical.canceled += OnCharachterReleased;
-        inputActions.UI.Point.performed += HoverCharachter;
+        inputActions.Player.PlayerPress.performed += OnPrimarySelectPressed;
+        inputActions.Player.PlayerPress.canceled += OnPrimarySelectReleased;
+        inputActions.Player.PlayerCancel.performed += OnSecondarySelectPressed;
+        inputActions.Player.PlayerTactical.started += OnTacticalInputPressed;
+        inputActions.Player.PlayerTactical.canceled += OnTacticalInputReleased;
+        inputActions.UI.Point.performed += OnPointerMove;
     }
 
     private void OnDisable()
     {
-        inputActions.Player.PlayerPress.performed -= HeroMark;
-        inputActions.Player.PlayerCancel.performed -= OnHeroUnMarked;
-        inputActions.Player.PlayerTactical.started -= OnCharachterHovered;
-        inputActions.Player.PlayerTactical.canceled -= OnCharachterReleased;
-        inputActions.UI.Point.performed -= HoverCharachter;
+        inputActions.Player.PlayerPress.performed -= OnPrimarySelectPressed;
+        inputActions.Player.PlayerPress.canceled -= OnPrimarySelectReleased;
+        inputActions.Player.PlayerCancel.performed -= OnSecondarySelectPressed;
+        inputActions.Player.PlayerTactical.started -= OnTacticalInputPressed;
+        inputActions.Player.PlayerTactical.canceled -= OnTacticalInputReleased;
+        inputActions.UI.Point.performed -= OnPointerMove;
     }
 
     private void OnDestroy()
     {
         TurnsManager.OnPlayerTurnStart -= AllowInput;
-        TurnsManager.OnBossTurnStart -= ForbidInput;        
+        TurnsManager.OnBossTurnStart -= ForbidInput;
     }
 
-    private void HeroMark(InputAction.CallbackContext inputAction)
+    private void OnPrimarySelectPressed(InputAction.CallbackContext inputAction)
     {
         if (!isInputAllowed) return;
 
@@ -73,19 +81,24 @@ public class PlayerController : MonoBehaviour
 
         if (inputActions != null && inputPosition != null)
         {
-            TileGetter.GetTileFromCamera(inputPosition, mainCamera, out raycastHit);
+            //TileGetter.GetTileFromCamera(inputPosition, mainCamera, out raycastHit); line is obsolete
 
-            if (inputAction.performed)
-            {
-                if (isheroMarked)
-                    MoveHeroToTile(inputPosition);
-                else
-                    MarkHero(inputPosition);
-            }
+            //if (isheroMarked)
+            //    MoveHeroToTile(inputPosition);
+            //else
+            MarkHero(inputPosition);
         }
     }
 
-    private void OnHeroUnMarked(InputAction.CallbackContext inputAction)
+    private void OnPrimarySelectReleased(InputAction.CallbackContext inputAction)
+    {
+        isTracingHeroRoute = false;
+        hoveredTile = null;
+        Debug.Log(route.Count);
+        route.Clear();
+    }
+
+    private void OnSecondarySelectPressed(InputAction.CallbackContext inputAction)
     {
         inputPosition = Mouse.current.position.ReadValue();
 
@@ -99,30 +112,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCharachterHovered(InputAction.CallbackContext inputAction)
+    private void OnTacticalInputPressed(InputAction.CallbackContext inputAction)
     {
-        isButtonHeld = true;
-
-        if (isheroHovered)
+        isTacticalViewOn = !isTacticalViewOn;
+        if (isTacticalViewOn)
         {
-            TacticalViewPressed();
+            StartTacticalView();
         }
-    }
-
-    private void OnCharachterReleased(InputAction.CallbackContext inputAction)
-    {
-        isButtonHeld = false;
-        TacticalViewReleased();
-    }
-
-
-    private void HoverCharachter(InputAction.CallbackContext inputAction)
-    {
-        inputPosition = Mouse.current.position.ReadValue();
-
-        if (inputAction.performed)
+        else
         {
-            HoverHero(inputPosition);
+            StopTacticalView();
+        }
+
+        OnTacticalViewToggled?.Invoke(isTacticalViewOn);
+    }
+
+    private void OnTacticalInputReleased(InputAction.CallbackContext inputAction)
+    {
+    }
+
+
+    private void OnPointerMove(InputAction.CallbackContext inputAction)
+    {
+        if (isTracingHeroRoute)
+        {
+            GetHoveredTile();
+        }
+        else
+        {
+            GetHoveredHero();
         }
     }
 
@@ -189,7 +207,8 @@ public class PlayerController : MonoBehaviour
     private void ResetMarkProccess()
     {
         isheroMarked = false;
-        markedHero.ResetHeroMovement();
+        if (markedHero != null)
+            markedHero.ResetHeroMovement();
         markedHero = null;
         OnHeroMarked?.Invoke(markedHero);
         markedTile = null;
@@ -205,39 +224,56 @@ public class PlayerController : MonoBehaviour
         if (raycast)
         {
             isheroMarked = true;
+            isTracingHeroRoute = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
             OnHeroMarked?.Invoke(markedHero);
         }
+        else ResetMarkProccess();
     }
 
-    public void HoverHero(Vector3 hoverPosition)
+    public void GetHoveredHero()
     {
-        Ray ray = Camera.main.ScreenPointToRay(hoverPosition);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
 
         if (raycast)
         {
-            isheroHovered = true;
-            hoveredHero = raycastHit.collider.GetComponent<Hero>();
-
-            if (isButtonHeld)
+            if (isTacticalViewOn)
             {
-                TacticalViewPressed();
+                hoveredHero = raycastHit.collider.GetComponent<Hero>();
+                StartTacticalView();
+
             }
         }
         else
         {
-            TacticalViewReleased();
-            UnHoverHero();
+            hoveredHero = null;
+            StopTacticalView();
         }
     }
 
-    private void UnHoverHero()
+    public void GetHoveredTile()
     {
-        isheroHovered = false;
-        hoveredHero = null;
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, tileMask);
+
+        if (raycast)
+        {
+            Tile _newTile = raycastHit.collider.GetComponent<Tile>();
+            if (_newTile != null && _newTile != hoveredTile)
+            {
+                if (hoveredTile != null)
+                {
+                    route.Add(_newTile);
+                    Debug.Log(_newTile.tilePosition + " Added");
+                }
+                hoveredTile = _newTile;
+            }
+        }
     }
+
     public void PlayerAttack()
     {
         if (boss.IsBossAlive && playerResourceManager.UseAP(2))
@@ -263,11 +299,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TacticalViewPressed()
+    public void StartTacticalView()
     {
         GridManager.Instance.StartTacticalView(hoveredHero);
     }
-    public void TacticalViewReleased()
+
+    public void StopTacticalView()
     {
         GridManager.Instance.StopTacticalView();
     }

@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private RoundNotice turnNotice;
     [SerializeField] private GameObject raycastBlockPanel;
     [SerializeField] private List<HeroUI> heroUIList;
+    [SerializeField] private GameObject tacticalViewText;
 
     [Header("Boss UI")]
 
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
         HeroesManager.OnHeroesDeath += ShowLostScreen;
         Boss.OnBossDeath += ShowWinScreen;
         Hero.OnHeroSpawned += AssignHeroUI;
+        PlayerController.OnTacticalViewToggled += ToggleTacticalStateText;
     }
 
     private void OnDestroy()
@@ -47,6 +49,7 @@ public class UIManager : MonoBehaviour
         HeroesManager.OnHeroesDeath -= ShowLostScreen;
         Boss.OnBossDeath -= ShowWinScreen;
         Hero.OnHeroSpawned -= AssignHeroUI;
+        PlayerController.OnTacticalViewToggled -= ToggleTacticalStateText;
     }
 
     private void ApUIChange(int ap)
@@ -74,7 +77,6 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-
 
     private void RoundNumberChange()
     {
@@ -131,5 +133,10 @@ public class UIManager : MonoBehaviour
     {
         turnNotice.ActivateNotice("Boss Turn");
         raycastBlockPanel.SetActive(true);
+    }
+
+    private void ToggleTacticalStateText(bool state)
+    {
+        tacticalViewText.SetActive(state);
     }
 }
