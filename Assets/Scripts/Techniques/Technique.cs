@@ -24,22 +24,22 @@ public class Technique : MonoBehaviour
         numText.text = $"AP {TechData.APCost}\n";
         numText.text += TechData.Requirements.ToString();
 
-        activationButton.interactable = false;
+        activationButton.interactable = true;
 
         //needs to move to a manager
         PlayerController.OnHeroMarked += UpdateUsability;
-        TurnsManager.OnPlayerTurnStart += UpdateUsability;
+        //TurnsManager.OnPlayerTurnStart += UpdateUsability;
         TurnsManager.OnPlayerTurnStart += ShowCooldown;
         UpdateUsability(null);
-        UpdateCooldownOnStart();
-        UpdateUsability();
-        ShowCooldown();
+        //UpdateCooldownOnStart();
+        //UpdateUsability();
+        //ShowCooldown();
     }
 
     private void OnDestroy()
     {
         PlayerController.OnHeroMarked -= UpdateUsability;
-        TurnsManager.OnPlayerTurnStart -= UpdateUsability;
+        //TurnsManager.OnPlayerTurnStart -= UpdateUsability;
         TurnsManager.OnPlayerTurnStart -= ShowCooldown;
     }
 
@@ -95,19 +95,19 @@ public class Technique : MonoBehaviour
 
     //run at the start of every turn on all techniques
 
-    public void UpdateCooldownOnStart()
-    {
-        cooldown = TechData.Cooldown;
-    }
+    //public void UpdateCooldownOnStart()
+    //{
+    //    cooldown = TechData.Cooldown;
+    //}
     public void UpdateCooldown()
     {
         if (cooldown > 0)
         {
             cooldown--;
         }
-        else
-        {
-            cooldown = TechData.Cooldown;
-        }
+        //else
+        //{
+        //    cooldown = TechData.Cooldown;
+        //}
     }
 }

@@ -27,6 +27,7 @@ public class PlayerResourceManager : MonoBehaviour
     private void Start()
     {
         Technique.SelectTechnique += SetSelectedCombo;
+        PlayerController.OnHeroMarked += SetSelectedHero;
         TurnsManager.OnPlayerTurnStart += RollCooldowns;
         TurnsManager.OnPlayerTurnStart += ResetAP;
     }
@@ -34,14 +35,24 @@ public class PlayerResourceManager : MonoBehaviour
     private void OnDestroy()
     {
         Technique.SelectTechnique -= SetSelectedCombo;
+        PlayerController.OnHeroMarked += SetSelectedHero;
         TurnsManager.OnPlayerTurnStart -= RollCooldowns;
         TurnsManager.OnPlayerTurnStart -= ResetAP;
     }
 
     #region Combos
 
+    private void SetSelectedHero(Hero hero)
+    {
+        if (hero == null) return;
+
+        selectedHero = hero;
+    }
+
     private void SetSelectedCombo(Technique selected)
     {
+        if (selected == null) return;
+
         selectedTechnique = selected;
 
         UseTechnique();
@@ -73,7 +84,9 @@ public class PlayerResourceManager : MonoBehaviour
 
                     UseSymbols(selectedTechnique.GetRequirements());
                     UseAP(selectedTechnique.GetAPCost());
-                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+
+                    OnTechniqueUsed?.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+
                     selectedTechnique.StartCooldown();
                     UpdateSymbolUI();
                 }
