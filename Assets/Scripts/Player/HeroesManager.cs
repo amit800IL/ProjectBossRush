@@ -121,6 +121,7 @@ public class HeroesManager : MonoBehaviour
 
         playerResourceManager.AddSymbolsToUI();
         rewardObject.gameObject.SetActive(false);
+        rewardObject.transform.position = initialPositon;
     }
     public void OnAllHeroesDeath(Hero hero)
     {
