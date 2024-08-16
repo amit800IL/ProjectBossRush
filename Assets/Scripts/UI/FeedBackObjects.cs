@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FeedBackObjects : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class FeedBackObjects : MonoBehaviour
     private float previousHealth;
 
     [Header("Mark Arrow")]
-    [SerializeField] private SpriteRenderer arrowSprite;
+    [SerializeField] private Image arrowSprite;
     private Coroutine arrowSpriteCoroutine;
 
     private void Start()
