@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7842622744990556134}
-  - component: {fileID: 6206183274468018668}
+  - component: {fileID: 5136898141026964737}
   m_Layer: 0
   m_Name: FeedBackObject
   m_TagString: Untagged
@@ -161,7 +161,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6206183274468018668
+--- !u!114 &5136898141026964737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: -4077421836009311836}
-  initialFloatingTextPosition: {fileID: 7662555809869469387}
+  initialFloatingTextPosition: {fileID: 3523773280845591863}
   initialArrowPosition: {fileID: 8673749669407517472}
   defenceFloatingText: {fileID: 246424944754034774}
   damageFloatingText: {fileID: 246424944754034774}

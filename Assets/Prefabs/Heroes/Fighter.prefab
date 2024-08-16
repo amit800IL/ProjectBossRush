@@ -394,7 +394,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5302940519674896574}
-  - component: {fileID: 7938578897381331769}
+  - component: {fileID: 8071295049674519072}
   m_Layer: 0
   m_Name: FeedBackObject
   m_TagString: Untagged
@@ -423,7 +423,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7938578897381331769
+--- !u!114 &8071295049674519072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
