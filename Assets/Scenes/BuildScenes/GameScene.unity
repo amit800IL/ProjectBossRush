@@ -13519,10 +13519,13 @@ MonoBehaviour:
   heroesManager: {fileID: 603676718}
   playerResourceManager: {fileID: 1440085249}
   mainCamera: {fileID: 440101996}
-  attackingButton: {fileID: 1104961972}
+  directionIndicatorPrefab: {fileID: 8431239055498337376, guid: fd7c865f3875c5f4986006282bad928d, type: 3}
+  movementAPCost: 1
+  timeDelayBetweenSteps: 0.5
   markedHero: {fileID: 0}
   hoveredHero: {fileID: 0}
   boss: {fileID: 913413898}
+  attackButton: {fileID: 1104961972}
   heroMask:
     serializedVersion: 2
     m_Bits: 8

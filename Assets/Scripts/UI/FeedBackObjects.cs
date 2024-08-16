@@ -143,7 +143,7 @@ public class FeedBackObjects : MonoBehaviour
                 yield return null;
             }
 
-            Vector3 currentPosition = arrowSprite.transform.position;
+           Vector3 currentPosition = arrowSprite.transform.position;
 
             timerMax = 1f;
             timeLapse = 0f;

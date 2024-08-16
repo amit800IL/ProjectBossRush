@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -38,12 +39,14 @@ public class PlayerController : MonoBehaviour
     private Tile hoveredTile;
     private Tile markedTile;
     [SerializeField] private Boss boss;
+    [SerializeField] private Button attackButton;
 
     [Header("LayerMasks")]
     [SerializeField] private LayerMask heroMask;
     [SerializeField] private LayerMask tileMask;
 
     private DirectionIndicator[] DIndicators = new DirectionIndicator[4];
+
 
     private void Awake()
     {
@@ -336,7 +339,7 @@ public class PlayerController : MonoBehaviour
     {
         if (boss.IsBossAlive && playerResourceManager.UseAP(2))
         {
-            heroesManager.CommandAttack();
+            heroesManager.CommandAttack(attackButton);
         }
     }
 
