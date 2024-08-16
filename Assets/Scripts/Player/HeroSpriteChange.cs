@@ -7,7 +7,6 @@ public class HeroSpriteChange : MonoBehaviour
     [SerializeField] private SpriteRenderer heroSpriteRenderer;
     [SerializeField] private Material heroMaterial;
     [SerializeField] private Material lowHpMaterial;
-    [SerializeField] private Material markMaterial;
     private int LowHPThreshold = 20;
     private Material previousMaterial;
 

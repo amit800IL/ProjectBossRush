@@ -106,7 +106,7 @@ public class HeroesManager : MonoBehaviour
 
         rewardObject.gameObject.SetActive(true);
 
-        float maxTimer = 3f;
+        float maxTimer = 1f;
         float timer = 0f;
 
         while (timer < maxTimer)
