@@ -17,10 +17,15 @@ public class HeroesManager : MonoBehaviour
 
     [SerializeField] private float heroAttackDelay = 0f;
 
+    [SerializeField] private GameObject rewardObject;
+    [SerializeField] private RectTransform rewardObjectInitialPosition;
+    [SerializeField] private RectTransform rewardTarget;
 
     private void Start()
     {
         InitializeHeroList();
+
+        rewardObject.transform.position = rewardObjectInitialPosition.position;
 
         PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
         TurnsManager.OnPlayerTurnStart += NextTurnHeroMethods;
@@ -76,10 +81,10 @@ public class HeroesManager : MonoBehaviour
         {
             if (hero.HeroAttackBoss(boss))
             {
-                playerResourceManager.AddSymbols(hero.SymbolTable);
-
                 if (hero.heroAnimator != null)
                     hero.heroAnimator.SetTrigger("Attack");
+
+                playerResourceManager.AddSymbols(hero.SymbolTable);
 
                 yield return new WaitForSeconds(heroAttackDelay);
 
@@ -87,13 +92,36 @@ public class HeroesManager : MonoBehaviour
                 {
                     yield break;
                 }
-
             }
         }
+
+        yield return RewardWithResoruces();
 
         attackingButton.interactable = true;
     }
 
+    private IEnumerator RewardWithResoruces()
+    {
+        Vector3 initialPositon = rewardObjectInitialPosition.position;
+
+        rewardObject.gameObject.SetActive(true);
+
+        float maxTimer = 3f;
+        float timer = 0f;
+
+        while (timer < maxTimer)
+        {
+            timer += Time.deltaTime;
+
+            float progress = timer / maxTimer;
+
+            rewardObject.transform.position = Vector3.Lerp(initialPositon, rewardTarget.transform.position, progress);
+            yield return null;
+        }
+
+        playerResourceManager.AddSymbolsToUI();
+        rewardObject.gameObject.SetActive(false);
+    }
     public void OnAllHeroesDeath(Hero hero)
     {
         foreach (Hero listHero in heroList)

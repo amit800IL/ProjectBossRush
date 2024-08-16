@@ -101,9 +101,12 @@ public class PlayerResourceManager : MonoBehaviour
     public void AddSymbols(SymbolTable toAdd)
     {
         playerSymbolTable.Add(toAdd);
-        UpdateSymbolUI();
     }
 
+    public void AddSymbolsToUI()
+    {
+        UpdateSymbolUI();
+    }
     private void ActivateFireBall()
     {
         if (vfxInstiniatePosition != null && selectedTechnique.TechData.Name == "Fireball")
