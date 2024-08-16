@@ -4,26 +4,28 @@ using UnityEngine.UI;
 
 public class HeroUI : MonoBehaviour
 {
+    [SerializeField] private Hero hero;
     [SerializeField] private GameObject heroPanel;
+    [SerializeField] private SymbolUI symbolUI;
+    [SerializeField] private TextMeshProUGUI heatlhText;
+    [SerializeField] private TextMeshProUGUI maxHealthText;
+    [SerializeField] private TextMeshProUGUI defenceText;
+    [SerializeField] private TextMeshProUGUI heroMovementText;
     [SerializeField] private Image graphic;
     [SerializeField] private Image defenceImage;
-    [SerializeField] private Hero hero;
     [SerializeField] private Image hpBar;
-    [SerializeField] private TextMeshProUGUI heroMovementAmountText;
 
     private bool isPanelActive = false;
 
     private void Start()
     {
-        //PlayerController.OnHeroMarked += AssignHero;
+        HeroHealthChange(hero);
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
-
     }
 
     private void OnDisable()
     {
-        //PlayerController.OnHeroMarked -= AssignHero;
         Hero.OnHeroHealthChanged -= HeroHealthChange;
         Hero.OnHeroDefenceChanged -= HeroDefenceChange;
     }
@@ -34,54 +36,47 @@ public class HeroUI : MonoBehaviour
         {
             this.hero = hero;
             graphic.sprite = hero.HeroData.headshotSprite;
+            ShowHeroSymbolUI(hero);
+            ShowHeroMovementAmount();
             return true;
-            //    ShowSelectedHeroOnUI();
         }
         else
         {
             return false;
-            //    UndoHeroSelectionOnUI();
         }
     }
 
-    //private void UndoHeroSelectionOnUI()
-    //{
-    //    heroMovementAmountText.text = "0";
-
-    //    heroDefenceText.text = "0";
-
-    //    hpBar.gameObject.SetActive(false);
-
-    //    graphic.sprite = null;
-    //}
     private void HeroHealthChange(Hero h)
     {
-        if (hero == h)
+        if (hero == h && hero != null)
         {
             hpBar.fillAmount = (float)hero.HP / hero.HeroData.maxHP;
-            //Debug.Log(hero.HP);
-            //Debug.Log(hero.HeroData.maxHP);
+            heatlhText.text = hero.HP.ToString();
+            maxHealthText.text = hero.HeroData.maxHP.ToString();
         }
+    }
+    private void HeroDefenceChange(Hero h)
+    {
+        if (hero == h && hero != null && hero.tempHP > 0)
+        {
+            defenceImage.gameObject.SetActive(true);
+            defenceText.text = hero.tempHP.ToString();
+        }
+        else if (hero == h && hero != null && hero.tempHP <= 0)
+        {
+            defenceImage.gameObject.SetActive(false);
+        }
+    }
+
+    private void ShowHeroSymbolUI(Hero h)
+    {
+        if (h == hero)
+            symbolUI.UpdateUI(h.SymbolTable.ToShortString());
     }
 
     private void ShowHeroMovementAmount()
     {
         if (hero != null)
-            heroMovementAmountText.text = hero.HeroData.maxMovementAmount.ToString();
-    }
-
-    private void HeroDefenceChange(Hero h)
-    {
-        if (hero == h)
-        {
-            if (hero.tempHP > 0)
-            {
-                defenceImage.gameObject.SetActive(true);
-            }
-            else
-            {
-                defenceImage.gameObject.SetActive(false);
-            }
-        }
+            heroMovementText.text = "Movement: " + hero.HeroData.maxMovementAmount.ToString();
     }
 }
