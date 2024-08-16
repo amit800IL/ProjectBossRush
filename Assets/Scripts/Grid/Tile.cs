@@ -34,6 +34,14 @@ public class Tile : MonoBehaviour
         return false;
     }
 
+    //true if other tile shares 1 edge with this tile
+    public bool IsTileNeighboring(Tile otherTile)
+    {
+        Vector2Int otherPos = otherTile.tilePosition;
+        return (tilePosition.x == otherPos.x && Mathf.Abs(tilePosition.y - otherPos.y) == 1 ||
+            tilePosition.y == otherPos.y && Mathf.Abs(tilePosition.x - otherPos.x) == 1);
+    }
+
     public void OccupyTile(Entity ocuupantObject)
     {
         occupant = ocuupantObject;

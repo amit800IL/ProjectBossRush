@@ -60,6 +60,8 @@ public abstract class Hero : Entity
 
         if (attackVFX != null)
             attackVFX.Stop();
+
+        movementAmount = HeroData.maxMovementAmount;
     }
 
     protected virtual IEnumerator ActivateAttackVfx()
@@ -116,17 +118,23 @@ public abstract class Hero : Entity
 
     public bool CanHeroMove(int amountToReduce)
     {
-        return movementAmount > 0 && movementAmount >= amountToReduce;
+        if (movementAmount >= amountToReduce)
+        {
+            return true;
+        }
+        //else Debug.Log($"movement = {movementAmount}, amount to reduce = {amountToReduce}");
+        return false;
+        //return movementAmount > 0 && movementAmount >= amountToReduce;
     }
 
     public void HeroNewTurnRestart()
     {
-        movementAmount = 0;
+        //movementAmount = 0;
     }
 
     public void ResetHeroMovement()
     {
-        movementAmount = 0;
+        //movementAmount = 0;
         HasHeroUnlockedMovement = false;
     }
 
