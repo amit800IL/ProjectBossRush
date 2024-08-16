@@ -152,6 +152,22 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public void ShowTilesInRange(Tile fromTile, int range)
+    {
+        foreach (Tile tile in Tiles)
+        {
+            tile.HighlightIfInRange(fromTile, range);
+        }
+    }
+
+    public void StopShowingTilesInRange()
+    {
+        foreach (Tile tile in Tiles)
+        {
+            tile.RemoveHighlight();
+        }
+    }
+
     private void RollTiles()
     {
         foreach (Tile tile in Tiles)

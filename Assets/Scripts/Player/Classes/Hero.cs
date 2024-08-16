@@ -127,6 +127,8 @@ public abstract class Hero : Entity
         //return movementAmount > 0 && movementAmount >= amountToReduce;
     }
 
+    public int GetHeroMovement() {  return movementAmount; }
+
     public void HeroNewTurnRestart()
     {
         //movementAmount = 0;
