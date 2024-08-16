@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 7842622744990556134}
   - component: {fileID: 6206183274468018668}
   m_Layer: 0
-  m_Name: FeedBackText
+  m_Name: FeedBackObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 8673749669407517472}
   - component: {fileID: 2868233624600940004}
   m_Layer: 0
-  m_Name: arrow
+  m_Name: MarkArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

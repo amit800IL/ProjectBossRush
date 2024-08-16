@@ -13,13 +13,11 @@ public class HeroSpriteChange : MonoBehaviour
 
     private void Start()
     {
-        PlayerController.OnHeroMarked += HeroMark;
         Hero.OnHeroHealthChanged += OnHpLow;
     }
 
     private void OnDisable()
     {
-        PlayerController.OnHeroMarked -= HeroMark;
         Hero.OnHeroHealthChanged -= OnHpLow;
     }
 
@@ -33,19 +31,6 @@ public class HeroSpriteChange : MonoBehaviour
         {
             SetMaterial(heroMaterial);
         }
-    }
-
-    private void HeroMark(Hero hero)
-    {
-        if (heroSpriteRenderer != null && this.hero == hero)
-        {
-            SetMaterial(markMaterial);
-        }
-        else
-        {
-            SetMaterial(heroMaterial);
-        }
-
     }
 
     public void SetMaterial(Material material)

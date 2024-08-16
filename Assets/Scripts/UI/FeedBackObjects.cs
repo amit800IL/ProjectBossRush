@@ -142,16 +142,16 @@ public class FeedBackObjects : MonoBehaviour
                 yield return null;
             }
 
+            Vector3 currentPosition = arrowSprite.transform.position;
+
             timerMax = 1f;
             timeLapse = 0f;
-
-            floatingPosition = new Vector3(0, 0.2f, 0);
 
             while (timeLapse < timerMax)
             {
                 timeLapse += Time.deltaTime;
                 float progress = timeLapse / timerMax;
-                arrowSprite.transform.position = Vector3.Lerp(originalObjectPosition, originalObjectPosition - floatingPosition, progress);
+                arrowSprite.transform.position = Vector3.Lerp(currentPosition, currentPosition - floatingPosition, progress);
                 yield return null;
             }
 
