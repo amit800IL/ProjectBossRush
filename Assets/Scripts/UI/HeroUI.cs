@@ -59,8 +59,8 @@ public class HeroUI : MonoBehaviour
         if (hero == h)
         {
             hpBar.fillAmount = (float)hero.HP / hero.HeroData.maxHP;
-            Debug.Log(hero.HP);
-            Debug.Log(hero.HeroData.maxHP);
+            //Debug.Log(hero.HP);
+            //Debug.Log(hero.HeroData.maxHP);
         }
     }
 

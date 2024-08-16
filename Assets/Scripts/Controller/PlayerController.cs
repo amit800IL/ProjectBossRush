@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] DirectionIndicator directionIndicatorPrefab;
+    [SerializeField] int movementAPCost = 1;
+    [SerializeField] float timeDelayBetweenSteps = .5f;
 
     [Header("Input system")]
     private BossRush inputActions;
@@ -39,6 +43,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask heroMask;
     [SerializeField] private LayerMask tileMask;
 
+    private DirectionIndicator[] DIndicators = new DirectionIndicator[4];
+
     private void Awake()
     {
         TurnsManager.OnPlayerTurnStart += AllowInput;
@@ -55,6 +61,8 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.PlayerTactical.started += OnTacticalInputPressed;
         inputActions.Player.PlayerTactical.canceled += OnTacticalInputReleased;
         inputActions.UI.Point.performed += OnPointerMove;
+
+        InitDirectionIndicators();
     }
 
     private void OnDisable()
@@ -92,23 +100,32 @@ public class PlayerController : MonoBehaviour
 
     private void OnPrimarySelectReleased(InputAction.CallbackContext inputAction)
     {
+        if (isTracingHeroRoute)
+        {
+            Debug.Log(route.Count);
+            if (ValidateRoute())
+            {
+                Debug.Log("route valid");
+                StartCoroutine(nameof(MoveHeroOnRoute));
+            }
+            else
+            {
+                route.Clear();
+            }
+        }
+
         isTracingHeroRoute = false;
         hoveredTile = null;
-        Debug.Log(route.Count);
-        route.Clear();
     }
 
     private void OnSecondarySelectPressed(InputAction.CallbackContext inputAction)
     {
-        inputPosition = Mouse.current.position.ReadValue();
-
-        if (inputActions != null && inputPosition != null)
+        if (isTracingHeroRoute)
         {
-            if (inputAction.performed)
-            {
-                if (isheroMarked)
-                    ResetMarkProccess();
-            }
+            Debug.Log("route cancelled");
+            isTracingHeroRoute = false;
+            HideAllIndicators();
+            route.Clear();
         }
     }
 
@@ -142,6 +159,41 @@ public class PlayerController : MonoBehaviour
         {
             GetHoveredHero();
         }
+    }
+
+    private bool ValidateRoute()
+    {
+        if (playerResourceManager.HasEnoughAP(1))
+        {
+            if (markedHero.CanHeroMove(route.Count))
+            {
+                return true;
+            }
+            else Debug.Log("route not valid - route too long");
+        }
+        else Debug.Log("route not valid - not enough AP");
+        return false;
+        //return playerResourceManager.HasEnoughAP(1) && markedHero.CanHeroMove(route.Count);
+    }
+
+    private IEnumerator MoveHeroOnRoute()
+    {
+        playerResourceManager.UseAP(movementAPCost);
+        for (int i = 0; i < route.Count; i++)
+        {
+            MoveToTile(route[i]);
+            if (i != route.Count - 1)
+            {
+                yield return new WaitForSeconds(timeDelayBetweenSteps);
+            }
+        }
+        HideAllIndicators();
+        route.Clear();
+    }
+
+    private void MoveToTile(Tile tile)
+    {
+        markedHero.MoveHeroToPosition(tile);
     }
 
     private void MoveHeroToTile(Vector3 pressPosition)
@@ -226,6 +278,7 @@ public class PlayerController : MonoBehaviour
             isheroMarked = true;
             isTracingHeroRoute = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
+            hoveredTile = markedHero.CurrentTile;
             OnHeroMarked?.Invoke(markedHero);
         }
         else ResetMarkProccess();
@@ -264,12 +317,17 @@ public class PlayerController : MonoBehaviour
             Tile _newTile = raycastHit.collider.GetComponent<Tile>();
             if (_newTile != null && _newTile != hoveredTile)
             {
-                if (hoveredTile != null)
+                if (hoveredTile == null)
+                {
+                    hoveredTile = _newTile;
+                }
+                else if (markedHero.CanHeroMove(route.Count + 1) && _newTile.IsTileNeighboring(hoveredTile) && !_newTile.IsTileOccupied)
                 {
                     route.Add(_newTile);
                     Debug.Log(_newTile.tilePosition + " Added");
+                    DisplayDirectionIndicators(DIndicators[route.Count - 1], hoveredTile, _newTile);
+                    hoveredTile = _newTile;
                 }
-                hoveredTile = _newTile;
             }
         }
     }
@@ -318,4 +376,37 @@ public class PlayerController : MonoBehaviour
     {
         isInputAllowed = false;
     }
+
+    #region Visual Indicators
+    private void InitDirectionIndicators()
+    {
+        for (int i = 0; i < DIndicators.Length; i++)
+        {
+            DIndicators[i] = Instantiate(directionIndicatorPrefab);
+        }
+    }
+
+    private void DisplayDirectionIndicators(DirectionIndicator Indicator, Tile fromTile, Tile toTile)
+    {
+        Indicator.transform.position = fromTile.transform.position;
+        Indicator.transform.LookAt(toTile.transform);
+        Indicator.gameObject.SetActive(true);
+
+    }
+
+    private void HideIndicator(int i)
+    {
+        DIndicators[i].gameObject.SetActive(false);
+    }
+
+    private void HideAllIndicators()
+    {
+        for (int i = 0; i < DIndicators.Length; i++)
+        {
+            HideIndicator(i);
+        }
+    }
+
+
+    #endregion
 }
