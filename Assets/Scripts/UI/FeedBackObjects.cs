@@ -2,10 +2,11 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class FeedBackText : MonoBehaviour
+public class FeedBackObjects : MonoBehaviour
 {
     [SerializeField] private Hero hero;
     [SerializeField] private Transform initialFloatingTextPosition;
+    [SerializeField] private Transform initialArrowPosition;
 
     [Header("Defence Feedback")]
 
@@ -18,19 +19,41 @@ public class FeedBackText : MonoBehaviour
     private Coroutine damageFeedbackCoroutine;
     private float previousHealth;
 
+    [Header("Mark Arrow")]
+    [SerializeField] private SpriteRenderer arrowSprite;
+    private Coroutine arrowSpriteCoroutine;
+
     private void Start()
     {
+        arrowSprite.transform.position = initialArrowPosition.position;
         damageFloatingText.transform.position = initialFloatingTextPosition.position;
         defenceFloatingText.transform.position = initialFloatingTextPosition.position;
         previousHealth = hero.HP;
+
+        PlayerController.OnHeroMarked += OnHeroMark;
         Hero.OnHeroHealthChanged += OnPlayerHit;
         Hero.OnHeroDefend += OnPlayerDefenceUp;
     }
 
     private void OnDisable()
     {
+        PlayerController.OnHeroMarked -= OnHeroMark;
         Hero.OnHeroHealthChanged -= OnPlayerHit;
         Hero.OnHeroDefend -= OnPlayerDefenceUp;
+    }
+
+    private void OnHeroMark(Hero hero)
+    {
+        if (arrowSpriteCoroutine != null)
+        {
+            arrowSprite.gameObject.SetActive(false);
+            StopCoroutine(arrowSpriteCoroutine);
+        }
+
+        if (this.hero == hero)
+        {
+            arrowSpriteCoroutine = StartCoroutine(FloatingArrow(initialArrowPosition.position));
+        }
     }
 
     private void OnPlayerHit(Hero hero)
@@ -61,8 +84,6 @@ public class FeedBackText : MonoBehaviour
             {
                 StopCoroutine(defenceUpFeedbackCoroutine);
             }
-
-
 
             defenceUpFeedbackCoroutine = StartCoroutine(FloatingFeedbackNumber(defenceFloatingText, additionSymbol, defenceValue, initialFloatingTextPosition.position));
         }
@@ -100,5 +121,41 @@ public class FeedBackText : MonoBehaviour
         }
 
         feedBackText.gameObject.SetActive(false);
+    }
+
+    private IEnumerator FloatingArrow(Vector3 originalObjectPosition)
+    {
+        arrowSprite.gameObject.SetActive(true);
+
+        while (true)
+        {
+            Vector3 floatingPosition = new Vector3(0, 1, 0);
+
+            float timerMax = 1f;
+            float timeLapse = 0f;
+
+            while (timeLapse < timerMax)
+            {
+                timeLapse += Time.deltaTime;
+                float progress = timeLapse / timerMax;
+                arrowSprite.transform.position = Vector3.Lerp(originalObjectPosition, originalObjectPosition + floatingPosition, progress);
+                yield return null;
+            }
+
+            timerMax = 1f;
+            timeLapse = 0f;
+
+            floatingPosition = new Vector3(0, 0.2f, 0);
+
+            while (timeLapse < timerMax)
+            {
+                timeLapse += Time.deltaTime;
+                float progress = timeLapse / timerMax;
+                arrowSprite.transform.position = Vector3.Lerp(originalObjectPosition, originalObjectPosition - floatingPosition, progress);
+                yield return null;
+            }
+
+            yield return null;
+        }
     }
 }

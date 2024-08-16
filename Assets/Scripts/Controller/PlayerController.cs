@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
     private void OnTacticalInputPressed(InputAction.CallbackContext inputAction)
     {
         isTacticalViewOn = !isTacticalViewOn;
+
         if (isTacticalViewOn)
         {
             StartTacticalView();
@@ -244,7 +245,6 @@ public class PlayerController : MonoBehaviour
             {
                 hoveredHero = raycastHit.collider.GetComponent<Hero>();
                 StartTacticalView();
-
             }
         }
         else
