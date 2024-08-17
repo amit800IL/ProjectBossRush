@@ -92,7 +92,6 @@ public class PlayerController : MonoBehaviour
 
         if (inputActions != null && inputPosition != null)
         {
-            playerResourceManager.ShowApUse(1);
             MarkHero(inputPosition);
         }
 
@@ -284,6 +283,7 @@ public class PlayerController : MonoBehaviour
 
         if (raycast)
         {
+            playerResourceManager.ShowApUse(1);
             isheroMarked = true;
             isTracingHeroRoute = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
