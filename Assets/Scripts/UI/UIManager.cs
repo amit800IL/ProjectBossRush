@@ -28,9 +28,6 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Boss.OnEnemyHealthChanged += BossHealthChange;
-        PlayerResourceManager.OnAPChanged += ApUIChange;
-        PlayerResourceManager.OnAPShow += ApUIShow;
-        PlayerResourceManager.OnAPStopShow += ApUIStopShow;
         TurnsManager.OnPlayerTurnStart += RoundNumberChange;
         TurnsManager.OnPlayerTurnStart += NoticePlayerTurn;
         TurnsManager.OnBossTurnStart += NoticeBossTurn;
@@ -38,6 +35,9 @@ public class UIManager : MonoBehaviour
         Boss.OnBossDeath += ShowWinScreen;
         Hero.OnHeroSpawned += AssignHeroUI;
         PlayerController.OnTacticalViewToggled += ToggleTacticalStateText;
+        PlayerResourceManager.OnAPChanged += ApUIChange;
+        PlayerResourceManager.OnAPShow += ApUIShow;
+        PlayerResourceManager.OnAPStopShow += ApUIStopShow;
     }
 
     private void OnDestroy()

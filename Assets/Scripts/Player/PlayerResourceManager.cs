@@ -189,37 +189,18 @@ public class PlayerResourceManager : MonoBehaviour
 
         return false;
     }
-    public bool TryShowApUse(int amount)
-    {
-        if (HasEnoughAP(amount))
-        {
-            AP -= amount;
-            OnAPShow?.Invoke(AP);
-            return true;
-        }
-
-        return false;
-    }
-
-    public bool TryStopShowApUse(int amount)
-    {
-        if (HasEnoughAP(amount))
-        {
-            AP += amount;
-            OnAPStopShow?.Invoke(AP);
-            return true;
-        }
-
-        return false;
-    }
 
     public void ShowApUse(int amount)
     {
-        TryShowApUse(amount);
+        if (HasEnoughAP(amount))
+        {
+            OnAPShow?.Invoke(AP - amount);
+        }
     }
-    public void StopShowApUse(int amount)
+
+    public void StopShowApUse()
     {
-        TryStopShowApUse(amount);
+        OnAPStopShow?.Invoke(AP);
     }
 
     public bool HasEnoughAP(int amount)

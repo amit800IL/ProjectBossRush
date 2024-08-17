@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
         if (inputActions != null && inputPosition != null)
         {
-            playerResourceManager.TryShowApUse(1);
+            playerResourceManager.ShowApUse(1);
             MarkHero(inputPosition);
         }
 
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnPrimarySelectReleased(InputAction.CallbackContext inputAction)
     {
-        playerResourceManager.TryStopShowApUse(1);
+        playerResourceManager.StopShowApUse();
 
         if (isTracingHeroRoute)
         {
