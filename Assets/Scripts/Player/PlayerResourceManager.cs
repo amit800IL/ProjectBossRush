@@ -11,6 +11,7 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
     [SerializeField] private SymbolTable playerSymbolTable = new SymbolTable();
+    [SerializeField] private SymbolTable rewardSymbolTable = new SymbolTable();
 
     [Header("Techniques")]
 
@@ -23,6 +24,7 @@ public class PlayerResourceManager : MonoBehaviour
     private Hero selectedHero;
     [SerializeField] private SymbolUI generalSymbolUI;
     [SerializeField] private SymbolUI heroSymbolUI;
+    [SerializeField] private SymbolUI rewardResources;
 
     private void Start()
     {
@@ -101,6 +103,17 @@ public class PlayerResourceManager : MonoBehaviour
     public void AddSymbols(SymbolTable toAdd)
     {
         playerSymbolTable.Add(toAdd);
+    }
+
+    public void AddRewardSymbols(SymbolTable toAdd)
+    {
+        rewardSymbolTable.Add(toAdd);
+        rewardResources.UpdateUI(rewardSymbolTable.ToShortString());
+    }
+
+    public void ClearRewardSymbolTable()
+    {
+        rewardSymbolTable.Remove(playerSymbolTable);
     }
 
     public void AddSymbolsToUI()

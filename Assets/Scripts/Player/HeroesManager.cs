@@ -76,6 +76,7 @@ public class HeroesManager : MonoBehaviour
     public IEnumerator CommandAttack(Button attackingButton)
     {
         attackingButton.interactable = false;
+        bool hasHeroAttacked = false;
 
         foreach (Hero hero in heroList)
         {
@@ -85,6 +86,7 @@ public class HeroesManager : MonoBehaviour
                     hero.heroAnimator.SetTrigger("Attack");
 
                 playerResourceManager.AddSymbols(hero.SymbolTable);
+                playerResourceManager.AddRewardSymbols(hero.SymbolTable);
 
                 yield return new WaitForSeconds(heroAttackDelay);
 
@@ -92,10 +94,15 @@ public class HeroesManager : MonoBehaviour
                 {
                     yield break;
                 }
+
+                hasHeroAttacked = true;
             }
         }
 
-        yield return RewardWithResoruces();
+        if (hasHeroAttacked)
+        {
+            yield return RewardWithResoruces();
+        }
 
         attackingButton.interactable = true;
     }
@@ -120,6 +127,7 @@ public class HeroesManager : MonoBehaviour
         }
 
         playerResourceManager.AddSymbolsToUI();
+        playerResourceManager.ClearRewardSymbolTable();
         rewardObject.gameObject.SetActive(false);
         rewardObject.transform.position = initialPositon;
     }
