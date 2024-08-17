@@ -13,6 +13,7 @@ public class HeroSpriteChange : MonoBehaviour
     private void Start()
     {
         Hero.OnHeroHealthChanged += OnHpLow;
+        SetMaterial(heroMaterial);
     }
 
     private void OnDisable()
