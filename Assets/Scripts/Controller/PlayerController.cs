@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
         }
 
         isTracingHeroRoute = false;
+        GridManager.Instance.StopShowingTilesInRange();
         hoveredTile = null;
     }
 
@@ -127,6 +128,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("route cancelled");
             isTracingHeroRoute = false;
+            GridManager.Instance.StopShowingTilesInRange();
             HideAllIndicators();
             route.Clear();
         }
@@ -168,11 +170,11 @@ public class PlayerController : MonoBehaviour
     {
         if (playerResourceManager.HasEnoughAP(1))
         {
-            if (markedHero.CanHeroMove(route.Count))
+            if (route.Count > 0)
             {
                 return true;
             }
-            else Debug.Log("route not valid - route too long");
+            else Debug.Log("route not valid - route too short");
         }
         else Debug.Log("route not valid - not enough AP");
         return false;
@@ -282,6 +284,7 @@ public class PlayerController : MonoBehaviour
             isTracingHeroRoute = true;
             markedHero = raycastHit.collider.GetComponent<Hero>();
             hoveredTile = markedHero.CurrentTile;
+            GridManager.Instance.ShowTilesInRange(hoveredTile, markedHero.GetHeroMovement() - route.Count);
             OnHeroMarked?.Invoke(markedHero);
         }
         else ResetMarkProccess();
@@ -323,6 +326,7 @@ public class PlayerController : MonoBehaviour
                 if (hoveredTile == null)
                 {
                     hoveredTile = _newTile;
+                    GridManager.Instance.ShowTilesInRange(hoveredTile, markedHero.GetHeroMovement() - route.Count);
                 }
                 else if (markedHero.CanHeroMove(route.Count + 1) && _newTile.IsTileNeighboring(hoveredTile) && !_newTile.IsTileOccupied)
                 {
@@ -330,6 +334,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log(_newTile.tilePosition + " Added");
                     DisplayDirectionIndicators(DIndicators[route.Count - 1], hoveredTile, _newTile);
                     hoveredTile = _newTile;
+                    GridManager.Instance.ShowTilesInRange(hoveredTile, markedHero.GetHeroMovement() - route.Count);
                 }
             }
         }

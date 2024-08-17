@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
     [field: SerializeField] public Transform OccupantContainer { get; private set; }
     [SerializeField] private TileType[] tileType;
     [SerializeField] private List<Effect> effectsOnTile = new();
+    [SerializeField] GameObject InRangeDecal;
     [SerializeField] GameObject AttackDecal;
     [SerializeField] GameObject DefendDecal;
     [SerializeField] GameObject EffectVisual;
@@ -71,6 +72,25 @@ public class Tile : MonoBehaviour
     {
         AttackDecal.SetActive(false);
         DefendDecal.SetActive(false);
+    }
+
+    public void HighlightIfInRange(Tile otherTile, int range)
+    {
+        Vector2Int otherPos = otherTile.tilePosition;
+        if (Mathf.Abs(tilePosition.y - otherPos.y) + Mathf.Abs(tilePosition.x - otherPos.x) <= range)
+        {
+            InRangeDecal.SetActive(true);
+        }
+        else
+        {
+            InRangeDecal.SetActive(false);
+             
+        }
+    }
+
+    public void RemoveHighlight()
+    {
+        InRangeDecal.SetActive(false);
     }
 
     public void AddTileEffect(Effect effect)
