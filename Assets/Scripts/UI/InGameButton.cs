@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,40 +6,42 @@ public class InGameButton : MonoBehaviour
     bool hasButtonBeenPressed = false;
 
     [SerializeField] private Button heroButton;
-    [SerializeField] private Sprite onSprite;
-    [SerializeField] private Sprite offSprite;
+    [SerializeField] private Sprite clickedSprite;
+    [SerializeField] private Sprite normalSprite;
     [SerializeField] private Sprite hoverSprite;
 
     public void ButtonPressState()
     {
-        if (!hasButtonBeenPressed)
+        if (heroButton.interactable)
         {
-            heroButton.image.sprite = onSprite;
+            if (!hasButtonBeenPressed)
+            {
+                heroButton.image.sprite = clickedSprite;
 
-            hasButtonBeenPressed = true;
-        }
-        else
-        {
-            heroButton.image.sprite = offSprite;
+                hasButtonBeenPressed = true;
+            }
+            else
+            {
+                heroButton.image.sprite = normalSprite;
 
-            hasButtonBeenPressed = false;
+                hasButtonBeenPressed = false;
+            }
         }
     }
 
     public void ButtonOnHoverStart()
     {
-        heroButton.image.sprite = hoverSprite;
+        if (heroButton.interactable)
+        {
+            heroButton.image.sprite = hoverSprite;
+        }
     }
 
     public void ButtonOnHoverFinish()
     {
-        if (hasButtonBeenPressed)
+        if (heroButton.interactable)
         {
-            heroButton.image.sprite = onSprite;
-        }
-        else
-        {
-            heroButton.image.sprite = offSprite;
+            heroButton.image.sprite = normalSprite;
         }
     }
 }

@@ -7,19 +7,16 @@ public class HeroSpriteChange : MonoBehaviour
     [SerializeField] private SpriteRenderer heroSpriteRenderer;
     [SerializeField] private Material heroMaterial;
     [SerializeField] private Material lowHpMaterial;
-    [SerializeField] private Material markMaterial;
     private int LowHPThreshold = 20;
     private Material previousMaterial;
 
     private void Start()
     {
-        PlayerController.OnHeroMarked += HeroMark;
         Hero.OnHeroHealthChanged += OnHpLow;
     }
 
     private void OnDisable()
     {
-        PlayerController.OnHeroMarked -= HeroMark;
         Hero.OnHeroHealthChanged -= OnHpLow;
     }
 
@@ -33,19 +30,6 @@ public class HeroSpriteChange : MonoBehaviour
         {
             SetMaterial(heroMaterial);
         }
-    }
-
-    private void HeroMark(Hero hero)
-    {
-        if (heroSpriteRenderer != null && this.hero == hero)
-        {
-            SetMaterial(markMaterial);
-        }
-        else
-        {
-            SetMaterial(heroMaterial);
-        }
-
     }
 
     public void SetMaterial(Material material)

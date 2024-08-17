@@ -20,7 +20,8 @@ public class BossTargeting : MonoBehaviour
 
     private void Start()
     {
-        Debug.LogWarning("gridSize needs to be taken from GridManager");
+        //Debug.LogWarning("gridSize needs to be taken from GridManager");
+        gridSize = GridManager.Instance.GetGridSize();
     }
 
     public List<Vector2Int> GetTargetTile(TargetInfo targetInfo)
@@ -72,7 +73,7 @@ public class BossTargeting : MonoBehaviour
                 rnd = Random.Range(0, gridSize.y - size + 1);
                 for (int i = rnd; i < rnd + size; i++)
                 {
-                    for (int j = 0; j < gridSize.y; j++)
+                    for (int j = 0; j < gridSize.x; j++)
                     {
                         toReturn.Add(new(j, i));
                     }

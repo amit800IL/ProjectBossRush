@@ -11,6 +11,7 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
     [SerializeField] private SymbolTable playerSymbolTable = new SymbolTable();
+    private SymbolTable rewardSymbolTable = new SymbolTable();
 
     [Header("Techniques")]
 
@@ -23,25 +24,37 @@ public class PlayerResourceManager : MonoBehaviour
     private Hero selectedHero;
     [SerializeField] private SymbolUI generalSymbolUI;
     [SerializeField] private SymbolUI heroSymbolUI;
+    [SerializeField] private SymbolUI rewardResources;
 
     private void Start()
     {
         Technique.SelectTechnique += SetSelectedCombo;
-        TurnsManager.OnPlayerTurnStart += RollCooldowns;
+        PlayerController.OnHeroMarked += SetSelectedHero;
+        //TurnsManager.OnPlayerTurnStart += RollCooldowns;
         TurnsManager.OnPlayerTurnStart += ResetAP;
     }
 
     private void OnDestroy()
     {
         Technique.SelectTechnique -= SetSelectedCombo;
-        TurnsManager.OnPlayerTurnStart -= RollCooldowns;
+        PlayerController.OnHeroMarked += SetSelectedHero;
+        //TurnsManager.OnPlayerTurnStart -= RollCooldowns;
         TurnsManager.OnPlayerTurnStart -= ResetAP;
     }
 
     #region Combos
 
+    private void SetSelectedHero(Hero hero)
+    {
+        if (hero == null) return;
+
+        selectedHero = hero;
+    }
+
     private void SetSelectedCombo(Technique selected)
     {
+        if (selected == null || selected.HasComboBeenUsed) return;
+
         selectedTechnique = selected;
 
         UseTechnique();
@@ -65,17 +78,17 @@ public class PlayerResourceManager : MonoBehaviour
             {
                 if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
-                    if (vfxInstiniatePosition != null && selectedTechnique.TechData.Name == "Fireball")
-                    {
-                        GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
-                        Destroy(instanitiedParticle, 5f);
-                    }
+                    ActivateFireBall();
 
                     UseSymbols(selectedTechnique.GetRequirements());
                     UseAP(selectedTechnique.GetAPCost());
-                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+
+                    OnTechniqueUsed?.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+
                     selectedTechnique.StartCooldown();
                     UpdateSymbolUI();
+
+                    selectedTechnique.HasComboBeenUsed = true;
                 }
                 else Debug.Log($"not enough symbols {selectedTechnique.GetRequirements()} \n {playerSymbolTable}");
             }
@@ -90,7 +103,30 @@ public class PlayerResourceManager : MonoBehaviour
     public void AddSymbols(SymbolTable toAdd)
     {
         playerSymbolTable.Add(toAdd);
+    }
+
+    public void AddRewardSymbols(SymbolTable toAdd)
+    {
+        rewardSymbolTable.Add(toAdd);
+        rewardResources.UpdateUI(rewardSymbolTable.ToShortString());
+    }
+
+    public void ClearRewardSymbolTable()
+    {
+        rewardSymbolTable.Remove(rewardSymbolTable);
+    }
+
+    public void AddSymbolsToUI()
+    {
         UpdateSymbolUI();
+    }
+    private void ActivateFireBall()
+    {
+        if (vfxInstiniatePosition != null && selectedTechnique.TechData.Name == "Fireball")
+        {
+            GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
+            Destroy(instanitiedParticle, 5f);
+        }
     }
 
     //[ContextMenu("add test table")]
