@@ -92,17 +92,21 @@ public class PlayerController : MonoBehaviour
 
         if (inputActions != null && inputPosition != null)
         {
-            //TileGetter.GetTileFromCamera(inputPosition, mainCamera, out raycastHit); line is obsolete
-
-            //if (isheroMarked)
-            //    MoveHeroToTile(inputPosition);
-            //else
+            playerResourceManager.TryShowApUse(1);
             MarkHero(inputPosition);
         }
+
+        //TileGetter.GetTileFromCamera(inputPosition, mainCamera, out raycastHit); line is obsolete
+
+        //if (isheroMarked)
+        //    MoveHeroToTile(inputPosition);
+        //else
     }
 
     private void OnPrimarySelectReleased(InputAction.CallbackContext inputAction)
     {
+        playerResourceManager.TryStopShowApUse(1);
+
         if (isTracingHeroRoute)
         {
             Debug.Log(route.Count);
@@ -183,7 +187,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator MoveHeroOnRoute()
     {
-        playerResourceManager.UseAP(movementAPCost);
+        playerResourceManager.TryUseAP(movementAPCost);
         for (int i = 0; i < route.Count; i++)
         {
             MoveToTile(route[i]);
@@ -233,7 +237,7 @@ public class PlayerController : MonoBehaviour
 
         if (markedHero.IsHeroOnNewPosition)
         {
-            playerResourceManager.UseAP(APCost);
+            playerResourceManager.TryUseAP(APCost);
         }
 
         ResetMarkProccess();
@@ -342,7 +346,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerAttack()
     {
-        if (boss.IsBossAlive && playerResourceManager.UseAP(2))
+        if (boss.IsBossAlive && playerResourceManager.TryUseAP(2))
         {
             heroesManager.StartCoroutine(heroesManager.CommandAttack(attackButton));
         }
@@ -350,7 +354,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerDefend()
     {
-        if (boss.IsBossAlive && playerResourceManager.UseAP(1))
+        if (boss.IsBossAlive && playerResourceManager.TryUseAP(1))
         {
             heroesManager.CommandDefend();
         }

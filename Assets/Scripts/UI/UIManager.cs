@@ -25,11 +25,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Image> actionPoints = new List<Image>();
     [SerializeField] private Sprite apSpriteOn;
     [SerializeField] private Sprite apSpriteOff;
-
     private void Awake()
     {
         Boss.OnEnemyHealthChanged += BossHealthChange;
         PlayerResourceManager.OnAPChanged += ApUIChange;
+        PlayerResourceManager.OnAPShow += ApUIShow;
+        PlayerResourceManager.OnAPStopShow += ApUIStopShow;
         TurnsManager.OnPlayerTurnStart += RoundNumberChange;
         TurnsManager.OnPlayerTurnStart += NoticePlayerTurn;
         TurnsManager.OnBossTurnStart += NoticeBossTurn;
@@ -43,6 +44,8 @@ public class UIManager : MonoBehaviour
     {
         Boss.OnEnemyHealthChanged -= BossHealthChange;
         PlayerResourceManager.OnAPChanged -= ApUIChange;
+        PlayerResourceManager.OnAPStopShow -= ApUIStopShow;
+        PlayerResourceManager.OnAPShow -= ApUIShow;
         TurnsManager.OnPlayerTurnStart -= RoundNumberChange;
         TurnsManager.OnPlayerTurnStart -= NoticePlayerTurn;
         TurnsManager.OnBossTurnStart -= NoticeBossTurn;
@@ -67,6 +70,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ApUIShow(int ap)
+    {
+        for (int i = 0; i < actionPoints.Count; i++)
+        {
+            if (i >= ap)
+            {
+                actionPoints[i].sprite = apSpriteOff;
+            }
+        }
+
+    }
+    public void ApUIStopShow(int ap)
+    {
+        for (int i = 0; i < actionPoints.Count; i++)
+        {
+            if (i < ap)
+            {
+                actionPoints[i].sprite = apSpriteOn;
+            }
+        }
+    }
     public void AssignHeroUI(Hero hero)
     {
         for (int i = 0; i < heroUIList.Count; i++)
