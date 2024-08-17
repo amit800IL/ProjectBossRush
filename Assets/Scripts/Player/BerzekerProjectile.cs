@@ -34,7 +34,7 @@ public class BerzekerProjectile : HeroProjectile
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Boss"))
+        if (other.gameObject.CompareTag("Boss") )
         {
             attackProjectile.gameObject.SetActive(false);
             projectileImpact.transform.position = attackProjectile.transform.position;

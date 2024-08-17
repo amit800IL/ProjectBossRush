@@ -15,6 +15,8 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroDefend;
     public static event Action<Hero> OnHeroInjured;
 
+    public bool HeroIsAlive { get; private set; } = true;
+
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
     [SerializeField] private HeroSpriteChange spriteChange;
@@ -60,6 +62,8 @@ public abstract class Hero : Entity
 
         if (attackVFX != null)
             attackVFX.Stop();
+
+        movementAmount = HeroData.maxMovementAmount;
     }
 
     protected virtual IEnumerator ActivateAttackVfx()
@@ -116,17 +120,25 @@ public abstract class Hero : Entity
 
     public bool CanHeroMove(int amountToReduce)
     {
-        return movementAmount > 0 && movementAmount >= amountToReduce;
+        if (movementAmount >= amountToReduce)
+        {
+            return true;
+        }
+        //else Debug.Log($"movement = {movementAmount}, amount to reduce = {amountToReduce}");
+        return false;
+        //return movementAmount > 0 && movementAmount >= amountToReduce;
     }
+
+    public int GetHeroMovement() {  return movementAmount; }
 
     public void HeroNewTurnRestart()
     {
-        movementAmount = 0;
+        //movementAmount = 0;
     }
 
     public void ResetHeroMovement()
     {
-        movementAmount = 0;
+        //movementAmount = 0;
         HasHeroUnlockedMovement = false;
     }
 
@@ -168,6 +180,7 @@ public abstract class Hero : Entity
         if (HP <= 0)
         {
             HP = 0;
+            HeroIsAlive = false;
         }
 
         OnHeroHealthChanged?.Invoke(this);

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ public class MageProjectile : HeroProjectile
         if (other.gameObject.CompareTag("Boss"))
         {
             foreach (GameObject obj in objectsToTurnOff)
-            { 
+            {
                 obj.SetActive(false);
             }
 
