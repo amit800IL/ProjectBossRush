@@ -6,8 +6,6 @@ public class MageProjectile : HeroProjectile
     [SerializeField] private List<GameObject> objectsToTurnOff = new List<GameObject>();
     public override void MoveProjectile(Vector3 endingPosition)
     {
-        isAttacking = true;
-
         foreach (GameObject obj in objectsToTurnOff)
         {
             obj.SetActive(true);
@@ -22,7 +20,7 @@ public class MageProjectile : HeroProjectile
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Boss") && isAttacking)
+        if (other.gameObject.CompareTag("Boss"))
         {
             foreach (GameObject obj in objectsToTurnOff)
             {
@@ -33,7 +31,6 @@ public class MageProjectile : HeroProjectile
             rigidBody.velocity = Vector3.zero;
             projectileImpact.gameObject.SetActive(true);
             projectileImpact.Play();
-            isAttacking = false;
         }
     }
 }

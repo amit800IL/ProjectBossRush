@@ -8,8 +8,6 @@ public abstract class HeroProjectile : MonoBehaviour
     [SerializeField] protected Transform startingPosition;
     [SerializeField] protected Rigidbody rigidBody;
     [SerializeField] protected float speed;
-
-    protected bool isAttacking = false;
     protected virtual void Start()
     {
         attackProjectile.transform.position = startingPosition.position;
