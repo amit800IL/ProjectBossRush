@@ -11,7 +11,7 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
     [SerializeField] private SymbolTable playerSymbolTable = new SymbolTable();
-    [SerializeField] private SymbolTable rewardSymbolTable = new SymbolTable();
+    private SymbolTable rewardSymbolTable = new SymbolTable();
 
     [Header("Techniques")]
 
@@ -113,7 +113,7 @@ public class PlayerResourceManager : MonoBehaviour
 
     public void ClearRewardSymbolTable()
     {
-        rewardSymbolTable.Remove(playerSymbolTable);
+        rewardSymbolTable.Remove(rewardSymbolTable);
     }
 
     public void AddSymbolsToUI()

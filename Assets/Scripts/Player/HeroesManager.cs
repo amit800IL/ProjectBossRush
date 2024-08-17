@@ -75,6 +75,8 @@ public class HeroesManager : MonoBehaviour
 
     public IEnumerator CommandAttack(Button attackingButton)
     {
+        playerResourceManager.ClearRewardSymbolTable();
+
         attackingButton.interactable = false;
         bool hasHeroAttacked = false;
 
@@ -127,7 +129,6 @@ public class HeroesManager : MonoBehaviour
         }
 
         playerResourceManager.AddSymbolsToUI();
-        playerResourceManager.ClearRewardSymbolTable();
         rewardObject.gameObject.SetActive(false);
         rewardObject.transform.position = initialPositon;
     }

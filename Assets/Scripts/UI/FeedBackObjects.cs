@@ -170,6 +170,8 @@ public class FeedBackObjects : MonoBehaviour
                 yield return null;
             }
 
+            arrowSprite.transform.position = originalObjectPosition;
+
             yield return null;
         }
     }
