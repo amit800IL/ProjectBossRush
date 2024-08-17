@@ -15,6 +15,8 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroDefend;
     public static event Action<Hero> OnHeroInjured;
 
+    public bool HeroIsAlive { get; private set; } = true;
+
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
     [SerializeField] private HeroSpriteChange spriteChange;
@@ -176,6 +178,7 @@ public abstract class Hero : Entity
         if (HP <= 0)
         {
             HP = 0;
+            HeroIsAlive = false;
         }
 
         OnHeroHealthChanged?.Invoke(this);

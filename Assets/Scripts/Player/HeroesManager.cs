@@ -79,7 +79,7 @@ public class HeroesManager : MonoBehaviour
 
         foreach (Hero hero in heroList)
         {
-            if (hero.HeroAttackBoss(boss))
+            if (hero.HeroAttackBoss(boss) && hero.HeroIsAlive)
             {
                 if (hero.heroAnimator != null)
                     hero.heroAnimator.SetTrigger("Attack");
@@ -143,7 +143,7 @@ public class HeroesManager : MonoBehaviour
     {
         foreach (Hero hero in heroList)
         {
-            if (hero.Defend())
+            if (hero.Defend() && hero.HeroIsAlive)
             {
                 playerResourceManager.AddSymbols(new((int)SymbolTable.Symbols.Defense));
             }

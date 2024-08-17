@@ -32,6 +32,7 @@ public class FeedBackObjects : MonoBehaviour
         previousHealth = hero.HP;
 
         PlayerController.OnHeroMarked += OnHeroMark;
+        Hero.OnHeroWalk += OnHeroWalk;
         Hero.OnHeroHealthChanged += OnPlayerHit;
         Hero.OnHeroDefend += OnPlayerDefenceUp;
     }
@@ -40,6 +41,7 @@ public class FeedBackObjects : MonoBehaviour
     {
         PlayerController.OnHeroMarked -= OnHeroMark;
         Hero.OnHeroHealthChanged -= OnPlayerHit;
+        Hero.OnHeroWalk -= OnHeroWalk;
         Hero.OnHeroDefend -= OnPlayerDefenceUp;
     }
 
@@ -54,6 +56,18 @@ public class FeedBackObjects : MonoBehaviour
         if (this.hero == hero)
         {
             arrowSpriteCoroutine = StartCoroutine(FloatingArrow(initialArrowPosition.position));
+        }
+    }
+
+    private void OnHeroWalk(Hero hero)
+    {
+        if (this.hero == hero)
+        {
+            if (arrowSpriteCoroutine != null)
+            {
+                arrowSprite.gameObject.SetActive(false);
+                StopCoroutine(arrowSpriteCoroutine);
+            }
         }
     }
 
@@ -130,7 +144,7 @@ public class FeedBackObjects : MonoBehaviour
 
         while (true)
         {
-            Vector3 floatingPosition = new Vector3(0, 1, 0);
+            Vector3 floatingPosition = new Vector3(0, 0.2f, 0);
 
             float timerMax = 1f;
             float timeLapse = 0f;
@@ -143,16 +157,16 @@ public class FeedBackObjects : MonoBehaviour
                 yield return null;
             }
 
-           Vector3 currentPosition = arrowSprite.transform.position;
 
-            timerMax = 1f;
+            arrowSprite.transform.position = originalObjectPosition;
+
             timeLapse = 0f;
 
             while (timeLapse < timerMax)
             {
                 timeLapse += Time.deltaTime;
                 float progress = timeLapse / timerMax;
-                arrowSprite.transform.position = Vector3.Lerp(currentPosition, currentPosition - floatingPosition, progress);
+                arrowSprite.transform.position = Vector3.Lerp(originalObjectPosition, originalObjectPosition - floatingPosition, progress);
                 yield return null;
             }
 
