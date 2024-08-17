@@ -79,7 +79,6 @@ public class UIManager : MonoBehaviour
                 actionPoints[i].sprite = apSpriteOff;
             }
         }
-
     }
     public void ApUIStopShow(int ap)
     {
