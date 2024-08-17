@@ -5652,8 +5652,8 @@ MonoBehaviour:
   boss: {fileID: 913413898}
   <heroList>k__BackingField: []
   heroAttackDelay: 1
-  rewardObject: {fileID: 0}
-  rewardObjectInitialPosition: {fileID: 0}
+  rewardObject: {fileID: 900659369}
+  rewardObjectInitialPosition: {fileID: 900659370}
   rewardTarget: {fileID: 795631975}
 --- !u!4 &603676719
 Transform:
@@ -13077,8 +13077,6 @@ MonoBehaviour:
   AP: 10
   playerSymbolTable:
     table: 000000000000000000000000000000000000000000000000
-  rewardSymbolTable:
-    table: 000000000000000000000000000000000000000000000000
   techniques:
   - {fileID: 649092710}
   - {fileID: 370184408}
@@ -13090,7 +13088,7 @@ MonoBehaviour:
   vfxInstiniatePosition: {fileID: 977542794}
   generalSymbolUI: {fileID: 795631976}
   heroSymbolUI: {fileID: 0}
-  rewardResources: {fileID: 0}
+  rewardResources: {fileID: 900659371}
 --- !u!1 &1440492894
 GameObject:
   m_ObjectHideFlags: 0
