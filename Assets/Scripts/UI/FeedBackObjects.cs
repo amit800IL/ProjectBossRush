@@ -23,6 +23,7 @@ public class FeedBackObjects : MonoBehaviour
     [Header("Mark Arrow")]
     [SerializeField] private Image arrowSprite;
     private Coroutine arrowSpriteCoroutine;
+    private bool isArrowFloating = false;
 
     private void Start()
     {
@@ -47,15 +48,18 @@ public class FeedBackObjects : MonoBehaviour
 
     private void OnHeroMark(Hero hero)
     {
-        if (arrowSpriteCoroutine != null)
-        {
-            arrowSprite.gameObject.SetActive(false);
-            StopCoroutine(arrowSpriteCoroutine);
-        }
-
         if (this.hero == hero)
         {
             arrowSpriteCoroutine = StartCoroutine(FloatingArrow(initialArrowPosition.position));
+        }
+        else
+        {
+            if (arrowSpriteCoroutine != null)
+            {
+                arrowSprite.transform.position = initialArrowPosition.position;
+                arrowSprite.gameObject.SetActive(false);
+                StopCoroutine(arrowSpriteCoroutine);
+            }
         }
     }
 
@@ -142,7 +146,7 @@ public class FeedBackObjects : MonoBehaviour
     {
         arrowSprite.gameObject.SetActive(true);
 
-        bool isArrowFloating = true;
+        isArrowFloating = true;
 
         while (isArrowFloating)
         {
