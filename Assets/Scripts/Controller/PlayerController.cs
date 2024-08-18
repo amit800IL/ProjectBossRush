@@ -42,8 +42,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Button attackButton;
 
     [Header("LayerMasks")]
-    [SerializeField] private LayerMask heroMask;
-    [SerializeField] private LayerMask tileMask;
+    [SerializeField] private LayerMask heroLayer;
+    [SerializeField] private LayerMask tileLayer;
+    [SerializeField] private LayerMask UILayer;
 
     private DirectionIndicator[] DIndicators = new DirectionIndicator[4];
 
@@ -121,7 +122,6 @@ public class PlayerController : MonoBehaviour
         }
 
         isTracingHeroRoute = false;
-        GridManager.Instance.StopShowingTilesInRange();
         hoveredTile = null;
     }
 
@@ -179,13 +179,18 @@ public class PlayerController : MonoBehaviour
             }
             else Debug.Log("route not valid - route too short");
         }
-        else Debug.Log("route not valid - not enough AP");
+        else
+        {
+            Debug.Log("route not valid - not enough AP");
+            HideAllIndicators() ; return false;
+        } 
         return false;
         //return playerResourceManager.HasEnoughAP(1) && markedHero.CanHeroMove(route.Count);
     }
 
     private IEnumerator MoveHeroOnRoute()
     {
+        ForbidInput();
         playerResourceManager.TryUseAP(movementAPCost);
         for (int i = 0; i < route.Count; i++)
         {
@@ -197,6 +202,7 @@ public class PlayerController : MonoBehaviour
         }
         HideAllIndicators();
         route.Clear();
+        AllowInput();
     }
 
     private void MoveToTile(Tile tile)
@@ -272,24 +278,28 @@ public class PlayerController : MonoBehaviour
         markedHero = null;
         OnHeroMarked?.Invoke(markedHero);
         markedTile = null;
+        GridManager.Instance.StopShowingTilesInRange();
 
     }
 
     private void MarkHero(Vector3 pressPosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(pressPosition);
-
-        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
+        LayerMask lm = heroLayer | UILayer;
+        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, lm);
 
         if (raycast)
         {
-            playerResourceManager.ShowApUse(1);
-            isheroMarked = true;
-            isTracingHeroRoute = true;
-            markedHero = raycastHit.collider.GetComponent<Hero>();
-            hoveredTile = markedHero.CurrentTile;
-            GridManager.Instance.ShowTilesInRange(hoveredTile, markedHero.GetHeroMovement() - route.Count);
-            OnHeroMarked?.Invoke(markedHero);
+            if (((1 << raycastHit.collider.gameObject.layer) & heroLayer) != 0)
+            {
+                playerResourceManager.ShowApUse(1);
+                isheroMarked = true;
+                isTracingHeroRoute = true;
+                markedHero = raycastHit.collider.GetComponent<Hero>();
+                hoveredTile = markedHero.CurrentTile;
+                GridManager.Instance.ShowTilesInRange(hoveredTile, markedHero.GetHeroMovement() - route.Count);
+                OnHeroMarked?.Invoke(markedHero);
+            }
         }
         else ResetMarkProccess();
     }
@@ -298,7 +308,7 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroMask);
+        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, heroLayer);
 
         if (raycast)
         {
@@ -320,7 +330,7 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, tileMask);
+        bool raycast = Physics.Raycast(ray, out raycastHit, Mathf.Infinity, tileLayer);
 
         if (raycast)
         {
@@ -387,6 +397,7 @@ public class PlayerController : MonoBehaviour
     private void ForbidInput()
     {
         isInputAllowed = false;
+        GridManager.Instance.StopShowingTilesInRange();
     }
 
     #region Visual Indicators
@@ -417,6 +428,7 @@ public class PlayerController : MonoBehaviour
         {
             HideIndicator(i);
         }
+        GridManager.Instance.StopShowingTilesInRange();
     }
 
 
