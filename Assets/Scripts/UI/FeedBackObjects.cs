@@ -108,10 +108,10 @@ public class FeedBackObjects : MonoBehaviour
     {
         feedBackText.text = symbol + feedBackNumber.ToString();
 
-        //if (feedBackNumber <= 0)
-        //{
-        //    feedBackText.text = " ";
-        //}
+        if (feedBackNumber <= 0)
+        {
+            feedBackText.text = " ";
+        }
 
         feedBackText.gameObject.SetActive(true);
 
@@ -142,7 +142,9 @@ public class FeedBackObjects : MonoBehaviour
     {
         arrowSprite.gameObject.SetActive(true);
 
-        while (true)
+        bool isArrowFloating = true;
+
+        while (isArrowFloating)
         {
             Vector3 floatingPosition = new Vector3(0, 0.2f, 0);
 

@@ -183,10 +183,11 @@ public abstract class Hero : Entity
             HeroIsAlive = false;
         }
 
+        heroAnimator.SetTrigger("Injured");
+
         OnHeroHealthChanged?.Invoke(this);
         OnHeroDefenceChanged?.Invoke(this);
 
-        heroAnimator.SetTrigger("Injured");
         OnHeroInjured?.Invoke(this);
 
         if (HP <= 0 && gameObject.activeSelf)
