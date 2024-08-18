@@ -15,6 +15,7 @@ public class BerzekerProjectile : HeroProjectile
         attackProjectile.GetComponent<ParticleSystem>().Play();
 
         Vector3 goToPosition = endingPosition - startingPosition.position;
+        transform.LookAt(endingPosition);
 
         rigidBody.velocity = goToPosition * speed;
     }
