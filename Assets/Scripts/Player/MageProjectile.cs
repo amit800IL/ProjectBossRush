@@ -8,12 +8,12 @@ public class MageProjectile : HeroProjectile
     {
         isHeroAttacking = true;
 
+        attackProjectile.transform.position = startingPosition.position;
+
         foreach (GameObject obj in objectsToTurnOff)
         {
             obj.SetActive(true);
         }
-
-        attackProjectile.transform.position = startingPosition.position;
 
         Vector3 goToPosition = endingPosition - startingPosition.position;
 
