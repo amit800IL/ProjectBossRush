@@ -47,17 +47,24 @@ public class FeedBackObjects : MonoBehaviour
 
     private void OnHeroMark(Hero hero)
     {
+        ResetArrowCoroutine();
+
         if (this.hero == hero)
         {
-            arrowSpriteCoroutine = StartCoroutine(FloatingArrow(initialArrowPosition.position));
+            arrowSpriteCoroutine = StartCoroutine(FloatingArrow(arrowSprite.transform.position));
         }
         else
         {
-            if (arrowSpriteCoroutine != null)
-            {
-                arrowSprite.gameObject.SetActive(false);
-                StopCoroutine(arrowSpriteCoroutine);
-            }
+            ResetArrowCoroutine();
+        }
+    }
+
+    private void ResetArrowCoroutine()
+    {
+        if (arrowSpriteCoroutine != null)
+        {
+            arrowSprite.gameObject.SetActive(false);
+            StopCoroutine(arrowSpriteCoroutine);
         }
     }
 
@@ -161,7 +168,7 @@ public class FeedBackObjects : MonoBehaviour
                 yield return null;
             }
 
-            arrowSprite.transform.position = originalObjectPosition;
+            //arrowSprite.transform.position = originalObjectPosition;
 
             timeLapse = 0f;
 
@@ -173,7 +180,7 @@ public class FeedBackObjects : MonoBehaviour
                 yield return null;
             }
 
-            arrowSprite.transform.position = originalObjectPosition;
+            //arrowSprite.transform.position = originalObjectPosition;
 
             yield return null;
         }
