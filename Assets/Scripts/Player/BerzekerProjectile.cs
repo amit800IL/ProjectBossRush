@@ -8,6 +8,8 @@ public class BerzekerProjectile : HeroProjectile
     [SerializeField] private float newX = 0f;
     public override void MoveProjectile(Vector3 endingPosition)
     {
+        isHeroAttacking = true;
+
         //float Distance = Vector3.Distance(startingPosition.position, endingPosition);
 
         //if (Distance >= 3.3f && Distance < 4)
@@ -34,11 +36,12 @@ public class BerzekerProjectile : HeroProjectile
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Boss") )
+        if (other.gameObject.CompareTag("Boss") && isHeroAttacking)
         {
             attackProjectile.gameObject.SetActive(false);
             projectileImpact.transform.position = attackProjectile.transform.position;
             projectileImpact.Play();
+            isHeroAttacking = false;
         }
     }
 }
