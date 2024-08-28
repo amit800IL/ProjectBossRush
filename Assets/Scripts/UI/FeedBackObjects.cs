@@ -72,11 +72,7 @@ public class FeedBackObjects : MonoBehaviour
     {
         if (this.hero == hero)
         {
-            if (arrowSpriteCoroutine != null)
-            {
-                arrowSprite.gameObject.SetActive(false);
-                StopCoroutine(arrowSpriteCoroutine);
-            }
+            ResetArrowCoroutine();
         }
     }
 

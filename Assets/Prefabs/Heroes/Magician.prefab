@@ -878,6 +878,10 @@ PrefabInstance:
       propertyPath: startingPosition
       value: 
       objectReference: {fileID: 5052502030100205306}
+    - target: {fileID: 3470220545147745637, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+      propertyPath: projectileCollider
+      value: 
+      objectReference: {fileID: 3950046741265815978}
     - target: {fileID: 4402105482493979505, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -922,6 +926,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6360923013126283357, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+      propertyPath: m_TagString
+      value: Projectile
+      objectReference: {fileID: 0}
     - target: {fileID: 6410422743024571859, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
       propertyPath: m_Name
       value: ice VFX Mage Partical System
@@ -953,6 +961,11 @@ MonoBehaviour:
 --- !u!4 &931865627318228840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4402105482493979505, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+  m_PrefabInstance: {fileID: 3601135073923529753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3950046741265815978 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 515855465729484211, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
   m_PrefabInstance: {fileID: 3601135073923529753}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3604953791155872564
