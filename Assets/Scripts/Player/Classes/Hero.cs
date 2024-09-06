@@ -46,7 +46,7 @@ public abstract class Hero : Entity
 
     protected RaycastHit raycastHit;
 
-    [SerializeField] protected VisualEffect attackVFX;
+    [field: SerializeField] public VisualEffect attackVFX { get; protected set; }
     [SerializeField] private float vfxTimer;
 
     [SerializeField] protected HeroThrowingWeapon heroThrowingWeapon;
@@ -66,11 +66,12 @@ public abstract class Hero : Entity
         movementAmount = HeroData.maxMovementAmount;
     }
 
-    protected virtual IEnumerator ActivateAttackVfx()
+    public virtual IEnumerator ActivateAttackVfx()
     {
         if (attackVFX != null)
         {
             attackVFX.Play();
+            heroAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(vfxTimer);
             attackVFX.Stop();
         }
@@ -129,7 +130,7 @@ public abstract class Hero : Entity
         //return movementAmount > 0 && movementAmount >= amountToReduce;
     }
 
-    public int GetHeroMovement() {  return movementAmount; }
+    public int GetHeroMovement() { return movementAmount; }
 
     public void HeroNewTurnRestart()
     {

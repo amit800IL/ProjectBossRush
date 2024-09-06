@@ -39,18 +39,7 @@ public class Figher : Hero
         return !tile.IsTileOfType(TileType.LongRange);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Projectile"))
-        {
-            if (sequenceCoroutine == null)
-            {
-                sequenceCoroutine = StartCoroutine(QuickAttackSequence());
-            }
-        }
-    }
-
-    private IEnumerator QuickAttackSequence()
+    public IEnumerator QuickAttackSequence()
     {
         quickAttackObjets[0].SetActive(true);
 
@@ -71,7 +60,7 @@ public class Figher : Hero
 
         object2.SetActive(true);
 
-        float timerMax = 1f;
+        float timerMax = 0.2f;
         float timerStart = 0f;
 
         Vector3 startPosition = transform.position;
@@ -97,23 +86,21 @@ public class Figher : Hero
         object3.transform.position = boss.transform.position;
         object3.SetActive(true);
 
+        yield return new WaitForSeconds(0.5f);
+
         heroAnimator.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(0.2f);
 
         boss.TakeDamage(HeroData.damage);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         TurnOffAllObects();
 
         transform.position = originalPosition;
 
         quickAttackObjets[0].SetActive(false);
-
-        if (sequenceCoroutine != null)
-        {
-            StopCoroutine(sequenceCoroutine);
-            sequenceCoroutine = null;
-        }
     }
 
     private void TurnOffAllObects()

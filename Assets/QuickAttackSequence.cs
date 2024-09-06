@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class QuickAttackSequence : MonoBehaviour
@@ -10,9 +11,9 @@ public class QuickAttackSequence : MonoBehaviour
     {
         for (int i = 0; i < heroesManager.heroList.Count; i++)
         {
-            initialHero = heroesManager.heroList[i].GetComponentInParent<Mage>();
+            initialHero = heroesManager.heroList[i].GetComponentInParent<Ranger>();
 
-            if (initialHero is Mage)
+            if (initialHero is Ranger)
             {
                 break;
             }
@@ -20,9 +21,7 @@ public class QuickAttackSequence : MonoBehaviour
 
         if (initialHero != null)
         {
-            MageProjectile projectile = initialHero.GetComponentInChildren<MageProjectile>();
-
-            Hero secondHero = null;
+            Figher secondHero = null;
 
             for (int i = 0; i < heroesManager.heroList.Count; i++)
             {
@@ -34,10 +33,17 @@ public class QuickAttackSequence : MonoBehaviour
                 }
             }
 
-            if (projectile != null && secondHero != null)
+            if (secondHero != null)
             {
-                projectile.MoveProjectile(secondHero.transform.position);
+                StartCoroutine(Electrify(secondHero));
             }
         }
+    }
+
+    private IEnumerator Electrify(Figher secondHero)
+    {
+        initialHero.attackVFX.SetVector3("Pos4", secondHero.transform.position);
+        yield return initialHero.ActivateAttackVfx();
+        yield return secondHero.QuickAttackSequence();
     }
 }
