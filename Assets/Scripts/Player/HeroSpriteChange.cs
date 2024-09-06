@@ -3,6 +3,7 @@ using UnityEngine;
 public class HeroSpriteChange : MonoBehaviour
 {
     [SerializeField] private Hero hero;
+    [SerializeField] private Sprite idleSprite;
     [SerializeField] private SpriteRenderer heroSpriteRenderer;
     [SerializeField] private Material heroMaterial;
     [SerializeField] private Material lowHpMaterial;

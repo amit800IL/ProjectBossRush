@@ -53,6 +53,11 @@ public abstract class Hero : Entity
 
     protected virtual void Start()
     {
+        HeroSpawn();
+    }
+
+    public void HeroSpawn()
+    {
         HP = HeroData.maxHP;
 
         OnHeroSpawned?.Invoke(this);
@@ -64,6 +69,12 @@ public abstract class Hero : Entity
             attackVFX.Stop();
 
         movementAmount = HeroData.maxMovementAmount;
+    }
+
+    public void RestartHeroOnRevive()
+    {
+        heroAnimator.SetTrigger("Revive");
+        heroThrowingWeapon.gameObject.SetActive(false);
     }
 
     public virtual IEnumerator ActivateAttackVfx()

@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI roundUI;
     [SerializeField] private RoundNotice turnNotice;
     [SerializeField] private GameObject raycastBlockPanel;
+    [SerializeField] private List<ReviveHeroButton> reviveButtonsList;
     [SerializeField] private List<HeroUI> heroUIList;
     [SerializeField] private GameObject tacticalViewText;
 
@@ -143,7 +144,7 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
 
-       timeLapse = 0f;
+        timeLapse = 0f;
 
         while (timeLapse < timerMax)
         {
@@ -183,6 +184,7 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
     public void AssignHeroUI(Hero hero)
     {
         for (int i = 0; i < heroUIList.Count; i++)

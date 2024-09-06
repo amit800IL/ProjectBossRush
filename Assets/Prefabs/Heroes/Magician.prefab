@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: -4077421836009311836}
+  idleSprite: {fileID: 21300000, guid: 515fd6f128de5ba4480f38d5cf3128db, type: 3}
   heroSpriteRenderer: {fileID: 5670658661669503013}
   heroMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   lowHpMaterial: {fileID: 2100000, guid: 957cd1bd2bfc8244383368d85ccb3b35, type: 2}
@@ -754,7 +755,7 @@ MonoBehaviour:
     table: 000000000000000000000000000000000000000000000000
   <HeroData>k__BackingField: {fileID: 11400000, guid: 60b3bbec89804e04eac02c5ae768c4fa, type: 2}
   <HP>k__BackingField: 0
-  attackVFX: {fileID: 0}
+  <attackVFX>k__BackingField: {fileID: 0}
   vfxTimer: 3
   heroThrowingWeapon: {fileID: 1651939657868434092}
   mageProjectile: {fileID: 131024909452331388}

@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class ComboToolTip : ToolTip
 {
-    [SerializeField] private PlayerResourceManager resourceManager;
-    [SerializeField] private TechniqueDataSO techniqueDataSO;
+    [SerializeField] protected PlayerResourceManager resourceManager;
+    [SerializeField] protected TechniqueDataSO techniqueDataSO;
 
     public override void OnPointerEnter(PointerEventData eventData)
     {

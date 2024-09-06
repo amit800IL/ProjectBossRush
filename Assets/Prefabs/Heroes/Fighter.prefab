@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: 5135979904959998896}
+  idleSprite: {fileID: 21300000, guid: 2fa23f743f4569d438ae1e9fafc7019d, type: 3}
   heroSpriteRenderer: {fileID: 5670658661669503013}
   heroMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   lowHpMaterial: {fileID: 2100000, guid: 82432be50ef630d479f2a5083ab22de8, type: 2}
