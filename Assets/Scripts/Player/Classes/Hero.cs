@@ -9,6 +9,7 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroHealthChanged;
     public static event Action<Hero> OnHeroDefenceChanged;
     public static event Action<Hero> OnHeroDeath;
+    public static event Action<Hero> OnHeroRevived;
 
     public static event Action<Hero> OnHeroWalk;
     public static event Action<Hero> OnHeroAttack;
@@ -75,6 +76,8 @@ public abstract class Hero : Entity
     {
         heroAnimator.SetTrigger("Revive");
         heroThrowingWeapon.gameObject.SetActive(false);
+        HeroIsAlive = true;
+        OnHeroRevived?.Invoke(this);
     }
 
     public virtual IEnumerator ActivateAttackVfx()
