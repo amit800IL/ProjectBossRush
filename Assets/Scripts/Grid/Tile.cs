@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Tile : MonoBehaviour
 {
@@ -13,8 +14,15 @@ public class Tile : MonoBehaviour
     [SerializeField] GameObject AttackDecal;
     [SerializeField] GameObject DefendDecal;
     [SerializeField] GameObject EffectVisual;
+    [SerializeField] TextMeshPro EffectCounterText;
     private Entity occupant;
     public bool IsTileOccupied => occupant != null;
+
+    private void Start()
+    {
+        UpdateEffectsCounterText();
+    }
+
     public void Initialize(int x, int y)
     {
         tilePosition = new Vector2Int(x, y);
@@ -49,7 +57,7 @@ public class Tile : MonoBehaviour
 
         ocuupantObject.transform.position = OccupantContainer.position;
 
-        ApplyEffectToOccupant();
+        ApplyEffectsToOccupant();
     }
 
     public void ClearTile()
@@ -84,7 +92,7 @@ public class Tile : MonoBehaviour
         else
         {
             InRangeDecal.SetActive(false);
-             
+
         }
     }
 
@@ -107,25 +115,42 @@ public class Tile : MonoBehaviour
         EffectVisual.SetActive(true);
     }
 
+    //called on every tile
     public void UpdateEffects()
     {
-        for (int i = 0; i < effectsOnTile.Count; i++)
+        if (effectsOnTile.Count > 0)
         {
-            if (effectsOnTile[i].duration > 1)
+            for (int i = 0; i < effectsOnTile.Count; i++)
             {
-                effectsOnTile[i] = effectsOnTile[i].LowerDuration();
+                if (effectsOnTile[i].duration > 1)
+                {
+                    effectsOnTile[i] = effectsOnTile[i].LowerDuration();
+                }
+                else
+                {
+                    effectsOnTile.RemoveAt(i);
+                    EffectVisual.SetActive(false);
+                    i--;
+                }
             }
-            else
-            {
-                effectsOnTile.RemoveAt(i);
-                EffectVisual.SetActive(false);
-                i--;
-            }
+            ApplyEffectsToOccupant();
         }
-        ApplyEffectToOccupant();
+        UpdateEffectsCounterText();
     }
 
-    private void ApplyEffectToOccupant()
+    private void UpdateEffectsCounterText()
+    {
+        if (effectsOnTile.Count > 0)
+        {
+            EffectCounterText.text = effectsOnTile[0].duration.ToString();
+        }
+        else
+        {
+            EffectCounterText.text = string.Empty;
+        }
+    }
+
+    private void ApplyEffectsToOccupant()
     {
         foreach (Effect effect in effectsOnTile)
         {
