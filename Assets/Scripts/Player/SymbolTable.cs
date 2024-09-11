@@ -9,7 +9,7 @@ public class SymbolTable
 
     public int[] table;
 
-    
+
 
     //ctor for player
     public SymbolTable()
@@ -82,6 +82,16 @@ public class SymbolTable
             output += (Symbols)i + " " + table[i] + "\n";
         }
         return output;
+    }
+
+    public int GetDamage()
+    {
+        int damage = 0;
+        for (int i = 0; i < SYMBOL_TYPE_COUNT - 1; i++)
+        {
+            damage += table[i];
+        }
+        return damage;
     }
 
     public enum Symbols
