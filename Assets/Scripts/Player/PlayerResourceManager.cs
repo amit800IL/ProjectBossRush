@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerResourceManager : MonoBehaviour
 {
     public static event Action<int> OnAPChanged;
+    public static event Action<int> OnAPShow;
+    public static event Action<int> OnAPStopShow;
     public static event Action<Effect[], Hero> OnTechniqueUsed;
 
     [Header("AP count")]
@@ -81,7 +83,7 @@ public class PlayerResourceManager : MonoBehaviour
                     ActivateFireBall();
 
                     UseSymbols(selectedTechnique.GetRequirements());
-                    UseAP(selectedTechnique.GetAPCost());
+                    TryUseAP(selectedTechnique.GetAPCost());
 
                     OnTechniqueUsed?.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
 
@@ -176,7 +178,7 @@ public class PlayerResourceManager : MonoBehaviour
         OnAPChanged?.Invoke(AP);
     }
 
-    public bool UseAP(int amount)
+    public bool TryUseAP(int amount)
     {
         if (HasEnoughAP(amount))
         {
@@ -184,7 +186,21 @@ public class PlayerResourceManager : MonoBehaviour
             OnAPChanged?.Invoke(AP);
             return true;
         }
+
         return false;
+    }
+
+    public void ShowApUse(int amount)
+    {
+        if (HasEnoughAP(amount))
+        {
+            OnAPShow?.Invoke(AP - amount);
+        }
+    }
+
+    public void StopShowApUse()
+    {
+        OnAPStopShow?.Invoke(AP);
     }
 
     public bool HasEnoughAP(int amount)

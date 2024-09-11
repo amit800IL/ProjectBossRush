@@ -47,15 +47,24 @@ public class FeedBackObjects : MonoBehaviour
 
     private void OnHeroMark(Hero hero)
     {
+        ResetArrowCoroutine();
+
+        if (this.hero == hero)
+        {
+            arrowSpriteCoroutine = StartCoroutine(FloatingArrow(arrowSprite.transform.position));
+        }
+        else
+        {
+            ResetArrowCoroutine();
+        }
+    }
+
+    private void ResetArrowCoroutine()
+    {
         if (arrowSpriteCoroutine != null)
         {
             arrowSprite.gameObject.SetActive(false);
             StopCoroutine(arrowSpriteCoroutine);
-        }
-
-        if (this.hero == hero)
-        {
-            arrowSpriteCoroutine = StartCoroutine(FloatingArrow(initialArrowPosition.position));
         }
     }
 
@@ -63,11 +72,7 @@ public class FeedBackObjects : MonoBehaviour
     {
         if (this.hero == hero)
         {
-            if (arrowSpriteCoroutine != null)
-            {
-                arrowSprite.gameObject.SetActive(false);
-                StopCoroutine(arrowSpriteCoroutine);
-            }
+            ResetArrowCoroutine();
         }
     }
 
@@ -108,10 +113,10 @@ public class FeedBackObjects : MonoBehaviour
     {
         feedBackText.text = symbol + feedBackNumber.ToString();
 
-        //if (feedBackNumber <= 0)
-        //{
-        //    feedBackText.text = " ";
-        //}
+        if (feedBackNumber <= 0)
+        {
+            feedBackText.text = " ";
+        }
 
         feedBackText.gameObject.SetActive(true);
 
@@ -142,7 +147,9 @@ public class FeedBackObjects : MonoBehaviour
     {
         arrowSprite.gameObject.SetActive(true);
 
-        while (true)
+        bool isArrowFloating = true;
+
+        while (isArrowFloating)
         {
             Vector3 floatingPosition = new Vector3(0, 0.2f, 0);
 
@@ -157,8 +164,7 @@ public class FeedBackObjects : MonoBehaviour
                 yield return null;
             }
 
-
-            arrowSprite.transform.position = originalObjectPosition;
+            //arrowSprite.transform.position = originalObjectPosition;
 
             timeLapse = 0f;
 
@@ -170,7 +176,7 @@ public class FeedBackObjects : MonoBehaviour
                 yield return null;
             }
 
-            arrowSprite.transform.position = originalObjectPosition;
+            //arrowSprite.transform.position = originalObjectPosition;
 
             yield return null;
         }

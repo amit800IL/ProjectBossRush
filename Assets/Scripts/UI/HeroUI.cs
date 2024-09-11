@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class HeroUI : MonoBehaviour
 {
-    [SerializeField] private Hero hero;
+    [field: SerializeField] public Hero Hero { get; private set; }
     [SerializeField] private GameObject heroPanel;
+    [SerializeField] private GameObject reviveButton;
     [SerializeField] private SymbolUI symbolUI;
     [SerializeField] private TextMeshProUGUI heatlhText;
     [SerializeField] private TextMeshProUGUI maxHealthText;
@@ -19,22 +20,24 @@ public class HeroUI : MonoBehaviour
 
     private void Start()
     {
-        HeroHealthChange(hero);
+        HeroHealthChange(Hero);
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
+        Hero.OnHeroDeath += ShowReviveButtonOnUI;
     }
 
     private void OnDisable()
     {
         Hero.OnHeroHealthChanged -= HeroHealthChange;
         Hero.OnHeroDefenceChanged -= HeroDefenceChange;
+        Hero.OnHeroDeath -= ShowReviveButtonOnUI;
     }
 
     public bool AssignHero(Hero hero)
     {
-        if (this.hero == null && hero != null)
+        if (this.Hero == null && hero != null)
         {
-            this.hero = hero;
+            this.Hero = hero;
             graphic.sprite = hero.HeroData.headshotSprite;
             ShowHeroSymbolUI(hero);
             ShowHeroMovementAmount();
@@ -48,21 +51,21 @@ public class HeroUI : MonoBehaviour
 
     private void HeroHealthChange(Hero h)
     {
-        if (hero == h && hero != null)
+        if (Hero == h && Hero != null)
         {
-            hpBar.fillAmount = (float)hero.HP / hero.HeroData.maxHP;
-            heatlhText.text = hero.HP.ToString();
-            maxHealthText.text = hero.HeroData.maxHP.ToString();
+            hpBar.fillAmount = (float)Hero.HP / Hero.HeroData.maxHP;
+            heatlhText.text = Hero.HP.ToString();
+            maxHealthText.text = Hero.HeroData.maxHP.ToString();
         }
     }
     private void HeroDefenceChange(Hero h)
     {
-        if (hero == h && hero != null && hero.tempHP > 0)
+        if (Hero == h && Hero != null && Hero.tempHP > 0)
         {
             defenceImage.gameObject.SetActive(true);
-            defenceText.text = hero.tempHP.ToString();
+            defenceText.text = Hero.tempHP.ToString();
         }
-        else if (hero == h && hero != null && hero.tempHP <= 0)
+        else if (Hero == h && Hero != null && Hero.tempHP <= 0)
         {
             defenceImage.gameObject.SetActive(false);
         }
@@ -70,13 +73,21 @@ public class HeroUI : MonoBehaviour
 
     private void ShowHeroSymbolUI(Hero h)
     {
-        if (h == hero)
+        if (h == Hero)
             symbolUI.UpdateUI(h.SymbolTable.ToShortString());
     }
 
     private void ShowHeroMovementAmount()
     {
-        if (hero != null)
-            heroMovementText.text = "Movement: " + hero.HeroData.maxMovementAmount.ToString();
+        if (Hero != null)
+            heroMovementText.text = "Movement: " + Hero.HeroData.maxMovementAmount.ToString();
+    }
+
+    private void ShowReviveButtonOnUI(Hero hero)
+    {
+        if (Hero == hero && !hero.HeroIsAlive)
+        {
+            reviveButton.gameObject.SetActive(true);
+        }
     }
 }

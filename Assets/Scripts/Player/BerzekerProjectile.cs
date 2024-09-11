@@ -4,21 +4,9 @@ using UnityEngine;
 
 public class BerzekerProjectile : HeroProjectile
 {
-    [SerializeField] private float newWidth = 0f;
-    [SerializeField] private float newX = 0f;
     public override void MoveProjectile(Vector3 endingPosition)
     {
-        //float Distance = Vector3.Distance(startingPosition.position, endingPosition);
-
-        //if (Distance >= 3.3f && Distance < 4)
-        //{
-        //    trailRenderer.widthMultiplier = newWidth;
-        //    trailRenderer.transform.position = new Vector3(newX, 0f, 0f);
-        //}
-        //else
-        //{
-        //    trailRenderer.widthMultiplier = 1.5f;
-        //}
+        isHeroAttacking = true;
 
         attackProjectile.transform.position = startingPosition.position;
 
@@ -27,18 +15,19 @@ public class BerzekerProjectile : HeroProjectile
         attackProjectile.GetComponent<ParticleSystem>().Play();
 
         Vector3 goToPosition = endingPosition - startingPosition.position;
-
+        transform.LookAt(endingPosition);
 
         rigidBody.velocity = goToPosition * speed;
     }
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Boss"))
+        if (other.gameObject.CompareTag("Boss") && isHeroAttacking)
         {
             attackProjectile.gameObject.SetActive(false);
             projectileImpact.transform.position = attackProjectile.transform.position;
             projectileImpact.Play();
+            isHeroAttacking = false;
         }
     }
 }

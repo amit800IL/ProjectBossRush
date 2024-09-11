@@ -7560,7 +7560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileObject: {fileID: 224761121193439107, guid: 6337dc4b77f0e1e4cbf13e316ad3b615, type: 3}
-  gridSize: {x: 6, y: 6}
+  gridSize: {x: 6, y: 4}
   gridObjectsToSpawn:
   - gridObjectToSpawnObject: {fileID: 8648337662786245942, guid: 43b659772be9540488704b6bcdb3db88, type: 3}
     spawnPosition: {x: 1, y: 3}
@@ -10747,11 +10747,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7
+      value: 6.9
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 4.47
       objectReference: {fileID: 0}
     - target: {fileID: 4279627372560626414, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_LocalPosition.z

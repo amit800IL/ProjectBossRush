@@ -9,6 +9,7 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroHealthChanged;
     public static event Action<Hero> OnHeroDefenceChanged;
     public static event Action<Hero> OnHeroDeath;
+    public static event Action<Hero> OnHeroRevived;
 
     public static event Action<Hero> OnHeroWalk;
     public static event Action<Hero> OnHeroAttack;
@@ -46,12 +47,17 @@ public abstract class Hero : Entity
 
     protected RaycastHit raycastHit;
 
-    [SerializeField] protected VisualEffect attackVFX;
+    [field: SerializeField] public VisualEffect attackVFX { get; protected set; }
     [SerializeField] private float vfxTimer;
 
     [SerializeField] protected HeroThrowingWeapon heroThrowingWeapon;
 
     protected virtual void Start()
+    {
+        HeroSpawn();
+    }
+
+    public void HeroSpawn()
     {
         HP = HeroData.maxHP;
 
@@ -66,11 +72,20 @@ public abstract class Hero : Entity
         movementAmount = HeroData.maxMovementAmount;
     }
 
-    protected virtual IEnumerator ActivateAttackVfx()
+    public void RestartHeroOnRevive()
+    {
+        heroAnimator.SetTrigger("Revive");
+        heroThrowingWeapon.gameObject.SetActive(false);
+        HeroIsAlive = true;
+        OnHeroRevived?.Invoke(this);
+    }
+
+    public virtual IEnumerator ActivateAttackVfx()
     {
         if (attackVFX != null)
         {
             attackVFX.Play();
+            heroAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(vfxTimer);
             attackVFX.Stop();
         }
@@ -129,7 +144,7 @@ public abstract class Hero : Entity
         //return movementAmount > 0 && movementAmount >= amountToReduce;
     }
 
-    public int GetHeroMovement() {  return movementAmount; }
+    public int GetHeroMovement() { return movementAmount; }
 
     public void HeroNewTurnRestart()
     {
@@ -183,10 +198,11 @@ public abstract class Hero : Entity
             HeroIsAlive = false;
         }
 
+        heroAnimator.SetTrigger("Injured");
+
         OnHeroHealthChanged?.Invoke(this);
         OnHeroDefenceChanged?.Invoke(this);
 
-        heroAnimator.SetTrigger("Injured");
         OnHeroInjured?.Invoke(this);
 
         if (HP <= 0 && gameObject.activeSelf)

@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: -4077421836009311836}
+  idleSprite: {fileID: 21300000, guid: 515fd6f128de5ba4480f38d5cf3128db, type: 3}
   heroSpriteRenderer: {fileID: 5670658661669503013}
   heroMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   lowHpMaterial: {fileID: 2100000, guid: 957cd1bd2bfc8244383368d85ccb3b35, type: 2}
@@ -754,7 +755,7 @@ MonoBehaviour:
     table: 000000000000000000000000000000000000000000000000
   <HeroData>k__BackingField: {fileID: 11400000, guid: 60b3bbec89804e04eac02c5ae768c4fa, type: 2}
   <HP>k__BackingField: 0
-  attackVFX: {fileID: 0}
+  <attackVFX>k__BackingField: {fileID: 0}
   vfxTimer: 3
   heroThrowingWeapon: {fileID: 1651939657868434092}
   mageProjectile: {fileID: 131024909452331388}
@@ -777,8 +778,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6956687, y: 1.877626, z: 0.18824224}
-  m_Center: {x: 0.057373315, y: -0.06617284, z: -0.079578795}
+  m_Size: {x: 1.5, y: 1.5, z: 0.15}
+  m_Center: {x: 0, y: -0.3, z: 0}
 --- !u!1001 &662522720341890499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -878,6 +879,10 @@ PrefabInstance:
       propertyPath: startingPosition
       value: 
       objectReference: {fileID: 5052502030100205306}
+    - target: {fileID: 3470220545147745637, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+      propertyPath: projectileCollider
+      value: 
+      objectReference: {fileID: 3950046741265815978}
     - target: {fileID: 4402105482493979505, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -922,6 +927,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6360923013126283357, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+      propertyPath: m_TagString
+      value: Projectile
+      objectReference: {fileID: 0}
     - target: {fileID: 6410422743024571859, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
       propertyPath: m_Name
       value: ice VFX Mage Partical System
@@ -953,6 +962,11 @@ MonoBehaviour:
 --- !u!4 &931865627318228840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4402105482493979505, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
+  m_PrefabInstance: {fileID: 3601135073923529753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3950046741265815978 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 515855465729484211, guid: 42dbf415f7656ef44a14aa3f8296cdfd, type: 3}
   m_PrefabInstance: {fileID: 3601135073923529753}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3604953791155872564

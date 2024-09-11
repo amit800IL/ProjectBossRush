@@ -109,8 +109,10 @@ public class Boss : MonoBehaviour
 
             currentAction.EnemyAction.DoActionOnTiles(targetTiles, currentAction.Power);
 
-            bossAnimator.SetTrigger("Attack");
+            bossAnimator.SetTrigger("TileAttack");
+
             if (currentAction.BossVFX != null) currentAction.BossVFX.SetActive(true);
+
             if (currentAction.HitVFX != null)
             {
                 Vector2Int hitPos = bossTargeting.GetCenters()[0];

@@ -472,6 +472,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8396108960678294777}
     m_Modifications:
+    - target: {fileID: 2197721536684428889, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
+      propertyPath: lengthInSec
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197721536684428889, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3748583350415616997, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -515,6 +523,30 @@ PrefabInstance:
     - target: {fileID: 4100566505331490809, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
       propertyPath: m_Name
       value: Ground Fire Buble
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100566505331490809, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430034441196756667, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430034441196756667, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430034441196756667, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516783413250767242, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
+      propertyPath: lengthInSec
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516783413250767242, guid: 576f09b068b35584a8933c4bba3e0a33, type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

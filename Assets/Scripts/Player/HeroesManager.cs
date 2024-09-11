@@ -30,6 +30,7 @@ public class HeroesManager : MonoBehaviour
         PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
         TurnsManager.OnPlayerTurnStart += NextTurnHeroMethods;
         Hero.OnHeroDeath += OnAllHeroesDeath;
+        Hero.OnHeroRevived += OnHeroRevive;
     }
 
     private void OnDestroy()
@@ -37,6 +38,7 @@ public class HeroesManager : MonoBehaviour
         PlayerResourceManager.OnTechniqueUsed -= ActivateComboEffects;
         TurnsManager.OnPlayerTurnStart -= NextTurnHeroMethods;
         Hero.OnHeroDeath -= OnAllHeroesDeath;
+        Hero.OnHeroRevived -= OnHeroRevive;
     }
 
     private void InitializeHeroList()
@@ -136,7 +138,7 @@ public class HeroesManager : MonoBehaviour
     {
         foreach (Hero listHero in heroList)
         {
-            if (listHero == hero)
+            if (listHero == hero && !hero.HeroIsAlive)
             {
                 heroesCount--;
 
@@ -146,6 +148,12 @@ public class HeroesManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnHeroRevive(Hero hero)
+    {
+        if (hero.HeroIsAlive)
+            heroesCount++;
     }
 
     public void CommandDefend()

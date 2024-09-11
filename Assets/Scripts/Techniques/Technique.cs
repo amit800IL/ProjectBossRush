@@ -31,18 +31,22 @@ public class Technique : MonoBehaviour
 
         //needs to move to a manager
         PlayerController.OnHeroMarked += UpdateUsability;
-        TurnsManager.OnPlayerTurnStart += UpdateUsability;
         TurnsManager.OnPlayerTurnStart += ShowCooldown;
+        TurnsManager.OnPlayerTurnStart += UpdateUsability;
+        SelectTechnique += UpdateUsability;
+        SelectTechnique += ShowCooldown;
+
         StartCooldown();
         UpdateUsability();
-        UpdateUsability(null);
     }
 
     private void OnDestroy()
     {
         PlayerController.OnHeroMarked -= UpdateUsability;
-        TurnsManager.OnPlayerTurnStart -= UpdateUsability;
         TurnsManager.OnPlayerTurnStart -= ShowCooldown;
+        TurnsManager.OnPlayerTurnStart -= UpdateUsability;
+        SelectTechnique -= UpdateUsability;
+        SelectTechnique -= ShowCooldown;
     }
 
     private void ShowCooldown()
@@ -66,22 +70,52 @@ public class Technique : MonoBehaviour
 
         roundNumber++;
     }
-
-    void UpdateUsability(Hero hero)
-    {
-        if (TechData.RequiresTargetHero && cooldown <= 1)
-            activationButton.interactable = (hero != null);
-    }
-
-    void UpdateUsability()
+    private void UpdateUsability()
     {
         if (cooldown <= 1 && !TechData.RequiresTargetHero)
         {
+            coolDownText.text = " ";
             activationButton.interactable = true;
         }
         else
         {
             activationButton.interactable = false;
+        }
+    }
+
+    private void UpdateUsability(Hero hero)
+    {
+        if (TechData.RequiresTargetHero && cooldown <= 1)
+            activationButton.interactable = (hero != null);
+    }
+
+
+    private void UpdateUsability(Technique technique)
+    {
+        if (technique.cooldown <= 1 && !technique.TechData.RequiresTargetHero)
+        {
+            technique.activationButton.interactable = true;
+        }
+        else
+        {
+            technique.activationButton.interactable = false;
+        }
+    }
+
+    private void ShowCooldown(Technique technique)
+    {
+        technique.UpdateCooldown();
+
+        technique.coolDownText.text = technique.cooldown.ToString();
+
+        if (technique.cooldown <= 1 && technique.activationButton.interactable == true)
+        {
+            technique.coolDownText.text = " ";
+        }
+
+        if (technique.TechData.RequiresTargetHero && technique.cooldown <= 1)
+        {
+            technique.coolDownText.text = " ";
         }
     }
 

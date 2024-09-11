@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroSpriteChange : MonoBehaviour
 {
     [SerializeField] private Hero hero;
+    [SerializeField] private Sprite idleSprite;
     [SerializeField] private SpriteRenderer heroSpriteRenderer;
     [SerializeField] private Material heroMaterial;
     [SerializeField] private Material lowHpMaterial;
@@ -13,11 +13,14 @@ public class HeroSpriteChange : MonoBehaviour
     private void Start()
     {
         Hero.OnHeroHealthChanged += OnHpLow;
+        Hero.OnHeroInjured += OnHpLow;
+        SetMaterial(heroMaterial);
     }
 
     private void OnDisable()
     {
         Hero.OnHeroHealthChanged -= OnHpLow;
+        Hero.OnHeroInjured -= OnHpLow;
     }
 
     public void OnHpLow(Hero hero)
@@ -44,10 +47,12 @@ public class HeroSpriteChange : MonoBehaviour
     public void SetMaterialToPrevious()
     {
         heroSpriteRenderer.material = previousMaterial;
+
+        OnHpLow(hero);
     }
 
     public void SetMaterialToNormal()
     {
         heroSpriteRenderer.material = heroMaterial;
-    } 
+    }
 }

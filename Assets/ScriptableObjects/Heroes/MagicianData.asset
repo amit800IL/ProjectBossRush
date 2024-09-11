@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MagicianData
   m_EditorClassIdentifier: 
   heroName: Mage
-  headshotSprite: {fileID: 21300000, guid: 0d60e8d8b7873b5419812ddcc8a4fa29, type: 3}
+  headshotSprite: {fileID: 21300000, guid: 2dd0eca29d7d63245a4c2109d850ce1a, type: 3}
   maxHP: 40
   maxMovementAmount: 3
   damage: 1
