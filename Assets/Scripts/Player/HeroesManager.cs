@@ -77,20 +77,20 @@ public class HeroesManager : MonoBehaviour
 
     public IEnumerator CommandAttack(Button attackingButton)
     {
-        playerResourceManager.ClearRewardSymbolTable();
 
         attackingButton.interactable = false;
-        bool hasHeroAttacked = false;
 
         foreach (Hero hero in heroList)
         {
+            playerResourceManager.ClearRewardSymbolTable(hero);
+
             if (hero.HeroAttackBoss(boss) && hero.HeroIsAlive)
             {
                 if (hero.heroAnimator != null)
                     hero.heroAnimator.SetTrigger("Attack");
 
                 playerResourceManager.AddSymbols(hero.SymbolTable);
-                playerResourceManager.AddRewardSymbols(hero.SymbolTable);
+                playerResourceManager.AddRewardSymbols(hero, hero.SymbolTable);
 
                 yield return new WaitForSeconds(heroAttackDelay);
 
@@ -99,23 +99,20 @@ public class HeroesManager : MonoBehaviour
                     yield break;
                 }
 
-                hasHeroAttacked = true;
+                yield return RewardWithResoruces(hero);
             }
-        }
-
-        if (hasHeroAttacked)
-        {
-            yield return RewardWithResoruces();
         }
 
         attackingButton.interactable = true;
     }
 
-    private IEnumerator RewardWithResoruces()
+    private IEnumerator RewardWithResoruces(Hero hero)
     {
-        Vector3 initialPositon = rewardObjectInitialPosition.position;
+        Vector3 initialPositon = hero.transform.localPosition;
 
-        rewardObject.gameObject.SetActive(true);
+        hero.RewardResourcesUI.gameObject.transform.localPosition = initialPositon;
+
+        hero.RewardResourcesUI.gameObject.SetActive(true);
 
         float maxTimer = 1f;
         float timer = 0f;
@@ -126,13 +123,15 @@ public class HeroesManager : MonoBehaviour
 
             float progress = timer / maxTimer;
 
-            rewardObject.transform.position = Vector3.Lerp(initialPositon, rewardTarget.transform.position, progress);
+            hero.RewardResourcesUI.gameObject.transform.localPosition = Vector3.Lerp(initialPositon, rewardTarget.transform.localPosition, progress);
+
             yield return null;
         }
 
         playerResourceManager.AddSymbolsToUI();
-        rewardObject.gameObject.SetActive(false);
-        rewardObject.transform.position = initialPositon;
+        hero.RewardResourcesUI.gameObject.SetActive(false);
+        hero.transform.localPosition = initialPositon;
+        hero.RewardResourcesUI.gameObject.transform.localPosition = initialPositon;
     }
     public void OnAllHeroesDeath(Hero hero)
     {

@@ -26,7 +26,6 @@ public class PlayerResourceManager : MonoBehaviour
     private Hero selectedHero;
     [SerializeField] private SymbolUI generalSymbolUI;
     [SerializeField] private SymbolUI heroSymbolUI;
-    [SerializeField] private SymbolUI rewardResources;
 
     private void Start()
     {
@@ -107,15 +106,15 @@ public class PlayerResourceManager : MonoBehaviour
         playerSymbolTable.Add(toAdd);
     }
 
-    public void AddRewardSymbols(SymbolTable toAdd)
+    public void AddRewardSymbols(Hero hero, SymbolTable toAdd)
     {
-        rewardSymbolTable.Add(toAdd);
-        rewardResources.UpdateUI(rewardSymbolTable.ToShortString());
+        hero.RewardSymbolTable.Add(toAdd);
+        hero.RewardResourcesUI.UpdateUI(hero.RewardSymbolTable.ToShortString());
     }
 
-    public void ClearRewardSymbolTable()
+    public void ClearRewardSymbolTable(Hero hero)
     {
-        rewardSymbolTable.Remove(rewardSymbolTable);
+        hero.RewardSymbolTable.Remove(hero.RewardSymbolTable);
     }
 
     public void AddSymbolsToUI()
