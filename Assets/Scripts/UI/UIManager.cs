@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
         HeroesManager.OnHeroesDeath += ShowLostScreen;
         Boss.OnBossDeath += ShowWinScreen;
         Hero.OnHeroSpawned += AssignHeroUI;
+        Hero.OnHeroSpawned += AssignHeroRevive;
         PlayerController.OnTacticalViewToggled += ToggleTacticalStateText;
         PlayerResourceManager.OnAPChanged += ApUIChange;
         PlayerResourceManager.OnAPShow += ApUIShow;
@@ -60,6 +61,7 @@ public class UIManager : MonoBehaviour
         HeroesManager.OnHeroesDeath -= ShowLostScreen;
         Boss.OnBossDeath -= ShowWinScreen;
         Hero.OnHeroSpawned -= AssignHeroUI;
+        Hero.OnHeroSpawned -= AssignHeroRevive;
         PlayerController.OnTacticalViewToggled -= ToggleTacticalStateText;
     }
 
@@ -181,6 +183,17 @@ public class UIManager : MonoBehaviour
                 apColor.a = 1f;
                 actionPoints[i].color = apColor;
                 actionPoints[i].sprite = apSpriteOn;
+            }
+        }
+    }
+
+    public void AssignHeroRevive(Hero hero)
+    {
+        for (int i = 0; i < reviveButtonsList.Count; i++)
+        {
+            if (reviveButtonsList[i].AssignHero(hero))
+            {
+                return;
             }
         }
     }

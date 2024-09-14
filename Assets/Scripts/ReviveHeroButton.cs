@@ -1,19 +1,56 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ReviveHeroButton : MonoBehaviour
 {
-    [SerializeField] private HeroUI heroUi;
+    private Hero hero;
+    [SerializeField] private GameObject reviveButtonPanel;
     [SerializeField] private Button reviveButton;
+    [SerializeField] private TextMeshProUGUI heroNameText;
+
+    private void Start()
+    {
+        reviveButton.interactable = false;
+
+        Hero.OnHeroDeath += MakeReviveButtonInteractable;
+    }
+
+    private void OnDestroy()
+    {
+        Hero.OnHeroDeath -= MakeReviveButtonInteractable;
+    }
+
+    private void MakeReviveButtonInteractable(Hero hero)
+    {
+        if (this.hero == hero)
+        {
+            reviveButtonPanel.SetActive(true);
+            reviveButton.interactable = true;
+        }
+    }
+
+    public bool AssignHero(Hero hero)
+    {
+        if (this.hero == null && hero != null)
+        {
+            this.hero = hero;
+            heroNameText.text = hero.HeroData.heroName;
+            return true;
+        }
+
+        return false;
+    }
 
     public void Revive()
     {
-        if (heroUi.Hero != null && !heroUi.Hero.HeroIsAlive)
+        if (hero != null && !hero.HeroIsAlive)
         {
-            this.gameObject.SetActive(false);
-            heroUi.Hero.gameObject.SetActive(true);
-            heroUi.Hero.HeroSpawn();
-            heroUi.Hero.RestartHeroOnRevive();
+            reviveButton.interactable = false;
+            reviveButtonPanel.SetActive(false);
+            hero.gameObject.SetActive(true);
+            hero.HeroSpawn();
+            hero.RestartHeroOnRevive();
         }
     }
 }

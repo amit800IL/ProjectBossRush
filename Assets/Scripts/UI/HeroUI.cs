@@ -23,14 +23,12 @@ public class HeroUI : MonoBehaviour
         HeroHealthChange(Hero);
         Hero.OnHeroHealthChanged += HeroHealthChange;
         Hero.OnHeroDefenceChanged += HeroDefenceChange;
-        Hero.OnHeroDeath += ShowReviveButtonOnUI;
     }
 
     private void OnDisable()
     {
         Hero.OnHeroHealthChanged -= HeroHealthChange;
         Hero.OnHeroDefenceChanged -= HeroDefenceChange;
-        Hero.OnHeroDeath -= ShowReviveButtonOnUI;
     }
 
     public bool AssignHero(Hero hero)
@@ -43,10 +41,8 @@ public class HeroUI : MonoBehaviour
             ShowHeroMovementAmount();
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
     private void HeroHealthChange(Hero h)

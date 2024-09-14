@@ -20,6 +20,7 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] private Technique[] techniques;
     [SerializeField] private Technique selectedTechnique;
     [SerializeField] private Transform vfxInstiniatePosition;
+    [SerializeField] private QuickAttackSequence quickAttackSequence;
 
     [Header("Other")]
 
@@ -79,7 +80,7 @@ public class PlayerResourceManager : MonoBehaviour
             {
                 if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
-                    ActivateFireBall();
+                    ActivateComboByName();
 
                     UseSymbols(selectedTechnique.GetRequirements());
                     TryUseAP(selectedTechnique.GetAPCost());
@@ -121,12 +122,25 @@ public class PlayerResourceManager : MonoBehaviour
     {
         UpdateSymbolUI();
     }
-    private void ActivateFireBall()
+    private void ActivateComboByName()
     {
-        if (vfxInstiniatePosition != null && selectedTechnique.TechData.Name == "Fireball")
+        switch (selectedTechnique.TechData.Name)
         {
-            GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
-            Destroy(instanitiedParticle, 5f);
+            case "FireBall":
+                {
+                    if (vfxInstiniatePosition != null)
+                    {
+                        GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
+                        Destroy(instanitiedParticle, 5f);
+
+                    }
+                }
+                break;
+
+            case "Quick Attack":
+                quickAttackSequence.TriggerSequence();
+                break;
+
         }
     }
 

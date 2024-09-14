@@ -12,14 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bfeea4e2bdb03408d14ae7cbd40695, type: 3}
   m_Name: Revive
   m_EditorClassIdentifier: 
-  Name: Quick Attack
+  Name: Revive
   RequiresTargetHero: 0
   particleObject: {fileID: 0}
   Requirements:
     table: 010000000100000001000000000000000000000000000000
   APCost: 1
   Cooldown: 2
-  Effects:
-  - Type: 0
-    duration: 1
-    amount: 6
+  Effects: []
