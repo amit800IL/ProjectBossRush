@@ -104,9 +104,11 @@ public class HeroesManager : MonoBehaviour
 
     private IEnumerator RewardWithResoruces(Hero hero)
     {
-        Vector3 initialPositon = hero.transform.position;
+        Vector3 worldPosition = hero.transform.position;
 
-        hero.RewardResourcesUI.gameObject.transform.localPosition = initialPositon;
+        Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+
+        hero.RewardResourcesUI.gameObject.transform.position = screenPosition;
 
         hero.RewardResourcesUI.gameObject.SetActive(true);
 
@@ -119,15 +121,13 @@ public class HeroesManager : MonoBehaviour
 
             float progress = timer / maxTimer;
 
-            hero.RewardResourcesUI.gameObject.transform.localPosition = Vector3.Lerp(initialPositon, rewardTarget.transform.localPosition, progress);
+            hero.RewardResourcesUI.gameObject.transform.position = Vector3.Lerp(screenPosition, rewardTarget.transform.position, progress);
 
             yield return null;
         }
 
         playerResourceManager.AddSymbolsToUI();
         hero.RewardResourcesUI.gameObject.SetActive(false);
-        hero.transform.position = initialPositon;
-        hero.RewardResourcesUI.gameObject.transform.localPosition = initialPositon;
     }
     public void OnAllHeroesDeath(Hero hero)
     {
