@@ -11,6 +11,8 @@ public class HeroesManager : MonoBehaviour
 
     private int heroesCount = 0;
 
+    [SerializeField] private Camera mainCamera;
+
     [SerializeField] private PlayerResourceManager playerResourceManager;
     [SerializeField] private Boss boss;
     [field: SerializeField] public List<Hero> heroList { get; private set; } = new List<Hero>();
@@ -106,7 +108,7 @@ public class HeroesManager : MonoBehaviour
     {
         Vector3 worldPosition = hero.transform.position;
 
-        Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+        Vector3 screenPosition = mainCamera.WorldToScreenPoint(worldPosition);
 
         hero.RewardResourcesUI.gameObject.transform.position = screenPosition;
 
