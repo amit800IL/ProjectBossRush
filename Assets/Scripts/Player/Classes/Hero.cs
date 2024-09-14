@@ -253,7 +253,7 @@ public abstract class Hero : Entity
 
     public bool Defend()
     {
-        if (CanHeroDefend() && tempHP < HeroData.maxHP)
+        if (CanHeroDefend())
         {
             tempHP += HeroData.defense;
             OnHeroDefenceChanged?.Invoke(this);

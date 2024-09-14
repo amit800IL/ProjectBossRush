@@ -39,9 +39,10 @@ public class Boss : MonoBehaviour
     private RaycastHit raycastHit;
     public List<GameObject> currentAttackMarker = new();
 
-    private void Start()
+    public void Init()
     {
         HP = maxHP;
+        bossTargeting.Init();
     }
 
     public void BossRestart()
@@ -96,6 +97,7 @@ public class Boss : MonoBehaviour
                 targetTiles = ReadBossAction(attackIndex);
                 foreach (Vector2Int tilePosition in targetTiles)
                 {
+                    print(tilePosition);
                     Tile tile = tiles[tilePosition.x, tilePosition.y];
                     currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
                 }

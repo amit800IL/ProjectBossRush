@@ -17,12 +17,18 @@ public class TurnsManager : MonoBehaviour
 
     private void Awake()
     {
-        TutorialScript.OnTutorialFinished += StartPlayerTurn;
+        TutorialScript.OnTutorialFinished += StartCombat;
     }
 
     private void OnDestroy()
     {
-        TutorialScript.OnTutorialFinished -= StartPlayerTurn;
+        TutorialScript.OnTutorialFinished -= StartCombat;
+    }
+
+    private void StartCombat()
+    {
+        boss.Init();
+        StartPlayerTurn();
     }
 
     private void StartPlayerTurn()

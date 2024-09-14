@@ -18,7 +18,7 @@ public class BossTargeting : MonoBehaviour
     private List<Hero> targetedHeroes = new();
     private List<Vector2Int> centers = new();
 
-    private void Start()
+    public void Init()
     {
         //Debug.LogWarning("gridSize needs to be taken from GridManager");
         gridSize = GridManager.Instance.GetGridSize();
