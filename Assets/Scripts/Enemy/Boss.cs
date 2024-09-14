@@ -112,6 +112,8 @@ public class Boss : MonoBehaviour
 
             currentAction.EnemyAction.DoActionOnTiles(targetTiles, currentAction.Power);
 
+            bossAnimator.SetTrigger("TileAttack");
+
             if (currentAction.BossVFX != null) currentAction.BossVFX.SetActive(true);
 
             if (currentAction.HitVFX != null)
@@ -130,11 +132,6 @@ public class Boss : MonoBehaviour
             currentAttackMarker.Clear();
             HasBossAttacked = true;
         }
-    }
-
-    public void PlayActionAnimation()
-    {
-        bossAnimator.SetTrigger(enemyActions[attackIndex].ActionName);
     }
 
     private void PerformAction(BossActionSetter action, Tile tile)
