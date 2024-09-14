@@ -510,7 +510,7 @@ Canvas:
   m_GameObject: {fileID: 37441762}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 440101996}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -13467,7 +13467,6 @@ MonoBehaviour:
   vfxInstiniatePosition: {fileID: 977542794}
   generalSymbolUI: {fileID: 795631976}
   heroSymbolUI: {fileID: 0}
-  rewardResources: {fileID: 900659371}
 --- !u!1 &1440492894
 GameObject:
   m_ObjectHideFlags: 0
