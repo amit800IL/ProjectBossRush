@@ -5469,6 +5469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b440cb8f7ad424dbe54a15246a153b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 440101996}
   playerResourceManager: {fileID: 1440085249}
   boss: {fileID: 913413898}
   <heroList>k__BackingField: []
