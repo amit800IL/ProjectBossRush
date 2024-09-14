@@ -17,15 +17,11 @@ public class HeroesManager : MonoBehaviour
 
     [SerializeField] private float heroAttackDelay = 0f;
 
-    [SerializeField] private GameObject rewardObject;
-    [SerializeField] private RectTransform rewardObjectInitialPosition;
     [SerializeField] private RectTransform rewardTarget;
 
     private void Start()
     {
         InitializeHeroList();
-
-        rewardObject.transform.position = rewardObjectInitialPosition.position;
 
         PlayerResourceManager.OnTechniqueUsed += ActivateComboEffects;
         TurnsManager.OnPlayerTurnStart += NextTurnHeroMethods;
@@ -108,7 +104,7 @@ public class HeroesManager : MonoBehaviour
 
     private IEnumerator RewardWithResoruces(Hero hero)
     {
-        Vector3 initialPositon = hero.transform.localPosition;
+        Vector3 initialPositon = hero.transform.position;
 
         hero.RewardResourcesUI.gameObject.transform.localPosition = initialPositon;
 
@@ -130,7 +126,7 @@ public class HeroesManager : MonoBehaviour
 
         playerResourceManager.AddSymbolsToUI();
         hero.RewardResourcesUI.gameObject.SetActive(false);
-        hero.transform.localPosition = initialPositon;
+        hero.transform.position = initialPositon;
         hero.RewardResourcesUI.gameObject.transform.localPosition = initialPositon;
     }
     public void OnAllHeroesDeath(Hero hero)
