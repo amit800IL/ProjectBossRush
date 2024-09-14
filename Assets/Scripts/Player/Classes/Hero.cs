@@ -239,7 +239,7 @@ public abstract class Hero : Entity
         if (CanHeroAttack(boss))
         {
             AttackingParticle.Play();
-            boss.TakeDamage(HeroData.damage);
+            boss.TakeDamage(SymbolTable.GetDamage());
             OnHeroAttack?.Invoke(this);
             StartCoroutine(ActivateAttackVfx());
             return true;
