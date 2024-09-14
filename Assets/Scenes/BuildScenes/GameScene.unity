@@ -13880,6 +13880,7 @@ MonoBehaviour:
   selectedTechnique: {fileID: 0}
   vfxInstiniatePosition: {fileID: 977542794}
   quickAttackSequence: {fileID: 2035220232}
+  reviveButtonsPanel: {fileID: 1575647954}
   generalSymbolUI: {fileID: 795631976}
   heroSymbolUI: {fileID: 0}
 --- !u!1 &1440492894
@@ -19867,6 +19868,7 @@ SceneRoots:
   - {fileID: 440101997}
   - {fileID: 1290073836}
   - {fileID: 977542794}
+  - {fileID: 2035220233}
   - {fileID: 324522102}
   - {fileID: 951524478}
   - {fileID: 1524890848}
@@ -19880,4 +19882,3 @@ SceneRoots:
   - {fileID: 835825780}
   - {fileID: 1471423672}
   - {fileID: 138935790}
-  - {fileID: 2035220233}

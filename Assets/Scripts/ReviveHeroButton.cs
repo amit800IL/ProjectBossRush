@@ -11,8 +11,6 @@ public class ReviveHeroButton : MonoBehaviour
 
     private void Start()
     {
-        reviveButton.interactable = false;
-
         Hero.OnHeroDeath += MakeReviveButtonInteractable;
     }
 
@@ -25,13 +23,12 @@ public class ReviveHeroButton : MonoBehaviour
     {
         if (this.hero == hero)
         {
-            reviveButtonPanel.SetActive(true);
             reviveButton.interactable = true;
         }
     }
 
     public bool AssignHero(Hero hero)
-    {
+    { 
         if (this.hero == null && hero != null)
         {
             this.hero = hero;

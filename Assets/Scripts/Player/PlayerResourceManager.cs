@@ -21,6 +21,7 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] private Technique selectedTechnique;
     [SerializeField] private Transform vfxInstiniatePosition;
     [SerializeField] private QuickAttackSequence quickAttackSequence;
+    [SerializeField] private GameObject reviveButtonsPanel;
 
     [Header("Other")]
 
@@ -139,6 +140,10 @@ public class PlayerResourceManager : MonoBehaviour
 
             case "Quick Attack":
                 quickAttackSequence.TriggerSequence();
+                break;
+
+            case "Revive":
+                reviveButtonsPanel.SetActive(true);
                 break;
 
         }

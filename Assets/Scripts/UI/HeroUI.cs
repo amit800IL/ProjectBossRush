@@ -6,7 +6,6 @@ public class HeroUI : MonoBehaviour
 {
     [field: SerializeField] public Hero Hero { get; private set; }
     [SerializeField] private GameObject heroPanel;
-    [SerializeField] private GameObject reviveButton;
     [SerializeField] private SymbolUI symbolUI;
     [SerializeField] private TextMeshProUGUI heatlhText;
     [SerializeField] private TextMeshProUGUI maxHealthText;
@@ -77,13 +76,5 @@ public class HeroUI : MonoBehaviour
     {
         if (Hero != null)
             heroMovementText.text = "Movement: " + Hero.HeroData.maxMovementAmount.ToString();
-    }
-
-    private void ShowReviveButtonOnUI(Hero hero)
-    {
-        if (Hero == hero && !hero.HeroIsAlive)
-        {
-            reviveButton.gameObject.SetActive(true);
-        }
     }
 }
