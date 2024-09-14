@@ -15,8 +15,6 @@ public class TurnsManager : MonoBehaviour
 
     private bool isPlayerTurnActive = false;
 
-    bool onlyVisualizeAction = true;
-
     private void Awake()
     {
         TutorialScript.OnTutorialFinished += StartPlayerTurn;
@@ -32,7 +30,6 @@ public class TurnsManager : MonoBehaviour
         if (isPlayerTurnActive) return;
 
         OnRoundStart?.Invoke();
-        bool visualizeAction = onlyVisualizeAction;
 
         if (boss.IsBossAlive)
         {
@@ -40,7 +37,7 @@ public class TurnsManager : MonoBehaviour
                 boss.BossRestart();
 
             if (!boss.HasBossAttacked)
-                boss.InteractWithTiles(visualizeAction);
+                boss.InteractWithTiles(true);
 
             isPlayerTurnActive = true;
             OnPlayerTurnStart?.Invoke();
@@ -54,7 +51,6 @@ public class TurnsManager : MonoBehaviour
     IEnumerator BossTurn()
     {
         OnBossTurnStart?.Invoke();
-        bool attackTile = !onlyVisualizeAction;
         yield return new WaitForSeconds(turnBuffer);
 
         if (boss.IsBossAlive)
@@ -62,7 +58,11 @@ public class TurnsManager : MonoBehaviour
             isPlayerTurnActive = false;
 
             if (!boss.HasBossAttacked)
-                boss.InteractWithTiles(attackTile);
+            {
+                boss.PlayActionAnimation();
+                yield return new WaitForSeconds(1);
+                boss.InteractWithTiles(false);
+            }
 
             if (boss.HasBossAttacked)
                 yield return new WaitForSeconds(bossTurnDuration);
