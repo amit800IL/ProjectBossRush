@@ -161,11 +161,11 @@ public class PlayerController : MonoBehaviour
     {
         if (isTracingHeroRoute)
         {
-            GetHoveredTile();
+            TryAddHoveredTileToRoute();
         }
         else
         {
-            GetHoveredHero();
+            OnHover();
         }
     }
 
@@ -182,8 +182,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("route not valid - not enough AP");
-            HideAllIndicators() ; return false;
-        } 
+            HideAllIndicators(); return false;
+        }
         return false;
         //return playerResourceManager.HasEnoughAP(1) && markedHero.CanHeroMove(route.Count);
     }
@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
     {
         markedHero.MoveHeroToPosition(tile);
     }
-
+    /*
     private void MoveHeroToTile(Vector3 pressPosition)
     {
         if (markedHero != null && isheroMarked)
@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour
     private bool CanHeroUnlockMovement(int movementAPCost)
     {
         return !markedHero.HasHeroUnlockedMovement && markedTile != null && !markedTile.IsTileOccupied && playerResourceManager.HasEnoughAP(movementAPCost);
-    }
+    }*/
 
     private void ResetMarkProccess()
     {
@@ -304,7 +304,7 @@ public class PlayerController : MonoBehaviour
         else ResetMarkProccess();
     }
 
-    public void GetHoveredHero()
+    public void OnHover()
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void GetHoveredTile()
+    public void TryAddHoveredTileToRoute()
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
