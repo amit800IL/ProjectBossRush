@@ -10918,19 +10918,19 @@ PrefabInstance:
     - target: {fileID: 5594456513509773035, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: hoverSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 62da2d8fc5019a6418ceaa56f691dcf4, type: 3}
+      objectReference: {fileID: 21300000, guid: a417f020f9919bc4880e25a84063bd17, type: 3}
     - target: {fileID: 5594456513509773035, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: normalSprite
       value: 
-      objectReference: {fileID: 21300000, guid: b3191807eafcc4b4d8bc1f7be1c76998, type: 3}
+      objectReference: {fileID: 21300000, guid: 2d8c2c0b6977fee43916996521eeeb4a, type: 3}
     - target: {fileID: 5594456513509773035, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: clickedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7e375c6660de0f046a80f301723ec4a9, type: 3}
+      objectReference: {fileID: 21300000, guid: 5aecfbe25c9b50441a528b4a47598125, type: 3}
     - target: {fileID: 6258599234817846805, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b3191807eafcc4b4d8bc1f7be1c76998, type: 3}
+      objectReference: {fileID: 21300000, guid: 2d8c2c0b6977fee43916996521eeeb4a, type: 3}
     - target: {fileID: 7438984007820631475, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -18297,19 +18297,19 @@ PrefabInstance:
     - target: {fileID: 5594456513509773035, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: hoverSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1c6c78e862d57024488febf9581d0a57, type: 3}
+      objectReference: {fileID: 21300000, guid: 13efb33580ff60e4abadd07fcd962ee8, type: 3}
     - target: {fileID: 5594456513509773035, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: normalSprite
       value: 
-      objectReference: {fileID: 21300000, guid: b0b412b8b2b443b4fa55ebebbccc7a43, type: 3}
+      objectReference: {fileID: 21300000, guid: 0b2944378d57ba740921dd7b8941645a, type: 3}
     - target: {fileID: 5594456513509773035, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: clickedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 834ae26401a03f24d872aaeb4a79ee43, type: 3}
+      objectReference: {fileID: 21300000, guid: 17169e359d667364391ead7a2b0ebf2d, type: 3}
     - target: {fileID: 6258599234817846805, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b0b412b8b2b443b4fa55ebebbccc7a43, type: 3}
+      objectReference: {fileID: 21300000, guid: 0b2944378d57ba740921dd7b8941645a, type: 3}
     - target: {fileID: 7438984007820631475, guid: 470b9d22e9c1ad54a82d965ae3457386, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
