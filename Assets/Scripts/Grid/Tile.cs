@@ -14,6 +14,7 @@ public class Tile : MonoBehaviour
     [SerializeField] GameObject AttackDecal;
     [SerializeField] GameObject DefendDecal;
     [SerializeField] GameObject EffectVisual;
+    [SerializeField] GameObject EffectVFX;
     [SerializeField] TextMeshPro EffectCounterText;
     private Entity occupant;
     public bool IsTileOccupied => occupant != null;
@@ -113,6 +114,7 @@ public class Tile : MonoBehaviour
         }
         effectsOnTile.Add(effect);
         EffectVisual.SetActive(true);
+        EffectVFX.SetActive(true);
     }
 
     //called on every tile
