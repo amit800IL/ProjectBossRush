@@ -127,7 +127,7 @@ public class PlayerResourceManager : MonoBehaviour
     {
         switch (selectedTechnique.TechData.Name)
         {
-            case "FireBall":
+            case "Fireball":
                 {
                     if (vfxInstiniatePosition != null)
                     {
