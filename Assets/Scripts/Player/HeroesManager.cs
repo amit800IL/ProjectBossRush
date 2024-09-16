@@ -123,7 +123,15 @@ public class HeroesManager : MonoBehaviour
 
             float progress = timer / maxTimer;
 
-            hero.RewardResourcesUI.gameObject.transform.position = Vector3.Lerp(screenPosition, rewardTarget.transform.position, progress);
+            float cosX = Mathf.Cos(Time.time * 2f);
+            float cosY = Mathf.Cos(Time.time * 2f);
+
+            Vector3 cosScreenPos = new Vector3(screenPosition.x * Random.Range(cosX, cosY), screenPosition.y * Random.Range(cosY, cosX), 0);
+
+            Vector3 lerpedScreenPos = Vector3.Lerp(screenPosition, cosScreenPos, progress);
+
+            hero.RewardResourcesUI.gameObject.transform.position = Vector3.Lerp(lerpedScreenPos, rewardTarget.transform.position, progress);
+
 
             yield return null;
         }
