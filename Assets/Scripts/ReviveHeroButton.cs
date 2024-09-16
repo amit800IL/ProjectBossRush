@@ -9,29 +9,30 @@ public class ReviveHeroButton : MonoBehaviour
     [SerializeField] private Button reviveButton;
     [SerializeField] private TextMeshProUGUI heroNameText;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    ActivateButton();
+    //}
+
+    private void OnEnable()
     {
-        Hero.OnHeroDeath += MakeReviveButtonInteractable;
+        ActivateButton();
     }
 
-    private void OnDestroy()
+    private void ActivateButton()
     {
-        Hero.OnHeroDeath -= MakeReviveButtonInteractable;
-    }
-
-    private void MakeReviveButtonInteractable(Hero hero)
-    {
-        if (this.hero == hero)
+        if (!this.hero.HeroIsAlive)
         {
             reviveButton.interactable = true;
         }
     }
 
     public bool AssignHero(Hero hero)
-    { 
+    {
         if (this.hero == null && hero != null)
         {
             this.hero = hero;
+            reviveButton.interactable = false;
             heroNameText.text = hero.HeroData.heroName;
             return true;
         }

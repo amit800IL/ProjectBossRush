@@ -107,7 +107,7 @@ public class HeroesManager : MonoBehaviour
 
     private IEnumerator RewardWithResoruces(Hero hero)
     {
-        Vector3 worldPosition = hero.transform.position;
+        Vector3 worldPosition = hero.transform.position + new Vector3(0, 2, 0);
 
         Vector3 screenPosition = mainCamera.WorldToScreenPoint(worldPosition);
 
@@ -125,6 +125,8 @@ public class HeroesManager : MonoBehaviour
             }
         }
 
+        yield return new WaitForSeconds(0.2f);
+
         float maxTimer = 1f;
         float timer = 0f;
 
@@ -133,6 +135,7 @@ public class HeroesManager : MonoBehaviour
             timer += Time.deltaTime;
 
             float progress = timer / maxTimer;
+
 
             float cosX = Mathf.Cos(Time.time * 2f);
             float cosY = Mathf.Cos(Time.time * 2f);
