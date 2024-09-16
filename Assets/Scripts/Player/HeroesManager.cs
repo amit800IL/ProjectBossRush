@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -113,6 +114,16 @@ public class HeroesManager : MonoBehaviour
         hero.RewardResourcesUI.gameObject.transform.position = screenPosition;
 
         hero.RewardResourcesUI.gameObject.SetActive(true);
+
+        foreach (GameObject item in hero.RewardResources)
+        {
+            string rewardText = item.GetComponentInChildren<TextMeshProUGUI>().text;
+
+            if (rewardText == "0")
+            {
+                item.SetActive(false);
+            }
+        }
 
         float maxTimer = 1f;
         float timer = 0f;

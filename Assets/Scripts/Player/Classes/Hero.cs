@@ -23,6 +23,8 @@ public abstract class Hero : Entity
     [SerializeField] private HeroSpriteChange spriteChange;
     [field: SerializeField] public SymbolTable RewardSymbolTable { get; private set; }
     [field: SerializeField] public SymbolUI RewardResourcesUI { get; private set; }
+
+    [field: SerializeField] public GameObject[] RewardResources { get; private set; }
     [field: SerializeField] public ParticleSystem AttackingParticle { get; protected set; }
     [SerializeField] protected ParticleSystem defendingParticle;
 
@@ -273,7 +275,6 @@ public abstract class Hero : Entity
     public abstract bool DefendPosCondition(Tile tile);
 
 }
-
 
 
 

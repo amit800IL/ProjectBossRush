@@ -542,7 +542,7 @@ RectTransform:
   m_GameObject: {fileID: 2853539874815735312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6660608308146860069}
@@ -618,7 +618,7 @@ RectTransform:
   m_GameObject: {fileID: 3045041335177561634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2621920163990708818}
@@ -934,7 +934,7 @@ RectTransform:
   m_GameObject: {fileID: 5761198220821709165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3765289608016409930}
@@ -1716,6 +1716,10 @@ MonoBehaviour:
   <RewardSymbolTable>k__BackingField:
     table: 000000000000000000000000000000000000000000000000
   <RewardResourcesUI>k__BackingField: {fileID: 5868890495568014492}
+  <RewardResources>k__BackingField:
+  - {fileID: 5761198220821709165}
+  - {fileID: 2853539874815735312}
+  - {fileID: 3045041335177561634}
   <AttackingParticle>k__BackingField: {fileID: 3523773280845591856}
   defendingParticle: {fileID: 4633142284472209159}
   <HealingEffect>k__BackingField: {fileID: 1330636499825376249}
