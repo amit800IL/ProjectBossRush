@@ -65,9 +65,10 @@ public class TurnsManager : MonoBehaviour
 
             if (!boss.HasBossAttacked)
             {
-                boss.PlayActionAnimation();
-                yield return new WaitForSeconds(1);
-                boss.InteractWithTiles(false);
+                yield return boss.PerformActionCoroutine();
+                //boss.PlayActionAnimation();
+                //yield return new WaitForSeconds(1);
+                //boss.InteractWithTiles(false);
             }
 
             if (boss.HasBossAttacked)

@@ -80,6 +80,14 @@ public class Boss : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public IEnumerator PerformActionCoroutine()
+    {
+        PlayActionAnimation();
+        float toWait = enemyActions[attackIndex].AnimationDelay <= 0 ? 1 : enemyActions[attackIndex].AnimationDelay;
+        yield return new WaitForSeconds(toWait);
+        InteractWithTiles(false);
+    }
+
     public void InteractWithTiles(bool VisualizeAttack) //instead of taking a parameter, bool should be dependant per attack
     {
         Tile[,] tiles = GridManager.Instance.Tiles;
@@ -97,7 +105,6 @@ public class Boss : MonoBehaviour
                 targetTiles = ReadBossAction(attackIndex);
                 foreach (Vector2Int tilePosition in targetTiles)
                 {
-                    print(tilePosition);
                     Tile tile = tiles[tilePosition.x, tilePosition.y];
                     currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
                 }
@@ -174,6 +181,7 @@ public class BossActionSetter
     [SerializeField] private GameObject targetMarker;
     [SerializeField] private GameObject bossVFX;
     [SerializeField] private GameObject hitVFX;
+    [SerializeField] private float animationDelay;
 
     public string ActionName { get => actionName; private set => actionName = value; }
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
@@ -183,5 +191,6 @@ public class BossActionSetter
     public GameObject TargetMarker { get => targetMarker; private set => targetMarker = value; }
     public GameObject BossVFX { get => bossVFX; private set => bossVFX = value; }
     public GameObject HitVFX { get => hitVFX; private set => hitVFX = value; }
+    public float AnimationDelay { get => animationDelay; private set => animationDelay = value; }
 }
 
