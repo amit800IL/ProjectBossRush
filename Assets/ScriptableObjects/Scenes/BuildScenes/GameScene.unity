@@ -6555,6 +6555,7 @@ MonoBehaviour:
     Type: 5
     duration: 3
     amount: 5
+    description: 
 --- !u!1 &681891275
 GameObject:
   m_ObjectHideFlags: 0

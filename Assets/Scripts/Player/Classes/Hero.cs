@@ -50,7 +50,9 @@ public abstract class Hero : Entity
     protected RaycastHit raycastHit;
 
     [field: SerializeField] public VisualEffect attackVFX { get; protected set; }
-    [field: SerializeField] public VisualEffect HealingVFX { get; protected set; }
+
+    [SerializeField] protected VisualEffect FrontHealingVFX;
+    [SerializeField] protected VisualEffect BackHealingVFX;
 
     [SerializeField] private float vfxTimer;
 
@@ -72,6 +74,13 @@ public abstract class Hero : Entity
 
         if (attackVFX != null)
             attackVFX.Stop();
+
+        if (FrontHealingVFX != null)
+            FrontHealingVFX.Stop();
+
+        if (BackHealingVFX != null)
+            BackHealingVFX.Stop();
+
 
         movementAmount = HeroData.maxMovementAmount;
     }
@@ -232,7 +241,8 @@ public abstract class Hero : Entity
             HP = HeroData.maxHP;
         }
 
-        HealingVFX.Play();
+        FrontHealingVFX.Play();
+        BackHealingVFX.Play();
         OnHeroHealthChanged?.Invoke(this);
     }
 
