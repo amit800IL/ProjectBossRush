@@ -27,8 +27,6 @@ public abstract class Hero : Entity
     [field: SerializeField] public GameObject[] RewardResources { get; private set; }
     [field: SerializeField] public ParticleSystem AttackingParticle { get; protected set; }
     [SerializeField] protected ParticleSystem defendingParticle;
-
-    [field: SerializeField] public ParticleSystem HealingEffect { get; protected set; }
     [field: SerializeField] public ParticleSystem SlashParticle { get; protected set; }
     public bool HasHeroUnlockedMovement { get; protected set; } = false;
     public bool IsHeroOnNewPosition { get; protected set; } = false;
@@ -52,6 +50,8 @@ public abstract class Hero : Entity
     protected RaycastHit raycastHit;
 
     [field: SerializeField] public VisualEffect attackVFX { get; protected set; }
+    [field: SerializeField] public VisualEffect HealingVFX { get; protected set; }
+
     [SerializeField] private float vfxTimer;
 
     [SerializeField] protected HeroThrowingWeapon heroThrowingWeapon;
@@ -232,7 +232,7 @@ public abstract class Hero : Entity
             HP = HeroData.maxHP;
         }
 
-        HealingEffect.Play();
+        HealingVFX.Play();
         OnHeroHealthChanged?.Invoke(this);
     }
 

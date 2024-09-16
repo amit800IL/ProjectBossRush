@@ -115,13 +115,13 @@ public class HeroesManager : MonoBehaviour
 
         hero.RewardResourcesUI.gameObject.SetActive(true);
 
-        foreach (GameObject item in hero.RewardResources)
+        foreach (GameObject rewardItem in hero.RewardResources)
         {
-            string rewardText = item.GetComponentInChildren<TextMeshProUGUI>().text;
+            string rewardText = rewardItem.GetComponentInChildren<TextMeshProUGUI>().text;
 
             if (rewardText == "0")
             {
-                item.SetActive(false);
+                rewardItem.SetActive(false);
             }
         }
 
