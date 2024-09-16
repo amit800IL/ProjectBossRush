@@ -8,12 +8,14 @@ public struct Effect
     public EffectType Type;
     public int duration;
     public int amount;
+    public string description;
 
     public Effect(Effect effect)
     {
         Type = effect.Type;
         duration = effect.duration;
         amount = effect.amount;
+        description = effect.description;
     }
 
     public Effect(Effect effect, int newDuration)
@@ -21,6 +23,7 @@ public struct Effect
         Type = effect.Type;
         duration = newDuration;
         amount = effect.amount;
+        description = effect.description;
     }
 
     public Effect LowerDuration()
