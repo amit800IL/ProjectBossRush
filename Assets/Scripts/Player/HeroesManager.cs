@@ -154,7 +154,7 @@ public class HeroesManager : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveSymbolToTarget(Hero hero, Vector3 screenPosition, float maxTimer = 1f, float duration = 0f)
+    private IEnumerator MoveSymbolToTarget(Hero hero, Vector3 screenPosition, float maxTimer = 0.8f, float duration = 0f)
     {
         while (duration < maxTimer)
         {
@@ -171,39 +171,22 @@ public class HeroesManager : MonoBehaviour
 
             Vector3 finalTarget = new Vector3();
 
-            for (int i = 0; i < hero.RewardResources.Length; i++)
+            if (hero.RewardResources[0].activeSelf)
             {
-                switch (i)
-                {
-                    case 0:
-                        {
-                            if (hero.RewardResources[0].activeSelf)
-                            {
-                                SymbolMovementToTarget(0, hero, finalTarget, lerpedScreenPos, progress);
-                            }
-                        }
-                        break;
-                    case 1:
-                        {
-                            if (hero.RewardResources[1].activeSelf)
-                            {
-                                SymbolMovementToTarget(1, hero, finalTarget, lerpedScreenPos, progress);
-                            }
-                        }
-                        break;
-                    case 2:
-                        {
-                            if (hero.RewardResources[2].activeSelf)
-                            {
-                                SymbolMovementToTarget(2, hero, finalTarget, lerpedScreenPos, progress);
-                            }
-                        }
-                        break;
-                }
-
-                yield return null;
+                SymbolMovementToTarget(0, hero, finalTarget, lerpedScreenPos, progress);
             }
 
+            if (hero.RewardResources[1].activeSelf)
+            {
+                SymbolMovementToTarget(1, hero, finalTarget, lerpedScreenPos, progress);
+            }
+
+            if (hero.RewardResources[2].activeSelf)
+            {
+                SymbolMovementToTarget(2, hero, finalTarget, lerpedScreenPos, progress);
+            }
+
+            yield return null;
         }
     }
 
@@ -216,7 +199,7 @@ public class HeroesManager : MonoBehaviour
         hero.RewardResources[index].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
     }
 
-    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer = 2f, float duration = 0f)
+    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer = 0.7f, float duration = 0f)
     {
         while (duration < maxTimer)
         {
