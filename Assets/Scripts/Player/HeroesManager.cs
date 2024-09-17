@@ -136,9 +136,9 @@ public class HeroesManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        yield return MoveSymbolToTarget(hero, screenPosition);
+        yield return MoveSymbolToTarget(hero, screenPosition, 1f);
 
-        yield return GiveSymbolReward(hero, screenPosition);
+        yield return GiveSymbolReward(hero, screenPosition, 0.2f);
 
         playerResourceManager.AddSymbolsToUI();
 
@@ -154,7 +154,7 @@ public class HeroesManager : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveSymbolToTarget(Hero hero, Vector3 screenPosition, float maxTimer = 1f, float duration = 0f)
+    private IEnumerator MoveSymbolToTarget(Hero hero, Vector3 screenPosition, float maxTimer, float duration = 0f)
     {
         while (duration < maxTimer)
         {
@@ -199,7 +199,7 @@ public class HeroesManager : MonoBehaviour
         hero.RewardResources[index].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
     }
 
-    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer = 0.2f, float duration = 0f)
+    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer, float duration = 0f)
     {
         while (duration < maxTimer)
         {
