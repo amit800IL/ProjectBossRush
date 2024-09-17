@@ -212,7 +212,7 @@ public class UIManager : MonoBehaviour
     private void RoundNumberChange()
     {
         roundNumber++;
-        roundUI.text = "Round: " + roundNumber.ToString();
+        roundUI.text = "Round " + roundNumber.ToString();
     }
 
     private void BossHealthChange(Boss boss)
