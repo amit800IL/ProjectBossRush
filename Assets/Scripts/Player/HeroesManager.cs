@@ -136,7 +136,6 @@ public class HeroesManager : MonoBehaviour
 
             float progress = timer / maxTimer;
 
-
             float cosX = Mathf.Cos(Time.time * 2f);
             float cosY = Mathf.Cos(Time.time * 2f);
 
