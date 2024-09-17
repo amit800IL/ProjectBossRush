@@ -14,6 +14,7 @@ public class BossTargeting : MonoBehaviour
     }
 
     [SerializeField] private HeroesManager heroesManager;
+    [SerializeField] private DracovidMeteorScript dracovidMeteorScript;
     [SerializeField] private Vector2Int gridSize;
     private List<Hero> targetedHeroes = new();
     private List<Vector2Int> centers = new();
@@ -22,6 +23,10 @@ public class BossTargeting : MonoBehaviour
     {
         //Debug.LogWarning("gridSize needs to be taken from GridManager");
         gridSize = GridManager.Instance.GetGridSize();
+        dracovidMeteorScript.SetTargets(new Transform[3] {
+            heroesManager.heroList[0].transform,
+            heroesManager.heroList[1].transform,
+            heroesManager.heroList[2].transform});
     }
 
     public List<Vector2Int> GetTargetTile(TargetInfo targetInfo)
