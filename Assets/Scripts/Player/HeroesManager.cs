@@ -154,7 +154,7 @@ public class HeroesManager : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveSymbolToTarget(Hero hero, Vector3 screenPosition, float maxTimer = 0.8f, float duration = 0f)
+    private IEnumerator MoveSymbolToTarget(Hero hero, Vector3 screenPosition, float maxTimer = 1f, float duration = 0f)
     {
         while (duration < maxTimer)
         {
@@ -162,10 +162,10 @@ public class HeroesManager : MonoBehaviour
 
             float progress = duration / maxTimer;
 
-            float cosX = Mathf.Cos(Time.time * 2f);
-            float cosY = Mathf.Cos(Time.time * 2f);
+            float cosX = Mathf.Cos(Time.time);
+            float cosY = Mathf.Cos(Time.time);
 
-            Vector3 cosScreenPos = new Vector3(screenPosition.x * Random.Range(cosX, cosY), screenPosition.y * Random.Range(cosY, cosX), 0);
+            Vector3 cosScreenPos = new Vector3(screenPosition.x * cosX, screenPosition.y * cosY, 0);
 
             Vector3 lerpedScreenPos = Vector3.Lerp(screenPosition, cosScreenPos, progress);
 
@@ -199,7 +199,7 @@ public class HeroesManager : MonoBehaviour
         hero.RewardResources[index].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
     }
 
-    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer = 0.7f, float duration = 0f)
+    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer = 0.2f, float duration = 0f)
     {
         while (duration < maxTimer)
         {
