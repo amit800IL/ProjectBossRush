@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -210,6 +209,8 @@ public class HeroesManager : MonoBehaviour
 
     private void SymbolMovementToTarget(int index, Hero hero, Vector3 finalTarget, Vector3 lerpedScreenPos, float progress)
     {
+        hero.RewardResources[index].transform.localScale = new Vector3(1.5f, 1.5f);
+
         finalTarget = rewardTargets[index].transform.position;
 
         hero.RewardResources[index].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
@@ -259,6 +260,8 @@ public class HeroesManager : MonoBehaviour
 
         rewardImage.color = originalColor;
 
+        originalColor.a = 1f;
+
         Color newColor = new Color(rewardImage.color.r, rewardImage.color.g, rewardImage.color.b, 255);
 
         Color finalColor = Color.Lerp(originalColor, newColor, progress);
@@ -270,13 +273,13 @@ public class HeroesManager : MonoBehaviour
     {
         GameObject rewardObject = hero.RewardResources[index];
 
-        Vector3 scale = rewardObject.transform.localScale;
+        Vector3 originalScale = rewardObject.transform.localScale;
 
-        rewardObject.transform.localScale = scale;
+        rewardObject.transform.localScale = originalScale;
 
-        Vector3 newScale = new Vector3(0f, 0f, scale.z);
+        Vector3 newScale = new Vector3(0f, 0f, originalScale.z);
 
-        Vector3 lerpedScale = Vector3.Lerp(scale, newScale, progress);
+        Vector3 lerpedScale = Vector3.Lerp(originalScale, newScale, progress);
 
         rewardObject.transform.localScale = lerpedScale;
     }
