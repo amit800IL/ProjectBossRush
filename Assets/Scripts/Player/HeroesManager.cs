@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -129,18 +130,16 @@ public class HeroesManager : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0.2f);
-
-        yield return MoveSymbolToTarget(hero, screenPosition);
-
         foreach (Image image in fillingImage)
         {
             image.fillAmount = 0;
         }
 
-        yield return GiveSymbolReward(hero, screenPosition);
-       
         yield return new WaitForSeconds(0.2f);
+
+        yield return MoveSymbolToTarget(hero, screenPosition);
+
+        yield return GiveSymbolReward(hero, screenPosition);
 
         playerResourceManager.AddSymbolsToUI();
 
@@ -179,24 +178,26 @@ public class HeroesManager : MonoBehaviour
                 {
                     case 0:
                         {
-                            finalTarget = rewardTargets[0].transform.position;
-
-                            hero.RewardResources[0].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
+                            if (hero.RewardResources[0].activeSelf)
+                            {
+                                SymbolMovementToTarget(0, hero, finalTarget, lerpedScreenPos, progress);
+                            }
                         }
                         break;
                     case 1:
                         {
-                            finalTarget = rewardTargets[1].transform.position;
-
-                            hero.RewardResources[1].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
+                            if (hero.RewardResources[1].activeSelf)
+                            {
+                                SymbolMovementToTarget(1, hero, finalTarget, lerpedScreenPos, progress);
+                            }
                         }
                         break;
                     case 2:
                         {
-                            finalTarget = rewardTargets[2].transform.position;
-
-                            hero.RewardResources[2].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
-
+                            if (hero.RewardResources[2].activeSelf)
+                            {
+                                SymbolMovementToTarget(2, hero, finalTarget, lerpedScreenPos, progress);
+                            }
                         }
                         break;
                 }
@@ -207,32 +208,77 @@ public class HeroesManager : MonoBehaviour
         }
     }
 
-    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer = 1f, float duration = 0f)
+    private void SymbolMovementToTarget(int index, Hero hero, Vector3 finalTarget, Vector3 lerpedScreenPos, float progress)
     {
+        finalTarget = rewardTargets[index].transform.position;
 
+        hero.RewardResources[index].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
+    }
+
+    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer = 2f, float duration = 0f)
+    {
         while (duration < maxTimer)
         {
             duration += Time.deltaTime;
 
-            float progress = duration  / maxTimer;
+            float progress = duration / maxTimer;
 
             if (hero.RewardResources[0].activeSelf)
             {
-                fillingImage[0].fillAmount = Mathf.Lerp(fillingImage[0].fillAmount, 1, progress);
+                PlaceResourceAtPosition(0, hero, progress);
             }
 
             if (hero.RewardResources[1].activeSelf)
             {
-                fillingImage[1].fillAmount = Mathf.Lerp(fillingImage[1].fillAmount, 1, progress);
+                PlaceResourceAtPosition(1, hero, progress);
             }
 
             if (hero.RewardResources[2].activeSelf)
             {
-                fillingImage[2].fillAmount = Mathf.Lerp(fillingImage[2].fillAmount, 1, progress);
+                PlaceResourceAtPosition(2, hero, progress);
             }
 
             yield return null;
         }
+    }
+
+    private void PlaceResourceAtPosition(int index, Hero hero, float progress)
+    {
+        FillImage(index, progress);
+
+        ChangeSymbolObjectScale(hero, index, progress);
+    }
+
+    private void FillImage(int index, float progress)
+    {
+        Image rewardImage = fillingImage[index];
+
+        rewardImage.fillAmount = Mathf.Lerp(rewardImage.fillAmount, 1, progress);
+
+        Color originalColor = new Color(rewardImage.color.r, rewardImage.color.g, rewardImage.color.b, rewardImage.color.a);
+
+        rewardImage.color = originalColor;
+
+        Color newColor = new Color(rewardImage.color.r, rewardImage.color.g, rewardImage.color.b, 255);
+
+        Color finalColor = Color.Lerp(originalColor, newColor, progress);
+
+        rewardImage.color = finalColor;
+    }
+
+    private void ChangeSymbolObjectScale(Hero hero, int index, float progress)
+    {
+        GameObject rewardObject = hero.RewardResources[index];
+
+        Vector3 scale = rewardObject.transform.localScale;
+
+        rewardObject.transform.localScale = scale;
+
+        Vector3 newScale = new Vector3(0f, 0f, scale.z);
+
+        Vector3 lerpedScale = Vector3.Lerp(scale, newScale, progress);
+
+        rewardObject.transform.localScale = lerpedScale;
     }
 
     public void OnAllHeroesDeath(Hero hero)
