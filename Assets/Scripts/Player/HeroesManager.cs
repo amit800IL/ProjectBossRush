@@ -20,7 +20,7 @@ public class HeroesManager : MonoBehaviour
 
     [SerializeField] private float heroAttackDelay = 0f;
 
-    [SerializeField] private RectTransform rewardTarget;
+    [SerializeField] private RectTransform[] rewardTargets;
 
     private void Start()
     {
@@ -111,17 +111,19 @@ public class HeroesManager : MonoBehaviour
 
         Vector3 screenPosition = mainCamera.WorldToScreenPoint(worldPosition);
 
-        hero.RewardResourcesUI.gameObject.transform.position = screenPosition;
-
-        hero.RewardResourcesUI.gameObject.SetActive(true);
-
         foreach (GameObject rewardItem in hero.RewardResources)
         {
+            rewardItem.transform.position = screenPosition;
+
             string rewardText = rewardItem.GetComponentInChildren<TextMeshProUGUI>().text;
 
             if (rewardText == "0")
             {
                 rewardItem.SetActive(false);
+            }
+            else
+            {
+                rewardItem.SetActive(true);
             }
         }
 
@@ -143,14 +145,46 @@ public class HeroesManager : MonoBehaviour
 
             Vector3 lerpedScreenPos = Vector3.Lerp(screenPosition, cosScreenPos, progress);
 
-            hero.RewardResourcesUI.gameObject.transform.position = Vector3.Lerp(lerpedScreenPos, rewardTarget.transform.position, progress);
+            Vector3 finalTarget = new Vector3();
 
+            for (int i = 0; i < hero.RewardResources.Length; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        {
+                            finalTarget = rewardTargets[0].transform.position;
+
+                            hero.RewardResources[0].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
+                        }
+                        break;
+                    case 1:
+                        {
+                            finalTarget = rewardTargets[1].transform.position;
+
+                            hero.RewardResources[1].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
+                        }
+                        break;
+                    case 2:
+                        {
+                            finalTarget = rewardTargets[2].transform.position;
+
+                            hero.RewardResources[2].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
+                        }
+                        break;
+                }
+            }
 
             yield return null;
         }
 
         playerResourceManager.AddSymbolsToUI();
-        hero.RewardResourcesUI.gameObject.SetActive(false);
+
+        foreach (GameObject rewardItem in hero.RewardResources)
+        {
+            rewardItem.transform.position = screenPosition;
+            rewardItem.SetActive(false);
+        }
     }
     public void OnAllHeroesDeath(Hero hero)
     {
