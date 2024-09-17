@@ -22,6 +22,8 @@ public class HeroesManager : MonoBehaviour
 
     [SerializeField] private RectTransform[] rewardTargets;
 
+    [SerializeField] private Image[] fillingImage;
+
     private void Start()
     {
         InitializeHeroList();
@@ -129,14 +131,38 @@ public class HeroesManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        float maxTimer = 1f;
-        float timer = 0f;
+        yield return MoveSymbolToTarget(hero, screenPosition);
 
-        while (timer < maxTimer)
+        foreach (Image image in fillingImage)
         {
-            timer += Time.deltaTime;
+            image.fillAmount = 0;
+        }
 
-            float progress = timer / maxTimer;
+        yield return GiveSymbolReward(hero, screenPosition);
+       
+        yield return new WaitForSeconds(0.2f);
+
+        playerResourceManager.AddSymbolsToUI();
+
+        foreach (GameObject rewardItem in hero.RewardResources)
+        {
+            rewardItem.transform.position = screenPosition;
+            rewardItem.SetActive(false);
+        }
+
+        foreach (Image image in fillingImage)
+        {
+            image.fillAmount = 0;
+        }
+    }
+
+    private IEnumerator MoveSymbolToTarget(Hero hero, Vector3 screenPosition, float maxTimer = 1f, float duration = 0f)
+    {
+        while (duration < maxTimer)
+        {
+            duration += Time.deltaTime;
+
+            float progress = duration / maxTimer;
 
             float cosX = Mathf.Cos(Time.time * 2f);
             float cosY = Mathf.Cos(Time.time * 2f);
@@ -170,22 +196,45 @@ public class HeroesManager : MonoBehaviour
                             finalTarget = rewardTargets[2].transform.position;
 
                             hero.RewardResources[2].transform.position = Vector3.Lerp(lerpedScreenPos, finalTarget, progress);
+
                         }
                         break;
                 }
+
+                yield return null;
+            }
+
+        }
+    }
+
+    private IEnumerator GiveSymbolReward(Hero hero, Vector3 screenPosition, float maxTimer = 1f, float duration = 0f)
+    {
+
+        while (duration < maxTimer)
+        {
+            duration += Time.deltaTime;
+
+            float progress = duration  / maxTimer;
+
+            if (hero.RewardResources[0].activeSelf)
+            {
+                fillingImage[0].fillAmount = Mathf.Lerp(fillingImage[0].fillAmount, 1, progress);
+            }
+
+            if (hero.RewardResources[1].activeSelf)
+            {
+                fillingImage[1].fillAmount = Mathf.Lerp(fillingImage[1].fillAmount, 1, progress);
+            }
+
+            if (hero.RewardResources[2].activeSelf)
+            {
+                fillingImage[2].fillAmount = Mathf.Lerp(fillingImage[2].fillAmount, 1, progress);
             }
 
             yield return null;
         }
-
-        playerResourceManager.AddSymbolsToUI();
-
-        foreach (GameObject rewardItem in hero.RewardResources)
-        {
-            rewardItem.transform.position = screenPosition;
-            rewardItem.SetActive(false);
-        }
     }
+
     public void OnAllHeroesDeath(Hero hero)
     {
         foreach (Hero listHero in heroList)
