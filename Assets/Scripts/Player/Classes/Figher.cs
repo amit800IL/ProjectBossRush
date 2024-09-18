@@ -52,7 +52,7 @@ public class Figher : Hero
         TurnOffAllObects();
 
         object1.SetActive(true);
-        object2.SetActive(true);
+        //object2.SetActive(true);
 
         yield return new WaitForSeconds(1f);
 
@@ -83,14 +83,12 @@ public class Figher : Hero
 
         TurnOffAllObects();
 
-        object3.transform.position = boss.transform.position;
-        object3.SetActive(true);
-
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.08f);
 
         heroAnimator.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(0.2f);
+        object3.transform.position = boss.transform.position;
+        object3.SetActive(true);
 
         boss.TakeDamage(HeroData.damage);
 
