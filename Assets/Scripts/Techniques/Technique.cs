@@ -96,7 +96,7 @@ public class Technique : MonoBehaviour
     {
         if (hero == null) return;
 
-        if (TechData.name == "QuickAttack" && ((hero is Figher && !hero.HeroIsAlive) || (hero is Mage && !hero.HeroIsAlive)))
+        if (TechData.name == "QuickAttack" && ((hero is Figher && !hero.HeroIsAlive) || (hero is Ranger && !hero.HeroIsAlive)))
         {
             activationButton.interactable = false;
         }
