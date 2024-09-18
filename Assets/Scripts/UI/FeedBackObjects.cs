@@ -47,6 +47,8 @@ public class FeedBackObjects : MonoBehaviour
 
     private void OnHeroMark(Hero hero)
     {
+        arrowSprite.transform.position = initialArrowPosition.position;
+
         ResetArrowCoroutine();
 
         if (this.hero == hero)
@@ -147,14 +149,14 @@ public class FeedBackObjects : MonoBehaviour
     {
         arrowSprite.gameObject.SetActive(true);
 
+        float timerMax = 1f;
+        float timeLapse = 0f;
+
         bool isArrowFloating = true;
 
         while (isArrowFloating)
         {
             Vector3 floatingPosition = new Vector3(0, 0.2f, 0);
-
-            float timerMax = 1f;
-            float timeLapse = 0f;
 
             while (timeLapse < timerMax)
             {
@@ -163,8 +165,6 @@ public class FeedBackObjects : MonoBehaviour
                 arrowSprite.transform.position = Vector3.Lerp(originalObjectPosition, originalObjectPosition + floatingPosition, progress);
                 yield return null;
             }
-
-            //arrowSprite.transform.position = originalObjectPosition;
 
             timeLapse = 0f;
 
@@ -175,8 +175,6 @@ public class FeedBackObjects : MonoBehaviour
                 arrowSprite.transform.position = Vector3.Lerp(originalObjectPosition, originalObjectPosition - floatingPosition, progress);
                 yield return null;
             }
-
-            //arrowSprite.transform.position = originalObjectPosition;
 
             yield return null;
         }

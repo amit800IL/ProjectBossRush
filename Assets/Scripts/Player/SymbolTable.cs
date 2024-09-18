@@ -26,7 +26,10 @@ public class SymbolTable
     {
         for (int i = 0; i < SYMBOL_TYPE_COUNT; i++)
         {
-            table[i] += toAdd.table[i];
+            if (table[i] < 9)
+            {
+                table[i] += toAdd.table[i];
+            }
         }
     }
 

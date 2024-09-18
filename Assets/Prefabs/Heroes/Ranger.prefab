@@ -231,6 +231,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &716550450879406950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3126252346390563060}
+  - component: {fileID: 915405252919719385}
+  m_Layer: 0
+  m_Name: MarkArrowPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3126252346390563060
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716550450879406950}
+  m_LocalRotation: {x: -0.42261824, y: -0, z: -0, w: 0.90630776}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalScale: {x: 0.09999997, y: 0.099999994, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 771402950021427342}
+  m_LocalEulerAnglesHint: {x: -50, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 2.42}
+  m_SizeDelta: {x: 10, y: 10}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &915405252919719385
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716550450879406950}
+  m_CullTransparentMesh: 1
 --- !u!1 &774593921391485545
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +761,7 @@ RectTransform:
   m_Children:
   - {fileID: 7380082093751915596}
   - {fileID: 2809576459432765161}
+  - {fileID: 3126252346390563060}
   m_Father: {fileID: 7559903144138348654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -738,7 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hero: {fileID: -6182730332868733307}
   initialFloatingTextPosition: {fileID: 2224333103308652197}
-  initialArrowPosition: {fileID: 2809576459432765161}
+  initialArrowPosition: {fileID: 3126252346390563060}
   defenceFloatingText: {fileID: 5544969394765554223}
   damageFloatingText: {fileID: 5544969394765554223}
   arrowSprite: {fileID: 6942747373731059839}
