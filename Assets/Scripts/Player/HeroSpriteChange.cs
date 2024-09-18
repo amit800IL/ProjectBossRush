@@ -10,49 +10,49 @@ public class HeroSpriteChange : MonoBehaviour
     private int LowHPThreshold = 20;
     private Material previousMaterial;
 
-    private void Start()
-    {
-        Hero.OnHeroHealthChanged += OnHpLow;
-        Hero.OnHeroInjured += OnHpLow;
-        SetMaterial(heroMaterial);
-    }
+    //private void Start()
+    //{
+    //    Hero.OnHeroHealthChanged += OnHpLow;
+    //    Hero.OnHeroInjured += OnHpLow;
+    //    SetMaterial(heroMaterial);
+    //}
 
-    private void OnDisable()
-    {
-        Hero.OnHeroHealthChanged -= OnHpLow;
-        Hero.OnHeroInjured -= OnHpLow;
-    }
+    //private void OnDisable()
+    //{
+    //    Hero.OnHeroHealthChanged -= OnHpLow;
+    //    Hero.OnHeroInjured -= OnHpLow;
+    //}
 
-    public void OnHpLow(Hero hero)
-    {
-        if (hero == this.hero && hero.HP <= LowHPThreshold && hero.HP > 0 && heroSpriteRenderer != null)
-        {
-            SetMaterial(lowHpMaterial);
-        }
-        else
-        {
-            SetMaterial(heroMaterial);
-        }
-    }
+    //public void OnHpLow(Hero hero)
+    //{
+    //    if (hero == this.hero && hero.HP <= LowHPThreshold && hero.HP > 0 && heroSpriteRenderer != null)
+    //    {
+    //        SetMaterial(lowHpMaterial);
+    //    }
+    //    else
+    //    {
+    //        SetMaterial(heroMaterial);
+    //    }
+    //}
 
-    public void SetMaterial(Material material)
-    {
-        if (heroSpriteRenderer.material != material)
-        {
-            heroSpriteRenderer.material = material;
-            previousMaterial = material;
-        }
-    }
+    //public void SetMaterial(Material material)
+    //{
+    //    if (heroSpriteRenderer.material != material)
+    //    {
+    //        heroSpriteRenderer.material = material;
+    //        previousMaterial = material;
+    //    }
+    //}
 
     public void SetMaterialToPrevious()
     {
-        heroSpriteRenderer.material = previousMaterial;
+        //heroSpriteRenderer.material = previousMaterial;
 
-        OnHpLow(hero);
+        //OnHpLow(hero);
     }
 
     public void SetMaterialToNormal()
     {
-        heroSpriteRenderer.material = heroMaterial;
+        //heroSpriteRenderer.material = heroMaterial;
     }
 }

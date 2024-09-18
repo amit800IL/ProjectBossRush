@@ -87,10 +87,13 @@ public abstract class Hero : Entity
 
     public void RestartHeroOnRevive()
     {
-        heroAnimator.SetTrigger("Revive");
-        heroThrowingWeapon.gameObject.SetActive(false);
-        HeroIsAlive = true;
-        OnHeroRevived?.Invoke(this);
+        if (!HeroIsAlive)
+        {
+            heroAnimator.SetTrigger("Revive");
+            heroThrowingWeapon.gameObject.SetActive(false);
+            HeroIsAlive = true;
+            OnHeroRevived?.Invoke(this);
+        }
     }
 
     public virtual IEnumerator ActivateAttackVfx()
@@ -227,6 +230,7 @@ public abstract class Hero : Entity
     private IEnumerator DeactivatePlayerTimer()
     {
         heroThrowingWeapon.gameObject.SetActive(true);
+        heroAnimator.ResetTrigger("Revive");
         heroAnimator.SetTrigger("Death");
         yield return new WaitForSeconds(5f);
         OnHeroDeath?.Invoke(this);

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,7 @@ public class Technique : MonoBehaviour
     [SerializeField] private int cooldown;
 
     [Header("Debug")]
+    [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private TextMeshProUGUI nameText;
     //[SerializeField] private Image cardBG;
     [SerializeField] private Button activationButton;
@@ -81,11 +83,16 @@ public class Technique : MonoBehaviour
         {
             activationButton.interactable = false;
         }
+
+        if (TechData.Name == "Revive" && heroesManager.heroList.All(hero => hero.HeroIsAlive))
+        {
+            activationButton.interactable = false;
+        }
     }
 
     private void UpdateUsability(Hero hero)
     {
-        if (TechData.RequiresTargetHero && cooldown <= 1)
+        if (TechData.RequiresTargetHero && cooldown <= 1 && hero.HP < hero.HeroData.maxHP)
             activationButton.interactable = (hero != null);
     }
 
