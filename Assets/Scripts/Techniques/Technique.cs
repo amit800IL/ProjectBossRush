@@ -35,6 +35,7 @@ public class Technique : MonoBehaviour
         PlayerController.OnHeroMarked += UpdateUsability;
         TurnsManager.OnPlayerTurnStart += ShowCooldown;
         TurnsManager.OnPlayerTurnStart += UpdateUsability;
+        Hero.OnHeroDeath += UpdateQuickAttackUsability;
         SelectTechnique += UpdateUsability;
         SelectTechnique += ShowCooldown;
 
@@ -47,6 +48,7 @@ public class Technique : MonoBehaviour
         PlayerController.OnHeroMarked -= UpdateUsability;
         TurnsManager.OnPlayerTurnStart -= ShowCooldown;
         TurnsManager.OnPlayerTurnStart -= UpdateUsability;
+        Hero.OnHeroDeath -= UpdateQuickAttackUsability;
         SelectTechnique -= UpdateUsability;
         SelectTechnique -= ShowCooldown;
     }
@@ -90,12 +92,27 @@ public class Technique : MonoBehaviour
         }
     }
 
-    private void UpdateUsability(Hero hero)
+    private void UpdateQuickAttackUsability(Hero hero)
     {
         if (hero == null) return;
 
+        if (TechData.name == "QuickAttack" && ((hero is Figher && !hero.HeroIsAlive) || (hero is Mage && !hero.HeroIsAlive)))
+        {
+            activationButton.interactable = false;
+        }
+    }
+
+    private void UpdateUsability(Hero hero)
+    {
+        if (hero == null)
+        {
+            activationButton.interactable = false;
+            return;
+        }
+
         if (TechData.RequiresTargetHero && cooldown <= 1)
             activationButton.interactable = true;
+
 
         if (TechData.RequiresTargetHero && TechData.Name == "Heal" && hero.HP >= hero.HeroData.maxHP)
             activationButton.interactable = false;
