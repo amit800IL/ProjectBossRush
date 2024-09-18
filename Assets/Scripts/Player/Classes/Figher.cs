@@ -10,7 +10,7 @@ public class Figher : Hero
     private bool isSequenceRunning = false;
     protected override void Start()
     {
-        SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
+        //SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Fighter);
         base.Start();
     }
 

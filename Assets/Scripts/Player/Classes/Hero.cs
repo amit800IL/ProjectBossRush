@@ -39,7 +39,7 @@ public abstract class Hero : Entity
     public bool IsHeroOnNewPosition { get; protected set; } = false;
 
     [field: Header("Symbol Table")]
-    [field: SerializeField] public SymbolTable SymbolTable { get; protected set; }
+    [field: SerializeField] public SymbolTable SymbolTable { get; protected set; } = new SymbolTable();
 
     protected int movementAmount = 0;
 

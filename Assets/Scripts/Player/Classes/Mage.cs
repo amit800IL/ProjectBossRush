@@ -5,7 +5,7 @@ public class Mage : Hero
 
     protected override void Start()
     {
-        SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
+        //SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Mage);
         base.Start();
     }
     public override bool CanHeroAttack(Boss boss)

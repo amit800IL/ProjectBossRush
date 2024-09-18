@@ -1714,8 +1714,6 @@ MonoBehaviour:
   <heroAnimator>k__BackingField: {fileID: 4055011698455528204}
   heroSpriteRenderer: {fileID: 5670658661669503013}
   spriteChange: {fileID: 86562549729304831}
-  <RewardSymbolTable>k__BackingField:
-    table: 000000000000000000000000000000000000000000000000
   <RewardResourcesUI>k__BackingField: {fileID: 5868890495568014492}
   <RewardResources>k__BackingField:
   - {fileID: 5761198220821709165}
@@ -1725,7 +1723,7 @@ MonoBehaviour:
   defendingParticle: {fileID: 4633142284472209159}
   <SlashParticle>k__BackingField: {fileID: 5760940764760878894}
   <SymbolTable>k__BackingField:
-    table: 000000000000000000000000000000000000000000000000
+    table: 000000000300000000000000000000000000000000000000
   <HeroData>k__BackingField: {fileID: 11400000, guid: 60b3bbec89804e04eac02c5ae768c4fa, type: 2}
   <HP>k__BackingField: 0
   <attackVFX>k__BackingField: {fileID: 0}

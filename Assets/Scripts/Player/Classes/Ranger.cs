@@ -5,7 +5,7 @@ public class Ranger : Hero
 
     protected override void Start()
     {
-        SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
+        //SymbolTable = new SymbolTable((int)SymbolTable.Symbols.Ranger);
         base.Start();
     }
     public override bool CanHeroAttack(Boss boss)
