@@ -16,11 +16,11 @@ MonoBehaviour:
   RequiresTargetHero: 0
   particleObject: {fileID: 0}
   Requirements:
-    table: 020000000000000002000000000000000000000000000000
-  APCost: 2
-  Cooldown: 2
+    table: 060000000600000006000000000000000000000000000000
+  APCost: 4
+  Cooldown: 3
   Effects:
   - Type: 0
     duration: 1
-    amount: 6
+    amount: 45
     description: 

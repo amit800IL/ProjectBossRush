@@ -16,5 +16,5 @@ MonoBehaviour:
   headshotSprite: {fileID: 21300000, guid: 2c1bf058ebf7d0f4599cfbdd42fa665f, type: 3}
   maxHP: 40
   maxMovementAmount: 3
-  damage: 1
-  defense: 10
+  damage: 3
+  defense: 5
