@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     [Header("Boss UI")]
 
     [SerializeField] private Image bossHealthBar;
+    [SerializeField] private TextMeshProUGUI bossHealthText;
 
     [Header("AP UI")]
 
@@ -218,6 +219,7 @@ public class UIManager : MonoBehaviour
     private void BossHealthChange(Boss boss)
     {
         bossHealthBar.fillAmount = (float)boss.HP / boss.maxHP;
+        bossHealthText.text = $"{boss.HP}/{boss.maxHP}";
     }
 
     private void ShowWinScreen()

@@ -24,7 +24,7 @@ public class Boss : MonoBehaviour
     [field: Header("Boss Attributes")]
 
     [field: SerializeField] public int maxHP { get; private set; } = 100;
-    public int HP { get; private set; } = 0;
+    [field: SerializeField] public int HP { get; private set; } = 0;
     [field: SerializeField] public float Damage { get; private set; } = 0.0f;
 
     [SerializeField] private float Defense = 0.0f;
@@ -43,6 +43,7 @@ public class Boss : MonoBehaviour
     {
         HP = maxHP;
         bossTargeting.Init();
+        OnEnemyHealthChanged.Invoke(this);
     }
 
     public void BossRestart()
