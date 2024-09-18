@@ -92,8 +92,13 @@ public class Technique : MonoBehaviour
 
     private void UpdateUsability(Hero hero)
     {
-        if (TechData.RequiresTargetHero && cooldown <= 1 && hero.HP < hero.HeroData.maxHP)
-            activationButton.interactable = (hero != null);
+        if (hero == null) return;
+
+        if (TechData.RequiresTargetHero && cooldown <= 1)
+            activationButton.interactable = true;
+
+        if (TechData.RequiresTargetHero && TechData.Name == "Heal" && hero.HP >= hero.HeroData.maxHP)
+            activationButton.interactable = false;
     }
 
 
