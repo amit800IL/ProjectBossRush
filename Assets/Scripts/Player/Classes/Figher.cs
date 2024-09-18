@@ -16,12 +16,19 @@ public class Figher : Hero
 
     public override bool CanHeroAttack(Boss boss)
     {
+        heroAnimator.transform.localPosition = Vector3.zero; //bandaid fix because animator is stupid
         if (AttackPosCondition(currentTile))
         {
             Vector3 positionOffset = new Vector3(0, -2, 0);
-            berzekerProjectile.MoveProjectile(boss.transform.position + positionOffset);
+            StartCoroutine(BerzerkerVFXDelay(positionOffset + boss.transform.position));
         }
         return AttackPosCondition(currentTile);
+    }
+
+    private IEnumerator BerzerkerVFXDelay(Vector3 toPos)
+    {
+        yield return new WaitForSeconds(0.4f);
+        berzekerProjectile.MoveProjectile(toPos);
     }
 
     public override bool CanHeroDefend()
@@ -78,7 +85,7 @@ public class Figher : Hero
 
             object2.transform.position = transform.position;
 
-            yield return null; 
+            yield return null;
         }
 
         TurnOffAllObects();
