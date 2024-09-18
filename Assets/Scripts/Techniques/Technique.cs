@@ -100,6 +100,11 @@ public class Technique : MonoBehaviour
         {
             activationButton.interactable = false;
         }
+
+        if (TechData.Name == "Revive" && !hero.HeroIsAlive)
+        {
+            activationButton.interactable = true;
+        }
     }
 
     private void UpdateUsability(Hero hero)

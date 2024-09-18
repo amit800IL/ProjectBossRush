@@ -21,7 +21,7 @@ public abstract class Hero : Entity
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
     [SerializeField] private HeroSpriteChange spriteChange;
-    [field: SerializeField] public SymbolTable RewardSymbolTable { get; private set; }
+    public SymbolTable RewardSymbolTable { get; private set; }
     [field: SerializeField] public SymbolUI RewardResourcesUI { get; private set; }
 
     [field: SerializeField] public GameObject[] RewardResources { get; private set; }
@@ -30,6 +30,8 @@ public abstract class Hero : Entity
     [field: SerializeField] public ParticleSystem SlashParticle { get; protected set; }
     public bool HasHeroUnlockedMovement { get; protected set; } = false;
     public bool IsHeroOnNewPosition { get; protected set; } = false;
+
+    [field : Header("Symbol Table")]
     [field: SerializeField] public SymbolTable SymbolTable { get; protected set; }
 
     protected int movementAmount = 0;
