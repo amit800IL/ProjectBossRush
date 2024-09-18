@@ -3236,7 +3236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TechData>k__BackingField: {fileID: 11400000, guid: d787e08f3361ee0469dae027712952af, type: 2}
   cooldown: 0
-  heroesManager: {fileID: 603676718}
+  heroesManager: {fileID: 0}
   nameText: {fileID: 1016289745}
   activationButton: {fileID: 370184407}
   numText: {fileID: 736843454}
@@ -6505,7 +6505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TechData>k__BackingField: {fileID: 11400000, guid: bd48c500af752cb4f9cf89f9143a9ffb, type: 2}
   cooldown: 0
-  heroesManager: {fileID: 603676718}
+  heroesManager: {fileID: 0}
   nameText: {fileID: 376183448}
   activationButton: {fileID: 649092713}
   numText: {fileID: 1448744867}
@@ -19070,7 +19070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TechData>k__BackingField: {fileID: 11400000, guid: bee8951bb2a10eb428a125177219281b, type: 2}
   cooldown: 0
-  heroesManager: {fileID: 603676718}
+  heroesManager: {fileID: 0}
   nameText: {fileID: 865943458}
   activationButton: {fileID: 2016243023}
   numText: {fileID: 1190358102}
