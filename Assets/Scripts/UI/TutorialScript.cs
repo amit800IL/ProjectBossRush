@@ -17,17 +17,14 @@ public class TutorialScript : MonoBehaviour
 
     int currentPage = 0;
 
-    private void OnEnable()
-    {
-        StartTutorial();
-    }
+    //private void OnEnable()
+    //{
+    //    StartTutorial();
+    //}
 
     private void Start()
     {
-        if (!playTutorial)
-        {
-            FinishTutorial();
-        }
+        StartTutorial();
     }
 
     private void Update()
@@ -50,6 +47,11 @@ public class TutorialScript : MonoBehaviour
 
     public void StartTutorial()
     {
+        if (!playTutorial)
+        {
+            FinishTutorial();
+        }
+
         currentPage = 0;
         tutorialPages[0].SetActive(true);
         UpdatePageNum();

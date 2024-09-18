@@ -9,22 +9,29 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroHealthChanged;
     public static event Action<Hero> OnHeroDefenceChanged;
     public static event Action<Hero> OnHeroDeath;
+    public static event Action<Hero> OnHeroRevived;
 
     public static event Action<Hero> OnHeroWalk;
     public static event Action<Hero> OnHeroAttack;
     public static event Action<Hero> OnHeroDefend;
     public static event Action<Hero> OnHeroInjured;
 
+    public bool HeroIsAlive { get; private set; } = true;
+
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
     [SerializeField] private HeroSpriteChange spriteChange;
+    public SymbolTable RewardSymbolTable { get; private set; }
+    [field: SerializeField] public SymbolUI RewardResourcesUI { get; private set; }
+
+    [field: SerializeField] public GameObject[] RewardResources { get; private set; }
     [field: SerializeField] public ParticleSystem AttackingParticle { get; protected set; }
     [SerializeField] protected ParticleSystem defendingParticle;
-
-    [field: SerializeField] public ParticleSystem HealingEffect { get; protected set; }
     [field: SerializeField] public ParticleSystem SlashParticle { get; protected set; }
     public bool HasHeroUnlockedMovement { get; protected set; } = false;
     public bool IsHeroOnNewPosition { get; protected set; } = false;
+
+    [field : Header("Symbol Table")]
     [field: SerializeField] public SymbolTable SymbolTable { get; protected set; }
 
     protected int movementAmount = 0;
@@ -44,10 +51,21 @@ public abstract class Hero : Entity
 
     protected RaycastHit raycastHit;
 
-    [SerializeField] protected VisualEffect attackVFX;
+    [field: SerializeField] public VisualEffect attackVFX { get; protected set; }
+
+    [SerializeField] protected VisualEffect FrontHealingVFX;
+    [SerializeField] protected VisualEffect BackHealingVFX;
+
     [SerializeField] private float vfxTimer;
 
+    [SerializeField] protected HeroThrowingWeapon heroThrowingWeapon;
+
     protected virtual void Start()
+    {
+        HeroSpawn();
+    }
+
+    public void HeroSpawn()
     {
         HP = HeroData.maxHP;
 
@@ -58,13 +76,34 @@ public abstract class Hero : Entity
 
         if (attackVFX != null)
             attackVFX.Stop();
+
+        if (FrontHealingVFX != null)
+            FrontHealingVFX.Stop();
+
+        if (BackHealingVFX != null)
+            BackHealingVFX.Stop();
+
+
+        movementAmount = HeroData.maxMovementAmount;
     }
 
-    protected virtual IEnumerator ActivateAttackVfx()
+    public void RestartHeroOnRevive()
+    {
+        if (!HeroIsAlive)
+        {
+            heroAnimator.SetTrigger("Revive");
+            heroThrowingWeapon.gameObject.SetActive(false);
+            HeroIsAlive = true;
+            OnHeroRevived?.Invoke(this);
+        }
+    }
+
+    public virtual IEnumerator ActivateAttackVfx()
     {
         if (attackVFX != null)
         {
             attackVFX.Play();
+            heroAnimator.SetTrigger("Attack");
             yield return new WaitForSeconds(vfxTimer);
             attackVFX.Stop();
         }
@@ -114,17 +153,25 @@ public abstract class Hero : Entity
 
     public bool CanHeroMove(int amountToReduce)
     {
-        return movementAmount > 0 && movementAmount >= amountToReduce;
+        if (movementAmount >= amountToReduce)
+        {
+            return true;
+        }
+        //else Debug.Log($"movement = {movementAmount}, amount to reduce = {amountToReduce}");
+        return false;
+        //return movementAmount > 0 && movementAmount >= amountToReduce;
     }
+
+    public int GetHeroMovement() { return movementAmount; }
 
     public void HeroNewTurnRestart()
     {
-        movementAmount = 0;
+        //movementAmount = 0;
     }
 
     public void ResetHeroMovement()
     {
-        movementAmount = 0;
+        //movementAmount = 0;
         HasHeroUnlockedMovement = false;
     }
 
@@ -163,13 +210,20 @@ public abstract class Hero : Entity
             HP -= incDmg;
         }
 
+        if (HP <= 0)
+        {
+            HP = 0;
+            HeroIsAlive = false;
+        }
+
+        heroAnimator.SetTrigger("Injured");
+
         OnHeroHealthChanged?.Invoke(this);
         OnHeroDefenceChanged?.Invoke(this);
 
-        heroAnimator.SetTrigger("Injured");
         OnHeroInjured?.Invoke(this);
 
-        if (HP <= 0)
+        if (HP <= 0 && gameObject.activeSelf)
         {
             StartCoroutine(DeactivatePlayerTimer());
         }
@@ -177,8 +231,10 @@ public abstract class Hero : Entity
 
     private IEnumerator DeactivatePlayerTimer()
     {
+        heroThrowingWeapon.gameObject.SetActive(true);
+        heroAnimator.ResetTrigger("Revive");
         heroAnimator.SetTrigger("Death");
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f);
         OnHeroDeath?.Invoke(this);
         gameObject.SetActive(false);
     }
@@ -191,7 +247,8 @@ public abstract class Hero : Entity
             HP = HeroData.maxHP;
         }
 
-        HealingEffect.Play();
+        FrontHealingVFX.Play();
+        BackHealingVFX.Play();
         OnHeroHealthChanged?.Invoke(this);
     }
 
@@ -200,7 +257,7 @@ public abstract class Hero : Entity
         if (CanHeroAttack(boss))
         {
             AttackingParticle.Play();
-            boss.TakeDamage(HeroData.damage);
+            boss.TakeDamage(SymbolTable.GetDamage());
             OnHeroAttack?.Invoke(this);
             StartCoroutine(ActivateAttackVfx());
             return true;
@@ -214,7 +271,7 @@ public abstract class Hero : Entity
 
     public bool Defend()
     {
-        if (CanHeroDefend() && tempHP < HeroData.maxHP)
+        if (CanHeroDefend())
         {
             tempHP += HeroData.defense;
             OnHeroDefenceChanged?.Invoke(this);
@@ -234,7 +291,6 @@ public abstract class Hero : Entity
     public abstract bool DefendPosCondition(Tile tile);
 
 }
-
 
 
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Tile : MonoBehaviour
 {
@@ -9,11 +10,20 @@ public class Tile : MonoBehaviour
     [field: SerializeField] public Transform OccupantContainer { get; private set; }
     [SerializeField] private TileType[] tileType;
     [SerializeField] private List<Effect> effectsOnTile = new();
+    [SerializeField] GameObject InRangeDecal;
     [SerializeField] GameObject AttackDecal;
     [SerializeField] GameObject DefendDecal;
     [SerializeField] GameObject EffectVisual;
+    [SerializeField] GameObject EffectVFX;
+    [SerializeField] TextMeshPro EffectCounterText;
     private Entity occupant;
     public bool IsTileOccupied => occupant != null;
+
+    private void Start()
+    {
+        UpdateEffectsCounterText();
+    }
+
     public void Initialize(int x, int y)
     {
         tilePosition = new Vector2Int(x, y);
@@ -34,13 +44,21 @@ public class Tile : MonoBehaviour
         return false;
     }
 
+    //true if other tile shares 1 edge with this tile
+    public bool IsTileNeighboring(Tile otherTile)
+    {
+        Vector2Int otherPos = otherTile.tilePosition;
+        return (tilePosition.x == otherPos.x && Mathf.Abs(tilePosition.y - otherPos.y) == 1 ||
+            tilePosition.y == otherPos.y && Mathf.Abs(tilePosition.x - otherPos.x) == 1);
+    }
+
     public void OccupyTile(Entity ocuupantObject)
     {
         occupant = ocuupantObject;
 
         ocuupantObject.transform.position = OccupantContainer.position;
 
-        ApplyEffectToOccupant();
+        ApplyEffectsToOccupant();
     }
 
     public void ClearTile()
@@ -65,6 +83,25 @@ public class Tile : MonoBehaviour
         DefendDecal.SetActive(false);
     }
 
+    public void HighlightIfInRange(Tile otherTile, int range)
+    {
+        Vector2Int otherPos = otherTile.tilePosition;
+        if (Mathf.Abs(tilePosition.y - otherPos.y) + Mathf.Abs(tilePosition.x - otherPos.x) <= range)
+        {
+            InRangeDecal.SetActive(true);
+        }
+        else
+        {
+            InRangeDecal.SetActive(false);
+
+        }
+    }
+
+    public void RemoveHighlight()
+    {
+        InRangeDecal.SetActive(false);
+    }
+
     public void AddTileEffect(Effect effect)
     {
         for (int i = 0; i < effectsOnTile.Count; i++)
@@ -77,27 +114,45 @@ public class Tile : MonoBehaviour
         }
         effectsOnTile.Add(effect);
         EffectVisual.SetActive(true);
+        EffectVFX.SetActive(true);
     }
 
+    //called on every tile
     public void UpdateEffects()
     {
-        for (int i = 0; i < effectsOnTile.Count; i++)
+        if (effectsOnTile.Count > 0)
         {
-            if (effectsOnTile[i].duration > 1)
+            for (int i = 0; i < effectsOnTile.Count; i++)
             {
-                effectsOnTile[i] = effectsOnTile[i].LowerDuration();
+                if (effectsOnTile[i].duration > 1)
+                {
+                    effectsOnTile[i] = effectsOnTile[i].LowerDuration();
+                }
+                else
+                {
+                    effectsOnTile.RemoveAt(i);
+                    EffectVisual.SetActive(false);
+                    i--;
+                }
             }
-            else
-            {
-                effectsOnTile.RemoveAt(i);
-                EffectVisual.SetActive(false);
-                i--;
-            }
+            ApplyEffectsToOccupant();
         }
-        ApplyEffectToOccupant();
+        UpdateEffectsCounterText();
     }
 
-    private void ApplyEffectToOccupant()
+    private void UpdateEffectsCounterText()
+    {
+        if (effectsOnTile.Count > 0)
+        {
+            EffectCounterText.text = effectsOnTile[0].duration.ToString();
+        }
+        else
+        {
+            EffectCounterText.text = string.Empty;
+        }
+    }
+
+    private void ApplyEffectsToOccupant()
     {
         foreach (Effect effect in effectsOnTile)
         {

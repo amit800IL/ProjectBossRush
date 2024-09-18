@@ -3,46 +3,56 @@ using UnityEngine;
 public class HeroSpriteChange : MonoBehaviour
 {
     [SerializeField] private Hero hero;
+    [SerializeField] private Sprite idleSprite;
     [SerializeField] private SpriteRenderer heroSpriteRenderer;
     [SerializeField] private Material heroMaterial;
     [SerializeField] private Material lowHpMaterial;
-    [SerializeField] private Material markMaterial;
     private int LowHPThreshold = 20;
+    private Material previousMaterial;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    Hero.OnHeroHealthChanged += OnHpLow;
+    //    Hero.OnHeroInjured += OnHpLow;
+    //    SetMaterial(heroMaterial);
+    //}
+
+    //private void OnDisable()
+    //{
+    //    Hero.OnHeroHealthChanged -= OnHpLow;
+    //    Hero.OnHeroInjured -= OnHpLow;
+    //}
+
+    //public void OnHpLow(Hero hero)
+    //{
+    //    if (hero == this.hero && hero.HP <= LowHPThreshold && hero.HP > 0 && heroSpriteRenderer != null)
+    //    {
+    //        SetMaterial(lowHpMaterial);
+    //    }
+    //    else
+    //    {
+    //        SetMaterial(heroMaterial);
+    //    }
+    //}
+
+    //public void SetMaterial(Material material)
+    //{
+    //    if (heroSpriteRenderer.material != material)
+    //    {
+    //        heroSpriteRenderer.material = material;
+    //        previousMaterial = material;
+    //    }
+    //}
+
+    public void SetMaterialToPrevious()
     {
-        PlayerController.OnHeroMarked += HeroMark;
-        Hero.OnHeroHealthChanged += OnHpLow;
+        //heroSpriteRenderer.material = previousMaterial;
+
+        //OnHpLow(hero);
     }
 
-    private void OnDisable()
+    public void SetMaterialToNormal()
     {
-        PlayerController.OnHeroMarked -= HeroMark;
-        Hero.OnHeroHealthChanged -= OnHpLow;
-    }
-
-    public void OnHpLow(Hero hero)
-    {
-        if (hero == this.hero && hero.HP <= LowHPThreshold && hero.HP > 0 && heroSpriteRenderer != null)
-        {
-            heroSpriteRenderer.material = lowHpMaterial;
-        }
-        else
-        {
-            heroSpriteRenderer.material = heroMaterial;
-        }
-    }
-
-    private void HeroMark(Hero hero)
-    {
-        if (heroSpriteRenderer != null && this.hero == hero)
-        {
-            heroSpriteRenderer.material = markMaterial;
-        }
-        else
-        {
-            heroSpriteRenderer.material = heroMaterial;
-        }
-
+        //heroSpriteRenderer.material = heroMaterial;
     }
 }

@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -29,16 +31,18 @@ public class Boss : MonoBehaviour
 
     [Header("Attacking actions")]
 
-    [SerializeField] private BossTargeting bossTargeting;
+    [SerializeField] private BossTargeting bossTargeting; //better to assign at Start
     private List<Vector2Int> targetTiles;
     [SerializeField] private GameObject debugMarkerPrefab;
+    [SerializeField] private TextMeshPro attackText;
     [SerializeField] private List<BossActionSetter> enemyActions;
     private RaycastHit raycastHit;
     public List<GameObject> currentAttackMarker = new();
 
-    private void Start()
+    public void Init()
     {
         HP = maxHP;
+        bossTargeting.Init();
     }
 
     public void BossRestart()
@@ -63,10 +67,17 @@ public class Boss : MonoBehaviour
 
         if (HP <= 0)
         {
-            IsBossAlive = false;
-            OnBossDeath?.Invoke();
-            gameObject.SetActive(false);
+            StartCoroutine(DeactivateBossTimer());
         }
+    }
+
+    private IEnumerator DeactivateBossTimer()
+    {
+        bossAnimator.SetTrigger("Death");
+        IsBossAlive = false;
+        yield return new WaitForSeconds(5f);
+        OnBossDeath?.Invoke();
+        gameObject.SetActive(false);
     }
 
     public void InteractWithTiles(bool VisualizeAttack) //instead of taking a parameter, bool should be dependant per attack
@@ -86,10 +97,12 @@ public class Boss : MonoBehaviour
                 targetTiles = ReadBossAction(attackIndex);
                 foreach (Vector2Int tilePosition in targetTiles)
                 {
+                    print(tilePosition);
                     Tile tile = tiles[tilePosition.x, tilePosition.y];
                     currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
                 }
             }
+            attackText.text = $"{currentAction.ActionName}\n{currentAction.Power} Damage";
         }
         else
         {
@@ -101,8 +114,8 @@ public class Boss : MonoBehaviour
 
             currentAction.EnemyAction.DoActionOnTiles(targetTiles, currentAction.Power);
 
-            bossAnimator.SetTrigger("Attack");
             if (currentAction.BossVFX != null) currentAction.BossVFX.SetActive(true);
+
             if (currentAction.HitVFX != null)
             {
                 Vector2Int hitPos = bossTargeting.GetCenters()[0];
@@ -119,6 +132,11 @@ public class Boss : MonoBehaviour
             currentAttackMarker.Clear();
             HasBossAttacked = true;
         }
+    }
+
+    public void PlayActionAnimation()
+    {
+        bossAnimator.SetTrigger(enemyActions[attackIndex].ActionName);
     }
 
     private void PerformAction(BossActionSetter action, Tile tile)
@@ -148,6 +166,7 @@ public class Boss : MonoBehaviour
 [System.Serializable]
 public class BossActionSetter
 {
+    [SerializeField] private string actionName;
     [field: SerializeField] private EnemyAction enemyAction;
     [SerializeField] private int power;
     [SerializeField] private TargetInfo target;
@@ -156,6 +175,7 @@ public class BossActionSetter
     [SerializeField] private GameObject bossVFX;
     [SerializeField] private GameObject hitVFX;
 
+    public string ActionName { get => actionName; private set => actionName = value; }
     public EnemyAction EnemyAction { get => enemyAction; private set => enemyAction = value; }
     public int Power { get => power; private set => power = value; }
     public TargetInfo Target { get => target; private set => target = value; }

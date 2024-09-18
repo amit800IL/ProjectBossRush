@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerResourceManager : MonoBehaviour
 {
     public static event Action<int> OnAPChanged;
+    public static event Action<int> OnAPShow;
+    public static event Action<int> OnAPStopShow;
     public static event Action<Effect[], Hero> OnTechniqueUsed;
 
     [Header("AP count")]
@@ -11,12 +13,15 @@ public class PlayerResourceManager : MonoBehaviour
     [SerializeField] private int maxAP;
     [SerializeField] private int AP;
     [SerializeField] private SymbolTable playerSymbolTable = new SymbolTable();
+    private SymbolTable rewardSymbolTable = new SymbolTable();
 
     [Header("Techniques")]
 
     [SerializeField] private Technique[] techniques;
     [SerializeField] private Technique selectedTechnique;
     [SerializeField] private Transform vfxInstiniatePosition;
+    [SerializeField] private QuickAttackSequence quickAttackSequence;
+    [SerializeField] private GameObject reviveButtonsPanel;
 
     [Header("Other")]
 
@@ -27,37 +32,32 @@ public class PlayerResourceManager : MonoBehaviour
     private void Start()
     {
         Technique.SelectTechnique += SetSelectedCombo;
-        TurnsManager.OnPlayerTurnStart += RollCooldowns;
-        TurnsManager.OnPlayerTurnStart += ResetAP;
         PlayerController.OnHeroMarked += SetSelectedHero;
+        //TurnsManager.OnPlayerTurnStart += RollCooldowns;
+        TurnsManager.OnPlayerTurnStart += ResetAP;
     }
 
     private void OnDestroy()
     {
         Technique.SelectTechnique -= SetSelectedCombo;
-        TurnsManager.OnPlayerTurnStart -= RollCooldowns;
+        PlayerController.OnHeroMarked += SetSelectedHero;
+        //TurnsManager.OnPlayerTurnStart -= RollCooldowns;
         TurnsManager.OnPlayerTurnStart -= ResetAP;
-        PlayerController.OnHeroMarked -= SetSelectedHero;
-    }
-
-    private void SetSelectedHero(Hero hero)
-    {
-        selectedHero = hero;
-
-        if (hero != null)
-        {
-            UpdateSymbolUI(hero);
-        }
-        else
-        {
-            heroSymbolUI.ResetUI();
-        }
     }
 
     #region Combos
 
+    private void SetSelectedHero(Hero hero)
+    {
+        if (hero == null) return;
+
+        selectedHero = hero;
+    }
+
     private void SetSelectedCombo(Technique selected)
     {
+        if (selected == null || selected.HasComboBeenUsed) return;
+
         selectedTechnique = selected;
 
         UseTechnique();
@@ -81,17 +81,17 @@ public class PlayerResourceManager : MonoBehaviour
             {
                 if (playerSymbolTable.Contains(selectedTechnique.GetRequirements()))
                 {
-                    if (vfxInstiniatePosition != null && selectedTechnique.TechData.Name == "Fireball")
-                    {
-                        GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
-                        Destroy(instanitiedParticle, 5f);
-                    }
+                    ActivateComboByName();
 
                     UseSymbols(selectedTechnique.GetRequirements());
-                    UseAP(selectedTechnique.GetAPCost());
-                    OnTechniqueUsed.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+                    TryUseAP(selectedTechnique.GetAPCost());
+
+                    OnTechniqueUsed?.Invoke(selectedTechnique.GetTechEffects(), selectedHero);
+
                     selectedTechnique.StartCooldown();
                     UpdateSymbolUI();
+
+                    selectedTechnique.HasComboBeenUsed = true;
                 }
                 else Debug.Log($"not enough symbols {selectedTechnique.GetRequirements()} \n {playerSymbolTable}");
             }
@@ -106,7 +106,47 @@ public class PlayerResourceManager : MonoBehaviour
     public void AddSymbols(SymbolTable toAdd)
     {
         playerSymbolTable.Add(toAdd);
+    }
+
+    public void AddRewardSymbols(Hero hero, SymbolTable toAdd)
+    {
+        hero.RewardSymbolTable.Add(toAdd);
+        hero.RewardResourcesUI.UpdateUI(hero.RewardSymbolTable.ToShortString());
+    }
+
+    public void ClearRewardSymbolTable(Hero hero)
+    {
+        hero.RewardSymbolTable.Remove(hero.RewardSymbolTable);
+    }
+
+    public void AddSymbolsToUI()
+    {
         UpdateSymbolUI();
+    }
+    private void ActivateComboByName()
+    {
+        switch (selectedTechnique.TechData.Name)
+        {
+            case "Fireball":
+                {
+                    if (vfxInstiniatePosition != null)
+                    {
+                        GameObject instanitiedParticle = Instantiate(selectedTechnique.TechData.particleObject, vfxInstiniatePosition.position, Quaternion.identity);
+                        Destroy(instanitiedParticle, 5f);
+
+                    }
+                }
+                break;
+
+            case "Quick Attack":
+                quickAttackSequence.TriggerSequence();
+                break;
+
+            case "Revive":
+                reviveButtonsPanel.SetActive(true);
+                break;
+
+        }
     }
 
     //[ContextMenu("add test table")]
@@ -138,10 +178,6 @@ public class PlayerResourceManager : MonoBehaviour
         generalSymbolUI.UpdateUI(playerSymbolTable.ToShortString());
     }
 
-    private void UpdateSymbolUI(Hero hero)
-    {
-        heroSymbolUI.UpdateUI(hero.SymbolTable.ToShortString());
-    }
     #endregion
 
     #region AP
@@ -160,7 +196,7 @@ public class PlayerResourceManager : MonoBehaviour
         OnAPChanged?.Invoke(AP);
     }
 
-    public bool UseAP(int amount)
+    public bool TryUseAP(int amount)
     {
         if (HasEnoughAP(amount))
         {
@@ -168,7 +204,21 @@ public class PlayerResourceManager : MonoBehaviour
             OnAPChanged?.Invoke(AP);
             return true;
         }
+
         return false;
+    }
+
+    public void ShowApUse(int amount)
+    {
+        if (HasEnoughAP(amount))
+        {
+            OnAPShow?.Invoke(AP - amount);
+        }
+    }
+
+    public void StopShowApUse()
+    {
+        OnAPStopShow?.Invoke(AP);
     }
 
     public bool HasEnoughAP(int amount)

@@ -1,8 +1,7 @@
 using System;
+using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Technique : MonoBehaviour
@@ -10,14 +9,19 @@ public class Technique : MonoBehaviour
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
 
+    private int roundNumber = 1;
+    public bool HasComboBeenUsed { get; set; } = false;
+
     [field: SerializeField] public TechniqueDataSO TechData { get; private set; }
     [SerializeField] private int cooldown;
 
     [Header("Debug")]
+    [SerializeField] private HeroesManager heroesManager;
     [SerializeField] private TextMeshProUGUI nameText;
     //[SerializeField] private Image cardBG;
     [SerializeField] private Button activationButton;
     [SerializeField] private TextMeshProUGUI numText;
+    [SerializeField] private TextMeshProUGUI coolDownText;
 
     private void Start()
     {
@@ -25,35 +29,127 @@ public class Technique : MonoBehaviour
         numText.text = $"AP {TechData.APCost}\n";
         numText.text += TechData.Requirements.ToString();
 
-        activationButton.interactable = false;
+        activationButton.interactable = true;
 
         //needs to move to a manager
         PlayerController.OnHeroMarked += UpdateUsability;
+        TurnsManager.OnPlayerTurnStart += ShowCooldown;
         TurnsManager.OnPlayerTurnStart += UpdateUsability;
-        UpdateUsability(null);
+        Hero.OnHeroDeath += UpdateQuickAttackUsability;
+        SelectTechnique += UpdateUsability;
+        SelectTechnique += ShowCooldown;
+
+        StartCooldown();
+        UpdateUsability();
     }
 
     private void OnDestroy()
     {
         PlayerController.OnHeroMarked -= UpdateUsability;
+        TurnsManager.OnPlayerTurnStart -= ShowCooldown;
         TurnsManager.OnPlayerTurnStart -= UpdateUsability;
+        Hero.OnHeroDeath -= UpdateQuickAttackUsability;
+        SelectTechnique -= UpdateUsability;
+        SelectTechnique -= ShowCooldown;
     }
 
-    void UpdateUsability(Hero hero)
+    private void ShowCooldown()
     {
-        if (TechData.RequiresTargetHero)
-            activationButton.interactable = (hero != null);
-    }
-
-    void UpdateUsability()
-    {
-        if (!TechData.RequiresTargetHero && IsReadyToUse())
+        if (roundNumber >= 2)
         {
+            UpdateCooldown();
+        }
+
+        coolDownText.text = cooldown.ToString();
+
+        if (cooldown <= 1 && activationButton.interactable == true)
+        {
+            coolDownText.text = " ";
+        }
+
+        if (TechData.RequiresTargetHero && cooldown <= 1)
+        {
+            coolDownText.text = " ";
+        }
+
+        roundNumber++;
+    }
+    private void UpdateUsability()
+    {
+        if (cooldown <= 1 && !TechData.RequiresTargetHero)
+        {
+            coolDownText.text = " ";
             activationButton.interactable = true;
         }
         else
         {
             activationButton.interactable = false;
+        }
+
+        if (TechData.Name == "Revive" && heroesManager.heroList.All(hero => hero.HeroIsAlive))
+        {
+            activationButton.interactable = false;
+        }
+    }
+
+    private void UpdateQuickAttackUsability(Hero hero)
+    {
+        if (hero == null) return;
+
+        if (TechData.name == "QuickAttack" && ((hero is Figher && !hero.HeroIsAlive) || (hero is Ranger && !hero.HeroIsAlive)))
+        {
+            activationButton.interactable = false;
+        }
+
+        if (TechData.Name == "Revive" && !hero.HeroIsAlive)
+        {
+            activationButton.interactable = true;
+        }
+    }
+
+    private void UpdateUsability(Hero hero)
+    {
+        if (hero == null)
+        {
+            activationButton.interactable = false;
+            return;
+        }
+
+        if (TechData.RequiresTargetHero && cooldown <= 1)
+            activationButton.interactable = true;
+
+
+        if (TechData.RequiresTargetHero && TechData.Name == "Heal" && hero.HP >= hero.HeroData.maxHP)
+            activationButton.interactable = false;
+    }
+
+
+    private void UpdateUsability(Technique technique)
+    {
+        if (technique.cooldown <= 1 && !technique.TechData.RequiresTargetHero)
+        {
+            technique.activationButton.interactable = true;
+        }
+        else
+        {
+            technique.activationButton.interactable = false;
+        }
+    }
+
+    private void ShowCooldown(Technique technique)
+    {
+        technique.UpdateCooldown();
+
+        technique.coolDownText.text = technique.cooldown.ToString();
+
+        if (technique.cooldown <= 1 && technique.activationButton.interactable == true)
+        {
+            technique.coolDownText.text = " ";
+        }
+
+        if (technique.TechData.RequiresTargetHero && technique.cooldown <= 1)
+        {
+            technique.coolDownText.text = " ";
         }
     }
 
@@ -80,27 +176,27 @@ public class Technique : MonoBehaviour
     public void StartCooldown()
     {
         cooldown = TechData.Cooldown;
-        //if (cooldown > 0)
-        //{
-
-        //    UpdateCooldownGraphic();
-        //}
     }
 
-    public bool IsReadyToUse() => cooldown == 0;
+    public bool IsReadyToUse() => cooldown < 1;
 
     //run at the start of every turn on all techniques
+
+    //public void UpdateCooldownOnStart()
+    //{
+    //    cooldown = TechData.Cooldown;
+    //}
     public void UpdateCooldown()
     {
-        if (cooldown > 0)
+        if (cooldown >= 1)
         {
             cooldown--;
-            //UpdateCooldownGraphic();
+        }
+
+        if (cooldown >= 1 && HasComboBeenUsed)
+        {
+            StartCooldown();
+            HasComboBeenUsed = false;
         }
     }
-
-    //private void UpdateCooldownGraphic()
-    //{
-    //    cardBG.fillAmount = (techData.Cooldown - cooldown) / techData.Cooldown;
-    //}
 }

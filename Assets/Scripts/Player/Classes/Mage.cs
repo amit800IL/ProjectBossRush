@@ -12,33 +12,11 @@ public class Mage : Hero
     {
         if (AttackPosCondition(currentTile))
         {
-            mageProjectile.MoveProjectile(boss.transform.position);
+            Vector3 positionOffset = new Vector3(0, 2, 0);
+            mageProjectile.MoveProjectile(boss.transform.position + positionOffset);
         }
         return AttackPosCondition(currentTile);
     }
-
-    //private void SetFireballTargetPosition(Vector3 targerPosition)
-    //{
-    //    foreach (ParticleSystem particePart in fireBallLifetimeObjects)
-    //    {
-    //        ParticleSystem.MainModule main = particePart.main;
-
-    //        float distance = Vector3.Distance(particePart.transform.position, targerPosition);
-
-    //        ParticleSystem.VelocityOverLifetimeModule velocityOverLifetime = particePart.velocityOverLifetime;
-
-    //        velocityOverLifetime.enabled = true;
-
-    //        ParticleSystem.MinMaxCurve xCurve = new ParticleSystem.MinMaxCurve(distance / main.startLifetime.constant);
-    //        ParticleSystem.MinMaxCurve yCurve = new ParticleSystem.MinMaxCurve(particePart.velocityOverLifetime.y.constant);
-    //        ParticleSystem.MinMaxCurve zCurve = new ParticleSystem.MinMaxCurve(particePart.velocityOverLifetime.z.constant);
-
-    //        velocityOverLifetime.x = xCurve;
-    //        velocityOverLifetime.y = yCurve;
-    //        velocityOverLifetime.z = zCurve;
-    //    }
-    //}
-
     public override bool CanHeroDefend()
     {
         return DefendPosCondition(currentTile);

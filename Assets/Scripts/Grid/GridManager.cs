@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Vector2Int gridSize;
     [SerializeField] private List<GridObjectToSpawn> gridObjectsToSpawn = new List<GridObjectToSpawn>();
     private List<GameObject> spawnedObjects = new List<GameObject>();
+    private bool isTacticalViewOn = false;
+    private Hero CurrentTacticalViewHero;
     public Tile[,] Tiles { get; private set; }
 
     private void Awake()
@@ -33,6 +36,8 @@ public class GridManager : MonoBehaviour
         TurnsManager.OnRoundStart -= RollTiles;
     }
 
+    public Vector2Int GetGridSize() => gridSize;
+
     public void CreateGrid()
     {
         Tiles = new Tile[gridSize.x, gridSize.y];
@@ -43,9 +48,9 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x)) * tileGap, 0f , y * ((tileObject.transform.localScale.z)) * tileGap);
+                Vector3 gridPosition = new Vector3((x * (tileObject.transform.localScale.x)) * tileGap, 0f, y * ((tileObject.transform.localScale.z)) * tileGap);
 
-                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-4, 0.5f, 0)), Quaternion.identity, transform);
+                Tiles[x, y] = Instantiate(tileObject, (transform.position + gridPosition + new Vector3(-3.8f, 1.5f, 0)), Quaternion.identity, transform);
                 Tiles[x, y].Initialize(x, y);
                 Tiles[x, y].SetTileType(CalculateTileType(new Vector2(x, y)));
             }
@@ -96,7 +101,7 @@ public class GridManager : MonoBehaviour
 
     private TileType[] CalculateTileType(Vector2 position)
     {
-        Debug.Log("this method is only accurate for grids where y = 6");
+        Debug.Log("this method is only accurate for grids where x = 6");
         TileType[] types = new TileType[1];
         if (position.y == 0 || position.y == gridSize.y - 1)
         {
@@ -128,17 +133,38 @@ public class GridManager : MonoBehaviour
             return;
         }
 
-        foreach (Tile tile in Tiles)
+        if (hero != CurrentTacticalViewHero)
         {
-            tile.RenderTactical(hero);
+            CurrentTacticalViewHero = hero;
+            foreach (Tile tile in Tiles)
+            {
+                tile.RenderTactical(hero);
+            }
         }
     }
 
     public void StopTacticalView()
     {
+        CurrentTacticalViewHero = null;
         foreach (Tile tile in Tiles)
         {
             tile.StopTactical();
+        }
+    }
+
+    public void ShowTilesInRange(Tile fromTile, int range)
+    {
+        foreach (Tile tile in Tiles)
+        {
+            tile.HighlightIfInRange(fromTile, range);
+        }
+    }
+
+    public void StopShowingTilesInRange()
+    {
+        foreach (Tile tile in Tiles)
+        {
+            tile.RemoveHighlight();
         }
     }
 

@@ -17,9 +17,10 @@ MonoBehaviour:
   particleObject: {fileID: 0}
   Requirements:
     table: 020000000000000002000000000000000000000000000000
-  APCost: 1
-  Cooldown: 0
+  APCost: 2
+  Cooldown: 2
   Effects:
   - Type: 0
     duration: 1
     amount: 6
+    description: 

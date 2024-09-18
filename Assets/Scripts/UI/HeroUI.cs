@@ -6,13 +6,14 @@ public class HeroUI : MonoBehaviour
 {
     [field: SerializeField] public Hero Hero { get; private set; }
     [SerializeField] private GameObject heroPanel;
+    [SerializeField] private SymbolUI symbolUI;
     [SerializeField] private TextMeshProUGUI heatlhText;
     [SerializeField] private TextMeshProUGUI maxHealthText;
     [SerializeField] private TextMeshProUGUI defenceText;
+    [SerializeField] private TextMeshProUGUI heroMovementText;
     [SerializeField] private Image graphic;
     [SerializeField] private Image defenceImage;
     [SerializeField] private Image hpBar;
-    //[SerializeField] private TextMeshProUGUI heroMovementAmountText;
 
     private bool isPanelActive = false;
 
@@ -25,7 +26,6 @@ public class HeroUI : MonoBehaviour
 
     private void OnDisable()
     {
-        //PlayerController.OnHeroMarked -= AssignHero;
         Hero.OnHeroHealthChanged -= HeroHealthChange;
         Hero.OnHeroDefenceChanged -= HeroDefenceChange;
     }
@@ -36,12 +36,12 @@ public class HeroUI : MonoBehaviour
         {
             this.Hero = hero;
             graphic.sprite = hero.HeroData.headshotSprite;
+            ShowHeroSymbolUI(hero);
+            ShowHeroMovementAmount();
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
     private void HeroHealthChange(Hero h)
@@ -66,9 +66,15 @@ public class HeroUI : MonoBehaviour
         }
     }
 
-    //private void ShowHeroMovementAmount()
-    //{
-    //    if (Hero != null)
-    //        heroMovementAmountText.text = Hero.HeroData.maxMovementAmount.ToString();
-    //}
+    private void ShowHeroSymbolUI(Hero h)
+    {
+        if (h == Hero)
+            symbolUI.UpdateUI(h.SymbolTable.ToShortString());
+    }
+
+    private void ShowHeroMovementAmount()
+    {
+        if (Hero != null)
+            heroMovementText.text = "Movement: " + Hero.HeroData.maxMovementAmount.ToString();
+    }
 }

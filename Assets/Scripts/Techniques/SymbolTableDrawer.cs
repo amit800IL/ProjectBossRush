@@ -17,10 +17,10 @@ public class SymbolTableDrawer : PropertyDrawer
         EditorGUI.indentLevel++;
 
         float labelWidth = 70f; 
-        float labelOffset = 90f;
+        float labelOffset = 75f;
 
         float fieldWidth = 50f;
-        float fieldOffset = 100;
+        float fieldOffset = 90f;
 
 
         for (int i = 0; i < SymbolTable.SYMBOL_TYPE_COUNT; i++)

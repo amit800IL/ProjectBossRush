@@ -3,13 +3,13 @@ using UnityEngine.EventSystems;
 
 public class ToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject toolTip;
-    public void OnPointerEnter(PointerEventData eventData)
+    [SerializeField] protected GameObject toolTip;
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         toolTip.SetActive(true);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         toolTip.SetActive(false);
     }
