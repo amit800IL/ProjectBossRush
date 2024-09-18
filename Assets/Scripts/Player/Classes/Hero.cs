@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.VFX;
 
 public abstract class Hero : Entity
@@ -16,10 +17,16 @@ public abstract class Hero : Entity
     public static event Action<Hero> OnHeroDefend;
     public static event Action<Hero> OnHeroInjured;
 
+    private static int lowHPThreshold = 40;
     public bool HeroIsAlive { get; private set; } = true;
 
     [field: Header("General Variables")]
     [field: SerializeField] public Animator heroAnimator { get; protected set; }
+
+    [SerializeField] private Renderer heroSpriteRenderer;
+    private Material material;
+    private LocalKeyword lowHPKeyword;
+
     [SerializeField] private HeroSpriteChange spriteChange;
     public SymbolTable RewardSymbolTable { get; private set; } = new SymbolTable();
     [field: SerializeField] public SymbolUI RewardResourcesUI { get; private set; }
@@ -59,6 +66,12 @@ public abstract class Hero : Entity
     [SerializeField] private float vfxTimer;
 
     [SerializeField] protected HeroThrowingWeapon heroThrowingWeapon;
+
+    private void Awake()
+    {
+        material = heroSpriteRenderer.material;
+        lowHPKeyword = new(material.shader, "_ISLOWHP");
+    }
 
     protected virtual void Start()
     {
@@ -220,6 +233,7 @@ public abstract class Hero : Entity
 
         OnHeroHealthChanged?.Invoke(this);
         OnHeroDefenceChanged?.Invoke(this);
+        OnHealthChange();
 
         OnHeroInjured?.Invoke(this);
 
@@ -250,6 +264,20 @@ public abstract class Hero : Entity
         FrontHealingVFX.Play();
         BackHealingVFX.Play();
         OnHeroHealthChanged?.Invoke(this);
+        OnHealthChange();
+    }
+
+    private void OnHealthChange()
+    {
+        print(HeroData.maxHP / 100f * lowHPThreshold);
+        if (HP != 0 && HP <= HeroData.maxHP / 100f * lowHPThreshold)
+        {
+            material.SetKeyword(lowHPKeyword, true);
+        }
+        else
+        {
+            material.SetKeyword(lowHPKeyword, false);
+        }
     }
 
     public virtual bool HeroAttackBoss(Boss boss)
