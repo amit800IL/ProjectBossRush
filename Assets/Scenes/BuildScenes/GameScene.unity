@@ -2265,6 +2265,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 877895014}
     m_Modifications:
+    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.7000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -90.59999
+      objectReference: {fileID: 0}
     - target: {fileID: 824149152538430731, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_Name
       value: HeroPanel (2)
@@ -2352,6 +2360,10 @@ PrefabInstance:
     - target: {fileID: 2916282356377230168, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323784919229469784, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.4000244
       objectReference: {fileID: 0}
     - target: {fileID: 7345085477576919175, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4871,6 +4883,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3323784919229469784, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.4000244
+      objectReference: {fileID: 0}
     - target: {fileID: 4473653425404997705, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
@@ -4946,6 +4962,10 @@ PrefabInstance:
     - target: {fileID: 7345085477576919175, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.64380074
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943201383282046032, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.6000061
       objectReference: {fileID: 0}
     - target: {fileID: 7996105916043035495, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -8685,7 +8705,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 50
+  m_Spacing: 150
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -18003,6 +18023,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 877895014}
     m_Modifications:
+    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.7000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -90.59999
+      objectReference: {fileID: 0}
     - target: {fileID: 824149152538430731, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_Name
       value: HeroPanel (1)
@@ -18086,6 +18114,10 @@ PrefabInstance:
     - target: {fileID: 2916282356377230168, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323784919229469784, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.4000244
       objectReference: {fileID: 0}
     - target: {fileID: 7345085477576919175, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -20740,9 +20772,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 877895014}
     m_Modifications:
+    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.7000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 426634982181021166, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -90.59999
+      objectReference: {fileID: 0}
     - target: {fileID: 824149152538430731, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_Name
       value: HeroPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 824149152538430731, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2916282356377230168, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_Pivot.x
@@ -20823,6 +20867,10 @@ PrefabInstance:
     - target: {fileID: 2916282356377230168, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323784919229469784, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.4000244
       objectReference: {fileID: 0}
     - target: {fileID: 7345085477576919175, guid: a49253dc6b149144b94d8368a9b39228, type: 3}
       propertyPath: m_AnchoredPosition.x
