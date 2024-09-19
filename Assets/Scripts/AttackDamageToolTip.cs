@@ -17,7 +17,7 @@ public class AttackDamageToolTip : ToolTip
         {
             if (hero.HeroIsAlive && hero.AttackPosCondition(hero.CurrentTile))
             {
-                damage += hero.HeroData.damage;
+                damage += hero.SymbolTable.GetDamage();
             }
         }
 
