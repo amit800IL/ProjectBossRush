@@ -1469,7 +1469,7 @@ MonoBehaviour:
   defendingParticle: {fileID: 7429320887859590558}
   <SlashParticle>k__BackingField: {fileID: 3297225965136918269}
   <SymbolTable>k__BackingField:
-    table: 000000000000000003000000000000000000000000000000
+    table: 000000000000000004000000000000000000000000000000
   <HeroData>k__BackingField: {fileID: 11400000, guid: 597cc32d1a346f14e8cb038a201bd392, type: 2}
   <HP>k__BackingField: 0
   <attackVFX>k__BackingField: {fileID: 4315826800689378703}

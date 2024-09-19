@@ -7164,7 +7164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   burn:
     Type: 5
-    duration: 3
+    duration: 4
     amount: 5
     description: 
 --- !u!1 &681891275
@@ -12764,6 +12764,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1169454508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6389103557115633086, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+  m_PrefabInstance: {fileID: 1238616495}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1190358100
 GameObject:
   m_ObjectHideFlags: 0
@@ -13141,6 +13146,58 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: <maxHP>k__BackingField
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[0].power
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[1].power
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[2].power
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[3].power
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].power
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].power
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].hitVFX
+      value: 
+      objectReference: {fileID: 1169454508}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].hitVFX
+      value: 
+      objectReference: {fileID: 1169454508}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[3].actionName
+      value: Shared Inflammation
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].actionName
+      value: Pyrexia
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].actionName
+      value: Shared Inflammation
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: enemyActions.Array.data[0].enemyAction
       value: 
       objectReference: {fileID: 674658116}
@@ -13156,6 +13213,54 @@ PrefabInstance:
       propertyPath: enemyActions.Array.data[3].enemyAction
       value: 
       objectReference: {fileID: 1484568554}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].enemyAction
+      value: 
+      objectReference: {fileID: 674658116}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].target.Size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].enemyAction
+      value: 
+      objectReference: {fileID: 1484568554}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].target.Size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].targetMarker
+      value: 
+      objectReference: {fileID: 4774809326186486300, guid: e5e8b61c52294634d854ca5f4f8edf1f, type: 3}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].targetMarker
+      value: 
+      objectReference: {fileID: 4774809326186486300, guid: e5e8b61c52294634d854ca5f4f8edf1f, type: 3}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].target.Target
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].target.Target
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].animationDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].animationDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[4].target.TargetHeroItself
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854894706076407634, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
+      propertyPath: enemyActions.Array.data[5].target.TargetHeroItself
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4033079273320059126, guid: a88f16cfbdc5398459377a31c7409851, type: 3}
       propertyPath: m_Name
       value: Dracovid
