@@ -9,7 +9,6 @@ public class Technique : MonoBehaviour
     public static event Action<Technique> SelectTechnique;
     public static event Action CooldownUpdated;
 
-    private int roundNumber = 1;
     public bool HasComboBeenUsed { get; set; } = false;
 
     [field: SerializeField] public TechniqueDataSO TechData { get; private set; }
@@ -36,11 +35,10 @@ public class Technique : MonoBehaviour
         TurnsManager.OnPlayerTurnStart += ShowCooldown;
         TurnsManager.OnPlayerTurnStart += UpdateUsability;
         Hero.OnHeroDeath += UpdateQuickAttackUsability;
-        SelectTechnique += UpdateUsability;
-        SelectTechnique += ShowCooldown;
+        //SelectTechnique += UpdateUsability;
+        //SelectTechnique += ShowCooldown;
 
-        StartCooldown();
-        UpdateUsability();
+        //UpdateUsability();
     }
 
     private void OnDestroy()
@@ -49,36 +47,28 @@ public class Technique : MonoBehaviour
         TurnsManager.OnPlayerTurnStart -= ShowCooldown;
         TurnsManager.OnPlayerTurnStart -= UpdateUsability;
         Hero.OnHeroDeath -= UpdateQuickAttackUsability;
-        SelectTechnique -= UpdateUsability;
-        SelectTechnique -= ShowCooldown;
+        //SelectTechnique -= UpdateUsability;
+        //SelectTechnique -= ShowCooldown;
     }
 
     private void ShowCooldown()
     {
-        if (roundNumber >= 2)
-        {
-            UpdateCooldown();
-        }
-
-        coolDownText.text = cooldown.ToString();
-
-        if (cooldown <= 1 && activationButton.interactable == true)
-        {
-            coolDownText.text = " ";
-        }
-
-        if (TechData.RequiresTargetHero && cooldown <= 1)
-        {
-            coolDownText.text = " ";
-        }
-
-        roundNumber++;
+        coolDownText.text = cooldown != 0 ? cooldown.ToString() : " ";
     }
+
     private void UpdateUsability()
     {
-        if (cooldown <= 1 && !TechData.RequiresTargetHero)
+        if (TechData.Name == "Revive" || TechData.Name == "QuickAttack")
         {
-            coolDownText.text = " ";
+            if (heroesManager.heroList.All(hero => hero.HeroIsAlive))
+            {
+                activationButton.interactable = false;
+                return;
+            }
+        }
+
+        if (cooldown < 1 && !TechData.RequiresTargetHero)
+        {
             activationButton.interactable = true;
         }
         else
@@ -86,10 +76,6 @@ public class Technique : MonoBehaviour
             activationButton.interactable = false;
         }
 
-        if (TechData.Name == "Revive" && heroesManager.heroList.All(hero => hero.HeroIsAlive))
-        {
-            activationButton.interactable = false;
-        }
     }
 
     private void UpdateQuickAttackUsability(Hero hero)
@@ -109,18 +95,18 @@ public class Technique : MonoBehaviour
 
     private void UpdateUsability(Hero hero)
     {
-        if (hero == null)
+        if (TechData.RequiresTargetHero && cooldown < 1)
         {
-            activationButton.interactable = false;
-            return;
+            if (hero == null || TechData.Name == "Heal" && hero.HP >= hero.HeroData.maxHP)
+            {
+                activationButton.interactable = false;
+                return;
+            }
+            else
+            {
+                activationButton.interactable = true;
+            }
         }
-
-        if (TechData.RequiresTargetHero && cooldown <= 1)
-            activationButton.interactable = true;
-
-
-        if (TechData.RequiresTargetHero && TechData.Name == "Heal" && hero.HP >= hero.HeroData.maxHP)
-            activationButton.interactable = false;
     }
 
 
@@ -176,6 +162,7 @@ public class Technique : MonoBehaviour
     public void StartCooldown()
     {
         cooldown = TechData.Cooldown;
+        ShowCooldown();
     }
 
     public bool IsReadyToUse() => cooldown < 1;
@@ -188,15 +175,9 @@ public class Technique : MonoBehaviour
     //}
     public void UpdateCooldown()
     {
-        if (cooldown >= 1)
+        if (cooldown > 0)
         {
             cooldown--;
-        }
-
-        if (cooldown >= 1 && HasComboBeenUsed)
-        {
-            StartCooldown();
-            HasComboBeenUsed = false;
         }
     }
 }

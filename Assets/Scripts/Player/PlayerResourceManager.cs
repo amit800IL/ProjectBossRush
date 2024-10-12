@@ -33,7 +33,7 @@ public class PlayerResourceManager : MonoBehaviour
     {
         Technique.SelectTechnique += SetSelectedCombo;
         PlayerController.OnHeroMarked += SetSelectedHero;
-        //TurnsManager.OnPlayerTurnStart += RollCooldowns;
+        TurnsManager.OnPlayerTurnStart += RollCooldowns;
         TurnsManager.OnPlayerTurnStart += ResetAP;
     }
 
@@ -41,7 +41,7 @@ public class PlayerResourceManager : MonoBehaviour
     {
         Technique.SelectTechnique -= SetSelectedCombo;
         PlayerController.OnHeroMarked += SetSelectedHero;
-        //TurnsManager.OnPlayerTurnStart -= RollCooldowns;
+        TurnsManager.OnPlayerTurnStart -= RollCooldowns;
         TurnsManager.OnPlayerTurnStart -= ResetAP;
     }
 
@@ -90,8 +90,6 @@ public class PlayerResourceManager : MonoBehaviour
 
                     selectedTechnique.StartCooldown();
                     UpdateSymbolUI();
-
-                    selectedTechnique.HasComboBeenUsed = true;
                 }
                 else Debug.Log($"not enough symbols {selectedTechnique.GetRequirements()} \n {playerSymbolTable}");
             }

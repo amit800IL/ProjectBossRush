@@ -311,7 +311,7 @@ public class HeroesManager : MonoBehaviour
 
                     foreach (Hero hero in heroList)
                     {
-                        hero.heroAnimator.SetTrigger("Attack");
+                        //hero.heroAnimator.SetTrigger("Attack");
                         hero.AttackingParticle.Play();
                     }
 

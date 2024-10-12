@@ -269,7 +269,6 @@ public abstract class Hero : Entity
 
     private void OnHealthChange()
     {
-        print(HeroData.maxHP / 100f * lowHPThreshold);
         if (HP != 0 && HP <= HeroData.maxHP / 100f * lowHPThreshold)
         {
             material.SetKeyword(lowHPKeyword, true);

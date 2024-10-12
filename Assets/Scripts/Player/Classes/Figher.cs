@@ -97,7 +97,7 @@ public class Figher : Hero
         object3.transform.position = boss.transform.position;
         object3.SetActive(true);
 
-        boss.TakeDamage(HeroData.damage);
+        //boss.TakeDamage(HeroData.damage);
 
         yield return new WaitForSeconds(1f);
 
