@@ -107,7 +107,7 @@ public class Boss : MonoBehaviour
                 foreach (Vector2Int tilePosition in targetTiles)
                 {
                     Tile tile = tiles[tilePosition.x, tilePosition.y];
-                    currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - new Vector3(0f, 0.9f, 0f), debugMarkerPrefab.transform.rotation));
+                    currentAttackMarker.Add(Instantiate(debugMarkerPrefab, tile.OccupantContainer.position - Vector3.zero, debugMarkerPrefab.transform.rotation));
                 }
             }
             attackText.text = $"{currentAction.ActionName}\n{currentAction.Power} Damage";
