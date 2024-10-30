@@ -2285,6 +2285,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Healing VFX
       objectReference: {fileID: 0}
+    - target: {fileID: 6283527829973859862, guid: 7370d39bb91cf3c499770ec015906d22, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7220196046662131807, guid: 7370d39bb91cf3c499770ec015906d22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.091
