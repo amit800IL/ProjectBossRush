@@ -90,7 +90,7 @@ public class Figher : Hero
 
         TurnOffAllObects();
 
-        yield return new WaitForSeconds(0.08f);
+        //yield return new WaitForSeconds(0.08f);
 
         heroAnimator.SetTrigger("Attack");
 
