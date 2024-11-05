@@ -67,6 +67,10 @@ public abstract class Hero : Entity
 
     [SerializeField] protected HeroThrowingWeapon heroThrowingWeapon;
 
+    [field: SerializeField] public AudioSource[] AttackingAudio { get; protected set; }
+
+    [field: SerializeField] public AudioSource[] HurtingAudio { get; protected set; }
+
     private void Awake()
     {
         material = heroSpriteRenderer.material;
@@ -98,6 +102,16 @@ public abstract class Hero : Entity
 
 
         movementAmount = HeroData.maxMovementAmount;
+    }
+
+    public void SoundAudio(AudioSource[] audioSources)
+    {
+        foreach (AudioSource audioSource in audioSources)
+        {
+            if (audioSource == null) break;
+
+            audioSource.Play();
+        }
     }
 
     public void RestartHeroOnRevive()
